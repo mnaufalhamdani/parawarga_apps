@@ -69,17 +69,26 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-    - lib/
-    - lib/data/
-    - lib/data/binding/
-    - lib/data/provider/
-    - lib/data/repository/
-    - lib/theme/
-    - lib/utils/
-    - lib/routes/
-    - lib/modules/
-    - lib/modules/login/
-    - lib/translations/
-    - lib/translations/en_US/
-    - lib/translations/id_ID/
+    - assets/
+    - assets/fonts/
+    - assets/fonts/bariol/
+    - assets/images/
+    - assets/images/logo/
 
+  fonts:
+    - family: bariol
+      fonts:
+        - asset: assets/fonts/bariol/Bariol.ttf
+        - asset: assets/fonts/bariol/Bariol-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/bariol/Bariol-Light.ttf
+          weight: 300
+
+    - family: evolvesans
+      fonts:
+        - asset: assets/fonts/Evolvesans.otf
+
+    - family: quicksand
+      fonts:
+        - asset: assets/fonts/Quicksand-Bold.otf
+          weight: 700
