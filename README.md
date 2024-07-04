@@ -24,7 +24,7 @@ samples, guidance on mobile development, and a full API reference.
 - Open terminal in Android Studio
 - 'flutter clean' -> 'flutter pub get' -> 'flutter pub upgrade'
 
-### File Structure
+## File Structure
 A High-level overview of the project structure:
 ```
 
