@@ -5,18 +5,18 @@ import 'package:flutter/material.dart';
 import '../utils/strings.dart';
 
 enum TypeMessage {
-  SUCCESS, ERROR, WARNING, INFO
+  success, error, warning, info
 }
 
 enum DurationMessage {
-  LENGTH_SHORT, LENGTH_LONG, LENGTH_INFINITE
+  lengthShort, lengthLong, lengthInfinite
 }
 
 showStandardSnackbar(BuildContext context, TypeMessage typeMessage, String? message, DurationMessage? duration) {
   var durationMessage = 5;
-  if(duration == DurationMessage.LENGTH_LONG){
+  if(duration == DurationMessage.lengthLong){
     durationMessage = 8;
-  }else if(duration == DurationMessage.LENGTH_INFINITE){
+  }else if(duration == DurationMessage.lengthInfinite){
     durationMessage = 3600;
   }
 
@@ -45,13 +45,13 @@ class StandardSnackbar extends StatelessWidget {
   Widget build(BuildContext context) {
     var colorTypeMessage = Colors.green;
     var iconTypeMessage = Icons.check_circle_rounded;
-    if(typeMessage == TypeMessage.ERROR) {
+    if(typeMessage == TypeMessage.error) {
       colorTypeMessage = Colors.red;
       iconTypeMessage = Icons.error_rounded;
-    }else if(typeMessage == TypeMessage.WARNING) {
+    }else if(typeMessage == TypeMessage.warning) {
       colorTypeMessage = Colors.amber;
       iconTypeMessage = Icons.warning_rounded;
-    }else if(typeMessage == TypeMessage.INFO) {
+    }else if(typeMessage == TypeMessage.info) {
       colorTypeMessage = Colors.blue;
       iconTypeMessage = Icons.info_rounded;
     }

@@ -1,9 +1,9 @@
 import 'package:flutter/foundation.dart';
 
 class Environments {
-  static const String LOCAL = 'LOCAL';
-  static const String DEVELOPMENT = 'DEVELOPMENT';
-  static const String PROD = 'PRODUCTION';
+  static const String local = 'local';
+  static const String development = 'development';
+  static const String production = 'production';
 }
 
 class EnvData {
@@ -23,22 +23,24 @@ class EnvData {
 
 class ConfigEnvironments {
   //Change environment in this bottom line
-  static const String _currentEnvironments = (kReleaseMode) ? Environments.PROD : Environments.DEVELOPMENT;
+  static const String _currentEnvironments = (kReleaseMode)
+      ? Environments.production
+      : Environments.development;
   static const String verName = "24.06.001";
 
   static final List<EnvData> _availableEnvironments = [
     EnvData(
-        env: Environments.LOCAL,
+        env: Environments.local,
         url: 'http://localhost/api/',
         urlPortal: 'http://localhost/api/',
         dbName: 'dkportal_local.db'),
     EnvData(
-        env: Environments.DEVELOPMENT,
+        env: Environments.development,
         url: 'https://appdk-trial.duakelinci.id:9393/api/dkportal/v2/',
         urlPortal: 'https://training.duakelinci.id:9393/dkportal/web/index.php',
         dbName: 'dkportal_debug.db'),
     EnvData(
-        env: Environments.PROD,
+        env: Environments.production,
         url: 'https://dkapi.duakelinci.id:9393/dkportal/v2/',
         urlPortal: 'https://dk-portal.duakelinci.id:9393/index.php',
         dbName: 'dkportal.db'),

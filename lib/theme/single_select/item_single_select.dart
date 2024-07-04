@@ -30,7 +30,7 @@ class ItemSingleSelect extends StatelessWidget {
                     _onTap();
                   },
                   child: Text(model?.message ?? "",
-                      style: TextStyle(color: colorText)),
+                      style: TextStyle(color: colorTextPrimary)),
                 ))));
   }
 
