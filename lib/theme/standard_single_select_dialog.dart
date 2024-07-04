@@ -57,7 +57,7 @@ class StandardSingleSelectDialogState extends State<StandardSingleSelectDialog> 
           padding: EdgeInsets.all(20),
           child: Text(greetingDialog,
               style: TextStyle(
-                  color: colorText,
+                  color: colorTextPrimary,
                   fontWeight: FontWeight.w800,
                   fontSize: 16))),
       Padding(padding: EdgeInsets.only(bottom: 20),

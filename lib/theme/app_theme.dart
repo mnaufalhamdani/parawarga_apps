@@ -1,25 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:parawarga_apps/theme/app_colors.dart';
 
-import 'app_colors.dart';
-/**
- * GetX Template Generator - fb.com/htngu.99
- * */
+const baseRadius = 20.0;
 
 ThemeData theme() {
   return ThemeData(
       scaffoldBackgroundColor: Colors.white,
-      // backgroundColor: Colors.white,
-      fontFamily: 'nunitosans',
+      fontFamily: 'bariol',
       appBarTheme: appBarTheme()
   );
 }
 
 AppBarTheme appBarTheme() {
   return AppBarTheme(
-      backgroundColor: colorPrimary,
+      backgroundColor: Colors.white,
       elevation: 2,
-      iconTheme: IconThemeData(color: Colors.white),
-      titleTextStyle: TextStyle(color: Colors.white, fontSize: 18),
+      iconTheme: const IconThemeData(color: Colors.white),
+      titleTextStyle: TextStyle(color: colorTextPrimary, fontSize: 18),
       centerTitle: true
   );
 }

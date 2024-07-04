@@ -2,7 +2,7 @@
 import 'failure_response.dart';
 
 enum ResponseStatus {
-  LOADING, DEFAULT, SUCCESS, FAILED
+  loading, def, success, failed
 }
 
 abstract class ResponseState<T> {

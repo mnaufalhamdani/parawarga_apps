@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:image_picker/image_picker.dart';
 
 
-const String NIK_EXAMPLE = '20101720';
+// const String NIK_EXAMPLE = '20101720';
 
 // List<PengaturanAutocodeEntity> prePengaturanAutocode = [
 //   PengaturanAutocodeEntity(code: "last-sync-switch_user", value: "false"),

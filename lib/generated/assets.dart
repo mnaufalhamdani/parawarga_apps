@@ -2,25 +2,12 @@
 class Assets {
   Assets._();
 
-  static const String bindingBindingDependency = 'lib/data/binding/binding_dependency.dart';
-  static const String coreConstants = 'lib/core/constants.dart';
-  static const String coreDataState = 'lib/core/data_state.dart';
-  static const String coreExtension = 'lib/core/extension.dart';
-  static const String coreFailureResponse = 'lib/core/failure_response.dart';
-  static const String enUSEnUsTranslations = 'lib/translations/en_US/en_us_translations.dart';
-  static const String generatedAssets = 'lib/generated/assets.dart';
-  static const String idIDIdIdTranslations = 'lib/translations/id_ID/id_id_translations.dart';
-  static const String libMain = 'lib/main.dart';
-  static const String localDatabaseConfig = 'lib/config/local/database_config.dart';
-  static const String localMigrationScript = 'lib/config/local/migration_script.dart';
-  static const String loginLoginController = 'lib/modules/login/login_controller.dart';
-  static const String loginLoginPage = 'lib/modules/login/login_page.dart';
-  static const String remoteBaseService = 'lib/config/remote/base_service.dart';
-  static const String routesAppPages = 'lib/routes/app_pages.dart';
-  static const String themeAppColors = 'lib/theme/app_colors.dart';
-  static const String themeAppTheme = 'lib/theme/app_theme.dart';
-  static const String translationsAppTranslations = 'lib/translations/app_translations.dart';
-  static const String utilsEnvironment = 'lib/utils/environment.dart';
-  static const String utilsStrings = 'lib/utils/strings.dart';
+  static const String bariolBariol = 'assets/fonts/bariol/Bariol.ttf';
+  static const String bariolBariolBold = 'assets/fonts/bariol/Bariol-Bold.ttf';
+  static const String bariolBariolLight = 'assets/fonts/bariol/Bariol-Light.ttf';
+  static const String fontsEvolveSans = 'assets/fonts/Evolvesans.otf';
+  static const String fontsQuicksandBold = 'assets/fonts/Quicksand-Bold.otf';
+  static const String fontsRodina = 'assets/fonts/Rodina.ttf';
+  static const String logoImgLogo = 'assets/images/logo/img_logo.png';
 
 }

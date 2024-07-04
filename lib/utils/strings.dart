@@ -1,7 +1,5 @@
-/**
- * GetX Template Generator - fb.com/htngu.99
- * */
-
+String appName = 'Parawarga';
+String appTag = 'Smart Area in Yours Life';
 String home = 'Home';
 
 //Message
