@@ -23,3 +23,31 @@ samples, guidance on mobile development, and a full API reference.
 - Save
 - Open terminal in Android Studio
 - 'flutter clean' -> 'flutter pub get' -> 'flutter pub upgrade'
+
+### File Structure
+A High-level overview of the project structure:
+```
+
+lib/                     # Root Package
+|
+├─ data/                 # For data handling
+│  ├─ mock/              # sample used for testing
+│  ├─ models/            # Objects representing data
+│  ├─ repositories/      # Source of data
+|
+├─ redux/                # manages app state
+│  ├─ component/         # app building block
+│     ├─ actions         # methods to update app state
+|     ├─ middleware      # run in response to actions, execute before reducer
+|     ├─ reducer         # intercepts actions, responsible for updating the state
+|     ├─ selectors       # read data from the state, queries against your 'state database'
+|     ├─ state           # immutable object that lives at the top of the widget hierarchy
+|
+├─ ui/                   # app views
+│  ├─ component/         # views for different components
+│    ├─ view/            # generel view for component
+│    ├─ edit/            # change values on the views fields
+|
+├─ utils/                # Utility classes
+
+```
