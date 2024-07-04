@@ -171,7 +171,7 @@
     },
     {
       "name": "dev_build",
-      "rootUri": "file:///C:/Users/User/AppData/Local/Pub/Cache/hosted/pub.dev/dev_build-0.16.7+4",
+      "rootUri": "file:///C:/Users/User/AppData/Local/Pub/Cache/hosted/pub.dev/dev_build-1.0.0+1",
       "packageUri": "lib/",
       "languageVersion": "3.3"
     },
@@ -591,7 +591,7 @@
     },
     {
       "name": "process_run",
-      "rootUri": "file:///C:/Users/User/AppData/Local/Pub/Cache/hosted/pub.dev/process_run-0.14.2",
+      "rootUri": "file:///C:/Users/User/AppData/Local/Pub/Cache/hosted/pub.dev/process_run-1.0.0+1",
       "packageUri": "lib/",
       "languageVersion": "3.0"
     },
@@ -818,7 +818,7 @@
       "languageVersion": "3.4"
     }
   ],
-  "generated": "2024-07-01T03:57:45.092105Z",
+  "generated": "2024-07-04T02:31:01.150901Z",
   "generator": "pub",
   "generatorVersion": "3.4.3",
   "flutterRoot": "file:///C:/flutter",

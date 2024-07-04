@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
-/**
- * GetX Template Generator - fb.com/htngu.99
- * */
 
-Color colorPrimary = HexColor("#D52C29");
-Color colorText = HexColor("#140f1f");
-Color colorRed100 = HexColor("#FFCDD2");
-Color colorGrey200 = HexColor("#EEEEEE");
-Color colorGreen100 = HexColor("#C8E6C9");
-Color colorBlue100 = HexColor("#BBDEFB");
+Color colorPrimary = HexColor("#04BA71");
+Color colorSecondary = HexColor("#FDC827");
+Color colorDark = HexColor("#04454D");
+Color colorLight = HexColor("#F5F2EB");
+
+Color colorButtonPrimary = colorPrimary;
+Color colorButtonSecondary = colorDark;
+Color colorButtonThird = colorSecondary;
+
+Color colorTextPrimary = colorDark;
+Color colorTextSecondary = colorLight;
 
 class HexColor extends Color {
   static int _getColorFromHex(String hexColor) {

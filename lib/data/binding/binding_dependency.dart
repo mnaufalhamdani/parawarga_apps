@@ -1,12 +1,12 @@
-import 'package:parawarga_apps/modules/login/login_controller.dart';
 import 'package:get/get.dart';
-/**
- * GetX Template Generator - fb.com/htngu.99
- * */
+import 'package:parawarga_apps/modules/login/login_controller.dart';
+import 'package:parawarga_apps/modules/splash/splash_controller.dart';
 
-class loginBinding implements Bindings {
+
+class BindingDependency implements Bindings {
   @override
-  void dependencies() {
-    Get.lazyPut(() => LoginController());
+  Future<void> dependencies() async {
+    Get.lazyPut(() => SplashController(), fenix: true);
+    Get.lazyPut(() => LoginController(), fenix: true);
   }
 }

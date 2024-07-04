@@ -91,15 +91,15 @@ class StandardTextState extends State<StandardTextField> {
                   borderSide: BorderSide(color: colorPrimary)),
               enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(30),
-                  borderSide: BorderSide(color: colorGrey200)),
+                  borderSide: BorderSide(color: colorDark)),
               disabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(30),
-                  borderSide: BorderSide(color: colorGrey200)),
+                  borderSide: BorderSide(color: colorDark)),
               contentPadding: EdgeInsets.only(left: 20, right: 20),
               prefixIcon: widget.iconField,
               prefixIconColor: Colors.black54,
               filled: true,
-              fillColor: colorGrey200,
+              fillColor: colorDark,
               suffixIcon: widget.isPassword == true ? IconButton(
                 icon: Icon(
                   obscurePassword

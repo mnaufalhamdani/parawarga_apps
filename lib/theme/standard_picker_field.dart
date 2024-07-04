@@ -45,7 +45,7 @@ class StandardPickerFieldState extends State<StandardPickerField> {
       child: Container(
         width: double.infinity,
         decoration: BoxDecoration(
-          color: colorGrey200,
+          color: colorDark,
           borderRadius: BorderRadius.all(Radius.circular(30)),
         ),
         child: Column(children: [
