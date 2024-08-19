@@ -7,6 +7,7 @@ import 'package:parawarga_apps/modules/splash/splash_page.dart';
 abstract class Routes {
   static const login = '/login';
   static const splash = '/splash';
+  static const dashboard = '/dashboard';
 }
 
 abstract class AppPages {

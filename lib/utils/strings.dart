@@ -16,5 +16,16 @@ String msgFieldEmpty = 'Isian ini masih kosong';
 String msgFieldNotValid = 'Isian ini tidak valid';
 String msgFieldNikNotValid = 'Isian NIK tidak valid';
 
+//Greeting
 String greetingDialog = 'Pilih Salah Satu Item';
-String hintSearch = 'Cari sesuatu?';
+String greetingLogin = 'Isi data Anda di bawah ini untuk masuk ke dalam aplikasi';
+String greetingWelcome = 'Selamat Datang';
+String greetingCreateAccount = 'Anda tidak memiliki akun?';
+
+//Label
+String labelUsername = 'Username';
+String labelPassword = 'Password';
+String labelSearch = 'Cari sesuatu?';
+String labelSubmit = 'Submit';
+String labelLogin = 'Login';
+String labelCreateAccount = 'Daftar Sekarang.';

@@ -6,7 +6,7 @@ import 'package:parawarga_apps/theme/app_theme.dart';
 
 import 'app_colors.dart';
 
-class StandardButtonPrimary extends StatefulWidget {
+class StandardButtonLogin extends StatefulWidget {
   final GlobalKey<FormState>? formKey;
   final String titleHint;
   final bool? isLoading;
@@ -16,7 +16,7 @@ class StandardButtonPrimary extends StatefulWidget {
   final EdgeInsets? padding;
   final void Function()? onPressed;
 
-  StandardButtonPrimary({
+  StandardButtonLogin({
     Key? key,
     this.formKey,
     required this.titleHint,
@@ -29,17 +29,17 @@ class StandardButtonPrimary extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<StandardButtonPrimary> createState() => StandardButtonPrimaryState();
+  State<StandardButtonLogin> createState() => StandardButtonLoginState();
 
 }
 
-class StandardButtonPrimaryState extends State<StandardButtonPrimary> {
+class StandardButtonLoginState extends State<StandardButtonLogin> {
 
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: widget.padding ?? EdgeInsets.only(left: 20, right: 20, top: 20, bottom: 20),
+        padding: widget.padding ?? EdgeInsets.only(left: 20, top: 20, bottom: 20),
         child: SizedBox(
           width: double.infinity,
           child: ElevatedButton(

@@ -50,6 +50,11 @@ dependencies:
   #https://pub.dev/packages/open_filex
   open_filex: ^4.4.0
 
+  #https://pub.dev/packages/colorful_progress_indicators
+  colorful_progress_indicators: ^1.0.2
+
+  #https://pub.dev/packages/iconsax
+  iconsax: ^0.0.8
 
 dev_dependencies:
   flutter_test:
@@ -92,3 +97,7 @@ flutter:
       fonts:
         - asset: assets/fonts/Quicksand-Bold.otf
           weight: 700
+
+    - family: rodina
+      fonts:
+        - asset: assets/fonts/Rodina.ttf

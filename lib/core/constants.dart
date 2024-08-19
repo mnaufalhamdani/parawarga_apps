@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:math';
 
 import 'package:image_picker/image_picker.dart';
@@ -46,4 +47,21 @@ String getFileSizeString({required int bytes, int decimals = 0}) {
   if (bytes == 0) return '0${suffixes[0]}';
   var i = (log(bytes) / log(1024)).floor();
   return ((bytes / pow(1024, i)).toStringAsFixed(decimals)) + suffixes[i];
+}
+
+String encodeBinary(String text) {
+  List<int> encodedBytes = utf8.encode(text);
+  return encodedBytes.map((e) =>
+      e.toRadixString(2).padLeft(8, '0')
+  ).join();
+}
+
+String decodeBinary(String encode) {
+  List<int> decodedBytes = [];
+  for (int i = 0; i < encode.length; i += 8) {
+    String byteString = encode.substring(i, i + 8);
+    int byte = int.parse(byteString, radix: 2);
+    decodedBytes.add(byte);
+  }
+  return utf8.decode(decodedBytes);
 }

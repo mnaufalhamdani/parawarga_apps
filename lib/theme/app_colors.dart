@@ -9,8 +9,10 @@ Color colorButtonPrimary = colorPrimary;
 Color colorButtonSecondary = colorDark;
 Color colorButtonThird = colorSecondary;
 
+// Color colorTextPrimary = HexColor("#484848");
 Color colorTextPrimary = colorDark;
-Color colorTextSecondary = colorLight;
+Color colorTextSecondary = HexColor("#616161");
+Color colorTextThird = HexColor("#9E9E9E");
 
 class HexColor extends Color {
   static int _getColorFromHex(String hexColor) {

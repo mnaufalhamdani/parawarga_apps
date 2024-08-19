@@ -63,7 +63,7 @@ class StandardSingleSelectDialogState extends State<StandardSingleSelectDialog> 
       Padding(padding: EdgeInsets.only(bottom: 20),
           child: StandardTextField(
             editingController: editingControllers[0],
-            titleHint: hintSearch,
+            titleHint: labelSearch,
             msgError: msgFieldEmpty,
             iconField: Icon(Icons.search_rounded),
             inputAction: TextInputAction.search,
