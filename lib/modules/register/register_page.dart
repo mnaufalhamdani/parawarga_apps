@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:parawarga_apps/core/failure_response.dart';
 import 'package:parawarga_apps/modules/register/register_controller.dart';
 import 'package:parawarga_apps/theme/app_colors.dart';
 import 'package:parawarga_apps/theme/app_theme.dart';
@@ -369,8 +370,15 @@ class RegisterPage extends GetView<RegisterController> {
                       if(controller.activeStep.value >= 2) {
                         if (controller.formKeyThird.currentState!.validate()) {
                           await controller.registerAsync();
-                          showStandardSnackbar(context, TypeMessage.success, message: "Data berhasil terdaftar, silahkan aktivasi melalui email Anda", duration: DurationMessage.lengthLong);
-                          Get.back();
+
+                          if (controller.registerState.value is ResponseSuccess){
+                            showStandardSnackbar(context, TypeMessage.success, message: "Data berhasil terdaftar, silahkan aktivasi melalui email Anda", duration: DurationMessage.lengthLong);
+                            Get.back();
+                          }else if (controller.registerState.value is ResponseFailed){
+                            final error = controller.registerState.value.data as FailureResponse;
+                            showStandardSnackbar(context, TypeMessage.error, message: error.message, paddingBottom: 60);
+                          }
+
                           return;
                         }
                       }else {

@@ -102,10 +102,13 @@ class RegisterController extends GetxController{
       //     editingControllers[0].text.toString()
       // );
 
-      print(registerWargaDomain.value.toJson());
-      registerState.value = ResponseSuccess(true);
+      await Future.delayed(Duration(seconds: 5), () {
+        registerState.value = ResponseSuccess(true);
+      });
     }on FailureResponse catch(e) {
-      registerState.value = ResponseFailed(e);
+      await Future.delayed(Duration(seconds: 5), () {
+        registerState.value = ResponseFailed(e);
+      });
     }
   }
 }

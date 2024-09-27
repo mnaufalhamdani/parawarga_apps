@@ -1,9 +1,9 @@
 
 import 'failure_response.dart';
 
-enum ResponseStatus {
-  loading, def, success, failed
-}
+// enum ResponseStatus {
+//   loading, def, success, failed
+// }
 
 abstract class ResponseState {
   final dynamic data;
