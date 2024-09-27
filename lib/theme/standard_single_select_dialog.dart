@@ -65,7 +65,6 @@ class StandardSingleSelectDialogState extends State<StandardSingleSelectDialog> 
             editingController: editingControllers[0],
             titleHint: labelSearch,
             msgError: msgFieldEmpty,
-            iconField: Icon(Icons.search_rounded),
             inputAction: TextInputAction.search,
             onSubmited: (value) {
               searchList();

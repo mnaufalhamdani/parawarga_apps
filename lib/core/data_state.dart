@@ -5,8 +5,8 @@ enum ResponseStatus {
   loading, def, success, failed
 }
 
-abstract class ResponseState<T> {
-  final T? data;
+abstract class ResponseState {
+  final dynamic data;
   final FailureResponse? error;
 
   const ResponseState({this.data, this.error});
@@ -20,10 +20,10 @@ class ResponseLoading extends ResponseState {
   const ResponseLoading() : super(data: null, error: null);
 }
 
-class ResponseSuccess<T> extends ResponseState<T> {
-  const ResponseSuccess(T data) : super(data: data);
+class ResponseSuccess extends ResponseState {
+  const ResponseSuccess(dynamic data) : super(data: data);
 }
 
-class ResponseFailed<T> extends ResponseState<T> {
+class ResponseFailed extends ResponseState {
   const ResponseFailed(FailureResponse error) : super(error: error);
 }

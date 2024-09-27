@@ -14,7 +14,6 @@ class StandardTextField extends StatefulWidget {
   final int? maxLength;
   final bool? readOnly;
   final bool? isEnabled;
-  final Icon? iconField;
   final TextInputType? inputType;
   final TextInputAction? inputAction;
   final bool? isPassword;
@@ -29,7 +28,6 @@ class StandardTextField extends StatefulWidget {
     this.maxLength,
     this.readOnly,
     this.isEnabled,
-    this.iconField,
     this.inputType,
     this.inputAction,
     this.isPassword,
@@ -65,6 +63,7 @@ class StandardTextState extends State<StandardTextField> {
           enabled: widget.isEnabled,
           style: TextStyle(fontSize: 14, color: colorTextPrimary),
           obscureText: widget.isPassword == true ? obscurePassword : false,
+          textCapitalization: TextCapitalization.sentences,
           validator: (value) {
             if (!widget.msgError.isNull) {
               if (value == null || value.isEmpty) {
@@ -91,12 +90,10 @@ class StandardTextState extends State<StandardTextField> {
               errorBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(baseRadiusForm), borderSide: BorderSide(color: Colors.red)),
               focusedErrorBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(baseRadiusForm), borderSide: BorderSide(color: Colors.red)),
               contentPadding: EdgeInsets.only(left: 20, right: 20),
-              prefixIcon: widget.iconField,
-              prefixIconColor: colorDark,
               labelText: widget.titleHint,
-              hintText: "Masukkan ${widget.titleHint}",
+              labelStyle: TextStyle(color: colorTextSecondary),
               filled: true,
-              fillColor: colorLight,
+              fillColor: Colors.grey[100],
               suffixIcon: widget.isPassword == true
                   ? IconButton(
                 icon: Icon(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:parawarga_apps/theme/app_colors.dart';
 
+const basePadding = 20.0;
 const baseRadius = 20.0;
 const baseRadiusForm = 7.0;
 
@@ -15,10 +16,10 @@ ThemeData theme() {
 
 AppBarTheme appBarTheme() {
   return AppBarTheme(
-      backgroundColor: Colors.white,
+      backgroundColor: colorPrimary,
       elevation: 2,
-      iconTheme: const IconThemeData(color: Colors.white),
-      titleTextStyle: TextStyle(color: colorTextPrimary, fontSize: 18),
+      iconTheme: IconThemeData(color: Colors.white),
+      titleTextStyle: TextStyle(color: Colors.white, fontSize: 18),
       centerTitle: true
   );
 }

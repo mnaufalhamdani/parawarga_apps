@@ -9,6 +9,7 @@ import 'package:parawarga_apps/theme/app_colors.dart';
 import 'package:parawarga_apps/theme/standard_button_login.dart';
 import 'package:parawarga_apps/theme/standard_text_field_login.dart';
 
+import '../../theme/app_theme.dart';
 import '../../utils/strings.dart';
 
 class LoginPage extends GetView<LoginController> {
@@ -48,12 +49,12 @@ class LoginPage extends GetView<LoginController> {
                       )),
                 ),
                 Padding(
-                    padding: EdgeInsets.only(left: 20, right: 20),
-                    child: SizedBox(width: MediaQuery.of(context).size.width, child: Text(greetingWelcome,
+                    padding: EdgeInsets.only(left: basePadding, right: basePadding),
+                    child: SizedBox(width: double.infinity, child: Text(greetingWelcome,
                         style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: colorPrimary)))),
                 Padding(
-                    padding: EdgeInsets.only(left: 20, top: 5, right: 20),
-                    child: SizedBox(width: MediaQuery.of(context).size.width, child: Text(greetingLogin,
+                    padding: EdgeInsets.only(left: basePadding, top: 5, right: basePadding),
+                    child: SizedBox(width: double.infinity, child: Text(greetingLogin,
                         style: TextStyle(color: colorTextPrimary)))),
                 StandardTextFieldLogin(
                     editingController: controller.editingControllers[0],
@@ -67,7 +68,7 @@ class LoginPage extends GetView<LoginController> {
                     iconField: Icon(Iconsax.lock_1),
                     inputAction: TextInputAction.done,
                     isPassword: true),
-                Padding(padding: EdgeInsets.only(top: 20), child: Row(
+                Padding(padding: EdgeInsets.only(top: basePadding), child: Row(
                   children: [
                     Expanded(child: StandardButtonLogin(
                         formKey: controller.formKey,
@@ -75,18 +76,16 @@ class LoginPage extends GetView<LoginController> {
                         buttonColor: colorButtonPrimary,
                         isLoading: controller.initLoading.value,
                         onPressed: () async {
-                          if (controller.formKey.currentState!.validate()) {
-                            FocusScope.of(context).unfocus();
+                          FocusScope.of(context).unfocus();
 
-                            Get.offAllNamed(Routes.dashboard);
-                            // await controller.getLogin().whenComplete(() {
-                            //   if(controller.initMessage.value.isEmpty){
-                            //     Get.offAllNamed(Routes.dashboard);
-                            //   }else {
-                            //     showStandardSnackbar(context, TypeMessage.error, controller.initMessage.value, DurationMessage.lengthShort);
-                            //   }
-                            // });
-                          }
+                          Get.offAllNamed(Routes.dashboard);
+                          // await controller.getLogin().whenComplete(() {
+                          //   if(controller.initMessage.value.isEmpty){
+                          //     Get.offAllNamed(Routes.dashboard);
+                          //   }else {
+                          //     showStandardSnackbar(context, TypeMessage.error, controller.initMessage.value, DurationMessage.lengthShort);
+                          //   }
+                          // });
                         }
                     )),
                     SizedBox(
@@ -117,12 +116,16 @@ class LoginPage extends GetView<LoginController> {
         children: [
           Text(greetingCreateAccount,
               style: TextStyle(color: colorTextPrimary)),
-          TextButton(
-            onPressed: () {
-              // Get.toNamed(AppRoutes.RESET);
-            },
-            child: Text(labelCreateAccount,
-                style: TextStyle(color: colorButtonPrimary, fontWeight: FontWeight.bold)),
+          Padding(padding: EdgeInsets.only(left: 5), child:
+            GestureDetector(
+              onTap: () {
+                Get.toNamed(Routes.register);
+              },
+              child: Padding(padding: EdgeInsets.only(top: basePadding, bottom: basePadding),
+                  child: Text(labelCreateAccount,
+                      style: TextStyle(color: colorButtonPrimary, fontWeight: FontWeight.bold))
+              )
+            )
           )
         ],
       )

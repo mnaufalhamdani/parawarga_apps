@@ -11,8 +11,8 @@ Color colorButtonThird = colorSecondary;
 
 // Color colorTextPrimary = HexColor("#484848");
 Color colorTextPrimary = colorDark;
-Color colorTextSecondary = HexColor("#616161");
-Color colorTextThird = HexColor("#9E9E9E");
+Color? colorTextSecondary = Colors.grey[700];
+Color? colorTextThird = Colors.grey[500];
 
 class HexColor extends Color {
   static int _getColorFromHex(String hexColor) {
