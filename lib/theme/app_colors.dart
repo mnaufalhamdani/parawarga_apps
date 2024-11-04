@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-Color colorPrimary = HexColor("#04BA71");
+Color colorPrimary = HexColor("#11998E");
 Color colorSecondary = HexColor("#FDC827");
 Color colorDark = HexColor("#04454D");
-Color colorLight = HexColor("#F5F2EB");
+Color colorLight = HexColor("#DAFFFC");
 
 Color colorButtonPrimary = colorPrimary;
 Color colorButtonSecondary = colorDark;
@@ -11,8 +11,8 @@ Color colorButtonThird = colorSecondary;
 
 // Color colorTextPrimary = HexColor("#484848");
 Color colorTextPrimary = colorDark;
-Color? colorTextSecondary = Colors.grey[700];
-Color? colorTextThird = Colors.grey[500];
+Color? colorTextSecondary = Colors.grey.shade700;
+Color? colorTextThird = Colors.grey.shade500;
 
 class HexColor extends Color {
   static int _getColorFromHex(String hexColor) {

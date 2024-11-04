@@ -79,6 +79,7 @@ flutter:
     - assets/fonts/bariol/
     - assets/images/
     - assets/images/logo/
+    - assets/images/icon/
 
   fonts:
     - family: bariol

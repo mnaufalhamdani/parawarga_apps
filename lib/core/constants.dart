@@ -9,6 +9,48 @@ import 'package:image_picker/image_picker.dart';
 // List<PengaturanAutocodeEntity> prePengaturanAutocode = [
 //   PengaturanAutocodeEntity(code: "last-sync-switch_user", value: "false"),
 // ];
+List<String> listExample = [
+  "Indonesia", "Malaysia", "Brunei", "Myanmar", "Singapore"
+];
+
+List<Map<String, dynamic>> listInfo = [
+  {"label": "Terungkap Biang Kerok Sritex Berdarah-darah Berujung Pailit", "date": "30-10-2024"},
+  {"label": "Penegasan Kejagung Tak Ada Politisasi Terkait Penetapan Tersangka Tom Lembong", "date": "30-10-2024"},
+  {"label": "Menhan Israel Soal Serangan ke Iran: Akan Tunjukkan Kekuatan Kami", "date": "30-10-2024"},
+];
+
+List<Map<String, dynamic>> listLaporan = [
+  {"area":"RT.001 RW.003", "label": "Terungkap Biang Kerok Sritex Berdarah-darah Berujung Pailit", "date": "30-10-2024", "address_detail": "Di gang IV", "photo":"https://www.visa.co.id/dam/VCOM/regional/ap/indonesia/global-elements/images/wonderful-indonesia-hot-deals-800x450.jpg"},
+  {"area":"RT.002 RW.003", "label": "Penegasan Kejagung Tak Ada Politisasi Terkait Penetapan Tersangka Tom Lembong", "date": "30-10-2024", "address_detail": "Di gang VII", "photo":"https://www.indonesia.travel/content/dam/indtravelrevamp/en/destinations/revision-2019/all-revision-destination/baliH.jpg"},
+  {"area":"RT.013 RW.003", "label": "Menhan Israel Soal Serangan ke Iran: Akan Tunjukkan Kekuatan Kami", "date": "30-10-2024", "address_detail": "Di gang V", "photo":"https://www.indonesia.travel/content/dam/indtravelrevamp/en/destinations/revisi-all-destination-s-image/destination-revision-part-two/headerbintan.jpg"},
+];
+
+List<Map<String, dynamic>> listVoting = [
+  {"label": "Rapat Warga enaknya minggu berapa? Mohon segera di vote yaa", "value": 0, "details": [
+    {"label": "Minggu 1", "value": 1},
+    {"label": "Minggu 2", "value": 2},
+    {"label": "Minggu 3", "value": 3},
+    {"label": "Minggu 4", "value": 4},
+  ]},
+  {"label": "Liburan enaknya minggu berapa?", "value": 0, "details": [
+    {"label": "Minggu 1", "value": 1},
+    {"label": "Minggu 2", "value": 2},
+    {"label": "Minggu 3", "value": 3},
+    {"label": "Minggu 4", "value": 4},
+  ]},
+  {"label": "Kerja bakti enaknya minggu berapa?", "value": 0, "details": [
+    {"label": "Minggu 1", "value": 1},
+    {"label": "Minggu 2", "value": 2},
+    {"label": "Minggu 3", "value": 3},
+    {"label": "Minggu 4", "value": 4},
+  ]},
+  {"label": "Pemilihan ketua minggu ke berapa?", "value": 0, "details": [
+    {"label": "Minggu 1", "value": 1},
+    {"label": "Minggu 2", "value": 2},
+    {"label": "Minggu 3", "value": 3},
+    {"label": "Minggu 4", "value": 4},
+  ]}
+];
 
 String generateRandomId() {
   final random = Random();

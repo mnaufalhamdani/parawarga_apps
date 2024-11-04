@@ -93,7 +93,7 @@ class StandardTextState extends State<StandardTextField> {
               labelText: widget.titleHint,
               labelStyle: TextStyle(color: colorTextSecondary),
               filled: true,
-              fillColor: Colors.grey[100],
+              fillColor: Colors.grey.shade100,
               suffixIcon: widget.isPassword == true
                   ? IconButton(
                 icon: Icon(

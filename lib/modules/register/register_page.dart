@@ -37,7 +37,7 @@ class RegisterPage extends GetView<RegisterController> {
                           padding: EdgeInsets.only(
                               left: basePadding, right: basePadding, top: 50),
                           child: Row(children: _iconViews())),
-                      _buildContentFirst(),
+                      _buildContentFirst(context),
                       _buildContentSecond(context),
                       _buildContentThird(context),
                       _buildContentBottom(context)
@@ -50,7 +50,7 @@ class RegisterPage extends GetView<RegisterController> {
 
   _iconViews() {
     var activeColor = colorPrimary;
-    var inactiveColor = Colors.grey[100];
+    var inactiveColor = Colors.grey.shade100;
     var list = <Widget>[];
     var icons = <IconData>[Iconsax.home, Iconsax.card, Iconsax.user];
 
@@ -87,7 +87,7 @@ class RegisterPage extends GetView<RegisterController> {
     return list;
   }
 
-  _buildContentFirst() {
+  _buildContentFirst(BuildContext context) {
     return Visibility(
         visible: (controller.activeStep.value == 0) ? true : false,
         child: Expanded(
@@ -138,7 +138,7 @@ class RegisterPage extends GetView<RegisterController> {
                             child: RawMaterialButton(
                               onPressed: () {
                                 if (controller.formKeyFirst.currentState!.validate()) {
-                                  FocusManager.instance.primaryFocus?.unfocus();
+                                  FocusScope.of(context).unfocus();
                                   controller.checkArea();
                                 }
                               },
@@ -240,7 +240,7 @@ class RegisterPage extends GetView<RegisterController> {
                                           return;
                                         }
 
-                                        FocusManager.instance.primaryFocus?.unfocus();
+                                        FocusScope.of(context).unfocus();
                                         controller.checkId();
                                       }
                                     },
