@@ -2,6 +2,7 @@
 class Assets {
   Assets._();
 
+  static const String backgroundImgBackgroundHeader = 'assets/images/background/img_background_header.png';
   static const String bariolBariol = 'assets/fonts/bariol/Bariol.ttf';
   static const String bariolBariolBold = 'assets/fonts/bariol/Bariol-Bold.ttf';
   static const String bariolBariolLight = 'assets/fonts/bariol/Bariol-Light.ttf';

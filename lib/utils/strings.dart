@@ -61,4 +61,5 @@ String labelHistori = 'Histori';
 String labelProfile = 'Profil';
 String labelAllMenu = 'Semua Menu';
 String labelAbout = 'Tentang Aplikasi';
+String labelManageAdmin = 'Manajemen Admin';
 String labellogout = 'Keluar';

@@ -39,10 +39,13 @@ class DashboardPage extends GetView<DashboardController> {
 
   _buildContentTop(BuildContext context) {
     return Container(
-        color: Colors.white,
+        decoration: BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage(
+                    "assets/images/background/img_background_header.png"),
+                fit: BoxFit.cover)),
         child: Padding(
-            padding:
-                EdgeInsets.only(left: basePadding, right: basePadding, top: 50),
+            padding: EdgeInsets.only(left: basePadding, right: basePadding, top: 50, bottom: 100),
             child: Column(children: [
               Row(mainAxisAlignment: MainAxisAlignment.end, children: [
                 GestureDetector(
@@ -59,95 +62,110 @@ class DashboardPage extends GetView<DashboardController> {
                                     "assets/images/icon/img_menu.png"),
                                 fit: BoxFit.cover)))),
               ]),
-              Padding(
-                  padding: EdgeInsets.only(top: basePadding),
-                  child: SizedBox(
-                      width: double.infinity,
-                      child: Text(greetingHi,
-                          style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                              color: colorTextPrimary)))),
-              Padding(
-                  padding: EdgeInsets.only(bottom: basePadding),
-                  child: SizedBox(
-                      width: double.infinity,
-                      child: Text(greetingDashboard,
-                          style: TextStyle(color: colorTextPrimary)))),
             ])));
   }
 
   _buldContentSummary(BuildContext context) {
-    return Container(
-      color: Colors.white,
+    return Transform.translate(
+      offset: Offset(0, -20),
       child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(basePadding),
                 topRight: Radius.circular(basePadding)),
-            color: Colors.white,
+            color: colorPrimary,
           ),
-          child: Padding(
-              padding: EdgeInsets.only(
-                  left: basePadding, right: basePadding),
-              child: Card(
-                  color: colorDark,
+        child: Padding(
+          padding: EdgeInsets.only(top: baseRadiusForm),
+          child: Column(
+            children: [
+              // Padding(
+              //     padding: EdgeInsets.only(left: basePadding, right: basePadding, top: baseRadiusForm),
+              //     child: SizedBox(
+              //         width: double.infinity,
+              //         child: Text(greetingHi,
+              //             style: TextStyle(
+              //                 fontSize: 20,
+              //                 fontWeight: FontWeight.bold,
+              //                 color: colorLight)))),
+              // Padding(
+              //     padding: EdgeInsets.only(left: basePadding, right: basePadding, bottom: baseRadiusForm),
+              //     child: SizedBox(
+              //         width: double.infinity,
+              //         child: Text(greetingDashboard,
+              //             style: TextStyle(color: colorLight)))),
+              Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(basePadding),
+                        topRight: Radius.circular(basePadding)),
+                    color: Colors.white,
+                  ),
                   child: Padding(
-                      padding: EdgeInsets.all(baseRadiusForm),
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            GestureDetector(
-                                onTap: () {},
-                                child: Padding(
-                                    padding: EdgeInsets.all(baseRadiusForm),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(labelEmptyHouse,
-                                            style: TextStyle(
-                                                fontSize: 11,
-                                                fontWeight: FontWeight.bold,
-                                                color: colorLight)),
-                                        Text("22 Rumah",
-                                            style: TextStyle(
-                                                fontSize: 16,
-                                                color: colorLight))
-                                      ],
-                                    ))),
-                            Container(
-                              color: colorLight,
-                              height: basePadding,
-                              width: 1,
-                            ),
-                            GestureDetector(
-                                onTap: () {},
-                                child: Padding(
-                                    padding: EdgeInsets.all(baseRadiusForm),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.end,
-                                      children: [
-                                        Text(labelMyArea,
-                                            style: TextStyle(
-                                                fontSize: 11,
-                                                fontWeight: FontWeight.bold,
-                                                color: colorLight)),
-                                        Text("1 Area 2 Unit",
-                                            style: TextStyle(
-                                                fontSize: 16,
-                                                color: colorLight))
-                                      ],
-                                    ))),
-                          ]))))),
+                      padding: EdgeInsets.only(
+                          left: basePadding, right: basePadding, top: basePadding),
+                      child: Card(
+                          color: colorPrimary,
+                          child: Padding(
+                              padding: EdgeInsets.all(baseRadiusForm),
+                              child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    GestureDetector(
+                                        onTap: () {},
+                                        child: Padding(
+                                            padding: EdgeInsets.all(baseRadiusForm),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                              children: [
+                                                Text(labelEmptyHouse,
+                                                    style: TextStyle(
+                                                        fontSize: 11,
+                                                        fontWeight: FontWeight.bold,
+                                                        color: colorLight)),
+                                                Text("22 Rumah",
+                                                    style: TextStyle(
+                                                        fontSize: 16,
+                                                        color: colorLight))
+                                              ],
+                                            ))),
+                                    Container(
+                                      color: colorLight,
+                                      height: basePadding,
+                                      width: 1,
+                                    ),
+                                    GestureDetector(
+                                        onTap: () {},
+                                        child: Padding(
+                                            padding: EdgeInsets.all(baseRadiusForm),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                              CrossAxisAlignment.end,
+                                              children: [
+                                                Text(labelMyArea,
+                                                    style: TextStyle(
+                                                        fontSize: 11,
+                                                        fontWeight: FontWeight.bold,
+                                                        color: colorLight)),
+                                                Text("1 Area 2 Unit",
+                                                    style: TextStyle(
+                                                        fontSize: 16,
+                                                        color: colorLight))
+                                              ],
+                                            ))),
+                                  ]))))),
+            ],
+          ),
+        ),
+      ),
     );
   }
 
   _buildContentMenu(BuildContext context) {
     return Visibility(
         child: Padding(
-          padding: EdgeInsets.only(top: basePadding, left: basePadding, right: basePadding),
+          padding: EdgeInsets.only(left: basePadding, right: basePadding),
           child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
