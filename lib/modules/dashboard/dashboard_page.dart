@@ -2,9 +2,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:parawarga_apps/modules/dashboard/dashboard_controller.dart';
 import 'package:parawarga_apps/modules/dashboard/item/dashboard_laporan_tile.dart';
 import 'package:parawarga_apps/modules/dashboard/item/dashboard_voting_tile.dart';
+import 'package:parawarga_apps/routes/app_pages.dart';
 import 'package:parawarga_apps/theme/app_colors.dart';
 
 import '../../core/constants.dart';
@@ -46,7 +48,7 @@ class DashboardPage extends GetView<DashboardController> {
               Row(mainAxisAlignment: MainAxisAlignment.end, children: [
                 GestureDetector(
                     onTap: () {
-                      // Get.toNamed(AppRoutes.PROFILE);
+                      Get.toNamed(Routes.profile);
                     },
                     child: Container(
                         width: 35,
@@ -88,9 +90,9 @@ class DashboardPage extends GetView<DashboardController> {
           ),
           child: Padding(
               padding: EdgeInsets.only(
-                  left: basePadding, top: basePadding, right: basePadding),
+                  left: basePadding, right: basePadding),
               child: Card(
-                  color: colorPrimary,
+                  color: colorDark,
                   child: Padding(
                       padding: EdgeInsets.all(baseRadiusForm),
                       child: Row(
@@ -116,7 +118,7 @@ class DashboardPage extends GetView<DashboardController> {
                                       ],
                                     ))),
                             Container(
-                              color: colorDark,
+                              color: colorLight,
                               height: basePadding,
                               width: 1,
                             ),
@@ -154,16 +156,16 @@ class DashboardPage extends GetView<DashboardController> {
                     onTap: () {},
                     child: Column(children: [
                       Card(
-                          color: Colors.red.shade50,
+                          color: colorLight,
                           child: Padding(
                               padding: EdgeInsets.all(baseRadiusForm),
-                              child: Image.asset("assets/images/icon/img_vote.png",
-                                  height: 35,
+                              child: SizedBox(
                                   width: 35,
-                                  color: Colors.red.shade400))),
+                                  height: 35,
+                                  child: Icon(Iconsax.like_dislike, color: colorDark)))),
                       Text(labelVoting,
                           style: TextStyle(
-                              color: colorTextSecondary,
+                              color: colorTextPrimary,
                               fontWeight: FontWeight.bold,
                               fontSize: 12))
                     ])),
@@ -171,16 +173,16 @@ class DashboardPage extends GetView<DashboardController> {
                     onTap: () {},
                     child: Column(children: [
                       Card(
-                          color: Colors.brown.shade50,
+                          color: colorLight,
                           child: Padding(
                               padding: EdgeInsets.all(baseRadiusForm),
-                              child: Image.asset("assets/images/icon/img_users.png",
-                                  height: 35,
+                              child: SizedBox(
                                   width: 35,
-                                  color: Colors.brown.shade400))),
+                                  height: 35,
+                                  child: Icon(Iconsax.card_coin, color: colorDark)))),
                       Text(labelArisan,
                           style: TextStyle(
-                              color: colorTextSecondary,
+                              color: colorTextPrimary,
                               fontWeight: FontWeight.bold,
                               fontSize: 12))
                     ])),
@@ -188,16 +190,16 @@ class DashboardPage extends GetView<DashboardController> {
                     onTap: () {},
                     child: Column(children: [
                       Card(
-                          color: Colors.blue.shade50,
+                          color: colorLight,
                           child: Padding(
                               padding: EdgeInsets.all(baseRadiusForm),
-                              child: Image.asset("assets/images/icon/img_tagihan.png",
-                                  height: 35,
+                              child: SizedBox(
                                   width: 35,
-                                  color: Colors.blue.shade400))),
+                                  height: 35,
+                                  child: Icon(Iconsax.card_pos, color: colorDark)))),
                       Text(labelTagihan,
                           style: TextStyle(
-                              color: colorTextSecondary,
+                              color: colorTextPrimary,
                               fontWeight: FontWeight.bold,
                               fontSize: 12))
                     ])),
@@ -205,16 +207,17 @@ class DashboardPage extends GetView<DashboardController> {
                     onTap: () {},
                     child: Column(children: [
                       Card(
-                          color: Colors.amber.shade50,
+                          color: colorLight,
                           child: Padding(
                               padding: EdgeInsets.all(baseRadiusForm),
-                              child: Image.asset("assets/images/icon/img_history.png",
-                                  height: 35,
-                                  width: 35,
-                                  color: Colors.amber.shade400))),
+                              child: SizedBox(
+                                width: 35,
+                                height: 35,
+                                child: Icon(Iconsax.timer, color: colorDark)))
+                      ),
                       Text(labelHistori,
                           style: TextStyle(
-                              color: colorTextSecondary,
+                              color: colorTextPrimary,
                               fontWeight: FontWeight.bold,
                               fontSize: 12))
                     ])),
