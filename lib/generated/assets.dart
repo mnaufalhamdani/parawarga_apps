@@ -9,6 +9,7 @@ class Assets {
   static const String fontsQuicksandBold = 'assets/fonts/Quicksand-Bold.otf';
   static const String fontsRodina = 'assets/fonts/Rodina.ttf';
   static const String iconImgHistory = 'assets/images/icon/img_history.png';
+  static const String iconImgHome = 'assets/images/icon/img_home.png';
   static const String iconImgMenu = 'assets/images/icon/img_menu.png';
   static const String iconImgMenuList = 'assets/images/icon/img_menu_list.png';
   static const String iconImgTagihan = 'assets/images/icon/img_tagihan.png';

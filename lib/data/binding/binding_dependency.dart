@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:parawarga_apps/modules/dashboard/dashboard_controller.dart';
 import 'package:parawarga_apps/modules/login/login_controller.dart';
+import 'package:parawarga_apps/modules/profile/profile_controller.dart';
 import 'package:parawarga_apps/modules/register/register_controller.dart';
 import 'package:parawarga_apps/modules/splash/splash_controller.dart';
 
@@ -12,5 +13,6 @@ class BindingDependency implements Bindings {
     Get.lazyPut(() => LoginController(), fenix: true);
     Get.lazyPut(() => RegisterController(), fenix: true);
     Get.lazyPut(() => DashboardController(), fenix: true);
+    Get.lazyPut(() => ProfileController(), fenix: true);
   }
 }
