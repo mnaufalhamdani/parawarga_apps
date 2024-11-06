@@ -6,22 +6,22 @@ import 'package:parawarga_apps/theme/standard_button_primary.dart';
 
 import '../../../theme/app_colors.dart';
 
-class DashboardVotingTile extends StatefulWidget {
+class VotingTile extends StatefulWidget {
   final Map<String, dynamic> model;
   final void Function(Map<String, dynamic> model) onPressed;
 
-  const DashboardVotingTile({
+  const VotingTile({
     super.key,
     required this.model,
     required this.onPressed,
   });
 
   @override
-  State<DashboardVotingTile> createState() =>
-      DashboardVotingTileState();
+  State<VotingTile> createState() =>
+      VotingTileState();
 }
 
-class DashboardVotingTileState extends State<DashboardVotingTile> {
+class VotingTileState extends State<VotingTile> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(

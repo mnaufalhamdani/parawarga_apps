@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:parawarga_apps/modules/dashboard/dashboard_controller.dart';
 import 'package:parawarga_apps/modules/dashboard/item/dashboard_laporan_tile.dart';
-import 'package:parawarga_apps/modules/dashboard/item/dashboard_voting_tile.dart';
 import 'package:parawarga_apps/routes/app_pages.dart';
 import 'package:parawarga_apps/theme/app_colors.dart';
 
@@ -153,7 +152,9 @@ class DashboardPage extends GetView<DashboardController> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      Get.toNamed(Routes.voting);
+                    },
                     child: Column(children: [
                       Card(
                           color: colorLight,
@@ -305,41 +306,6 @@ class DashboardPage extends GetView<DashboardController> {
                     );
                   }
               ))
-            ])));
-  }
-
-  _buildContentVoting(BuildContext context) {
-    return Visibility(
-        visible: true,
-        child: Padding(
-            padding: EdgeInsets.only(top: basePadding),
-            child:
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Padding(
-                  padding: EdgeInsets.only(left: basePadding),
-                  child: Text(labelVoting,
-                      style: TextStyle(
-                          color: colorTextPrimary,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20))),
-              Container(
-                  child: SingleChildScrollView(
-                      physics: BouncingScrollPhysics(),
-                      scrollDirection: Axis.horizontal,
-                      child: Row(children: [
-                        for (int i = 0; i < listVoting.length; i++)
-                          Padding(
-                              padding: EdgeInsets.only(
-                                  left:
-                                      (i == 0) ? basePadding : basePadding / 2,
-                                  right: (i == listVoting.length - 1)
-                                      ? basePadding
-                                      : basePadding / 2),
-                              child: DashboardVotingTile(
-                                model: listVoting[i],
-                                onPressed: (model) async {},
-                              ))
-                      ])))
             ])));
   }
 }

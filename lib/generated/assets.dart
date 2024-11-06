@@ -8,13 +8,8 @@ class Assets {
   static const String fontsEvolvesans = 'assets/fonts/Evolvesans.otf';
   static const String fontsQuicksandBold = 'assets/fonts/Quicksand-Bold.otf';
   static const String fontsRodina = 'assets/fonts/Rodina.ttf';
-  static const String iconImgHistory = 'assets/images/icon/img_history.png';
-  static const String iconImgHome = 'assets/images/icon/img_home.png';
   static const String iconImgMenu = 'assets/images/icon/img_menu.png';
   static const String iconImgMenuList = 'assets/images/icon/img_menu_list.png';
-  static const String iconImgTagihan = 'assets/images/icon/img_tagihan.png';
-  static const String iconImgUsers = 'assets/images/icon/img_users.png';
-  static const String iconImgVote = 'assets/images/icon/img_vote.png';
   static const String logoImgLogo = 'assets/images/logo/img_logo.png';
   static const String logoImgLogoWhite = 'assets/images/logo/img_logo_white.png';
 
