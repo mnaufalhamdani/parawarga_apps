@@ -84,12 +84,10 @@ class VotingPage extends GetView<VotingController> {
           for (int i = 0; i < listVoting.length; i++)
             Padding(
                 padding: EdgeInsets.only(
-                    top: baseRadiusForm,
-                    left: (i == 0) ? basePadding : basePadding / 2,
-                    right: (i == listVoting.length - 1)
-                        ? basePadding
-                        : basePadding / 2,
-                    bottom: baseRadiusForm),
+                    top: (i == 0) ? basePadding : baseRadiusForm,
+                    left: basePadding,
+                    right: basePadding,
+                    bottom: (i == listVoting.length - 1) ? basePadding : baseRadiusForm),
                 child: VotingTile(
                   model: listVoting[i],
                   onPressed: (model) async {},

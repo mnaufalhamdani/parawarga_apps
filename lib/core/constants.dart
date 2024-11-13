@@ -31,25 +31,30 @@ List<Map<String, dynamic>> listVoting = [
     {"label": "Minggu 2", "value": 2},
     {"label": "Minggu 3", "value": 3},
     {"label": "Minggu 4", "value": 4},
-  ]},
+  ], "percentOfDetails": []},
   {"label": "Liburan enaknya minggu berapa?", "value": 0, "details": [
     {"label": "Minggu 1", "value": 1},
     {"label": "Minggu 2", "value": 2},
     {"label": "Minggu 3", "value": 3},
     {"label": "Minggu 4", "value": 4},
+  ], "percentOfDetails": [
+    {"label": "Minggu 1", "percent": 50},
+    {"label": "Minggu 2", "percent": 20},
+    {"label": "Minggu 3", "percent": 10},
+    {"label": "Minggu 4", "percent": 20},
   ]},
   {"label": "Kerja bakti enaknya minggu berapa?", "value": 0, "details": [
     {"label": "Minggu 1", "value": 1},
     {"label": "Minggu 2", "value": 2},
     {"label": "Minggu 3", "value": 3},
     {"label": "Minggu 4", "value": 4},
-  ]},
+  ], "percentOfDetails": []},
   {"label": "Pemilihan ketua minggu ke berapa?", "value": 0, "details": [
     {"label": "Minggu 1", "value": 1},
     {"label": "Minggu 2", "value": 2},
     {"label": "Minggu 3", "value": 3},
     {"label": "Minggu 4", "value": 4},
-  ]}
+  ], "percentOfDetails": []}
 ];
 
 String generateRandomId() {
