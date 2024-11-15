@@ -2,6 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:iconsax/iconsax.dart';
+import 'package:parawarga_apps/theme/app_theme.dart';
 
 import 'app_colors.dart';
 
@@ -12,7 +14,6 @@ class StandardTextField extends StatefulWidget {
   final int? maxLength;
   final bool? readOnly;
   final bool? isEnabled;
-  final Icon? iconField;
   final TextInputType? inputType;
   final TextInputAction? inputAction;
   final bool? isPassword;
@@ -27,7 +28,6 @@ class StandardTextField extends StatefulWidget {
     this.maxLength,
     this.readOnly,
     this.isEnabled,
-    this.iconField,
     this.inputType,
     this.inputAction,
     this.isPassword,
@@ -37,7 +37,6 @@ class StandardTextField extends StatefulWidget {
 
   @override
   State<StandardTextField> createState() => StandardTextState();
-
 }
 
 class StandardTextState extends State<StandardTextField> {
@@ -46,15 +45,15 @@ class StandardTextState extends State<StandardTextField> {
   @override
   void initState() {
     super.initState();
-    if(widget.isPassword == true){
+    if (widget.isPassword == true) {
       obscurePassword = true;
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding:
-        EdgeInsets.only(left: 20, right: 20, top: 20),
+        padding: EdgeInsets.only(left: 20, right: 20, top: 20),
         child: TextFormField(
           controller: widget.editingController,
           keyboardType: widget.inputType ?? TextInputType.name,
@@ -62,10 +61,11 @@ class StandardTextState extends State<StandardTextField> {
           maxLength: widget.maxLength,
           readOnly: widget.readOnly ?? false,
           enabled: widget.isEnabled,
-          style: TextStyle(fontSize: 15),
+          style: TextStyle(fontSize: 14, color: colorTextPrimary),
           obscureText: widget.isPassword == true ? obscurePassword : false,
+          textCapitalization: TextCapitalization.sentences,
           validator: (value) {
-            if (!widget.msgError.isNull){
+            if (!widget.msgError.isNull) {
               if (value == null || value.isEmpty) {
                 return widget.msgError;
               }
@@ -73,47 +73,40 @@ class StandardTextState extends State<StandardTextField> {
             return null;
           },
           onTap: () {
-            if(!widget.onPressed.isNull){
+            if (!widget.onPressed.isNull) {
               widget.onPressed!();
             }
           },
           onFieldSubmitted: (value) {
-            if(widget.inputAction == TextInputAction.search) {
+            if (widget.inputAction == TextInputAction.search) {
               widget.onSubmited!(value);
             }
           },
           decoration: InputDecoration(
-              hintText: widget.titleHint,
-              border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(30)),
-              focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(30),
-                  borderSide: BorderSide(color: colorPrimary)),
-              enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(30),
-                  borderSide: BorderSide(color: colorDark)),
-              disabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(30),
-                  borderSide: BorderSide(color: colorDark)),
+              border: OutlineInputBorder(),
+              focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(baseRadiusForm), borderSide: BorderSide(color: colorDark)),
+              enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(baseRadiusForm), borderSide: BorderSide(color: colorLight)),
+              disabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(baseRadiusForm), borderSide: BorderSide(color: colorLight)),
+              errorBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(baseRadiusForm), borderSide: BorderSide(color: Colors.red)),
+              focusedErrorBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(baseRadiusForm), borderSide: BorderSide(color: Colors.red)),
               contentPadding: EdgeInsets.only(left: 20, right: 20),
-              prefixIcon: widget.iconField,
-              prefixIconColor: Colors.black54,
+              labelText: widget.titleHint,
+              labelStyle: TextStyle(color: colorTextSecondary),
               filled: true,
-              fillColor: colorDark,
-              suffixIcon: widget.isPassword == true ? IconButton(
+              fillColor: Colors.grey.shade100,
+              suffixIcon: widget.isPassword == true
+                  ? IconButton(
                 icon: Icon(
-                  obscurePassword
-                      ? Icons.visibility
-                      : Icons.visibility_off,
-                  color: Colors.black54,
+                  obscurePassword ? Iconsax.eye : Iconsax.eye_slash,
+                  color: colorDark,
                 ),
                 onPressed: () {
                   setState(() {
                     obscurePassword = !obscurePassword;
                   });
                 },
-              ) : null
-          ),
+              )
+                  : null),
         ));
   }
 }

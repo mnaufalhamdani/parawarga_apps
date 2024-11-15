@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:iconsax/iconsax.dart';
 
 import '../utils/strings.dart';
 
@@ -12,7 +13,7 @@ enum DurationMessage {
   lengthShort, lengthLong, lengthInfinite
 }
 
-showStandardSnackbar(BuildContext context, TypeMessage typeMessage, String? message, DurationMessage? duration) {
+showStandardSnackbar(BuildContext context, TypeMessage typeMessage, {String? message, DurationMessage? duration, double? paddingBottom}) {
   var durationMessage = 5;
   if(duration == DurationMessage.lengthLong){
     durationMessage = 8;
@@ -25,7 +26,7 @@ showStandardSnackbar(BuildContext context, TypeMessage typeMessage, String? mess
     behavior: SnackBarBehavior.fixed,
     elevation: 0,
     duration: Duration(seconds: durationMessage),
-    content: StandardSnackbar(typeMessage: typeMessage, message: message),
+    content: StandardSnackbar(typeMessage: typeMessage, message: message, paddingBottom: paddingBottom ?? 0),
   );
 
   ScaffoldMessenger.of(context)..hideCurrentSnackBar()..showSnackBar(snackBar);
@@ -34,29 +35,31 @@ showStandardSnackbar(BuildContext context, TypeMessage typeMessage, String? mess
 class StandardSnackbar extends StatelessWidget {
   final TypeMessage typeMessage;
   final String? message;
+  final double paddingBottom;
 
   const StandardSnackbar({
     super.key,
     required this.typeMessage,
     this.message,
+    required this.paddingBottom
   });
 
   @override
   Widget build(BuildContext context) {
     var colorTypeMessage = Colors.green;
-    var iconTypeMessage = Icons.check_circle_rounded;
+    var iconTypeMessage = Iconsax.verify;
     if(typeMessage == TypeMessage.error) {
       colorTypeMessage = Colors.red;
-      iconTypeMessage = Icons.error_rounded;
+      iconTypeMessage = Iconsax.warning_2;
     }else if(typeMessage == TypeMessage.warning) {
       colorTypeMessage = Colors.amber;
-      iconTypeMessage = Icons.warning_rounded;
+      iconTypeMessage = Iconsax.danger;
     }else if(typeMessage == TypeMessage.info) {
       colorTypeMessage = Colors.blue;
-      iconTypeMessage = Icons.info_rounded;
+      iconTypeMessage = Iconsax.information;
     }
 
-    return Stack(alignment: Alignment.centerLeft, children: [
+    return Padding(padding: EdgeInsets.only(bottom: paddingBottom), child: Stack(alignment: Alignment.centerLeft, children: [
       Card(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
           color: Colors.white,
@@ -105,6 +108,6 @@ class StandardSnackbar extends StatelessWidget {
               )
           )
       )
-    ]);
+    ]));
   }
 }
