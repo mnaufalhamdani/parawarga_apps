@@ -22,57 +22,60 @@ class VotingPage extends GetView<VotingController> {
   }
 
   _buildContentTop(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(top: 40),
-      child: Column(
-        children: [
-          Padding(
-            padding: EdgeInsets.only(
-                left: basePadding, right: basePadding, bottom: baseRadiusForm),
-            child: Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
-              GestureDetector(
-                  onTap: () {
-                    Get.back();
-                  },
-                  child: Icon(Iconsax.arrow_left, color: colorPrimary)),
-              Expanded(
-                child: Padding(
-                    padding: EdgeInsets.only(left: basePadding),
-                    child: Text(
-                      labelVoting,
-                      style: TextStyle(
-                          color: colorPrimary,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    )),
-              )
-            ]),
-          ),
-          Expanded(
-            child: Container(
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(basePadding),
-                      topRight: Radius.circular(basePadding),
-                    ),
-                    color: colorPrimary),
-                child: Padding(
-                    padding: EdgeInsets.only(top: baseRadiusForm),
-                    child: Container(
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(basePadding),
-                          topRight: Radius.circular(basePadding),
-                        ),
-                        color: Colors.white,
+    return Container(
+      color: Colors.grey.shade100,
+      child: Padding(
+        padding: EdgeInsets.only(top: 50),
+        child: Column(
+          children: [
+            Padding(
+              padding: EdgeInsets.only(
+                  left: basePadding, right: basePadding, bottom: baseRadiusForm),
+              child: Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
+                GestureDetector(
+                    onTap: () {
+                      Get.back();
+                    },
+                    child: Icon(Iconsax.arrow_left, color: colorPrimary)),
+                Expanded(
+                  child: Padding(
+                      padding: EdgeInsets.only(left: basePadding),
+                      child: Text(
+                        labelVoting,
+                        style: TextStyle(
+                            color: colorPrimary,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      )),
+                )
+              ]),
+            ),
+            Expanded(
+              child: Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(basePadding),
+                        topRight: Radius.circular(basePadding),
                       ),
-                      child: _buildContentMainMenu(context),
-                    ))),
-          )
-        ],
+                      color: colorPrimary),
+                  child: Padding(
+                      padding: EdgeInsets.only(top: baseRadiusForm),
+                      child: Container(
+                        width: MediaQuery.sizeOf(context).width,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(basePadding),
+                            topRight: Radius.circular(basePadding),
+                          ),
+                          color: Colors.white,
+                        ),
+                        child: _buildContentMainMenu(context),
+                      ))),
+            )
+          ],
+        ),
       ),
     );
   }

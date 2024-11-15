@@ -1,6 +1,8 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:iconsax/iconsax.dart';
+import 'package:parawarga_apps/routes/app_pages.dart';
 import 'package:parawarga_apps/theme/app_theme.dart';
 import 'package:parawarga_apps/theme/standard_button_primary.dart';
 
@@ -45,6 +47,13 @@ class VotingTileState extends State<VotingTile> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                Padding(
+                  padding: EdgeInsets.only(top: baseRadiusForm),
+                  child: Text(
+                    "RT.001 RW.003",
+                    style: TextStyle(color: colorTextSecondary, fontSize: 12),
+                  ),
+                ),
                 Text(widget.model["label"],
                     style: TextStyle(
                         color: colorTextSecondary,
@@ -101,7 +110,16 @@ class VotingTileState extends State<VotingTile> {
                     children: [
                       Text("Total Vote: 32 partisipan \nExpired: 30-12-2024",
                           style: TextStyle(
-                              color: colorTextSecondary, fontSize: 11))
+                              color: colorTextSecondary, fontSize: 11)),
+                      GestureDetector(
+                        onTap: () {
+                          Get.toNamed(Routes.votingDetail);
+                        },
+                        child: SizedBox(
+                            width: 35,
+                            height: 35,
+                            child: Icon(Iconsax.info_circle, color: colorPrimary))
+                      )
                     ],
                   ),
                 )
@@ -120,6 +138,13 @@ class VotingTileState extends State<VotingTile> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                Padding(
+                  padding: EdgeInsets.only(top: baseRadiusForm),
+                  child: Text(
+                    "RT.001 RW.003",
+                    style: TextStyle(color: colorTextSecondary, fontSize: 12),
+                  ),
+                ),
                 Text(widget.model["label"],
                     style: TextStyle(
                         color: colorTextSecondary,
@@ -145,15 +170,11 @@ class VotingTileState extends State<VotingTile> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text("Total Vote: 32 partisipan \nExpired: 30-12-2024",
-                        style:
-                            TextStyle(color: colorTextSecondary, fontSize: 11)),
-                    Visibility(
-                        visible: (widget.model["percentOfDetails"].length == 0)
-                            ? true
-                            : false,
-                        child: StandardButtonPrimary(
-                          titleHint: "Submit",
-                        )),
+                      style:
+                        TextStyle(color: colorTextSecondary, fontSize: 11)),
+                    StandardButtonPrimary(
+                      titleHint: "Submit",
+                    ),
                   ],
                 )
               ],

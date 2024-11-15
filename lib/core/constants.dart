@@ -57,6 +57,170 @@ List<Map<String, dynamic>> listVoting = [
   ], "percentOfDetails": []}
 ];
 
+List<Map<String, dynamic>> listVotes = [
+  {"label": "Minggu 1", "percent": 50},
+  {"label": "Minggu 2", "percent": 20},
+  {"label": "Minggu 3", "percent": 10},
+  {"label": "Minggu 4", "percent": 20},
+];
+
+List<Map<String, dynamic>> listVotingDetail = [
+  {"name": "Akbar", "user_id": 1, "label": "Minggu 1"},
+  {"name": "Bakrie", "user_id": 2, "label": "Minggu 2"},
+  {"name": "Cintya", "user_id": 3, "label": "Minggu 3"},
+  {"name": "Daniel", "user_id": 4, "label": "Minggu 1"},
+  {"name": "Effendy", "user_id": 5, "label": "Minggu 4"},
+  {"name": "Franky", "user_id": 1, "label": "Minggu 4"},
+  {"name": "Georgio", "user_id": 2, "label": "Minggu 4"},
+  {"name": "Hulk", "user_id": 3, "label": "Minggu 2"},
+  {"name": "Indah", "user_id": 4, "label": "Minggu 2"},
+  {"name": "Jessica", "user_id": 5, "label": "Minggu 3"},
+];
+
+List<Map<String, dynamic>> listVotingDetail2 = [
+  {"name": "Akbar", "user_id": 1, "label": "Minggu 4"},
+  {"name": "Bakrie", "user_id": 2, "label": "Minggu 4"},
+  {"name": "Cintya", "user_id": 3, "label": "Minggu 1"},
+  {"name": "Daniel", "user_id": 4, "label": "Minggu 2"},
+  {"name": "Effendy", "user_id": 5, "label": "Minggu 2"},
+  {"name": "Franky", "user_id": 1, "label": "Minggu 2"},
+  {"name": "Georgio", "user_id": 2, "label": "Minggu 2"},
+  {"name": "Hulk", "user_id": 3, "label": "Minggu 2"},
+  {"name": "Indah", "user_id": 4, "label": "Minggu 1"},
+  {"name": "Jessica", "user_id": 5, "label": "Minggu 3"},
+];
+
+List<Map<String, dynamic>> listArisan = [
+  {
+    "area":"RT.001 RW.003",
+    "nameOfArisan": "Arisan Pkk Periode 1",
+    "date": "30-10-2024",
+    "subscription": "100.000",
+    "totalMember": [
+      {"name": "Akbar", "user_id": 1, "payed": "100.000"},
+      {"name": "Bakrie", "user_id": 2, "payed": "100.000"},
+      {"name": "Cintya", "user_id": 3, "payed": "100.000"},
+      {"name": "Daniel", "user_id": 4, "payed": "100.000"},
+      {"name": "Effendy", "user_id": 5, "payed": "100.000"},
+      {"name": "Franky", "user_id": 1, "payed": "100.000"},
+      {"name": "Georgio", "user_id": 2, "payed": "100.000"},
+      {"name": "Hulk", "user_id": 3, "payed": "100.000"},
+      {"name": "Indah", "user_id": 4, "payed": "100.000"},
+      {"name": "Jessica", "user_id": 5, "payed": "100.000"},
+    ],
+    "availableMember": [
+      {"name": "Akbar", "user_id": 1, "unit_name": "Unit 1"},
+      {"name": "Bakrie", "user_id": 2, "unit_name": "Unit 2"},
+      {"name": "Cintya", "user_id": 3, "unit_name": "Unit 3"},
+      {"name": "Daniel", "user_id": 4, "unit_name": "Unit 4"},
+      {"name": "Effendy", "user_id": 5, "unit_name": "Unit 5"},
+    ],
+    "winOfHistories": [
+      {"name": "Franky", "user_id": 1, "unit_name": "Unit 11", "date": "30-09-2024"},
+      {"name": "Georgio", "user_id": 2, "unit_name": "Unit 22", "date": "30-07-2024"},
+      {"name": "Hulk", "user_id": 3, "unit_name": "Unit 33", "date": "30-08-2024"},
+      {"name": "Indah", "user_id": 4, "unit_name": "Unit 44", "date": "30-05-2024"},
+      {"name": "Jessica", "user_id": 5, "unit_name": "Unit 55", "date": "30-06-2024"},
+    ],
+  },
+  {
+    "area":"Cluster Merdeka",
+    "nameOfArisan": "Arisan Anak Muda",
+    "date": "30-10-2024",
+    "subscription": "1.000.000",
+    "totalMember": [
+      {"name": "Akbar", "user_id": 1, "payed": "1.000.000"},
+      {"name": "Bakrie", "user_id": 2, "payed": "1.000.000"},
+      {"name": "Cintya", "user_id": 3, "payed": "1.000.000"},
+      {"name": "Daniel", "user_id": 4, "payed": "1.000.000"},
+      {"name": "Effendy", "user_id": 5, "payed": "1.000.000"},
+      {"name": "Franky", "user_id": 1, "payed": "1.000.000"},
+      {"name": "Georgio", "user_id": 2, "payed": "1.000.000"},
+      {"name": "Hulk", "user_id": 3, "payed": "1.000.000"},
+      {"name": "Indah", "user_id": 4, "payed": "1.000.000"},
+      {"name": "Jessica", "user_id": 5, "payed": "1.000.000"},
+    ],
+    "availableMember": [
+      {"name": "Akbar", "user_id": 1, "unit_name": "Unit 1"},
+      {"name": "Bakrie", "user_id": 2, "unit_name": "Unit 2"},
+      {"name": "Cintya", "user_id": 3, "unit_name": "Unit 3"},
+      {"name": "Daniel", "user_id": 4, "unit_name": "Unit 4"},
+      {"name": "Effendy", "user_id": 5, "unit_name": "Unit 5"},
+    ],
+    "winOfHistories": [
+      {"name": "Franky", "user_id": 1, "unit_name": "Unit 11", "date": "30-09-2024"},
+      {"name": "Georgio", "user_id": 2, "unit_name": "Unit 22", "date": "30-07-2024"},
+      {"name": "Hulk", "user_id": 3, "unit_name": "Unit 33", "date": "30-08-2024"},
+      {"name": "Indah", "user_id": 4, "unit_name": "Unit 44", "date": "30-05-2024"},
+      {"name": "Jessica", "user_id": 5, "unit_name": "Unit 55", "date": "30-06-2024"},
+    ],
+  },
+  {
+    "area":"RT.001 RW.003",
+    "nameOfArisan": "Arisan Karang Taruna",
+    "date": "30-10-2024",
+    "subscription": "500.000",
+    "totalMember": [
+      {"name": "Akbar", "user_id": 1, "payed": "500.000"},
+      {"name": "Bakrie", "user_id": 2, "payed": "500.000"},
+      {"name": "Cintya", "user_id": 3, "payed": "500.000"},
+      {"name": "Daniel", "user_id": 4, "payed": "500.000"},
+      {"name": "Effendy", "user_id": 5, "payed": "500.000"},
+      {"name": "Franky", "user_id": 1, "payed": "500.000"},
+      {"name": "Georgio", "user_id": 2, "payed": "500.000"},
+      {"name": "Hulk", "user_id": 3, "payed": "10.000"},
+      {"name": "Indah", "user_id": 4, "payed": "10.000"},
+      {"name": "Jessica", "user_id": 5, "payed": "10.000"},
+    ],
+    "availableMember": [
+      {"name": "Akbar", "user_id": 1, "unit_name": "Unit 1"},
+      {"name": "Bakrie", "user_id": 2, "unit_name": "Unit 2"},
+      {"name": "Cintya", "user_id": 3, "unit_name": "Unit 3"},
+      {"name": "Daniel", "user_id": 4, "unit_name": "Unit 4"},
+      {"name": "Effendy", "user_id": 5, "unit_name": "Unit 5"},
+    ],
+    "winOfHistories": [
+      {"name": "Franky", "user_id": 1, "unit_name": "Unit 11", "date": "30-09-2024"},
+      {"name": "Georgio", "user_id": 2, "unit_name": "Unit 22", "date": "30-07-2024"},
+      {"name": "Hulk", "user_id": 3, "unit_name": "Unit 33", "date": "30-08-2024"},
+      {"name": "Indah", "user_id": 4, "unit_name": "Unit 44", "date": "30-05-2024"},
+      {"name": "Jessica", "user_id": 5, "unit_name": "Unit 55", "date": "30-06-2024"},
+    ],
+  },
+  {
+    "area":"Kost Merah Putih",
+    "nameOfArisan": "Gang Gong",
+    "date": "30-10-2024",
+    "subscription": "10.000",
+    "totalMember": [
+      {"name": "Akbar", "user_id": 1, "payed": "10.000"},
+      {"name": "Bakrie", "user_id": 2, "payed": "10.000"},
+      {"name": "Cintya", "user_id": 3, "payed": "10.000"},
+      {"name": "Daniel", "user_id": 4, "payed": "10.000"},
+      {"name": "Effendy", "user_id": 5, "payed": "10.000"},
+      {"name": "Franky", "user_id": 1, "payed": "10.000"},
+      {"name": "Georgio", "user_id": 2, "payed": "10.000"},
+      {"name": "Hulk", "user_id": 3, "payed": "10.000"},
+      {"name": "Indah", "user_id": 4, "payed": "10.000"},
+      {"name": "Jessica", "user_id": 5, "payed": "10.000"},
+    ],
+    "availableMember": [
+      {"name": "Akbar", "user_id": 1, "unit_name": "Unit 1"},
+      {"name": "Bakrie", "user_id": 2, "unit_name": "Unit 2"},
+      {"name": "Cintya", "user_id": 3, "unit_name": "Unit 3"},
+      {"name": "Daniel", "user_id": 4, "unit_name": "Unit 4"},
+      {"name": "Effendy", "user_id": 5, "unit_name": "Unit 5"},
+    ],
+    "winOfHistories": [
+      {"name": "Franky", "user_id": 1, "unit_name": "Unit 11", "date": "30-09-2024"},
+      {"name": "Georgio", "user_id": 2, "unit_name": "Unit 22", "date": "30-07-2024"},
+      {"name": "Hulk", "user_id": 3, "unit_name": "Unit 33", "date": "30-08-2024"},
+      {"name": "Indah", "user_id": 4, "unit_name": "Unit 44", "date": "30-05-2024"},
+      {"name": "Jessica", "user_id": 5, "unit_name": "Unit 55", "date": "30-06-2024"},
+    ],
+  },
+];
+
 String generateRandomId() {
   final random = Random();
   const length = 11;
