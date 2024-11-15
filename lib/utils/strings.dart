@@ -66,3 +66,7 @@ String labelManageAdmin = 'Manajemen Admin';
 String labellogout = 'Keluar';
 String labelTotalMember = 'Total Peserta';
 String labelNotVote = 'Tidak Vote';
+String labelSubsciption = 'Iuran';
+String labelTotal = 'Total';
+String labelDate = 'Tanggal';
+String labelPeriode = 'Periode';

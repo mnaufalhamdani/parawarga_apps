@@ -93,9 +93,10 @@ List<Map<String, dynamic>> listVotingDetail2 = [
 List<Map<String, dynamic>> listArisan = [
   {
     "area":"RT.001 RW.003",
-    "nameOfArisan": "Arisan Pkk Periode 1",
+    "nameOfArisan": "Arisan Pkk Tahun 1",
     "date": "30-10-2024",
     "subscription": "100.000",
+    "totalSubscription": "1.000.000",
     "totalMember": [
       {"name": "Akbar", "user_id": 1, "payed": "100.000"},
       {"name": "Bakrie", "user_id": 2, "payed": "100.000"},
@@ -128,6 +129,7 @@ List<Map<String, dynamic>> listArisan = [
     "nameOfArisan": "Arisan Anak Muda",
     "date": "30-10-2024",
     "subscription": "1.000.000",
+    "totalSubscription": "10.000.000",
     "totalMember": [
       {"name": "Akbar", "user_id": 1, "payed": "1.000.000"},
       {"name": "Bakrie", "user_id": 2, "payed": "1.000.000"},
@@ -160,6 +162,7 @@ List<Map<String, dynamic>> listArisan = [
     "nameOfArisan": "Arisan Karang Taruna",
     "date": "30-10-2024",
     "subscription": "500.000",
+    "totalSubscription": "5.000.000",
     "totalMember": [
       {"name": "Akbar", "user_id": 1, "payed": "500.000"},
       {"name": "Bakrie", "user_id": 2, "payed": "500.000"},
@@ -192,6 +195,7 @@ List<Map<String, dynamic>> listArisan = [
     "nameOfArisan": "Gang Gong",
     "date": "30-10-2024",
     "subscription": "10.000",
+    "totalSubscription": "100.000",
     "totalMember": [
       {"name": "Akbar", "user_id": 1, "payed": "10.000"},
       {"name": "Bakrie", "user_id": 2, "payed": "10.000"},

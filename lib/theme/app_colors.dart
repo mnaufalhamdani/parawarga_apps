@@ -12,7 +12,7 @@ Color colorButtonThird = colorSecondary;
 // Color colorTextPrimary = HexColor("#484848");
 Color colorTextPrimary = colorDark;
 Color? colorTextSecondary = Colors.grey.shade700;
-Color? colorTextThird = Colors.grey.shade500;
+Color? colorTextThird = colorLight;
 
 class HexColor extends Color {
   static int _getColorFromHex(String hexColor) {
