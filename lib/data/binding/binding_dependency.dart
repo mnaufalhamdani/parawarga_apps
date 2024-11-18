@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:parawarga_apps/modules/arisan/arisan_controller.dart';
+import 'package:parawarga_apps/modules/arisan/detail/arisan_detail_controller.dart';
 import 'package:parawarga_apps/modules/dashboard/dashboard_controller.dart';
 import 'package:parawarga_apps/modules/login/login_controller.dart';
 import 'package:parawarga_apps/modules/profile/profile_controller.dart';
@@ -20,5 +21,6 @@ class BindingDependency implements Bindings {
     Get.lazyPut(() => VotingController(), fenix: true);
     Get.lazyPut(() => VotingDetailController(), fenix: true);
     Get.lazyPut(() => ArisanController(), fenix: true);
+    Get.lazyPut(() => ArisanDetailController(), fenix: true);
   }
 }

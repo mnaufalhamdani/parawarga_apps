@@ -31,9 +31,11 @@ class VotingDetailPage extends GetView<VotingDetailController> {
           children: [
             Padding(
               padding: EdgeInsets.only(
-                  left: basePadding, right: basePadding, bottom: baseRadiusForm),
+                  left: basePadding,
+                  right: basePadding,
+                  bottom: baseRadiusForm),
               child:
-                  Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
+              Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
                 GestureDetector(
                     onTap: () {
                       Get.back();
@@ -65,7 +67,9 @@ class VotingDetailPage extends GetView<VotingDetailController> {
                   child: Padding(
                       padding: EdgeInsets.only(top: baseRadiusForm),
                       child: Container(
-                        width: MediaQuery.sizeOf(context).width,
+                        width: MediaQuery
+                            .sizeOf(context)
+                            .width,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(basePadding),
@@ -73,7 +77,9 @@ class VotingDetailPage extends GetView<VotingDetailController> {
                           ),
                           color: Colors.white,
                         ),
-                        child: _buildContentMainMenu(context),
+                        child: Obx(() {
+                          return _buildContentMainMenu(context);
+                        }),
                       ))),
             )
           ],
@@ -83,42 +89,43 @@ class VotingDetailPage extends GetView<VotingDetailController> {
   }
 
   _buildContentMainMenu(BuildContext context) {
-    return Obx(() => Padding(
-        padding: EdgeInsets.only(
-            left: basePadding, top: basePadding, right: basePadding),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              "RT.001 RW.003",
-              style: TextStyle(color: colorTextSecondary, fontSize: 12),
-            ),
-            Text("Liburan enaknya minggu berapa?",
+    return Padding(
+      padding: EdgeInsets.only(
+          left: basePadding, top: basePadding, right: basePadding),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "RT.001 RW.003",
+            style: TextStyle(color: colorTextSecondary, fontSize: 12),
+          ),
+          Text("Liburan enaknya minggu berapa?",
+              style: TextStyle(
+                  color: colorTextSecondary,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16)),
+          _buildListVoting(context),
+          _buildSummaryVoters(context),
+          Divider(color: Colors.grey.shade200),
+          Padding(
+            padding: EdgeInsets.only(top: basePadding),
+            child: Text(controller.initLabelOfVoters.value,
                 style: TextStyle(
-                    color: colorTextSecondary,
+                    color: colorPrimary,
                     fontWeight: FontWeight.bold,
                     fontSize: 16)),
-            _buildListVoting(context),
-            _buildSummaryVoters(context),
-            Divider(color: Colors.grey.shade200),
-            Padding(
-              padding: EdgeInsets.only(top: basePadding),
-              child: Text(controller.initLabelOfVoters.value,
-                  style: TextStyle(
-                      color: colorPrimary,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16)),
-            ),
-            _buildListVoters(context)
-          ],
-        ),
+          ),
+          _buildListVoters(context)
+        ],
       ),
     );
   }
 
   _buildListVoting(BuildContext context) {
     return SizedBox(
-      height: MediaQuery.sizeOf(context).height / 5,
+      height: MediaQuery
+          .sizeOf(context)
+          .height / 5,
       child: ListView.builder(
           shrinkWrap: true,
           physics: BouncingScrollPhysics(),
@@ -205,19 +212,18 @@ class VotingDetailPage extends GetView<VotingDetailController> {
   _buildListVoters(BuildContext context) {
     return Expanded(
       child: Padding(padding: EdgeInsets.only(top: baseRadiusForm),
-        child: ListView.builder(
-            shrinkWrap: true,
-            physics: BouncingScrollPhysics(),
-            padding: EdgeInsets.only(top: baseRadiusForm),
-            itemCount: controller.listData.value.length,
-            itemBuilder: (context, index) {
-              return VotersDetailTile(
-                model: controller.listData.value[index],
-                onPressed: (model) async {
-                },
-              );
-            }
-        )),
+          child: ListView.builder(
+              shrinkWrap: true,
+              physics: BouncingScrollPhysics(),
+              padding: EdgeInsets.only(top: baseRadiusForm),
+              itemCount: controller.listData.value.length,
+              itemBuilder: (context, index) {
+                return VotersDetailTile(
+                  model: controller.listData.value[index],
+                  onPressed: (model) async {},
+                );
+              }
+          )),
     );
   }
 }

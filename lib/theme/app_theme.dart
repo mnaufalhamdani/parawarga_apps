@@ -4,6 +4,9 @@ import 'package:parawarga_apps/theme/app_colors.dart';
 const basePadding = 20.0;
 const baseRadius = 20.0;
 const baseRadiusForm = 7.0;
+const baseRadiusCard = 10.0;
+const basePaddingInContent = 10.0;
+const baseRadiusLabel = 10.0;
 
 ThemeData theme() {
   return ThemeData(

@@ -35,15 +35,15 @@ class ArisanTileState extends State<ArisanTile> {
   _buildContent(BuildContext context) {
     return Card(
         shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(baseRadiusForm)),
+            borderRadius: BorderRadius.circular(baseRadiusCard)),
         color: Colors.white,
         child: Column(children: [
           Container(
             width: MediaQuery.sizeOf(context).width,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(baseRadiusForm),
-                    topRight: Radius.circular(baseRadiusForm)),
+                    topLeft: Radius.circular(baseRadiusCard),
+                    topRight: Radius.circular(baseRadiusCard)),
                 color: colorPrimary),
             child: Padding(
               padding: EdgeInsets.all(baseRadiusForm),

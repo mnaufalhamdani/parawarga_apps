@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:parawarga_apps/modules/arisan/arisan_controller.dart';
+import 'package:parawarga_apps/modules/arisan/detail/arisan_detail_page.dart';
 import 'package:parawarga_apps/modules/arisan/item/arisan_tile.dart';
+import 'package:parawarga_apps/routes/app_pages.dart';
 import 'package:parawarga_apps/theme/app_colors.dart';
 import 'package:parawarga_apps/utils/strings.dart';
 
@@ -93,7 +95,11 @@ class ArisanPage extends GetView<ArisanController> {
                     bottom: (i == listArisan.length - 1) ? basePadding : baseRadiusForm),
                 child: ArisanTile(
                   model: listArisan[i],
-                  onPressed: (model) async {},
+                  onPressed: (model) async {
+                    Get.toNamed(Routes.arisanDetail, arguments: {
+                      ArisanDetailPage.argDataArisan: model
+                    });
+                  },
                 ))
         ]));
   }

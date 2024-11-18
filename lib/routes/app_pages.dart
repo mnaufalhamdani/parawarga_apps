@@ -2,6 +2,7 @@
 
 import 'package:get/get.dart';
 import 'package:parawarga_apps/modules/arisan/arisan_page.dart';
+import 'package:parawarga_apps/modules/arisan/detail/arisan_detail_page.dart';
 import 'package:parawarga_apps/modules/dashboard/dashboard_page.dart';
 import 'package:parawarga_apps/modules/login/login_page.dart';
 import 'package:parawarga_apps/modules/profile/profile_page.dart';
@@ -19,6 +20,7 @@ abstract class Routes {
   static const voting = '/voting';
   static const votingDetail = '/votingDetail';
   static const arisan = '/arisan';
+  static const arisanDetail = '/arisanDetail';
 }
 
 abstract class AppPages {
@@ -31,5 +33,6 @@ abstract class AppPages {
     GetPage(name: Routes.voting, page: () => VotingPage()),
     GetPage(name: Routes.votingDetail, page: () => VotingDetailPage()),
     GetPage(name: Routes.arisan, page: () => ArisanPage()),
+    GetPage(name: Routes.arisanDetail, page: () => ArisanDetailPage()),
   ];
 }
