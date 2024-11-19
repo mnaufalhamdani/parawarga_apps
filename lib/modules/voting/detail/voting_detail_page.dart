@@ -35,7 +35,7 @@ class VotingDetailPage extends GetView<VotingDetailController> {
                   right: basePadding,
                   bottom: baseRadiusForm),
               child:
-              Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
+                  Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
                 GestureDetector(
                     onTap: () {
                       Get.back();
@@ -60,20 +60,18 @@ class VotingDetailPage extends GetView<VotingDetailController> {
               child: Container(
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(basePadding),
-                        topRight: Radius.circular(basePadding),
+                        topLeft: Radius.circular(baseRadiusCard),
+                        topRight: Radius.circular(baseRadiusCard),
                       ),
                       color: colorPrimary),
                   child: Padding(
-                      padding: EdgeInsets.only(top: baseRadiusForm),
+                      padding: EdgeInsets.only(top: baseRadiusCard),
                       child: Container(
-                        width: MediaQuery
-                            .sizeOf(context)
-                            .width,
+                        width: MediaQuery.sizeOf(context).width,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(basePadding),
-                            topRight: Radius.circular(basePadding),
+                            topLeft: Radius.circular(baseRadiusCard),
+                            topRight: Radius.circular(baseRadiusCard),
                           ),
                           color: Colors.white,
                         ),
@@ -95,26 +93,32 @@ class VotingDetailPage extends GetView<VotingDetailController> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            "RT.001 RW.003",
-            style: TextStyle(color: colorTextSecondary, fontSize: 12),
-          ),
-          Text("Liburan enaknya minggu berapa?",
-              style: TextStyle(
-                  color: colorTextSecondary,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16)),
-          _buildListVoting(context),
+          Card(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(baseRadiusCard)),
+              color: colorPrimary,
+              child: Padding(
+                  padding: EdgeInsets.all(basePaddingInContent),
+                  child: Column(children: [
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        "RT.001 RW.003",
+                        style: TextStyle(color: colorLight, fontSize: 12),
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text("Liburan enaknya minggu berapa?",
+                          style: TextStyle(
+                              color: colorLight,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16)),
+                    ),
+                    SizedBox(height: basePaddingInContent),
+                    _buildListVoting(context),
+                  ]))),
           _buildSummaryVoters(context),
-          Divider(color: Colors.grey.shade200),
-          Padding(
-            padding: EdgeInsets.only(top: basePadding),
-            child: Text(controller.initLabelOfVoters.value,
-                style: TextStyle(
-                    color: colorPrimary,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16)),
-          ),
           _buildListVoters(context)
         ],
       ),
@@ -123,9 +127,7 @@ class VotingDetailPage extends GetView<VotingDetailController> {
 
   _buildListVoting(BuildContext context) {
     return SizedBox(
-      height: MediaQuery
-          .sizeOf(context)
-          .height / 5,
+      height: MediaQuery.sizeOf(context).height / 5,
       child: ListView.builder(
           shrinkWrap: true,
           physics: BouncingScrollPhysics(),
@@ -139,91 +141,116 @@ class VotingDetailPage extends GetView<VotingDetailController> {
                 controller.listData.value = listVotingDetail2;
               },
             );
-          }
-      ),
+          }),
     );
   }
 
   _buildSummaryVoters(BuildContext context) {
-    return Row(
-      children: [
-        Expanded(
-            flex: 1,
-            child: Padding(
-              padding: EdgeInsets.all(baseRadiusForm),
-              child: GestureDetector(
-                onTap: () {
-                  controller.initLabelOfVoters.value = labelTotalMember;
-                  controller.listData.value = listVotingDetail;
-                },
-                child: Card(
-                  color: Colors.blue.shade100,
+    return Padding(
+      padding: EdgeInsets.all(basePaddingInContent),
+      child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+        SizedBox(),
+        GestureDetector(
+            onTap: () {
+              controller.initLabelOfVoters.value = labelTotalMember;
+              controller.listData.value = listVotingDetail;
+            },
+            child: Column(children: [
+              Card(
+                  color: colorLight,
                   child: Padding(
-                      padding: EdgeInsets.all(baseRadiusForm),
-                      child: Column(
-                        children: [
-                          Text("20 Warga",
-                              style: TextStyle(
-                                  color: colorTextSecondary,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16)),
-                          Text(labelTotalMember,
-                              style: TextStyle(
-                                  color: colorTextSecondary,
-                                  fontSize: 11))
-                        ],
-                      )),
-                ),
-              ),
-            )),
-        Expanded(
-            flex: 1,
-            child: Padding(
-              padding: EdgeInsets.all(baseRadiusForm),
-              child: GestureDetector(
-                onTap: () {
-                  controller.initLabelOfVoters.value = labelNotVote;
-                  controller.listData.value = listVotingDetail2;
-                },
-                child: Card(
-                  color: Colors.red.shade100,
+                      padding: EdgeInsets.all(basePaddingInContent),
+                      child: SizedBox(
+                        width: 40,
+                        height: 40,
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: Column(children: [
+                            Text("20",
+                                style: TextStyle(
+                                    color: colorTextSecondary,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 22)),
+                            Text("Warga",
+                                style: TextStyle(
+                                    color: colorTextSecondary, fontSize: 12))
+                          ]),
+                        ),
+                      ))),
+              Text(labelTotalMember,
+                  style: TextStyle(
+                      color: colorTextPrimary,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 12))
+            ])),
+        GestureDetector(
+            onTap: () {
+              controller.initLabelOfVoters.value = labelNotVote;
+              controller.listData.value = listVotingDetail2;
+            },
+            child: Column(children: [
+              Card(
+                  color: colorLight,
                   child: Padding(
-                      padding: EdgeInsets.all(baseRadiusForm),
-                      child: Column(
-                        children: [
-                          Text("8 Warga",
-                              style: TextStyle(
-                                  color: colorTextSecondary,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16)),
-                          Text(labelNotVote,
-                              style: TextStyle(
-                                  color: colorTextSecondary,
-                                  fontSize: 11))
-                        ],
-                      )),
-                ),
-              ),
-            )),
-      ],
+                      padding: EdgeInsets.all(basePaddingInContent),
+                      child: SizedBox(
+                        width: 40,
+                        height: 40,
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: Column(children: [
+                            Text("8",
+                                style: TextStyle(
+                                    color: colorTextSecondary,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 22)),
+                            Text("Warga",
+                                style: TextStyle(
+                                    color: colorTextSecondary, fontSize: 12))
+                          ]),
+                        ),
+                      ))),
+              Text(labelNotVote,
+                  style: TextStyle(
+                      color: colorTextPrimary,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 12))
+            ])),
+        SizedBox()
+      ]),
     );
   }
 
   _buildListVoters(BuildContext context) {
     return Expanded(
-      child: Padding(padding: EdgeInsets.only(top: baseRadiusForm),
-          child: ListView.builder(
-              shrinkWrap: true,
-              physics: BouncingScrollPhysics(),
-              padding: EdgeInsets.only(top: baseRadiusForm),
-              itemCount: controller.listData.value.length,
-              itemBuilder: (context, index) {
-                return VotersDetailTile(
-                  model: controller.listData.value[index],
-                  onPressed: (model) async {},
-                );
-              }
-          )),
-    );
+        child: Card(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(baseRadiusCard)),
+            color: Colors.white,
+            elevation: 5,
+            child: Padding(
+                padding: EdgeInsets.all(basePaddingInContent),
+                child: Column(children: [
+                  Text(controller.initLabelOfVoters.value,
+                      style: TextStyle(
+                          color: colorPrimary,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16)),
+                  Expanded(
+                    child: Padding(
+                        padding: EdgeInsets.only(top: baseRadiusForm),
+                        child: ListView.builder(
+                            shrinkWrap: true,
+                            physics: BouncingScrollPhysics(),
+                            padding: EdgeInsets.only(top: baseRadiusForm),
+                            itemCount: controller.listData.value.length,
+                            itemBuilder: (context, index) {
+                              return VotersDetailTile(
+                                model: controller.listData.value[index],
+                                onPressed: (model) async {},
+                              );
+                            })),
+                  ),
+                ]))));
   }
 }

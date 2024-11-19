@@ -200,7 +200,7 @@ class DashboardPage extends GetView<DashboardController> {
                               child: SizedBox(
                                   width: 35,
                                   height: 35,
-                                  child: Icon(Iconsax.card_coin, color: colorDark)))),
+                                  child: Icon(Iconsax.convert_3d_cube, color: colorDark)))),
                       Text(labelArisan,
                           style: TextStyle(
                               color: colorTextPrimary,

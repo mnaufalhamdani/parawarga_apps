@@ -12,6 +12,7 @@ import 'package:parawarga_apps/theme/app_colors.dart';
 import 'package:parawarga_apps/utils/strings.dart';
 
 import '../../../theme/app_theme.dart';
+import '../../../theme/standard_button_primary.dart';
 
 class ArisanDetailPage extends GetView<ArisanDetailController> {
   const ArisanDetailPage({super.key});
@@ -182,7 +183,7 @@ class ArisanDetailPage extends GetView<ArisanDetailController> {
                         child: Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
-                            "5",
+                            "5 / 9",
                             style: TextStyle(
                                 color: colorLight,
                                 fontSize: 12,
@@ -501,7 +502,7 @@ class ArisanDetailPage extends GetView<ArisanDetailController> {
                       SizedBox(height: basePadding),
                       Visibility(
                         visible: (controller.bottomSheetData.value["isEnableButton"] == true) ? true : false,
-                        child: ElevatedButton(
+                        child: StandardButtonPrimary(
                           onPressed: () {
                             if (controller.bottomSheetData.value["isEnableButton"] == true) {
                               controller.bottomSheetData.value["isEnableButton"] = false;
@@ -513,16 +514,7 @@ class ArisanDetailPage extends GetView<ArisanDetailController> {
                               });
                             }
                           },
-                          style: ButtonStyle(
-                              backgroundColor: WidgetStateProperty.all(
-                                  colorSecondary),
-                              shape: WidgetStateProperty.all(
-                                  RoundedRectangleBorder(
-                                      borderRadius:
-                                      BorderRadius.circular(baseRadiusCard)))),
-                          child: Text(labelRandomNow, style: TextStyle(
-                              color: colorTextSecondary,
-                              fontWeight: FontWeight.bold)),
+                          titleHint: labelRandomNow,
                         ),
                       ),
                       Visibility(

@@ -34,7 +34,7 @@ class VotingDetailTileState extends State<VotingDetailTile> {
           child: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(baseRadiusForm)),
-              color: Colors.grey.shade50
+              color: Colors.white
             ),
             child: Padding(
               padding: EdgeInsets.all(baseRadiusForm),
