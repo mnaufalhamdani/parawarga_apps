@@ -73,3 +73,4 @@ String labelSubsciption = 'Iuran';
 String labelTotal = 'Total';
 String labelDate = 'Tanggal';
 String labelPeriode = 'Periode';
+String labelRandomNow = 'Acak Sekarang';
