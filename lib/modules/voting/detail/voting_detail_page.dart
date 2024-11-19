@@ -149,7 +149,6 @@ class VotingDetailPage extends GetView<VotingDetailController> {
     return Padding(
       padding: EdgeInsets.all(basePaddingInContent),
       child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-        SizedBox(),
         GestureDetector(
             onTap: () {
               controller.initLabelOfVoters.value = labelTotalMember;
@@ -183,6 +182,9 @@ class VotingDetailPage extends GetView<VotingDetailController> {
                       fontWeight: FontWeight.bold,
                       fontSize: 12))
             ])),
+        SizedBox(width: basePaddingInContent),
+        Expanded(child: _buildContentAdv(context)),
+        SizedBox(width: basePaddingInContent),
         GestureDetector(
             onTap: () {
               controller.initLabelOfVoters.value = labelNotVote;
@@ -216,9 +218,29 @@ class VotingDetailPage extends GetView<VotingDetailController> {
                       fontWeight: FontWeight.bold,
                       fontSize: 12))
             ])),
-        SizedBox()
       ]),
     );
+  }
+
+  _buildContentAdv(BuildContext context) {
+    return Visibility(
+        child: Padding(
+          padding: EdgeInsets.zero,
+          child: Card(
+            shape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(baseRadiusCard)),
+            color: Colors.white,
+            elevation: 2,
+            child: Container(
+                height: MediaQuery.sizeOf(context).width / 6,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(baseRadiusForm),
+                    image: DecorationImage(
+                        image: NetworkImage(
+                            "https://bithourproduction.com/blog/wp-content/uploads/2023/08/EmJaSRjUcAAPkTv.jpg"),
+                        fit: BoxFit.cover))),
+          ),
+        ));
   }
 
   _buildListVoters(BuildContext context) {
@@ -227,7 +249,7 @@ class VotingDetailPage extends GetView<VotingDetailController> {
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(baseRadiusCard)),
             color: Colors.white,
-            elevation: 5,
+            elevation: 2,
             child: Padding(
                 padding: EdgeInsets.all(basePaddingInContent),
                 child: Column(children: [

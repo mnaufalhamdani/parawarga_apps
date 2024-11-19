@@ -38,7 +38,8 @@ class VotingTileState extends State<VotingTile> {
 
   _buildContentVoted() {
     return Card(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(baseRadiusCard)),
         color: Colors.white,
         elevation: 2,
         child: Column(children: [

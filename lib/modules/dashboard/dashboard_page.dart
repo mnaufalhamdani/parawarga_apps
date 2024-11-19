@@ -71,12 +71,12 @@ class DashboardPage extends GetView<DashboardController> {
       child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(basePadding),
-                topRight: Radius.circular(basePadding)),
+                topLeft: Radius.circular(baseRadiusCard),
+                topRight: Radius.circular(baseRadiusCard)),
             color: colorPrimary,
           ),
         child: Padding(
-          padding: EdgeInsets.only(top: baseRadiusForm),
+          padding: EdgeInsets.only(top: baseRadiusCard),
           child: Column(
             children: [
               // Padding(
@@ -97,14 +97,16 @@ class DashboardPage extends GetView<DashboardController> {
               Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(basePadding),
-                        topRight: Radius.circular(basePadding)),
+                        topLeft: Radius.circular(baseRadiusCard),
+                        topRight: Radius.circular(baseRadiusCard)),
                     color: Colors.white,
                   ),
                   child: Padding(
                       padding: EdgeInsets.only(
                           left: basePadding, right: basePadding, top: basePadding),
                       child: Card(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(baseRadiusCard)),
                           color: colorPrimary,
                           child: Padding(
                               padding: EdgeInsets.all(baseRadiusForm),

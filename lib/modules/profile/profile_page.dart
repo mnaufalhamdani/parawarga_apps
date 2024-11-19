@@ -49,17 +49,17 @@ class ProfilePage extends GetView<ProfileController> {
         child: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(basePadding),
-                  topRight: Radius.circular(basePadding)),
+                  topLeft: Radius.circular(baseRadiusCard),
+                  topRight: Radius.circular(baseRadiusCard)),
               color: colorPrimary,
             ),
             child: Padding(
-                padding: EdgeInsets.only(top: baseRadiusForm),
+                padding: EdgeInsets.only(top: baseRadiusCard),
                 child: Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(basePadding),
-                          topRight: Radius.circular(basePadding)),
+                          topLeft: Radius.circular(baseRadiusCard),
+                          topRight: Radius.circular(baseRadiusCard)),
                       color: Colors.white,
                     ),
                     child: Padding(
@@ -70,8 +70,8 @@ class ProfilePage extends GetView<ProfileController> {
                         child: Container(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.all(
-                                  Radius.circular(basePadding)),
-                              color: colorLight.withOpacity(0.5),
+                                  Radius.circular(baseRadiusCard)),
+                              color: colorLight,
                             ),
                             child: Padding(
                               padding: EdgeInsets.all(baseRadiusForm),
@@ -102,7 +102,7 @@ class ProfilePage extends GetView<ProfileController> {
                                                 style: TextStyle(
                                                     color: colorTextPrimary,
                                                     fontWeight: FontWeight.bold,
-                                                    fontSize: 12),
+                                                    fontSize: 16),
                                                 maxLines: 1,
                                                 overflow: TextOverflow.ellipsis,
                                               ),
@@ -136,8 +136,8 @@ class ProfilePage extends GetView<ProfileController> {
             left: basePadding, right: basePadding),
         child: Container(
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(basePadding)),
-              color: colorLight.withOpacity(0.5),
+              borderRadius: BorderRadius.all(Radius.circular(baseRadiusCard)),
+              color: colorLight,
             ),
             child: Padding(
               padding: EdgeInsets.all(baseRadiusForm),
@@ -289,8 +289,8 @@ class ProfilePage extends GetView<ProfileController> {
             left: basePadding, right: basePadding, top: basePadding),
         child: Container(
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(basePadding)),
-              color: colorLight.withOpacity(0.5),
+              borderRadius: BorderRadius.all(Radius.circular(baseRadiusCard)),
+              color: colorLight,
             ),
             child: Padding(
               padding: EdgeInsets.all(baseRadiusForm),

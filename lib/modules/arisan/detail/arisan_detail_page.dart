@@ -76,18 +76,18 @@ class ArisanDetailPage extends GetView<ArisanDetailController> {
               child: Container(
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(basePadding),
-                        topRight: Radius.circular(basePadding),
+                        topLeft: Radius.circular(baseRadiusCard),
+                        topRight: Radius.circular(baseRadiusCard),
                       ),
                       color: colorPrimary),
                   child: Padding(
-                      padding: EdgeInsets.only(top: baseRadiusForm),
+                      padding: EdgeInsets.only(top: baseRadiusCard),
                       child: Container(
                         width: double.infinity,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(basePadding),
-                            topRight: Radius.circular(basePadding),
+                            topLeft: Radius.circular(baseRadiusCard),
+                            topRight: Radius.circular(baseRadiusCard),
                           ),
                           color: Colors.white,
                         ),
@@ -352,7 +352,7 @@ class ArisanDetailPage extends GetView<ArisanDetailController> {
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(baseRadiusCard)),
         color: Colors.white,
-        elevation: 5,
+        elevation: 2,
         child: Padding(
           padding: EdgeInsets.all(basePaddingInContent),
           child: Column(children: [
