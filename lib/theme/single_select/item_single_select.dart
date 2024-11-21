@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../app_colors.dart';
 import 'single_select_domain.dart';
@@ -24,7 +25,7 @@ class ItemSingleSelect extends StatelessWidget {
         child: Padding(
             padding: EdgeInsets.only(left: 20, right: 20),
             child: SizedBox(
-                width: double.infinity,
+                width: Get.width,
                 child: TextButton(
                   onPressed: () {
                     _onTap();

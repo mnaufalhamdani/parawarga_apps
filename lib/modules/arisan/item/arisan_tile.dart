@@ -39,7 +39,7 @@ class ArisanTileState extends State<ArisanTile> {
         color: Colors.white,
         child: Column(children: [
           Container(
-            width: MediaQuery.sizeOf(context).width,
+            width: Get.width,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(baseRadiusCard),

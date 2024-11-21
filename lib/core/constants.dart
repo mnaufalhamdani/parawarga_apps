@@ -225,6 +225,12 @@ List<Map<String, dynamic>> listArisan = [
   },
 ];
 
+List<Map<String, dynamic>> listTagihan = [
+  {"name": "Iuran Kas 2024", "note": "Mohon dibayar diawal bulan", "nominal": "100.000", "isRequired": true, "expired": null, "isPeriode": true, "periodeStatus":"month", "periodeRemaining":"5"},
+  {"name": "Sumbangan Masjid", "note": "Mohon dibayar seiklasnya", "nominal": "5.000", "isRequired": false, "expired": "2-12-2024", "isPeriode": true, "periodeStatus":"week", "periodeRemaining":"5"},
+  {"name": "Sumbangan Jembatan", "note": "", "nominal": "30.000", "isRequired": false, "isPeriode": false, "expired": "12-12-2024"},
+];
+
 String generateRandomId() {
   final random = Random();
   const length = 11;

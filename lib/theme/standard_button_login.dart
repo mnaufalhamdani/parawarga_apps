@@ -41,7 +41,7 @@ class StandardButtonLoginState extends State<StandardButtonLogin> {
     return Padding(
         padding: widget.padding ?? EdgeInsets.only(left: 20, top: 20, bottom: 20),
         child: SizedBox(
-          width: double.infinity,
+          width: Get.width,
           child: ElevatedButton(
             onPressed: () {
               if(widget.isEnabled.isNull || widget.isEnabled == true) {

@@ -44,7 +44,7 @@ class VotingTileState extends State<VotingTile> {
         elevation: 2,
         child: Column(children: [
           Container(
-              width: MediaQuery.sizeOf(context).width,
+              width: Get.width,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(baseRadiusCard),
@@ -153,7 +153,7 @@ class VotingTileState extends State<VotingTile> {
         elevation: 2,
         child: Column(children: [
           Container(
-              width: MediaQuery.sizeOf(context).width,
+              width: Get.width,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(baseRadiusCard),

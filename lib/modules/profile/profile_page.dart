@@ -40,7 +40,7 @@ class ProfilePage extends GetView<ProfileController> {
         child: Padding(
             padding: EdgeInsets.only(
                 left: basePadding, right: basePadding, top: 50, bottom: 85),
-            child: SizedBox(width: double.infinity, height: 50)));
+            child: SizedBox(width: Get.width, height: 50)));
   }
 
   _buildContentTop(BuildContext context) {

@@ -41,7 +41,7 @@ class StandardButtonRegisterState extends State<StandardButtonRegister> {
     return Padding(
         padding: widget.padding ?? EdgeInsets.only(left: basePadding, right: basePadding, top: 10, bottom: 10),
         child: SizedBox(
-          width: double.infinity,
+          width: Get.width,
           child: ElevatedButton(
             onPressed: () {
               if(widget.isEnabled.isNull || widget.isEnabled == true) {

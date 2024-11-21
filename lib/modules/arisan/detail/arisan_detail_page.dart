@@ -83,7 +83,7 @@ class ArisanDetailPage extends GetView<ArisanDetailController> {
                   child: Padding(
                       padding: EdgeInsets.only(top: baseRadiusCard),
                       child: Container(
-                        width: double.infinity,
+                        width: Get.width,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(baseRadiusCard),
@@ -457,9 +457,7 @@ class ArisanDetailPage extends GetView<ArisanDetailController> {
                       Padding(
                         padding: const EdgeInsets.all(basePadding),
                         child: SizedBox(
-                          height: MediaQuery
-                              .sizeOf(context)
-                              .height / 3,
+                          height: Get.height / 3,
                           child: FortuneWheel(
                             indicators: [
                               FortuneIndicator(
@@ -525,7 +523,7 @@ class ArisanDetailPage extends GetView<ArisanDetailController> {
                             color: Colors.white,
                             child: Column(children: [
                               Container(
-                                width: MediaQuery.sizeOf(context).width,
+                                width: Get.width,
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.only(
                                         topLeft: Radius.circular(baseRadiusCard),

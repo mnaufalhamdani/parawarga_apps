@@ -8,6 +8,8 @@ import 'package:parawarga_apps/modules/login/login_page.dart';
 import 'package:parawarga_apps/modules/profile/profile_page.dart';
 import 'package:parawarga_apps/modules/register/register_page.dart';
 import 'package:parawarga_apps/modules/splash/splash_page.dart';
+import 'package:parawarga_apps/modules/tagihan/detail/tagihan_detail_page.dart';
+import 'package:parawarga_apps/modules/tagihan/tagihan_page.dart';
 import 'package:parawarga_apps/modules/voting/detail/voting_detail_page.dart';
 import 'package:parawarga_apps/modules/voting/voting_page.dart';
 
@@ -21,6 +23,8 @@ abstract class Routes {
   static const votingDetail = '/votingDetail';
   static const arisan = '/arisan';
   static const arisanDetail = '/arisanDetail';
+  static const tagihan = '/tagihan';
+  static const tagihanDetail = '/tagihanDetail';
 }
 
 abstract class AppPages {
@@ -34,5 +38,7 @@ abstract class AppPages {
     GetPage(name: Routes.votingDetail, page: () => VotingDetailPage()),
     GetPage(name: Routes.arisan, page: () => ArisanPage()),
     GetPage(name: Routes.arisanDetail, page: () => ArisanDetailPage()),
+    GetPage(name: Routes.tagihan, page: () => TagihanPage()),
+    GetPage(name: Routes.tagihanDetail, page: () => TagihanDetailPage()),
   ];
 }

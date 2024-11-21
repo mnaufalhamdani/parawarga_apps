@@ -210,7 +210,9 @@ class DashboardPage extends GetView<DashboardController> {
                               fontSize: 12))
                     ])),
                 GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      Get.toNamed(Routes.tagihan);
+                    },
                     child: Column(children: [
                       Card(
                           color: colorLight,

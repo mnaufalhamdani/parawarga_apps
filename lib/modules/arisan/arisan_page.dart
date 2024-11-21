@@ -65,7 +65,7 @@ class ArisanPage extends GetView<ArisanController> {
                   child: Padding(
                       padding: EdgeInsets.only(top: baseRadiusCard),
                       child: Container(
-                        width: double.infinity,
+                        width: Get.width,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(baseRadiusCard),

@@ -67,7 +67,7 @@ class VotingDetailPage extends GetView<VotingDetailController> {
                   child: Padding(
                       padding: EdgeInsets.only(top: baseRadiusCard),
                       child: Container(
-                        width: MediaQuery.sizeOf(context).width,
+                        width: Get.width,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(baseRadiusCard),
@@ -127,7 +127,7 @@ class VotingDetailPage extends GetView<VotingDetailController> {
 
   _buildListVoting(BuildContext context) {
     return SizedBox(
-      height: MediaQuery.sizeOf(context).height / 5,
+      height: Get.height / 5,
       child: ListView.builder(
           shrinkWrap: true,
           physics: BouncingScrollPhysics(),
@@ -232,7 +232,7 @@ class VotingDetailPage extends GetView<VotingDetailController> {
             color: Colors.white,
             elevation: 2,
             child: Container(
-                height: MediaQuery.sizeOf(context).width / 6,
+                height: Get.width / 6,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(baseRadiusForm),
                     image: DecorationImage(
