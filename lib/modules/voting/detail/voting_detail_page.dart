@@ -24,37 +24,39 @@ class VotingDetailPage extends GetView<VotingDetailController> {
 
   _buildContentTop(BuildContext context) {
     return Container(
-      color: Colors.grey.shade100,
+      color: colorBackground,
       child: Padding(
-        padding: EdgeInsets.only(top: 50),
+        padding: EdgeInsets.only(top: MediaQuery.of(context).viewPadding.top),
         child: Column(
           children: [
-            Padding(
-              padding: EdgeInsets.only(
-                  left: basePadding,
-                  right: basePadding,
-                  bottom: baseRadiusForm),
-              child:
-                  Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
-                GestureDetector(
-                    onTap: () {
-                      Get.back();
-                    },
-                    child: Icon(Iconsax.arrow_left, color: colorPrimary)),
-                Expanded(
-                  child: Padding(
-                      padding: EdgeInsets.only(left: basePadding),
-                      child: Text(
-                        labelVotingDetail,
-                        style: TextStyle(
-                            color: colorPrimary,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      )),
-                )
-              ]),
+            SizedBox(
+              height: MediaQuery.of(context).viewPadding.top * 2,
+              child: Padding(
+                padding: EdgeInsets.only(
+                    left: basePadding,
+                    right: basePadding),
+                child:
+                    Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
+                  GestureDetector(
+                      onTap: () {
+                        Get.back();
+                      },
+                      child: Icon(Iconsax.arrow_left, color: colorPrimary)),
+                  Expanded(
+                    child: Padding(
+                        padding: EdgeInsets.only(left: basePadding),
+                        child: Text(
+                          labelVotingDetail,
+                          style: TextStyle(
+                              color: colorPrimary,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        )),
+                  )
+                ]),
+              ),
             ),
             Expanded(
               child: Container(
@@ -73,7 +75,7 @@ class VotingDetailPage extends GetView<VotingDetailController> {
                             topLeft: Radius.circular(baseRadiusCard),
                             topRight: Radius.circular(baseRadiusCard),
                           ),
-                          color: Colors.white,
+                          color: colorBackground,
                         ),
                         child: Obx(() {
                           return _buildContentMainMenu(context);

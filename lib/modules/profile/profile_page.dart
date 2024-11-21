@@ -60,7 +60,7 @@ class ProfilePage extends GetView<ProfileController> {
                       borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(baseRadiusCard),
                           topRight: Radius.circular(baseRadiusCard)),
-                      color: Colors.white,
+                      color: colorBackground,
                     ),
                     child: Padding(
                         padding: EdgeInsets.only(

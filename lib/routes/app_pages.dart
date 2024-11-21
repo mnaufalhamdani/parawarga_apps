@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:parawarga_apps/modules/arisan/arisan_page.dart';
 import 'package:parawarga_apps/modules/arisan/detail/arisan_detail_page.dart';
 import 'package:parawarga_apps/modules/dashboard/dashboard_page.dart';
+import 'package:parawarga_apps/modules/history/history_page.dart';
 import 'package:parawarga_apps/modules/login/login_page.dart';
 import 'package:parawarga_apps/modules/profile/profile_page.dart';
 import 'package:parawarga_apps/modules/register/register_page.dart';
@@ -25,6 +26,7 @@ abstract class Routes {
   static const arisanDetail = '/arisanDetail';
   static const tagihan = '/tagihan';
   static const tagihanDetail = '/tagihanDetail';
+  static const history = '/history';
 }
 
 abstract class AppPages {
@@ -40,5 +42,6 @@ abstract class AppPages {
     GetPage(name: Routes.arisanDetail, page: () => ArisanDetailPage()),
     GetPage(name: Routes.tagihan, page: () => TagihanPage()),
     GetPage(name: Routes.tagihanDetail, page: () => TagihanDetailPage()),
+    GetPage(name: Routes.history, page: () => HistoryPage()),
   ];
 }

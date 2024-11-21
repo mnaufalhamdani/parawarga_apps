@@ -99,7 +99,7 @@ class DashboardPage extends GetView<DashboardController> {
                     borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(baseRadiusCard),
                         topRight: Radius.circular(baseRadiusCard)),
-                    color: Colors.white,
+                    color: colorBackground,
                   ),
                   child: Padding(
                       padding: EdgeInsets.only(
@@ -229,7 +229,9 @@ class DashboardPage extends GetView<DashboardController> {
                               fontSize: 12))
                     ])),
                 GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      Get.toNamed(Routes.history);
+                    },
                     child: Column(children: [
                       Card(
                           color: colorLight,
@@ -240,7 +242,7 @@ class DashboardPage extends GetView<DashboardController> {
                                 height: 35,
                                 child: Icon(Iconsax.timer, color: colorDark)))
                       ),
-                      Text(labelHistori,
+                      Text(labelHistory,
                           style: TextStyle(
                               color: colorTextPrimary,
                               fontWeight: FontWeight.bold,

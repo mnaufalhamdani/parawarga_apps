@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:parawarga_apps/modules/arisan/arisan_controller.dart';
 import 'package:parawarga_apps/modules/arisan/detail/arisan_detail_controller.dart';
 import 'package:parawarga_apps/modules/dashboard/dashboard_controller.dart';
+import 'package:parawarga_apps/modules/history/history_controller.dart';
 import 'package:parawarga_apps/modules/login/login_controller.dart';
 import 'package:parawarga_apps/modules/profile/profile_controller.dart';
 import 'package:parawarga_apps/modules/register/register_controller.dart';
@@ -26,5 +27,6 @@ class BindingDependency implements Bindings {
     Get.lazyPut(() => ArisanDetailController(), fenix: true);
     Get.lazyPut(() => TagihanController(), fenix: true);
     Get.lazyPut(() => TagihanDetailController(), fenix: true);
+    Get.lazyPut(() => HistoryController(), fenix: true);
   }
 }

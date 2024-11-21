@@ -10,7 +10,7 @@ const baseRadiusLabel = 10.0;
 
 ThemeData theme() {
   return ThemeData(
-      scaffoldBackgroundColor: Colors.white,
+      scaffoldBackgroundColor: colorBackground,
       fontFamily: 'bariol',
       appBarTheme: appBarTheme(),
       textTheme: const TextTheme(bodyMedium: TextStyle(height: 1))
