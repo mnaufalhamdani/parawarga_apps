@@ -231,6 +231,14 @@ List<Map<String, dynamic>> listTagihan = [
   {"name": "Sumbangan Jembatan", "note": "", "nominal": "30.000", "isRequired": false, "isPeriode": false, "expired": "12-12-2024"},
 ];
 
+List<Map<String, dynamic>> listHistory = [
+  {"category": "arisan", "name": "Arisan Pkk Tahun 1", "area": "RT.001 RW.003", "created": "30-10-2024", "id": 1},
+  {"category": "tagihan", "name": "Iuran Kas 2024", "area": "RT.001 RW.003", "created": "2-12-2024", "id": 2},
+  {"category": "tagihan", "name": "Sumbangan Masjid", "area": "RT.002 RW.003", "created": "2-2-2024", "id": 3},
+  {"category": "laporan", "name": "Jembatan tidak roboh", "area": "RT.001 RW.004", "created": "10-10-2024", "id": 4},//iconsax.message_text
+  {"category": "alarm", "name": "Tombol Panik", "area": "RT.001 RW.004", "created": "11-11-2024", "id": 5},
+];
+
 String generateRandomId() {
   final random = Random();
   const length = 11;

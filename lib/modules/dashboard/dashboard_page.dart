@@ -34,6 +34,16 @@ class DashboardPage extends GetView<DashboardController> {
           // _buildContentVoting(context),
         ],
       )),
+      floatingActionButton: Obx(() =>
+          Visibility(visible: controller.initLoading.value,
+              child: FloatingActionButton(
+                  shape: CircleBorder(),
+                  backgroundColor: Colors.red,
+                  onPressed: () {},
+                  child: Icon(Iconsax.alarm, color: Colors.white)
+              )
+          )),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
 
