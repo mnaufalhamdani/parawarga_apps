@@ -290,7 +290,9 @@ class DashboardPage extends GetView<DashboardController> {
                                   : basePadding / 2),
                           child: DashboardInfoTile(
                             model: listInfo[i],
-                            onPressed: (model) async {},
+                            onPressed: (model) async {
+                              Get.toNamed(Routes.infoDetail);
+                            },
                           ))
                   ])))
         ],

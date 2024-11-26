@@ -5,6 +5,8 @@ import 'package:parawarga_apps/modules/arisan/arisan_page.dart';
 import 'package:parawarga_apps/modules/arisan/detail/arisan_detail_page.dart';
 import 'package:parawarga_apps/modules/dashboard/dashboard_page.dart';
 import 'package:parawarga_apps/modules/history/history_page.dart';
+import 'package:parawarga_apps/modules/info/detail/info_detail_page.dart';
+import 'package:parawarga_apps/modules/info/info_page.dart';
 import 'package:parawarga_apps/modules/laporan/detail/laporan_detail_page.dart';
 import 'package:parawarga_apps/modules/laporan/laporan_page.dart';
 import 'package:parawarga_apps/modules/login/login_page.dart';
@@ -31,6 +33,8 @@ abstract class Routes {
   static const history = '/history';
   static const laporan = '/laporan';
   static const laporanDetail = '/laporanDetail';
+  static const info = '/info';
+  static const infoDetail = '/infoDetail';
 }
 
 abstract class AppPages {
@@ -49,5 +53,7 @@ abstract class AppPages {
     GetPage(name: Routes.history, page: () => HistoryPage()),
     GetPage(name: Routes.laporan, page: () => LaporanPage()),
     GetPage(name: Routes.laporanDetail, page: () => LaporanDetailPage()),
+    GetPage(name: Routes.info, page: () => InfoPage()),
+    GetPage(name: Routes.infoDetail, page: () => InfoDetailPage()),
   ];
 }
