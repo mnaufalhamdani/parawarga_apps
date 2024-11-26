@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:parawarga_apps/modules/arisan/detail/arisan_detail_page.dart';
 import 'package:parawarga_apps/modules/laporan/item/laporan_tile.dart';
 import 'package:parawarga_apps/modules/laporan/laporan_controller.dart';
 import 'package:parawarga_apps/routes/app_pages.dart';
@@ -99,9 +98,7 @@ class LaporanPage extends GetView<LaporanController> {
                 child: LaporanTile(
                   model: listLaporan[i],
                   onPressed: (model) async {
-                    Get.toNamed(Routes.arisanDetail, arguments: {
-                      ArisanDetailPage.argDataArisan: model
-                    });
+                    Get.toNamed(Routes.laporanDetail);
                   },
                 ))
         ]));

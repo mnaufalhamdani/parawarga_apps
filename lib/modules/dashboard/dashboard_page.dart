@@ -338,6 +338,7 @@ class DashboardPage extends GetView<DashboardController> {
                     return DashboardLaporanTile(
                       model: listLaporan[index],
                       onPressed: (model) async {
+                        Get.toNamed(Routes.laporanDetail);
                       },
                     );
                   }
