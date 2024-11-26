@@ -3,10 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:parawarga_apps/modules/arisan/detail/arisan_detail_page.dart';
 import 'package:parawarga_apps/modules/history/history_controller.dart';
 import 'package:parawarga_apps/modules/history/item/history_tile.dart';
-import 'package:parawarga_apps/routes/app_pages.dart';
 import 'package:parawarga_apps/theme/app_colors.dart';
 import 'package:parawarga_apps/utils/strings.dart';
 
@@ -99,9 +97,6 @@ class HistoryPage extends GetView<HistoryController> {
                 child: HistoryTile(
                   model: listHistory[i],
                   onPressed: (model) async {
-                    Get.toNamed(Routes.arisanDetail, arguments: {
-                      ArisanDetailPage.argDataArisan: model
-                    });
                   },
                 ))
         ]));

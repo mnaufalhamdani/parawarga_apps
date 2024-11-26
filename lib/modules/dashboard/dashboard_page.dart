@@ -191,7 +191,7 @@ class DashboardPage extends GetView<DashboardController> {
                     },
                     child: Column(children: [
                       Card(
-                          color: colorLight,
+                          color: colorSecondary,
                           child: Padding(
                               padding: EdgeInsets.all(baseRadiusForm),
                               child: SizedBox(
@@ -210,7 +210,7 @@ class DashboardPage extends GetView<DashboardController> {
                     },
                     child: Column(children: [
                       Card(
-                          color: colorLight,
+                          color: colorSecondary,
                           child: Padding(
                               padding: EdgeInsets.all(baseRadiusForm),
                               child: SizedBox(
@@ -229,7 +229,7 @@ class DashboardPage extends GetView<DashboardController> {
                     },
                     child: Column(children: [
                       Card(
-                          color: colorLight,
+                          color: colorSecondary,
                           child: Padding(
                               padding: EdgeInsets.all(baseRadiusForm),
                               child: SizedBox(
@@ -248,7 +248,7 @@ class DashboardPage extends GetView<DashboardController> {
                     },
                     child: Column(children: [
                       Card(
-                          color: colorLight,
+                          color: colorSecondary,
                           child: Padding(
                               padding: EdgeInsets.all(baseRadiusForm),
                               child: SizedBox(
@@ -274,12 +274,31 @@ class DashboardPage extends GetView<DashboardController> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-              padding: EdgeInsets.only(left: basePadding),
-              child: Text(labelInfo,
-                  style: TextStyle(
-                      color: colorPrimary,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20))),
+              padding: EdgeInsets.only(left: basePadding, right: basePadding),
+              child: Row(
+                children: [
+                  Text(labelInfo,
+                      style: TextStyle(
+                          color: colorPrimary,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20)),
+                  Expanded(
+                    flex: 1,
+                    child: Align(
+                      alignment: Alignment.centerRight,
+                      child: GestureDetector(
+                        onTap: () {
+                          Get.toNamed(Routes.info);
+                        },
+                        child: Card(
+                            color: colorSecondary,
+                            child: Padding(
+                                padding: EdgeInsets.all(baseRadiusForm),
+                                child: Icon(Iconsax.arrow_right_3, color: colorDark))),
+                      ),
+                    ))
+                ],
+              )),
           Container(
               child: SingleChildScrollView(
                   physics: BouncingScrollPhysics(),
@@ -331,11 +350,30 @@ class DashboardPage extends GetView<DashboardController> {
             padding: EdgeInsets.only(top: basePadding,left: basePadding, right: basePadding),
             child:
             Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text(labelLaporan,
-                  style: TextStyle(
-                      color: colorPrimary,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20)),
+              Row(
+                children: [
+                  Text(labelLaporan,
+                      style: TextStyle(
+                          color: colorPrimary,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20)),
+                  Expanded(
+                      flex: 1,
+                      child: Align(
+                        alignment: Alignment.centerRight,
+                        child: GestureDetector(
+                          onTap: () {
+                            Get.toNamed(Routes.laporan);
+                          },
+                          child: Card(
+                              color: colorSecondary,
+                              child: Padding(
+                                  padding: EdgeInsets.all(baseRadiusForm),
+                                  child: Icon(Iconsax.arrow_right_3, color: colorDark))),
+                        ),
+                      ))
+                ],
+              ),
             Transform.translate(offset: Offset(0, -20), child: ListView.builder(
                   shrinkWrap: true,
                   physics: NeverScrollableScrollPhysics(),

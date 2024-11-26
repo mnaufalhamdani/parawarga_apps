@@ -158,7 +158,7 @@ class VotingDetailPage extends GetView<VotingDetailController> {
             },
             child: Column(children: [
               Card(
-                  color: colorLight,
+                  color: colorSecondary,
                   child: Padding(
                       padding: EdgeInsets.all(basePaddingInContent),
                       child: SizedBox(
@@ -169,12 +169,12 @@ class VotingDetailPage extends GetView<VotingDetailController> {
                           child: Column(children: [
                             Text("20",
                                 style: TextStyle(
-                                    color: colorTextSecondary,
+                                    color: colorDark,
                                     fontWeight: FontWeight.bold,
                                     fontSize: 22)),
                             Text("Warga",
                                 style: TextStyle(
-                                    color: colorTextSecondary, fontSize: 12))
+                                    color: colorDark, fontSize: 12))
                           ]),
                         ),
                       ))),
@@ -194,7 +194,7 @@ class VotingDetailPage extends GetView<VotingDetailController> {
             },
             child: Column(children: [
               Card(
-                  color: colorLight,
+                  color: colorSecondary,
                   child: Padding(
                       padding: EdgeInsets.all(basePaddingInContent),
                       child: SizedBox(
@@ -205,12 +205,12 @@ class VotingDetailPage extends GetView<VotingDetailController> {
                           child: Column(children: [
                             Text("8",
                                 style: TextStyle(
-                                    color: colorTextSecondary,
+                                    color: colorDark,
                                     fontWeight: FontWeight.bold,
                                     fontSize: 22)),
                             Text("Warga",
                                 style: TextStyle(
-                                    color: colorTextSecondary, fontSize: 12))
+                                    color: colorDark, fontSize: 12))
                           ]),
                         ),
                       ))),

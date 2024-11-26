@@ -19,6 +19,15 @@ class LaporanPage extends GetView<LaporanController> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: _buildContentTop(context),
+      floatingActionButton: FloatingActionButton(
+          shape: CircleBorder(),
+          backgroundColor: colorSecondary,
+          onPressed: () {
+            Get.toNamed(Routes.laporanInput);
+          },
+          child: Icon(Iconsax.add, color: Colors.white)
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
 

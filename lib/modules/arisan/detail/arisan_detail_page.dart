@@ -31,7 +31,7 @@ class ArisanDetailPage extends GetView<ArisanDetailController> {
                   onPressed: () {
                     _buildContentBottom(context);
                   },
-                  child: Icon(Iconsax.convert_3d_cube, color: Colors.white)
+                  child: Icon(Iconsax.convert_3d_cube, color: colorDark)
               )
           )),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
@@ -266,7 +266,7 @@ class ArisanDetailPage extends GetView<ArisanDetailController> {
                     },
                     child: Column(children: [
                       Card(
-                          color: colorLight,
+                          color: colorSecondary,
                           child: Padding(
                               padding: EdgeInsets.all(baseRadiusForm),
                               child: SizedBox(
@@ -286,7 +286,7 @@ class ArisanDetailPage extends GetView<ArisanDetailController> {
                     },
                     child: Column(children: [
                       Card(
-                          color: colorLight,
+                          color: colorSecondary,
                           child: Padding(
                               padding: EdgeInsets.all(baseRadiusForm),
                               child: SizedBox(
@@ -306,7 +306,7 @@ class ArisanDetailPage extends GetView<ArisanDetailController> {
                     },
                     child: Column(children: [
                       Card(
-                          color: colorLight,
+                          color: colorSecondary,
                           child: Padding(
                               padding: EdgeInsets.all(baseRadiusForm),
                               child: SizedBox(

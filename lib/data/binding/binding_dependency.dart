@@ -6,6 +6,7 @@ import 'package:parawarga_apps/modules/history/history_controller.dart';
 import 'package:parawarga_apps/modules/info/detail/info_detail_controller.dart';
 import 'package:parawarga_apps/modules/info/info_controller.dart';
 import 'package:parawarga_apps/modules/laporan/detail/laporan_detail_controller.dart';
+import 'package:parawarga_apps/modules/laporan/input/laporan_input_controller.dart';
 import 'package:parawarga_apps/modules/laporan/laporan_controller.dart';
 import 'package:parawarga_apps/modules/login/login_controller.dart';
 import 'package:parawarga_apps/modules/my_area/detail/my_area_detail_controller.dart';
@@ -37,6 +38,7 @@ class BindingDependency implements Bindings {
     Get.lazyPut(() => HistoryController(), fenix: true);
     Get.lazyPut(() => LaporanController(), fenix: true);
     Get.lazyPut(() => LaporanDetailController(), fenix: true);
+    Get.lazyPut(() => LaporanInputController(), fenix: true);
     Get.lazyPut(() => InfoController(), fenix: true);
     Get.lazyPut(() => InfoDetailController(), fenix: true);
     Get.lazyPut(() => UnitEmptyController(), fenix: true);
