@@ -124,19 +124,21 @@ class DashboardPage extends GetView<DashboardController> {
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     GestureDetector(
-                                        onTap: () {},
+                                        onTap: () {
+                                          Get.toNamed(Routes.unitEmpty);
+                                        },
                                         child: Padding(
                                             padding: EdgeInsets.all(baseRadiusForm),
                                             child: Column(
                                               crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                               children: [
-                                                Text(labelEmptyHouse,
+                                                Text(labelUnitEmpty,
                                                     style: TextStyle(
                                                         fontSize: 11,
                                                         fontWeight: FontWeight.bold,
                                                         color: colorLight)),
-                                                Text("22 Rumah",
+                                                Text("22 Unit",
                                                     style: TextStyle(
                                                         fontSize: 16,
                                                         color: colorLight))

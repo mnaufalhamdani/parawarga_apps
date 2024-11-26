@@ -239,6 +239,12 @@ List<Map<String, dynamic>> listHistory = [
   {"category": "alarm", "name": "Tombol Panik", "area": "RT.001 RW.004", "created": "11-11-2024", "id": 5},
 ];
 
+List<Map<String, dynamic>> listUnitEmpty = [
+  {"area": "RT.001 RW.003", "unit": "Jl. Bantaran IV-C No.5", "startDate": "11-11-2024", "endDate": "30-11-2024", "note": "Pergi ke desa untuk acara", "user": "Dani"},
+  {"area": "Kost Sarimbi", "unit": "Kamar No.5", "startDate": "19-11-2024", "endDate": "22-12-2024", "note": "", "user": "Naufal"},
+  {"area": "Dusun Sratu", "unit": "Gang masjid", "startDate": "29-11-2024", "endDate": "", "note": "", "user": "Hamdan"},
+];
+
 String generateRandomId() {
   final random = Random();
   const length = 11;

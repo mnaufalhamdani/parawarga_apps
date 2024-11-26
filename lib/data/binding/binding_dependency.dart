@@ -13,6 +13,7 @@ import 'package:parawarga_apps/modules/register/register_controller.dart';
 import 'package:parawarga_apps/modules/splash/splash_controller.dart';
 import 'package:parawarga_apps/modules/tagihan/detail/tagihan_detail_controller.dart';
 import 'package:parawarga_apps/modules/tagihan/tagihan_controller.dart';
+import 'package:parawarga_apps/modules/unit_empty/unit_empty_controller.dart';
 import 'package:parawarga_apps/modules/voting/detail/voting_detail_controller.dart';
 import 'package:parawarga_apps/modules/voting/voting_controller.dart';
 
@@ -36,5 +37,6 @@ class BindingDependency implements Bindings {
     Get.lazyPut(() => LaporanDetailController(), fenix: true);
     Get.lazyPut(() => InfoController(), fenix: true);
     Get.lazyPut(() => InfoDetailController(), fenix: true);
+    Get.lazyPut(() => UnitEmptyController(), fenix: true);
   }
 }

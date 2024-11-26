@@ -15,6 +15,7 @@ import 'package:parawarga_apps/modules/register/register_page.dart';
 import 'package:parawarga_apps/modules/splash/splash_page.dart';
 import 'package:parawarga_apps/modules/tagihan/detail/tagihan_detail_page.dart';
 import 'package:parawarga_apps/modules/tagihan/tagihan_page.dart';
+import 'package:parawarga_apps/modules/unit_empty/unit_empty_page.dart';
 import 'package:parawarga_apps/modules/voting/detail/voting_detail_page.dart';
 import 'package:parawarga_apps/modules/voting/voting_page.dart';
 
@@ -35,6 +36,7 @@ abstract class Routes {
   static const laporanDetail = '/laporanDetail';
   static const info = '/info';
   static const infoDetail = '/infoDetail';
+  static const unitEmpty = '/unitEmpty';
 }
 
 abstract class AppPages {
@@ -55,5 +57,6 @@ abstract class AppPages {
     GetPage(name: Routes.laporanDetail, page: () => LaporanDetailPage()),
     GetPage(name: Routes.info, page: () => InfoPage()),
     GetPage(name: Routes.infoDetail, page: () => InfoDetailPage()),
+    GetPage(name: Routes.unitEmpty, page: () => UnitEmptyPage()),
   ];
 }
