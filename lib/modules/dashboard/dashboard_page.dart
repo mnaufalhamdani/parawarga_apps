@@ -150,7 +150,9 @@ class DashboardPage extends GetView<DashboardController> {
                                       width: 1,
                                     ),
                                     GestureDetector(
-                                        onTap: () {},
+                                        onTap: () {
+                                          Get.toNamed(Routes.myArea);
+                                        },
                                         child: Padding(
                                             padding: EdgeInsets.all(baseRadiusForm),
                                             child: Column(

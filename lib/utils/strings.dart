@@ -75,6 +75,7 @@ String labelDate = 'Tanggal';
 String labelStart = 'Mulai';
 String labelEnd = 'Akhir';
 String labelOwner = 'Pemilik';
+String labelStatus = 'Status';
 String labelExpired = 'Expired';
 String labelNote = 'Catatan';
 String labelPeriode = 'Periode';

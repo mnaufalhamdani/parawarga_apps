@@ -10,6 +10,8 @@ import 'package:parawarga_apps/modules/info/info_page.dart';
 import 'package:parawarga_apps/modules/laporan/detail/laporan_detail_page.dart';
 import 'package:parawarga_apps/modules/laporan/laporan_page.dart';
 import 'package:parawarga_apps/modules/login/login_page.dart';
+import 'package:parawarga_apps/modules/my_area/detail/my_area_detail_page.dart';
+import 'package:parawarga_apps/modules/my_area/my_area_page.dart';
 import 'package:parawarga_apps/modules/profile/profile_page.dart';
 import 'package:parawarga_apps/modules/register/register_page.dart';
 import 'package:parawarga_apps/modules/splash/splash_page.dart';
@@ -37,6 +39,8 @@ abstract class Routes {
   static const info = '/info';
   static const infoDetail = '/infoDetail';
   static const unitEmpty = '/unitEmpty';
+  static const myArea = '/myArea';
+  static const myAreaDetail = '/myAreaDetail';
 }
 
 abstract class AppPages {
@@ -58,5 +62,7 @@ abstract class AppPages {
     GetPage(name: Routes.info, page: () => InfoPage()),
     GetPage(name: Routes.infoDetail, page: () => InfoDetailPage()),
     GetPage(name: Routes.unitEmpty, page: () => UnitEmptyPage()),
+    GetPage(name: Routes.myArea, page: () => MyAreaPage()),
+    GetPage(name: Routes.myAreaDetail, page: () => MyAreaDetailPage()),
   ];
 }

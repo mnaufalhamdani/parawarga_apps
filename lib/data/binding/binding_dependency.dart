@@ -8,6 +8,8 @@ import 'package:parawarga_apps/modules/info/info_controller.dart';
 import 'package:parawarga_apps/modules/laporan/detail/laporan_detail_controller.dart';
 import 'package:parawarga_apps/modules/laporan/laporan_controller.dart';
 import 'package:parawarga_apps/modules/login/login_controller.dart';
+import 'package:parawarga_apps/modules/my_area/detail/my_area_detail_controller.dart';
+import 'package:parawarga_apps/modules/my_area/my_area_controller.dart';
 import 'package:parawarga_apps/modules/profile/profile_controller.dart';
 import 'package:parawarga_apps/modules/register/register_controller.dart';
 import 'package:parawarga_apps/modules/splash/splash_controller.dart';
@@ -38,5 +40,7 @@ class BindingDependency implements Bindings {
     Get.lazyPut(() => InfoController(), fenix: true);
     Get.lazyPut(() => InfoDetailController(), fenix: true);
     Get.lazyPut(() => UnitEmptyController(), fenix: true);
+    Get.lazyPut(() => MyAreaController(), fenix: true);
+    Get.lazyPut(() => MyAreaDetailController(), fenix: true);
   }
 }
