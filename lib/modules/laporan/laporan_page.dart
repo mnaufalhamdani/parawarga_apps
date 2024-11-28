@@ -25,7 +25,7 @@ class LaporanPage extends GetView<LaporanController> {
           onPressed: () {
             Get.toNamed(Routes.laporanInput);
           },
-          child: Icon(Iconsax.add, color: Colors.white)
+          child: Icon(Iconsax.add, color: colorDark)
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
