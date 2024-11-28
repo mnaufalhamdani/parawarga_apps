@@ -225,6 +225,26 @@ List<Map<String, dynamic>> listArisan = [
   },
 ];
 
+List<Map<String, dynamic>> listTagihan = [
+  {"name": "Iuran Kas 2024", "note": "Mohon dibayar diawal bulan", "nominal": "100.000", "isRequired": true, "expired": null, "isPeriode": true, "periodeStatus":"month", "periodeRemaining":"5"},
+  {"name": "Sumbangan Masjid", "note": "Mohon dibayar seiklasnya", "nominal": "5.000", "isRequired": false, "expired": "2-12-2024", "isPeriode": true, "periodeStatus":"week", "periodeRemaining":"5"},
+  {"name": "Sumbangan Jembatan", "note": "", "nominal": "30.000", "isRequired": false, "isPeriode": false, "expired": "12-12-2024"},
+];
+
+List<Map<String, dynamic>> listHistory = [
+  {"category": "arisan", "name": "Arisan Pkk Tahun 1", "area": "RT.001 RW.003", "created": "30-10-2024", "id": 1},
+  {"category": "tagihan", "name": "Iuran Kas 2024", "area": "RT.001 RW.003", "created": "2-12-2024", "id": 2},
+  {"category": "tagihan", "name": "Sumbangan Masjid", "area": "RT.002 RW.003", "created": "2-2-2024", "id": 3},
+  {"category": "laporan", "name": "Jembatan tidak roboh", "area": "RT.001 RW.004", "created": "10-10-2024", "id": 4},//iconsax.message_text
+  {"category": "alarm", "name": "Tombol Panik", "area": "RT.001 RW.004", "created": "11-11-2024", "id": 5},
+];
+
+List<Map<String, dynamic>> listUnitEmpty = [
+  {"area": "RT.001 RW.003", "unit": "Jl. Bantaran IV-C No.5", "startDate": "11-11-2024", "endDate": "30-11-2024", "note": "Pergi ke desa untuk acara", "user": "Dani"},
+  {"area": "Kost Sarimbi", "unit": "Kamar No.5", "startDate": "19-11-2024", "endDate": "22-12-2024", "note": "", "user": "Naufal"},
+  {"area": "Dusun Sratu", "unit": "Gang masjid", "startDate": "29-11-2024", "endDate": "", "note": "", "user": "Hamdan"},
+];
+
 String generateRandomId() {
   final random = Random();
   const length = 11;

@@ -159,7 +159,7 @@ class RegisterPage extends GetView<RegisterController> {
                           top: basePadding,
                           right: basePadding),
                       child: SizedBox(
-                          width: double.infinity,
+                          width: Get.width,
                           child: Text.rich(TextSpan(
                               text: "Area ditemukan :",
                               style: TextStyle(color: colorTextSecondary),
@@ -180,7 +180,7 @@ class RegisterPage extends GetView<RegisterController> {
                           top: basePadding,
                           right: basePadding),
                       child: SizedBox(
-                          width: double.infinity,
+                          width: Get.width,
                           child: Text.rich(TextSpan(
                               text: "Penanggung Jawab :",
                               style: TextStyle(color: colorTextSecondary),
@@ -261,7 +261,7 @@ class RegisterPage extends GetView<RegisterController> {
                                   top: basePadding,
                                   right: basePadding),
                               child: SizedBox(
-                                  width: double.infinity,
+                                  width: Get.width,
                                   child: Text.rich(TextSpan(
                                       text: "Hasil Pencarian :",
                                       style: TextStyle(color: colorTextSecondary),

@@ -35,8 +35,8 @@ class DashboardInfoTileState extends State<DashboardInfoTile> {
     return SizedBox(
         width: 300,
         child: Card(
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(baseRadiusCard)),
             color: Colors.white,
             elevation: 2,
             child: Padding(

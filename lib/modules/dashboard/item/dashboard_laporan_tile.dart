@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:parawarga_apps/theme/app_theme.dart';
 
 import '../../../theme/app_colors.dart';
@@ -33,7 +34,8 @@ class DashboardLaporanTileState extends State<DashboardLaporanTile> {
 
   _buildContent() {
     return Card(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(baseRadiusCard)),
         color: Colors.white,
         elevation: 2,
         child: Padding(
@@ -42,13 +44,14 @@ class DashboardLaporanTileState extends State<DashboardLaporanTile> {
               children: [
                 Expanded(
                     flex: 1,
-                    child: Container(
-                        height: 50,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(baseRadiusForm),
-                            image: DecorationImage(
-                                image: NetworkImage(widget.model["photo"]),
-                                fit: BoxFit.cover)))),
+                    child: ClipRRect(
+                        borderRadius: BorderRadius.circular(baseRadiusForm),
+                        child: Image.network(height: 50, widget.model["photo"].toString(), fit: BoxFit.cover,
+                            errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
+                              return Icon(Iconsax.gallery_slash, color: colorTextSecondary);
+                            })
+                    ),
+                ),
                 Expanded(
                     flex: 3,
                     child: Padding(

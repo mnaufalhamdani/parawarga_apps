@@ -4,6 +4,7 @@ Color colorPrimary = HexColor("#11998E");
 Color colorSecondary = HexColor("#FDC827");
 Color colorDark = HexColor("#04454D");
 Color colorLight = HexColor("#DAFFFC");
+Color colorBackground = HexColor("#f7f9fa");
 
 Color colorButtonPrimary = colorPrimary;
 Color colorButtonSecondary = colorDark;

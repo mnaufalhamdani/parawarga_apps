@@ -85,15 +85,15 @@ class StandardTextState extends State<StandardTextField> {
           decoration: InputDecoration(
               border: OutlineInputBorder(),
               focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(baseRadiusForm), borderSide: BorderSide(color: colorDark)),
-              enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(baseRadiusForm), borderSide: BorderSide(color: colorLight)),
-              disabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(baseRadiusForm), borderSide: BorderSide(color: colorLight)),
+              enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(baseRadiusForm), borderSide: BorderSide(color: Colors.grey.shade200)),
+              disabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(baseRadiusForm), borderSide: BorderSide(color: Colors.grey.shade200)),
               errorBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(baseRadiusForm), borderSide: BorderSide(color: Colors.red)),
               focusedErrorBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(baseRadiusForm), borderSide: BorderSide(color: Colors.red)),
               contentPadding: EdgeInsets.only(left: 20, right: 20),
               labelText: widget.titleHint,
               labelStyle: TextStyle(color: colorTextSecondary),
               filled: true,
-              fillColor: Colors.grey.shade100,
+              fillColor: Colors.grey.shade200,
               suffixIcon: widget.isPassword == true
                   ? IconButton(
                 icon: Icon(

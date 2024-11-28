@@ -43,7 +43,7 @@ class StandardPickerFieldState extends State<StandardPickerField> {
     return Padding(
       padding: EdgeInsets.only(left: 20, right: 20, top: 20),
       child: Container(
-        width: double.infinity,
+        width: Get.width,
         decoration: BoxDecoration(
           color: colorDark,
           borderRadius: BorderRadius.all(Radius.circular(30)),
@@ -93,7 +93,7 @@ class StandardPickerFieldState extends State<StandardPickerField> {
           imageUrl: pathString!,
           placeholder: (context, url) => CircularProgressIndicator(color: colorPrimary),
           imageBuilder: (context, imageProvider) => Container(
-            width: double.infinity,
+            width: Get.width,
             height: 120,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(20)),
@@ -104,7 +104,7 @@ class StandardPickerFieldState extends State<StandardPickerField> {
       }
       else{
         return Container(
-          width: double.infinity,
+          width: Get.width,
           height: 120,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(20)),

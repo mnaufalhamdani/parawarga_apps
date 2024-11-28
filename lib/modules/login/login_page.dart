@@ -50,11 +50,11 @@ class LoginPage extends GetView<LoginController> {
                 ),
                 Padding(
                     padding: EdgeInsets.only(left: basePadding, right: basePadding),
-                    child: SizedBox(width: double.infinity, child: Text(greetingWelcome,
+                    child: SizedBox(width: Get.width, child: Text(greetingWelcome,
                         style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: colorPrimary)))),
                 Padding(
                     padding: EdgeInsets.only(left: basePadding, top: 5, right: basePadding),
-                    child: SizedBox(width: double.infinity, child: Text(greetingLogin,
+                    child: SizedBox(width: Get.width, child: Text(greetingLogin,
                         style: TextStyle(color: colorTextPrimary)))),
                 StandardTextFieldLogin(
                     editingController: controller.editingControllers[0],
