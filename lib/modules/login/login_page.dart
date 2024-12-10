@@ -10,6 +10,7 @@ import 'package:parawarga_apps/theme/standard_button_login.dart';
 import 'package:parawarga_apps/theme/standard_text_field_login.dart';
 
 import '../../theme/app_theme.dart';
+import '../../theme/standard_snackbar.dart';
 import '../../utils/strings.dart';
 
 class LoginPage extends GetView<LoginController> {
@@ -18,8 +19,8 @@ class LoginPage extends GetView<LoginController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: SingleChildScrollView(
-          // physics: const NeverScrollableScrollPhysics(),
+      body: SingleChildScrollView(
+        // physics: const NeverScrollableScrollPhysics(),
           child: Column(
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.start,
@@ -29,14 +30,15 @@ class LoginPage extends GetView<LoginController> {
               _buildContentBottom(context)
             ],
           )
-        ),
+      ),
     );
   }
 
   _buildContent(BuildContext context) {
-    return Form(
-        key: controller.formKey,
-        child: Column(
+    return Obx(() {
+      return Form(
+          key: controller.formKey,
+          child: Column(
               children: [
                 Container(
                   child: Padding(
@@ -49,11 +51,16 @@ class LoginPage extends GetView<LoginController> {
                       )),
                 ),
                 Padding(
-                    padding: EdgeInsets.only(left: basePadding, right: basePadding),
-                    child: SizedBox(width: Get.width, child: Text(greetingWelcome,
-                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: colorPrimary)))),
+                    padding: EdgeInsets.only(
+                        left: basePadding, right: basePadding),
+                    child: SizedBox(
+                        width: Get.width, child: Text(greetingWelcome,
+                        style: TextStyle(fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: colorPrimary)))),
                 Padding(
-                    padding: EdgeInsets.only(left: basePadding, top: 5, right: basePadding),
+                    padding: EdgeInsets.only(
+                        left: basePadding, top: 5, right: basePadding),
                     child: SizedBox(width: Get.width, child: Text(greetingLogin,
                         style: TextStyle(color: colorTextPrimary)))),
                 StandardTextFieldLogin(
@@ -74,61 +81,63 @@ class LoginPage extends GetView<LoginController> {
                         formKey: controller.formKey,
                         titleHint: labelLogin.toUpperCase(),
                         buttonColor: colorButtonPrimary,
-                        isLoading: controller.initLoading.value,
+                        isLoading: controller.loginState.value.isLoading,
                         onPressed: () async {
                           FocusScope.of(context).unfocus();
 
-                          Get.offAllNamed(Routes.dashboard);
-                          // await controller.getLogin().whenComplete(() {
-                          //   if(controller.initMessage.value.isEmpty){
-                          //     Get.offAllNamed(Routes.dashboard);
-                          //   }else {
-                          //     showStandardSnackbar(context, TypeMessage.error, controller.initMessage.value, DurationMessage.lengthShort);
-                          //   }
-                          // });
+                          await controller.login().whenComplete(() {
+                            if(controller.loginState.value.data != null){
+                              Get.offAllNamed(Routes.dashboard);
+                            } else {
+                              showStandardSnackbar(context, TypeMessage.error, message:  controller.loginState.value.error?.message.toString(), duration: DurationMessage.lengthShort);
+                            }
+                          });
                         }
                     )),
                     SizedBox(
-                      height: 42,
-                      child: RawMaterialButton(
-                        onPressed: () {},
-                        shape: CircleBorder(),
-                        elevation: 2,
-                        fillColor: Colors.red,
-                        child: Icon(Iconsax.key, color: Colors.white),
-                      )
+                        height: 42,
+                        child: RawMaterialButton(
+                          onPressed: () {},
+                          shape: CircleBorder(),
+                          elevation: 2,
+                          fillColor: Colors.red,
+                          child: Icon(Iconsax.key, color: Colors.white),
+                        )
                     )
                   ],
                 )
                 )
               ]
           )
-    );
+      );
+    });
   }
 
   _buildContentBottom(BuildContext context) {
     return Container(
-      height: 150,
-      alignment: Alignment.center,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Text(greetingCreateAccount,
-              style: TextStyle(color: colorTextPrimary)),
-          Padding(padding: EdgeInsets.only(left: 5), child:
+        height: 150,
+        alignment: Alignment.center,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(greetingCreateAccount,
+                style: TextStyle(color: colorTextPrimary)),
+            Padding(padding: EdgeInsets.only(left: 5), child:
             GestureDetector(
-              onTap: () {
-                Get.toNamed(Routes.register);
-              },
-              child: Padding(padding: EdgeInsets.only(top: basePadding, bottom: basePadding),
-                  child: Text(labelCreateAccount,
-                      style: TextStyle(color: colorButtonPrimary, fontWeight: FontWeight.bold))
-              )
+                onTap: () {
+                  Get.toNamed(Routes.register);
+                },
+                child: Padding(padding: EdgeInsets.only(
+                    top: basePadding, bottom: basePadding),
+                    child: Text(labelCreateAccount,
+                        style: TextStyle(color: colorButtonPrimary,
+                            fontWeight: FontWeight.bold))
+                )
             )
-          )
-        ],
-      )
+            )
+          ],
+        )
     );
   }
 }
