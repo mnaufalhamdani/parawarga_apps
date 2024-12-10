@@ -24,7 +24,7 @@ class ConfigEnvironments {
   static const String _currentEnvironments = (kReleaseMode)
       ? Environments.production
       : Environments.local;
-  static const String verName = "24.06.001";
+  static const String verName = "24.12.001";
 
   static final List<EnvData> _availableEnvironments = [
     EnvData(

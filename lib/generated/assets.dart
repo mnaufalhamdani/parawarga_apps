@@ -12,6 +12,7 @@ class Assets {
   static const String iconImgMenu = 'assets/images/icon/img_menu.png';
   static const String iconImgMenuList = 'assets/images/icon/img_menu_list.png';
   static const String logoImgLogo = 'assets/images/logo/img_logo.png';
+  static const String logoImgLogoIcon = 'assets/images/logo/img_logo_icon.png';
   static const String logoImgLogoWhite = 'assets/images/logo/img_logo_white.png';
 
 }
