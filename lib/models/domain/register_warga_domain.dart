@@ -19,8 +19,9 @@ class RegisterWargaDomain{
   String? username;
   // String? password;
 
-  String? resultArea;
-  String? resultResponsible;
+  String? resultMsgArea;
+  String? resultMsgResponsible;
+  String? resultMsgId;
 
   RegisterWargaDomain({
     this.area_code_generate,
@@ -42,8 +43,8 @@ class RegisterWargaDomain{
     // this.status_nikah,
     this.username,
     // this.password,
-    this.resultArea,
-    this.resultResponsible,
+    this.resultMsgArea,
+    this.resultMsgResponsible,
   });
 
   Map<String, dynamic> toJson() {

@@ -2,13 +2,11 @@
 import '../utils/strings.dart';
 
 class FailureResponse {
-  bool? status;
-  int? statusCode;
+  int? status;
   String? message = msgNotFound;
 
   FailureResponse({
     this.status,
-    this.statusCode,
     this.message
   });
 
@@ -16,9 +14,8 @@ class FailureResponse {
   factory FailureResponse.fromJson(dynamic json) {
     try{
       return FailureResponse(
-          status: json['status'] as bool,
-          statusCode: json['statusCode'] as int,
-          message: json['message'] as String
+          status: json['status'] as int,
+          message: json['messages'] as String
       );
     }catch(e) {
       return FailureResponse(message: json.toString());

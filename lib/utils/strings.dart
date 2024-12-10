@@ -10,6 +10,7 @@ String msgAuthError = 'Autentikasi bermasalah, silahkan coba lagi secara berkala
 String msgForbidden = 'Permintaan tidak memiliki akses ke server, silahkan coba lagi secara berkala';
 String msgKoneksiError = 'Koneksi internet bermasalah / kurang stabil';
 String msgPageNotFound = 'Alamat / Halaman tidak ditemukan';
+String msgAreaNotFound = 'Area tidak ditemukan, silahkan cek lisensi area Anda';
 String msgServerError = 'Server bermasalah, silahkan coba lagi secara berkala';
 String msgGenerateError = 'gagal generate';
 String msgFieldEmpty = 'Isian ini masih kosong';

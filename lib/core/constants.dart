@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:math';
 
+import 'package:flutter/cupertino.dart';
 import 'package:image_picker/image_picker.dart';
 
 
@@ -299,4 +300,22 @@ String decodeBinary(String encode) {
     decodedBytes.add(byte);
   }
   return utf8.decode(decodedBytes);
+}
+
+int? stringToInt(String? value) {
+  if (value == null || value.isEmpty) {
+    return null;
+  }
+  try {
+    return int.tryParse(value);
+  } catch (e) {
+    debugPrint('stringToInt: ${e.toString()}');
+    return null;
+  }
+}
+
+int dateBetween(DateTime from, DateTime to) {
+  from = DateTime(from.year, from.month, from.day);
+  to = DateTime(to.year, to.month, to.day);
+  return (to.difference(from).inHours / 24).round();
 }

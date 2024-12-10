@@ -1,4 +1,7 @@
 import 'package:get/get.dart';
+import 'package:parawarga_apps/config/local/migration_version.dart';
+import 'package:parawarga_apps/data/provider/login_provider.dart';
+import 'package:parawarga_apps/data/repository/login_repository.dart';
 import 'package:parawarga_apps/modules/arisan/arisan_controller.dart';
 import 'package:parawarga_apps/modules/arisan/detail/arisan_detail_controller.dart';
 import 'package:parawarga_apps/modules/dashboard/dashboard_controller.dart';
@@ -20,12 +23,25 @@ import 'package:parawarga_apps/modules/unit_empty/unit_empty_controller.dart';
 import 'package:parawarga_apps/modules/voting/detail/voting_detail_controller.dart';
 import 'package:parawarga_apps/modules/voting/voting_controller.dart';
 
+import '../../config/local/database_config.dart';
+import '../../utils/environment.dart';
+
 
 class BindingDependency implements Bindings {
   @override
   Future<void> dependencies() async {
+    final env = ConfigEnvironments.getEnvironment();
+
+    //Database
+    final database = await $FloorDatabaseConfig.databaseBuilder(env.dbName).addMigrations([
+      migration1to2,
+      migration2to3,
+    ]).build();
+    Get.lazyPut<DatabaseConfig>(() => database, fenix: true);
+
+    //Controller
     Get.lazyPut(() => SplashController(), fenix: true);
-    Get.lazyPut(() => LoginController(), fenix: true);
+    Get.lazyPut(() => LoginController(repository: Get.find()), fenix: true);
     Get.lazyPut(() => RegisterController(), fenix: true);
     Get.lazyPut(() => DashboardController(), fenix: true);
     Get.lazyPut(() => ProfileController(), fenix: true);
@@ -44,5 +60,11 @@ class BindingDependency implements Bindings {
     Get.lazyPut(() => UnitEmptyController(), fenix: true);
     Get.lazyPut(() => MyAreaController(), fenix: true);
     Get.lazyPut(() => MyAreaDetailController(), fenix: true);
+
+    //Provider
+    Get.lazyPut(() => LoginProvider(), fenix: true);
+
+    //Repository
+    Get.lazyPut<LoginRepository>(() => LoginRepositoryImpl(Get.find(), Get.find()), fenix: true);
   }
 }
