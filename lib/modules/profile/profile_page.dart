@@ -3,8 +3,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:parawarga_apps/core/constants.dart';
 import 'package:parawarga_apps/modules/profile/profile_controller.dart';
+import 'package:parawarga_apps/routes/app_pages.dart';
 import 'package:parawarga_apps/theme/app_colors.dart';
+import 'package:parawarga_apps/theme/standard_snackbar.dart';
 import 'package:parawarga_apps/utils/strings.dart';
 
 import '../../theme/app_theme.dart';
@@ -15,18 +18,19 @@ class ProfilePage extends GetView<ProfileController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-          child: Column(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _buildContentHeader(context),
-          _buildContentTop(context),
-          _buildContentMainMenu(context),
-          _buildContentSecondMenu(context),
-        ],
-      )),
+      body: SingleChildScrollView(child: Obx(() {
+        return Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _buildContentHeader(context),
+            _buildContentTop(context),
+            _buildContentMainMenu(context),
+            _buildContentSecondMenu(context),
+          ],
+        );
+      })),
     );
   }
 
@@ -98,7 +102,10 @@ class ProfilePage extends GetView<ProfileController> {
                                                 CrossAxisAlignment.end,
                                             children: [
                                               Text(
-                                                "Muhammad Naufal Hamdani",
+                                                controller.userState.value.data
+                                                        ?.name
+                                                        .toString() ??
+                                                    "",
                                                 style: TextStyle(
                                                     color: colorTextPrimary,
                                                     fontWeight: FontWeight.bold,
@@ -107,7 +114,10 @@ class ProfilePage extends GetView<ProfileController> {
                                                 overflow: TextOverflow.ellipsis,
                                               ),
                                               Text(
-                                                "mnaufalhamdani@gmail.com",
+                                                controller.userState.value.data
+                                                        ?.email
+                                                        .toString() ??
+                                                    "",
                                                 style: TextStyle(
                                                     color: colorTextSecondary,
                                                     fontSize: 11),
@@ -120,9 +130,21 @@ class ProfilePage extends GetView<ProfileController> {
                                       child: GestureDetector(
                                           onTap: () {},
                                           child: CircleAvatar(
+                                            backgroundColor: colorDark,
                                             child: ClipOval(
-                                              child: Image.network(
-                                                  "https://static.promediateknologi.id/crop/17x28:718x775/0x0/webp/photo/p2/74/2024/03/11/b59a225de4a04af870907663ce0de271-2703384518.jpg"),
+                                              child: (controller.userState.value.data?.photo != null)
+                                                  ? Image.network(
+                                                  controller.userState.value.data!.photo.toString())
+                                                  : Text(
+                                                      getInitials(controller.userState.value.data?.name.toString() ?? ""),
+                                                      style: TextStyle(
+                                                          color: colorTextThird,
+                                                          fontWeight: FontWeight.bold,
+                                                          fontSize: 18),
+                                                      maxLines: 1,
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                    ),
                                             ),
                                           )),
                                     )
@@ -132,8 +154,7 @@ class ProfilePage extends GetView<ProfileController> {
 
   _buildContentMainMenu(BuildContext context) {
     return Padding(
-        padding: EdgeInsets.only(
-            left: basePadding, right: basePadding),
+        padding: EdgeInsets.only(left: basePadding, right: basePadding),
         child: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(baseRadiusCard)),
@@ -255,7 +276,8 @@ class ProfilePage extends GetView<ProfileController> {
                             children: [
                               Expanded(
                                   flex: 1,
-                                  child: Icon(Iconsax.setting, color: colorDark)),
+                                  child:
+                                      Icon(Iconsax.setting, color: colorDark)),
                               Expanded(
                                   flex: 5,
                                   child: Text(
@@ -330,7 +352,18 @@ class ProfilePage extends GetView<ProfileController> {
                   ),
                   Divider(color: Colors.grey.shade200),
                   GestureDetector(
-                    onTap: () {},
+                    onTap: () async {
+                      await controller.logout().whenComplete(() {
+                        if (controller.logoutState.value.data == true) {
+                          Get.offAllNamed(Routes.login);
+                        } else {
+                          showStandardSnackbar(context, TypeMessage.error,
+                              message: controller
+                                  .logoutState.value.error?.message
+                                  .toString());
+                        }
+                      });
+                    },
                     child: Padding(
                       padding: EdgeInsets.all(baseRadiusForm),
                       child: Row(
@@ -338,7 +371,8 @@ class ProfilePage extends GetView<ProfileController> {
                           children: [
                             Expanded(
                                 flex: 1,
-                                child: Icon(Iconsax.profile_delete, color: Colors.red.shade700)),
+                                child: Icon(Iconsax.profile_delete,
+                                    color: Colors.red.shade700)),
                             Expanded(
                                 flex: 5,
                                 child: Text(

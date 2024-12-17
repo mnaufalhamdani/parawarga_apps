@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../theme/standard_snackbar.dart';
@@ -344,4 +345,13 @@ bool checkConnection(BuildContext context) {
     }
   });
   return connected;
+}
+
+String getInitials(String text) {
+  if (text.isEmpty) return "";
+
+  List<String> nameParts = text.split(" ");
+  String initials = nameParts.map((e) => e.isNotEmpty ? e[0].toUpperCase() : "").join();
+
+  return initials.length > 2 ? initials.substring(0, 2) : initials; // Limit to 2 initials
 }

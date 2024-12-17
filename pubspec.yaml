@@ -62,6 +62,9 @@ dependencies:
   #https://pub.dev/packages/device_info_plus
   device_info_plus: ^11.2.0
 
+  #https://pub.dev/packages/jwt_decoder
+  jwt_decoder: ^2.0.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

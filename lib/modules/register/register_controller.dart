@@ -18,31 +18,10 @@ class RegisterController extends GetxController{
 
   final RegisterRepository repository;
 
-  @override
-  void onInit() {
-    super.onInit();
-    // monitorConnection(Get.context!);
-  }
-
   //kode generate area, no.ktp, name, alamat ktp, alamat domisili, email, phone
   final formKey = GlobalKey<FormState>();
   final editingControllers = List.generate(8, (index) => TextEditingController());
   final registerState = Rx(ResponseState<RegisterWargaDomain>());
-
-  //input kode generate area
-  // final formKeyFirst = GlobalKey<FormState>();
-  // final editingControllersFirst = List.generate(1, (index) => TextEditingController());
-  // final checkAreaState = Rx(ResponseState<RegisterWargaDomain>());
-
-  // no.ktp
-  // final formKeySecond = GlobalKey<FormState>();
-  // final editingControllersSecond = List.generate(1, (index) => TextEditingController());
-  // final Rx<ResponseStateOld> checkIdState = Rx(ResponseDefault());
-
-  //name, alamat ktp, alamat domisili, email, phone
-  // final formKeyThird = GlobalKey<FormState>();
-  // final editingControllersThird = List.generate(5, (index) => TextEditingController());
-  // final Rx<ResponseStateOld> registerState = Rx(ResponseDefault());
 
   final registerWargaDomain = Rx(RegisterWargaDomain());
   final activeStep = Rx(0);

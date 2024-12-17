@@ -18,8 +18,9 @@ String msgFieldEmpty = 'Isian ini masih kosong';
 String msgFieldNotValid = 'Isian ini tidak valid';
 String msgFieldNikNotValid = 'Isian NIK tidak valid';
 String msgFieldShortLength = 'Isian terlalu pendek';
-String msgFieldPassword = 'Isian password harus kombinasi huruf (aA) dan angka';
+String msgFieldPassword = 'Isian password harus kombinasi huruf kecil, huruf besar dan angka';
 String msgFieldEmail = 'Isian email tidak valid';
+String msgSessionExpired = 'Sesi kadaluarsa, silahkan masuk kembali';
 
 //Greeting
 String greetingDialog = 'Pilih Salah Satu Item';

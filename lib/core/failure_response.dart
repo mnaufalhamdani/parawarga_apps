@@ -3,7 +3,7 @@ import '../utils/strings.dart';
 
 class FailureResponse {
   int? status;
-  String? message = msgNotFound;
+  String? message;
 
   FailureResponse({
     this.status,
