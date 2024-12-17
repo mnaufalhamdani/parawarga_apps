@@ -1,4 +1,7 @@
 // ignore_for_file: prefer_const_constructors
+import 'dart:io';
+
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:parawarga_apps/data/entities/user/user.dart';
 import 'package:parawarga_apps/models/mapper/area_mapper.dart';
 import 'package:parawarga_apps/models/mapper/user_mapper.dart';
@@ -22,13 +25,27 @@ class LoginRepositoryImpl extends LoginRepository {
 
   @override
   Future<UserEntity> login(String username, String password) async {
-    final response = await provider.login(username: username, password: password);
+    var deviceId = "unknown";
+    if (Platform.isAndroid) {
+      final build = await DeviceInfoPlugin().androidInfo;
+      deviceId = "${build.model}-${build.id}-${build.version.release}";
+    }else if (Platform.isIOS) {
+      final iosInfo = await DeviceInfoPlugin().iosInfo;
+      deviceId = iosInfo.identifierForVendor ?? "unknown";
+    }
 
-    await databaseConfig.profileDao.deleteAll().whenComplete(() async {
+    final response = await provider.login(
+      username: username,
+      password: password,
+      device_id: deviceId,
+      firebase_id: "unknown"
+    );
+
+    await databaseConfig.profileDao.deleteAll().then((value) async {
       await databaseConfig.profileDao.insertEntity(UserMapper(response, username, password));
     });
 
-    await databaseConfig.areaDao.deleteAll().whenComplete(() async {
+    await databaseConfig.areaDao.deleteAll().then((value) async {
       for (var element in response.area) {
         await databaseConfig.areaDao.insertEntity(AreaMapper(element));
       }

@@ -56,6 +56,12 @@ dependencies:
   #https://pub.dev/packages/iconsax
   iconsax: ^0.0.8
 
+  #https://pub.dev/packages/connectivity_plus
+  connectivity_plus: ^6.1.1
+
+  #https://pub.dev/packages/device_info_plus
+  device_info_plus: ^11.2.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

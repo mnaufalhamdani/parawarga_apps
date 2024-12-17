@@ -11,6 +11,7 @@ AreaEntity AreaMapper(LoginAreaModel model) {
   }else{
     final currDate = DateTime.now();
     final endDate = DateFormat("yyyy-MM-dd HH:mm:ss").parse(model.end_date.toString());
+
     if(model.license_type == LicenseType.TRIAL.name && dateBetween(currDate, endDate) < 0){
       model.license_type = LicenseType.EXPIRED.name;
     } else if(model.license_type == LicenseType.EXPIRED.name && dateBetween(currDate, DateTime(endDate.year, endDate.month + 6, endDate.day)) < 0){

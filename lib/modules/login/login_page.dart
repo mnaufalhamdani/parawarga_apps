@@ -65,7 +65,7 @@ class LoginPage extends GetView<LoginController> {
                         style: TextStyle(color: colorTextPrimary)))),
                 StandardTextFieldLogin(
                     editingController: controller.editingControllers[0],
-                    titleHint: labelUsername,
+                    titleHint: labelEmail,
                     msgError: msgFieldEmpty,
                     iconField: Icon(Iconsax.user)),
                 StandardTextFieldLogin(

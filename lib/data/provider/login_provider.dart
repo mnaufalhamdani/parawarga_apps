@@ -9,12 +9,16 @@ class LoginProvider extends BaseService {
   Future<LoginModel> login({
     String? username,
     String? password,
+    String? device_id,
+    String? firebase_id,
   }) async{
       final headers = <String, String>{};
       final params = <String, dynamic>{};
       final formData = FormData({
         'username': username,
         'password': password,
+        'device_id': device_id,
+        'firebase_id': firebase_id,
       });
 
       final response = await post('login', formData, query: params, headers: headers);

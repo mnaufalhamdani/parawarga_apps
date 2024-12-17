@@ -399,7 +399,7 @@ class _$AreaDao extends AreaDao {
   @override
   Future<List<AreaEntity>> getArea() async {
     return _queryAdapter.queryList(
-        'SELECT * FROM area WHERE      status = 1     AND (license_type = \'TRIAL\' AND DATE(end_date) > DATE(DATE(\'now\'))) \t  OR (license_type = \'EXPIRED\' AND DATE(end_date, \'+6 months\') > DATE(DATE(\'now\'))) \t  OR license_type = \'LIFETIME\' \t  ORDER BY area_id ASC',
+        'SELECT * FROM area WHERE      status = 1     AND (license_type = \'TRIAL\' AND DATE(end_date) > DATE(DATE(\'now\'))) \t  OR (license_type = \'EXPIRED\' AND DATE(end_date, \'+6 months\') > DATE(DATE(\'now\'))) \t  OR license_type = \'SUBSCRIBE\' \t  ORDER BY area_id ASC',
         mapper: (Map<String, Object?> row) => AreaEntity(
             area_id: row['area_id'] as int,
             area_name: row['area_name'] as String,

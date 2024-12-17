@@ -1,8 +1,12 @@
 import 'dart:convert';
 import 'dart:math';
 
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:image_picker/image_picker.dart';
+
+import '../theme/standard_snackbar.dart';
+import '../utils/strings.dart';
 
 
 // const String NIK_EXAMPLE = '20101720';
@@ -318,4 +322,26 @@ int dateBetween(DateTime from, DateTime to) {
   from = DateTime(from.year, from.month, from.day);
   to = DateTime(to.year, to.month, to.day);
   return (to.difference(from).inHours / 24).round();
+}
+
+void monitorConnection(BuildContext context) {
+  Connectivity().onConnectivityChanged.listen((result) {
+    if (result.where((element) => element == ConnectivityResult.none).isNotEmpty) {
+      showStandardSnackbar(context, TypeMessage.error, message: msgKoneksiError, duration: DurationMessage.lengthInfinite);
+    } else {
+      showStandardSnackbar(context, TypeMessage.success, message: msgKoneksiSukses, duration: DurationMessage.lengthShort);
+    }
+  });
+}
+
+bool checkConnection(BuildContext context) {
+  var connected = false;
+  Connectivity().onConnectivityChanged.listen((result) {
+    if (result.where((element) => element == ConnectivityResult.none).isNotEmpty) {
+      connected = false;
+    } else {
+      connected = true;
+    }
+  });
+  return connected;
 }

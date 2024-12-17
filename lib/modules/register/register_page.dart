@@ -129,11 +129,14 @@ class RegisterPage extends GetView<RegisterController> {
                         SizedBox(
                             height: 42,
                             child: RawMaterialButton(
-                              onPressed: () {
-                                if (controller.editingControllers[0].value.text.toString().isNotEmpty) {
-                                  FocusScope.of(context).unfocus();
-                                  controller.checkArea();
+                              onPressed: () async {
+                                if(controller.editingControllers[0].text.toString().isEmpty) {
+                                  showStandardSnackbar(context, TypeMessage.error, message: msgFieldEmpty, paddingBottom: 60);
+                                  return;
                                 }
+
+                                FocusScope.of(context).unfocus();
+                                await controller.checkArea();
                               },
                               shape: CircleBorder(),
                               elevation: 2,
@@ -162,25 +165,6 @@ class RegisterPage extends GetView<RegisterController> {
                                         color: colorTextSecondary,
                                         fontWeight: FontWeight.bold))
                               ]))))),
-              Visibility(
-                  visible: (controller.registerState.value.data?.resultMsgResponsible != null) ? true : false,
-                  child: Padding(
-                      padding: EdgeInsets.only(
-                          left: basePadding,
-                          top: basePadding,
-                          right: basePadding),
-                      child: SizedBox(
-                          width: Get.width,
-                          child: Text.rich(TextSpan(
-                              text: "Penanggung Jawab :",
-                              style: TextStyle(color: colorTextSecondary),
-                              children: [
-                                TextSpan(
-                                    text: controller.registerState.value.data?.resultMsgResponsible.toString(),
-                                    style: TextStyle(
-                                        color: colorTextSecondary,
-                                        fontWeight: FontWeight.bold))
-                              ])))))
             ]))));
   }
 
@@ -221,14 +205,14 @@ class RegisterPage extends GetView<RegisterController> {
                               SizedBox(
                                   height: 42,
                                   child: RawMaterialButton(
-                                    onPressed: () {
+                                    onPressed: () async {
                                       if(controller.editingControllers[1].text.length < 16) {
                                         showStandardSnackbar(context, TypeMessage.error, message: msgFieldNikNotValid, paddingBottom: 60);
                                         return;
                                       }
 
                                       FocusScope.of(context).unfocus();
-                                      controller.checkId();
+                                      await controller.checkId();
                                     },
                                     shape: CircleBorder(),
                                     elevation: 2,
@@ -249,7 +233,7 @@ class RegisterPage extends GetView<RegisterController> {
                               child: SizedBox(
                                   width: Get.width,
                                   child: Text.rich(TextSpan(
-                                      text: "Hasil Pencarian :",
+                                      text: "Hasil Pengecekan :",
                                       style: TextStyle(color: colorTextSecondary),
                                       children: [
                                         TextSpan(
@@ -289,12 +273,12 @@ class RegisterPage extends GetView<RegisterController> {
                           inputAction: TextInputAction.next),
                       StandardTextField(
                           editingController: controller.editingControllers[3],
-                          titleHint: labelAddress,
+                          titleHint: labelAddressKtp,
                           msgError: msgFieldEmpty,
                           inputAction: TextInputAction.next),
                       StandardTextField(
                           editingController: controller.editingControllers[4],
-                          titleHint: labelAddressSecond,
+                          titleHint: labelAddressDomisili,
                           msgError: msgFieldEmpty,
                           inputAction: TextInputAction.next),
                       StandardTextField(
@@ -308,6 +292,13 @@ class RegisterPage extends GetView<RegisterController> {
                           titleHint: labelPhone,
                           msgError: msgFieldEmpty,
                           inputType: TextInputType.number,
+                          inputAction: TextInputAction.next),
+                      StandardTextField(
+                          editingController: controller.editingControllers[7],
+                          titleHint: labelPassword,
+                          msgError: msgFieldEmpty,
+                          inputType: TextInputType.visiblePassword,
+                          isPassword: true,
                           inputAction: TextInputAction.done),
                     ]))));
   }
@@ -338,18 +329,19 @@ class RegisterPage extends GetView<RegisterController> {
                         ? labelSubmit
                         : labelNext,
                     buttonColor: colorButtonPrimary,
+                    isLoading: controller.registerState.value.isLoading,
                     onPressed: () async {
                       FocusManager.instance.primaryFocus?.unfocus();
 
                       if(controller.activeStep.value == 0
-                          && (controller.registerState.value.data?.area_code_generate == null)) {
+                          && (controller.registerState.value.data?.area_generate == null)) {
                         showStandardSnackbar(context, TypeMessage.error, message: "Area tidak ditemukan", paddingBottom: 60);
                         return;
                       }
 
                       if(controller.activeStep.value == 1
                           && controller.registerState.value.data?.nik == null) {
-                        showStandardSnackbar(context, TypeMessage.error, message: "Belum melakukan pencarian nomor identitas", paddingBottom: 60);
+                        showStandardSnackbar(context, TypeMessage.error, message: "Pengecekan nomor identitas tidak sesuai", paddingBottom: 60);
                         return;
                       }
 
