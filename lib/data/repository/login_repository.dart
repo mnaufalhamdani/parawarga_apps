@@ -33,22 +33,22 @@ class LoginRepositoryImpl extends LoginRepository {
     final localUser = await databaseConfig.profileDao.getUser();
     if (localUser.isEmpty) {
       Get.offAllNamed(Routes.login);
-    }
-
-    final chekcExpired = JwtDecoder.isExpired(localUser.first.token.toString());
-    if (chekcExpired) {
-      Get.offAllNamed(Routes.login);
-      showStandardSnackbar(Get.context!, TypeMessage.error,
-          message: msgSessionExpired,
-          duration: DurationMessage.lengthLong);
-    }
-
-    final localArea = await databaseConfig.areaDao.getArea();
-    if (localArea.isEmpty) {
-      Get.offAllNamed(Routes.login);
-      showStandardSnackbar(Get.context!, TypeMessage.error,
-          message: msgAreaNotFound,
-          duration: DurationMessage.lengthLong);
+    }else {
+      final chekcExpired = JwtDecoder.isExpired(localUser.first.token.toString());
+      if (chekcExpired) {
+        Get.offAllNamed(Routes.login);
+        showStandardSnackbar(Get.context!, TypeMessage.error,
+            message: msgSessionExpired,
+            duration: DurationMessage.lengthLong);
+      }else {
+        final localArea = await databaseConfig.areaDao.getArea();
+        if (localArea.isEmpty) {
+          Get.offAllNamed(Routes.login);
+          showStandardSnackbar(Get.context!, TypeMessage.error,
+              message: msgAreaNotFound,
+              duration: DurationMessage.lengthLong);
+        }
+      }
     }
 
     return localUser.first;

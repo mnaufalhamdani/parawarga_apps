@@ -2,6 +2,7 @@ class RegisterWargaDomain{
   String? area_generate;
   String? nik;
   String? photo;
+  String? photo_temp;
   String? name;
   String? address_ktp;
   String? address_domisili;
@@ -18,6 +19,7 @@ class RegisterWargaDomain{
     this.area_generate,
     this.nik,
     this.photo,
+    this.photo_temp,
     this.name,
     this.address_ktp,
     this.address_domisili,

@@ -290,14 +290,14 @@ String getFileSizeString({required int bytes, int decimals = 0}) {
   return ((bytes / pow(1024, i)).toStringAsFixed(decimals)) + suffixes[i];
 }
 
-String encodeBinary(String text) {
+String strToBinary(String text) {
   List<int> encodedBytes = utf8.encode(text);
   return encodedBytes.map((e) =>
       e.toRadixString(2).padLeft(8, '0')
   ).join();
 }
 
-String decodeBinary(String encode) {
+String binaryToStr(String encode) {
   List<int> decodedBytes = [];
   for (int i = 0; i < encode.length; i += 8) {
     String byteString = encode.substring(i, i + 8);

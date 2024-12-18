@@ -1,11 +1,14 @@
 // ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers
 
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:parawarga_apps/modules/register/register_controller.dart';
 import 'package:parawarga_apps/theme/app_colors.dart';
 import 'package:parawarga_apps/theme/app_theme.dart';
+import 'package:parawarga_apps/theme/picker_dialog.dart';
 import 'package:parawarga_apps/theme/standard_button_register.dart';
 import 'package:parawarga_apps/theme/standard_snackbar.dart';
 
@@ -266,6 +269,29 @@ class RegisterPage extends GetView<RegisterController> {
                               left: basePadding, top: 5, right: basePadding),
                           child: Text(greetingRegisterMessage3,
                               style: TextStyle(color: colorTextSecondary))),
+                      GestureDetector(
+                          onTap: () {
+                            pickerDialog(context, (path) {
+                              controller.registerWargaDomain.value.photo_temp = path;
+                            });
+                          },
+                          child: Padding(
+                            padding: EdgeInsets.only(top: basePaddingInContent),
+                            child: Center(
+                              child: SizedBox(
+                                width: 100,
+                                height: 100,
+                                child: CircleAvatar(
+                                  backgroundColor: colorPrimary,
+                                  child: ClipOval(
+                                    child: (controller.registerWargaDomain.value.photo_temp != null)
+                                        ? Image.file(File(controller.registerWargaDomain.value.photo_temp.toString()), fit: BoxFit.cover, width: 100, height: 100)
+                                        : Icon(Iconsax.user_add, size: 40, color: Colors.grey.shade100),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          )),
                       StandardTextField(
                           editingController: controller.editingControllers[2],
                           titleHint: labelName,

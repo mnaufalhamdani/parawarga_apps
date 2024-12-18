@@ -1,7 +1,9 @@
 // ignore_for_file: prefer_const_constructors
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:io';
 
+import 'package:mime/mime.dart';
 import 'package:parawarga_apps/data/provider/register_provider.dart';
 import 'package:parawarga_apps/models/domain/register_warga_domain.dart';
 import 'package:parawarga_apps/models/response/verify_nik_model.dart';
@@ -36,6 +38,11 @@ class RegisterRepositoryImpl extends RegisterRepository {
 
   @override
   Future<bool> register(RegisterWargaDomain domain) async {
+    if(domain.photo_temp != null) {
+      final photoFile = File(domain.photo_temp.toString());
+      final imageBytes = await photoFile.readAsBytes();
+      domain.photo = "data:${lookupMimeType(domain.photo_temp.toString())};base64,${base64Encode(imageBytes)}";
+    }
     final json = jsonEncode(domain).toString();
     final response = await provider.register(data: json);
 

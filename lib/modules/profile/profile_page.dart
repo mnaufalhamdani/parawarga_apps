@@ -129,22 +129,26 @@ class ProfilePage extends GetView<ProfileController> {
                                       flex: 1,
                                       child: GestureDetector(
                                           onTap: () {},
-                                          child: CircleAvatar(
-                                            backgroundColor: colorDark,
-                                            child: ClipOval(
-                                              child: (controller.userState.value.data?.photo != null)
-                                                  ? Image.network(
-                                                  controller.userState.value.data!.photo.toString())
-                                                  : Text(
-                                                      getInitials(controller.userState.value.data?.name.toString() ?? ""),
-                                                      style: TextStyle(
-                                                          color: colorTextThird,
-                                                          fontWeight: FontWeight.bold,
-                                                          fontSize: 18),
-                                                      maxLines: 1,
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                    ),
+                                          child: SizedBox(
+                                            width: 40,
+                                            height: 40,
+                                            child: CircleAvatar(
+                                              backgroundColor: colorDark,
+                                              child: ClipOval(
+                                                child: (controller.userState.value.data?.photo != null)
+                                                    ? Image.network(
+                                                    controller.userState.value.data!.photo.toString(), width: 40, height: 40, fit: BoxFit.cover)
+                                                    : Text(
+                                                        getInitials(controller.userState.value.data?.name.toString() ?? ""),
+                                                        style: TextStyle(
+                                                            color: colorTextThird,
+                                                            fontWeight: FontWeight.bold,
+                                                            fontSize: 18),
+                                                        maxLines: 1,
+                                                        overflow:
+                                                            TextOverflow.ellipsis,
+                                                      ),
+                                              ),
                                             ),
                                           )),
                                     )

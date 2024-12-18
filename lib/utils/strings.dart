@@ -98,3 +98,5 @@ String labelAccountBank = 'Rekening';
 String labelBtnProcess = 'Proses Sekarang!';
 String labelBtnConfirm = 'Konfirmasi';
 String labelCopy = 'Salin';
+String labelCamera = 'Kamera';
+String labelGallery = 'Galeri';
