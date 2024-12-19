@@ -1,13 +1,14 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:parawarga_apps/models/response/view_dashboard_model.dart';
 import 'package:parawarga_apps/theme/app_theme.dart';
 
 import '../../../theme/app_colors.dart';
 
 class DashboardInfoTile extends StatefulWidget {
-  final Map<String, dynamic> model;
-  final void Function(Map<String, dynamic> model) onPressed;
+  final Information model;
+  final void Function(Information) onPressed;
 
   const DashboardInfoTile({
     super.key,
@@ -45,7 +46,7 @@ class DashboardInfoTileState extends State<DashboardInfoTile> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(widget.model["label"],
+                    Text(widget.model.title.toString(),
                         style: TextStyle(
                             color: colorTextSecondary,
                             fontWeight: FontWeight.bold,
@@ -54,7 +55,7 @@ class DashboardInfoTileState extends State<DashboardInfoTile> {
                     Padding(
                       padding: EdgeInsets.only(top: baseRadiusForm),
                       child: Text(
-                        "RT.001 RW.003",
+                        widget.model.areaName.toString(),
                         style: TextStyle(color: colorTextSecondary, fontSize: 12),
                       ),
                     ),
@@ -62,7 +63,7 @@ class DashboardInfoTileState extends State<DashboardInfoTile> {
                         alignment: Alignment.centerRight,
                         child: Padding(
                             padding: EdgeInsets.only(top: basePadding),
-                            child: Text(widget.model["date"],
+                            child: Text(widget.model.updatedAt.toString(),
                                 style: TextStyle(
                                     color: colorTextSecondary, fontSize: 10)))
                     ),

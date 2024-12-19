@@ -1,4 +1,5 @@
 // ignore_for_file: prefer_const_constructors
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:parawarga_apps/routes/app_pages.dart';
 import 'package:parawarga_apps/theme/standard_snackbar.dart';
@@ -49,6 +50,9 @@ class ProfileRepositoryImpl extends ProfileRepository {
     await databaseConfig.areaDao.deleteAll().catchError((error) {
       throw FailureResponse(message: error);
     });
+
+    final secureStorage = FlutterSecureStorage();
+    await secureStorage.deleteAll();
 
     return true;
   }

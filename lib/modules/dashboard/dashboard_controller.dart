@@ -18,8 +18,8 @@ class DashboardController extends GetxController{
   Future<void> getViewDashboard() async {
     try {
       dashboardState.value = ResponseState.loading();
-      await repository.getViewDashboard().then((model) {
-        dashboardState.value = ResponseState.success(model);
+      await repository.getViewDashboard().then((value) {
+        dashboardState.value = ResponseState.success(value);
       });
     }on FailureResponse catch(e) {
       dashboardState.value = ResponseState.failed(e);

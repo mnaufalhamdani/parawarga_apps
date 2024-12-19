@@ -20,10 +20,11 @@ class SplashController extends GetxController{
 
   void checkSession() async {
     try {
-      final response = await repository.getUserActive();
-      await repository.login(response.userEntity.username, response.userEntity.password);
-
-      Get.offAllNamed(Routes.dashboard);
+      await repository.getUserActive().then((value) async {
+        await repository.login(value.userEntity.username, value.userEntity.password).then((valueChild) {
+          Get.offAllNamed(Routes.dashboard);
+        });
+      });
     }on FailureResponse catch(e) {
       if (e.message != null) {
         Get.offAllNamed(Routes.login);

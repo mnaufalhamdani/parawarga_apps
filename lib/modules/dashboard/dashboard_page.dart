@@ -8,7 +8,6 @@ import 'package:parawarga_apps/modules/dashboard/item/dashboard_laporan_tile.dar
 import 'package:parawarga_apps/routes/app_pages.dart';
 import 'package:parawarga_apps/theme/app_colors.dart';
 
-import '../../core/constants.dart';
 import '../../theme/app_theme.dart';
 import '../../utils/strings.dart';
 import 'item/dashboard_info_tile.dart';
@@ -20,29 +19,35 @@ class DashboardPage extends GetView<DashboardController> {
   Widget build(BuildContext context) {
     controller.getViewDashboard();
     return Scaffold(
-      body: SingleChildScrollView(
-          child: Column(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _buildContentTop(context),
-          _buldContentSummary(context),
-          _buildContentMenu(context),
-          _buildContentInfo(context),
-          _buildContentAdv(context),
-          _buildContentLaporan(context),
-          // _buildContentVoting(context),
-        ],
-      )),
-      floatingActionButton: Visibility(visible: true,
-              child: FloatingActionButton(
-                  shape: CircleBorder(),
-                  backgroundColor: Colors.red,
-                  onPressed: () {},
-                  child: Icon(Iconsax.alarm, color: Colors.white)
+      body: Obx(() => RefreshIndicator(
+        color: colorPrimary,
+        onRefresh: () async { await controller.getViewDashboard(); },
+        child: SingleChildScrollView(
+            physics: const AlwaysScrollableScrollPhysics(),
+            child: Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _buildContentTop(context),
+                  _buldContentSummary(context),
+                  _buildContentMenu(context),
+                  _buildContentInfo(context),
+                  _buildContentAdv(context),
+                  _buildContentLaporan(context),
+                  // _buildContentVoting(context),
+                ],
               )
-          ),
+            )),
+      ),
+      floatingActionButton: Visibility(visible: true,
+          child: FloatingActionButton(
+              shape: CircleBorder(),
+              backgroundColor: Colors.red,
+              onPressed: () {},
+              child: Icon(Iconsax.alarm, color: Colors.white)
+          )
+      ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
@@ -55,7 +60,8 @@ class DashboardPage extends GetView<DashboardController> {
                     "assets/images/background/img_background_header.png"),
                 fit: BoxFit.cover)),
         child: Padding(
-            padding: EdgeInsets.only(left: basePadding, right: basePadding, top: 50, bottom: 100),
+            padding: EdgeInsets.only(
+                left: basePadding, right: basePadding, top: 50, bottom: 100),
             child: Column(children: [
               Row(mainAxisAlignment: MainAxisAlignment.end, children: [
                 GestureDetector(
@@ -79,31 +85,16 @@ class DashboardPage extends GetView<DashboardController> {
     return Transform.translate(
       offset: Offset(0, -20),
       child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(baseRadiusCard),
-                topRight: Radius.circular(baseRadiusCard)),
-            color: colorPrimary,
-          ),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(baseRadiusCard),
+              topRight: Radius.circular(baseRadiusCard)),
+          color: colorPrimary,
+        ),
         child: Padding(
           padding: EdgeInsets.only(top: baseRadiusCard),
           child: Column(
             children: [
-              // Padding(
-              //     padding: EdgeInsets.only(left: basePadding, right: basePadding, top: baseRadiusForm),
-              //     child: SizedBox(
-              //         width: double.infinity,
-              //         child: Text(greetingHi,
-              //             style: TextStyle(
-              //                 fontSize: 20,
-              //                 fontWeight: FontWeight.bold,
-              //                 color: colorLight)))),
-              // Padding(
-              //     padding: EdgeInsets.only(left: basePadding, right: basePadding, bottom: baseRadiusForm),
-              //     child: SizedBox(
-              //         width: double.infinity,
-              //         child: Text(greetingDashboard,
-              //             style: TextStyle(color: colorLight)))),
               Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.only(
@@ -113,10 +104,13 @@ class DashboardPage extends GetView<DashboardController> {
                   ),
                   child: Padding(
                       padding: EdgeInsets.only(
-                          left: basePadding, right: basePadding, top: basePadding),
+                          left: basePadding,
+                          right: basePadding,
+                          top: basePadding),
                       child: Card(
                           shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(baseRadiusCard)),
+                              borderRadius: BorderRadius.circular(
+                                  baseRadiusCard)),
                           color: colorPrimary,
                           child: Padding(
                               padding: EdgeInsets.all(baseRadiusForm),
@@ -128,7 +122,8 @@ class DashboardPage extends GetView<DashboardController> {
                                           Get.toNamed(Routes.unitEmpty);
                                         },
                                         child: Padding(
-                                            padding: EdgeInsets.all(baseRadiusForm),
+                                            padding: EdgeInsets.all(
+                                                baseRadiusForm),
                                             child: Column(
                                               crossAxisAlignment:
                                               CrossAxisAlignment.start,
@@ -136,9 +131,12 @@ class DashboardPage extends GetView<DashboardController> {
                                                 Text(labelUnitEmpty,
                                                     style: TextStyle(
                                                         fontSize: 11,
-                                                        fontWeight: FontWeight.bold,
+                                                        fontWeight: FontWeight
+                                                            .bold,
                                                         color: colorLight)),
-                                                Text("22 Unit",
+                                                Text("${controller.dashboardState
+                                                    .value.data
+                                                    ?.totalUnitEmpty ?? "-"} Unit",
                                                     style: TextStyle(
                                                         fontSize: 16,
                                                         color: colorLight))
@@ -154,7 +152,8 @@ class DashboardPage extends GetView<DashboardController> {
                                           Get.toNamed(Routes.myArea);
                                         },
                                         child: Padding(
-                                            padding: EdgeInsets.all(baseRadiusForm),
+                                            padding: EdgeInsets.all(
+                                                baseRadiusForm),
                                             child: Column(
                                               crossAxisAlignment:
                                               CrossAxisAlignment.end,
@@ -162,9 +161,16 @@ class DashboardPage extends GetView<DashboardController> {
                                                 Text(labelMyArea,
                                                     style: TextStyle(
                                                         fontSize: 11,
-                                                        fontWeight: FontWeight.bold,
+                                                        fontWeight: FontWeight
+                                                            .bold,
                                                         color: colorLight)),
-                                                Text("1 Area 2 Unit",
+                                                Text(
+                                                    "${controller.dashboardState
+                                                        .value.data
+                                                        ?.totalArea ?? ""} Area ${controller
+                                                        .dashboardState.value
+                                                        .data
+                                                        ?.totalUnit ?? "-"} Unit",
                                                     style: TextStyle(
                                                         fontSize: 16,
                                                         color: colorLight))
@@ -181,100 +187,109 @@ class DashboardPage extends GetView<DashboardController> {
   _buildContentMenu(BuildContext context) {
     return Visibility(
         child: Padding(
-          padding: EdgeInsets.only(left: basePadding, right: basePadding),
-          child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                GestureDetector(
-                    onTap: () {
-                      Get.toNamed(Routes.voting);
-                    },
-                    child: Column(children: [
-                      Card(
-                          color: colorSecondary,
-                          child: Padding(
-                              padding: EdgeInsets.all(baseRadiusForm),
-                              child: SizedBox(
-                                  width: 35,
-                                  height: 35,
-                                  child: Icon(Iconsax.like_dislike, color: colorDark)))),
-                      Text(labelVoting,
-                          style: TextStyle(
-                              color: colorTextPrimary,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 12))
-                    ])),
-                GestureDetector(
-                    onTap: () {
-                      Get.toNamed(Routes.arisan);
-                    },
-                    child: Column(children: [
-                      Card(
-                          color: colorSecondary,
-                          child: Padding(
-                              padding: EdgeInsets.all(baseRadiusForm),
-                              child: SizedBox(
-                                  width: 35,
-                                  height: 35,
-                                  child: Icon(Iconsax.convert_3d_cube, color: colorDark)))),
-                      Text(labelArisan,
-                          style: TextStyle(
-                              color: colorTextPrimary,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 12))
-                    ])),
-                GestureDetector(
-                    onTap: () {
-                      Get.toNamed(Routes.tagihan);
-                    },
-                    child: Column(children: [
-                      Card(
-                          color: colorSecondary,
-                          child: Padding(
-                              padding: EdgeInsets.all(baseRadiusForm),
-                              child: SizedBox(
-                                  width: 35,
-                                  height: 35,
-                                  child: Icon(Iconsax.card_pos, color: colorDark)))),
-                      Text(labelTagihan,
-                          style: TextStyle(
-                              color: colorTextPrimary,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 12))
-                    ])),
-                GestureDetector(
-                    onTap: () {
-                      Get.toNamed(Routes.history);
-                    },
-                    child: Column(children: [
-                      Card(
-                          color: colorSecondary,
-                          child: Padding(
-                              padding: EdgeInsets.all(baseRadiusForm),
-                              child: SizedBox(
-                                width: 35,
-                                height: 35,
-                                child: Icon(Iconsax.timer, color: colorDark)))
-                      ),
-                      Text(labelHistory,
-                          style: TextStyle(
-                              color: colorTextPrimary,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 12))
-                    ])),
-              ])
+            padding: EdgeInsets.only(left: basePadding, right: basePadding),
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  GestureDetector(
+                      onTap: () {
+                        Get.toNamed(Routes.voting);
+                      },
+                      child: Column(children: [
+                        Card(
+                            color: colorSecondary,
+                            child: Padding(
+                                padding: EdgeInsets.all(baseRadiusForm),
+                                child: SizedBox(
+                                    width: 35,
+                                    height: 35,
+                                    child: Icon(Iconsax.like_dislike,
+                                        color: colorDark)))),
+                        Text(labelVoting,
+                            style: TextStyle(
+                                color: colorTextPrimary,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 12))
+                      ])),
+                  GestureDetector(
+                      onTap: () {
+                        Get.toNamed(Routes.arisan);
+                      },
+                      child: Column(children: [
+                        Card(
+                            color: colorSecondary,
+                            child: Padding(
+                                padding: EdgeInsets.all(baseRadiusForm),
+                                child: SizedBox(
+                                    width: 35,
+                                    height: 35,
+                                    child: Icon(Iconsax.convert_3d_cube,
+                                        color: colorDark)))),
+                        Text(labelArisan,
+                            style: TextStyle(
+                                color: colorTextPrimary,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 12))
+                      ])),
+                  GestureDetector(
+                      onTap: () {
+                        Get.toNamed(Routes.tagihan);
+                      },
+                      child: Column(children: [
+                        Card(
+                            color: colorSecondary,
+                            child: Padding(
+                                padding: EdgeInsets.all(baseRadiusForm),
+                                child: SizedBox(
+                                    width: 35,
+                                    height: 35,
+                                    child: Icon(
+                                        Iconsax.card_pos, color: colorDark)))),
+                        Text(labelTagihan,
+                            style: TextStyle(
+                                color: colorTextPrimary,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 12))
+                      ])),
+                  GestureDetector(
+                      onTap: () {
+                        Get.toNamed(Routes.history);
+                      },
+                      child: Column(children: [
+                        Card(
+                            color: colorSecondary,
+                            child: Padding(
+                                padding: EdgeInsets.all(baseRadiusForm),
+                                child: SizedBox(
+                                    width: 35,
+                                    height: 35,
+                                    child: Icon(
+                                        Iconsax.timer, color: colorDark)))
+                        ),
+                        Text(labelHistory,
+                            style: TextStyle(
+                                color: colorTextPrimary,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 12))
+                      ])),
+                ])
         ));
   }
 
   _buildContentInfo(BuildContext context) {
-    return Visibility(
-        child: Padding(
+    final informationList = controller.dashboardState.value.data?.information;
+    if (informationList == null || informationList.isEmpty == true) {
+      return Container();
+    }
+
+    return Padding(
       padding: EdgeInsets.only(top: basePadding),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-              padding: EdgeInsets.only(left: basePadding, right: basePadding),
+              padding: EdgeInsets.only(
+                  left: basePadding, right: basePadding),
               child: Row(
                 children: [
                   Text(labelInfo,
@@ -283,20 +298,21 @@ class DashboardPage extends GetView<DashboardController> {
                           fontWeight: FontWeight.bold,
                           fontSize: 20)),
                   Expanded(
-                    flex: 1,
-                    child: Align(
-                      alignment: Alignment.centerRight,
-                      child: GestureDetector(
-                        onTap: () {
-                          Get.toNamed(Routes.info);
-                        },
-                        child: Card(
-                            color: colorSecondary,
-                            child: Padding(
-                                padding: EdgeInsets.all(baseRadiusForm),
-                                child: Icon(Iconsax.arrow_right_3, color: colorDark))),
-                      ),
-                    ))
+                      flex: 1,
+                      child: Align(
+                        alignment: Alignment.centerRight,
+                        child: GestureDetector(
+                          onTap: () {
+                            Get.toNamed(Routes.info);
+                          },
+                          child: Card(
+                              color: colorSecondary,
+                              child: Padding(
+                                  padding: EdgeInsets.all(baseRadiusForm),
+                                  child: Icon(Iconsax.arrow_right_3,
+                                      color: colorDark))),
+                        ),
+                      ))
                 ],
               )),
           Container(
@@ -304,15 +320,17 @@ class DashboardPage extends GetView<DashboardController> {
                   physics: BouncingScrollPhysics(),
                   scrollDirection: Axis.horizontal,
                   child: Row(children: [
-                    for (int i = 0; i < listInfo.length; i++)
+                    for (int i = 0; i <
+                        informationList.length; i++)
                       Padding(
                           padding: EdgeInsets.only(
-                              left: (i == 0) ? basePadding : basePadding / 2,
-                              right: (i == listInfo.length - 1)
+                              left: (i == 0) ? basePadding : basePadding /
+                                  2,
+                              right: (i == informationList.length - 1)
                                   ? basePadding
                                   : basePadding / 2),
                           child: DashboardInfoTile(
-                            model: listInfo[i],
+                            model: informationList[i],
                             onPressed: (model) async {
                               Get.toNamed(Routes.infoDetail);
                             },
@@ -320,16 +338,17 @@ class DashboardPage extends GetView<DashboardController> {
                   ])))
         ],
       ),
-    ));
+    );
   }
 
   _buildContentAdv(BuildContext context) {
     return Visibility(
         child: Padding(
-          padding: EdgeInsets.only(left: basePadding, top: basePadding, right: basePadding),
+          padding: EdgeInsets.only(
+              left: basePadding, top: basePadding, right: basePadding),
           child: Card(
             shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
             color: Colors.white,
             elevation: 2,
             child: Container(
@@ -337,17 +356,24 @@ class DashboardPage extends GetView<DashboardController> {
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(baseRadiusForm),
                     image: DecorationImage(
-                        image: NetworkImage("https://bithourproduction.com/blog/wp-content/uploads/2023/08/EmJaSRjUcAAPkTv.jpg"),
+                        image: NetworkImage(
+                            "https://bithourproduction.com/blog/wp-content/uploads/2023/08/EmJaSRjUcAAPkTv.jpg"),
                         fit: BoxFit.cover))),
           ),
         ));
   }
 
   _buildContentLaporan(BuildContext context) {
+    final issueList = controller.dashboardState.value.data?.issue;
+    if (issueList == null || issueList.isEmpty == true) {
+      return Container();
+    }
+
     return Visibility(
         visible: true,
         child: Padding(
-            padding: EdgeInsets.only(top: basePadding,left: basePadding, right: basePadding),
+            padding: EdgeInsets.only(
+                top: basePadding, left: basePadding, right: basePadding),
             child:
             Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Row(
@@ -369,18 +395,20 @@ class DashboardPage extends GetView<DashboardController> {
                               color: colorSecondary,
                               child: Padding(
                                   padding: EdgeInsets.all(baseRadiusForm),
-                                  child: Icon(Iconsax.arrow_right_3, color: colorDark))),
+                                  child: Icon(Iconsax.arrow_right_3,
+                                      color: colorDark))),
                         ),
                       ))
                 ],
               ),
-            Transform.translate(offset: Offset(0, -20), child: ListView.builder(
+              Transform.translate(
+                  offset: Offset(0, -20), child: ListView.builder(
                   shrinkWrap: true,
                   physics: NeverScrollableScrollPhysics(),
-                  itemCount: listLaporan.length,
+                  itemCount: issueList.length,
                   itemBuilder: (context, index) {
                     return DashboardLaporanTile(
-                      model: listLaporan[index],
+                      model: issueList[index],
                       onPressed: (model) async {
                         Get.toNamed(Routes.laporanDetail);
                       },
