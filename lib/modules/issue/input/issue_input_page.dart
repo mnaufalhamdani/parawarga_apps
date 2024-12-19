@@ -3,8 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:parawarga_apps/modules/laporan/input/laporan_input_controller.dart';
-import 'package:parawarga_apps/modules/laporan/item/laporan_input_file_tile.dart';
+import 'package:parawarga_apps/modules/issue/input/issue_input_controller.dart';
+import 'package:parawarga_apps/modules/issue/item/issue_input_file_tile.dart';
 import 'package:parawarga_apps/theme/app_colors.dart';
 import 'package:parawarga_apps/theme/standard_button_primary.dart';
 import 'package:parawarga_apps/theme/standard_text_field.dart';
@@ -13,8 +13,8 @@ import 'package:parawarga_apps/utils/strings.dart';
 import '../../../core/constants.dart';
 import '../../../theme/app_theme.dart';
 
-class LaporanInputPage extends GetView<LaporanInputController> {
-  const LaporanInputPage({super.key});
+class IssueInputPage extends GetView<IssueInputController> {
+  const IssueInputPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -137,7 +137,7 @@ class LaporanInputPage extends GetView<LaporanInputController> {
                     bottom: (i == listHistory.length - 1)
                         ? basePadding
                         : baseRadiusForm),
-                child: LaporanInputFileTile(
+                child: IssueInputFileTile(
                     model: listHistory[i], onPressed: (model) async {})),
           StandardButtonPrimary(titleHint: labelSubmit)
         ]));

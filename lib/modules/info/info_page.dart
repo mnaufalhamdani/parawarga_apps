@@ -103,4 +103,29 @@ class InfoPage extends GetView<InfoController> {
                 ))
         ]));
   }
+
+  _buildError() {
+    return Padding(padding: EdgeInsets.only(top: 100), child: Center(
+        child: GestureDetector(
+            onTap: () {
+              controller.initMessage.value = "";
+              // controller.getNotificationApprovals();
+            },
+            child: SingleChildScrollView(child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image(
+                    height: 200,
+                    fit: BoxFit.cover,
+                    image: AssetImage("assets/images/background/gif_no_data.gif")),
+                Text(
+                  controller.initMessage.value,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: Colors.black87),
+                )
+              ],
+            ))
+        ))
+    );
+  }
 }

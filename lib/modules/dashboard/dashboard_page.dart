@@ -4,13 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:parawarga_apps/modules/dashboard/dashboard_controller.dart';
-import 'package:parawarga_apps/modules/dashboard/item/dashboard_laporan_tile.dart';
 import 'package:parawarga_apps/routes/app_pages.dart';
 import 'package:parawarga_apps/theme/app_colors.dart';
 
 import '../../theme/app_theme.dart';
 import '../../utils/strings.dart';
+import '../issue/detail/issue_detail_page.dart';
 import 'item/dashboard_info_tile.dart';
+import 'item/dashboard_issue_tile.dart';
 
 class DashboardPage extends GetView<DashboardController> {
   const DashboardPage({super.key});
@@ -34,7 +35,7 @@ class DashboardPage extends GetView<DashboardController> {
                   _buildContentMenu(context),
                   _buildContentInfo(context),
                   _buildContentAdv(context),
-                  _buildContentLaporan(context),
+                  _buildContentIssue(context),
                   // _buildContentVoting(context),
                 ],
               )
@@ -277,8 +278,8 @@ class DashboardPage extends GetView<DashboardController> {
   }
 
   _buildContentInfo(BuildContext context) {
-    final informationList = controller.dashboardState.value.data?.information;
-    if (informationList == null || informationList.isEmpty == true) {
+    final list = controller.dashboardState.value.data?.information;
+    if (list == null || list.isEmpty == true) {
       return Container();
     }
 
@@ -321,16 +322,16 @@ class DashboardPage extends GetView<DashboardController> {
                   scrollDirection: Axis.horizontal,
                   child: Row(children: [
                     for (int i = 0; i <
-                        informationList.length; i++)
+                        list.length; i++)
                       Padding(
                           padding: EdgeInsets.only(
                               left: (i == 0) ? basePadding : basePadding /
                                   2,
-                              right: (i == informationList.length - 1)
+                              right: (i == list.length - 1)
                                   ? basePadding
                                   : basePadding / 2),
                           child: DashboardInfoTile(
-                            model: informationList[i],
+                            model: list[i],
                             onPressed: (model) async {
                               Get.toNamed(Routes.infoDetail);
                             },
@@ -363,9 +364,9 @@ class DashboardPage extends GetView<DashboardController> {
         ));
   }
 
-  _buildContentLaporan(BuildContext context) {
-    final issueList = controller.dashboardState.value.data?.issue;
-    if (issueList == null || issueList.isEmpty == true) {
+  _buildContentIssue(BuildContext context) {
+    final list = controller.dashboardState.value.data?.issue;
+    if (list == null || list.isEmpty == true) {
       return Container();
     }
 
@@ -389,7 +390,7 @@ class DashboardPage extends GetView<DashboardController> {
                         alignment: Alignment.centerRight,
                         child: GestureDetector(
                           onTap: () {
-                            Get.toNamed(Routes.laporan);
+                            Get.toNamed(Routes.issue);
                           },
                           child: Card(
                               color: colorSecondary,
@@ -405,12 +406,14 @@ class DashboardPage extends GetView<DashboardController> {
                   offset: Offset(0, -20), child: ListView.builder(
                   shrinkWrap: true,
                   physics: NeverScrollableScrollPhysics(),
-                  itemCount: issueList.length,
+                  itemCount: list.length,
                   itemBuilder: (context, index) {
-                    return DashboardLaporanTile(
-                      model: issueList[index],
+                    return DashboardIssueTile(
+                      model: list[index],
                       onPressed: (model) async {
-                        Get.toNamed(Routes.laporanDetail);
+                        Get.toNamed(Routes.issueDetail, arguments: {
+                          IssueDetailPage.argId: model.id.toString()
+                        });
                       },
                     );
                   }

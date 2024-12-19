@@ -2,25 +2,26 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:parawarga_apps/models/response/view_dashboard_model.dart';
 import 'package:parawarga_apps/theme/app_theme.dart';
 
 import '../../../theme/app_colors.dart';
 
-class LaporanTile extends StatefulWidget {
-  final Map<String, dynamic> model;
-  final void Function(Map<String, dynamic> model) onPressed;
+class DashboardIssueTile extends StatefulWidget {
+  final Issue model;
+  final void Function(Issue) onPressed;
 
-  const LaporanTile({
+  const DashboardIssueTile({
     super.key,
     required this.model,
     required this.onPressed,
   });
 
   @override
-  State<LaporanTile> createState() => LaporanTileState();
+  State<DashboardIssueTile> createState() => DashboardIssueTileState();
 }
 
-class LaporanTileState extends State<LaporanTile> {
+class DashboardIssueTileState extends State<DashboardIssueTile> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -46,7 +47,7 @@ class LaporanTileState extends State<LaporanTile> {
                     flex: 1,
                     child: ClipRRect(
                         borderRadius: BorderRadius.circular(baseRadiusForm),
-                        child: Image.network(height: 50, widget.model["photo"].toString(), fit: BoxFit.cover,
+                        child: Image.network(height: 50, widget.model.attachment.toString(), fit: BoxFit.cover,
                             errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
                               return Icon(Iconsax.gallery_slash, color: colorTextSecondary);
                             })
@@ -60,7 +61,7 @@ class LaporanTileState extends State<LaporanTile> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            widget.model["label"],
+                            widget.model.title.toString(),
                             style: TextStyle(
                                 color: colorTextSecondary,
                                 fontWeight: FontWeight.bold,
@@ -70,7 +71,7 @@ class LaporanTileState extends State<LaporanTile> {
                           Padding(
                             padding: EdgeInsets.only(top: baseRadiusForm),
                             child: Text(
-                              widget.model["area"],
+                              widget.model.areaName.toString(),
                               style: TextStyle(
                                   color: colorTextSecondary, fontSize: 12),
                             ),
@@ -79,7 +80,7 @@ class LaporanTileState extends State<LaporanTile> {
                               padding: EdgeInsets.only(top: basePadding),
                               child: Align(
                                 alignment: Alignment.bottomRight,
-                                child: Text(widget.model["date"],
+                                child: Text(widget.model.updatedAt.toString(),
                                     style: TextStyle(
                                         color: colorTextSecondary,
                                         fontSize: 11),

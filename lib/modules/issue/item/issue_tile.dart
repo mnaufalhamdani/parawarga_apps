@@ -2,26 +2,26 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:parawarga_apps/models/response/view_dashboard_model.dart';
+import 'package:parawarga_apps/models/response/issue_model.dart';
 import 'package:parawarga_apps/theme/app_theme.dart';
 
 import '../../../theme/app_colors.dart';
 
-class DashboardLaporanTile extends StatefulWidget {
-  final Issue model;
-  final void Function(Issue) onPressed;
+class IssueTile extends StatefulWidget {
+  final IssueModel model;
+  final void Function(IssueModel) onPressed;
 
-  const DashboardLaporanTile({
+  const IssueTile({
     super.key,
     required this.model,
     required this.onPressed,
   });
 
   @override
-  State<DashboardLaporanTile> createState() => DashboardLaporanTileState();
+  State<IssueTile> createState() => IssueTileState();
 }
 
-class DashboardLaporanTileState extends State<DashboardLaporanTile> {
+class IssueTileState extends State<IssueTile> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(

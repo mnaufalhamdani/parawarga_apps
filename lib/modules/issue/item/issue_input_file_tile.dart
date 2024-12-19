@@ -6,21 +6,21 @@ import 'package:parawarga_apps/theme/app_theme.dart';
 
 import '../../../theme/app_colors.dart';
 
-class LaporanInputFileTile extends StatefulWidget {
+class IssueInputFileTile extends StatefulWidget {
   final Map<String, dynamic> model;
   final void Function(Map<String, dynamic> model) onPressed;
 
-  const LaporanInputFileTile({
+  const IssueInputFileTile({
     super.key,
     required this.model,
     required this.onPressed,
   });
 
   @override
-  State<LaporanInputFileTile> createState() => LaporanInputFileTileState();
+  State<IssueInputFileTile> createState() => IssueInputFileTileState();
 }
 
-class LaporanInputFileTileState extends State<LaporanInputFileTile> {
+class IssueInputFileTileState extends State<IssueInputFileTile> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(

@@ -1,25 +1,26 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:parawarga_apps/models/response/issue_detail_model.dart';
 import 'package:parawarga_apps/theme/app_theme.dart';
 
 import '../../../theme/app_colors.dart';
 
-class LaporanStatusTile extends StatefulWidget {
-  final Map<String, dynamic> model;
-  final void Function(Map<String, dynamic> model) onPressed;
+class IssueStatusTile extends StatefulWidget {
+  final History model;
+  final void Function(History) onPressed;
 
-  const LaporanStatusTile({
+  const IssueStatusTile({
     super.key,
     required this.model,
     required this.onPressed,
   });
 
   @override
-  State<LaporanStatusTile> createState() => LaporanStatusTileState();
+  State<IssueStatusTile> createState() => IssueStatusTileState();
 }
 
-class LaporanStatusTileState extends State<LaporanStatusTile> {
+class IssueStatusTileState extends State<IssueStatusTile> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -41,7 +42,7 @@ class LaporanStatusTileState extends State<LaporanStatusTile> {
         child: Padding(
           padding: EdgeInsets.all(basePaddingInContent / 2),
           child: Text(
-            "Waiting Approval",
+            widget.model.statusName.toString(),
             style: TextStyle(
                 color: colorDark,
                 fontWeight: FontWeight.bold,
@@ -50,7 +51,7 @@ class LaporanStatusTileState extends State<LaporanStatusTile> {
         ),
       ),
       Text(
-        "Proses menunggu Pengelola Area",
+        widget.model.message ?? "-",
         style: TextStyle(
             color: colorTextSecondary,
             fontSize: 12),
@@ -59,7 +60,7 @@ class LaporanStatusTileState extends State<LaporanStatusTile> {
       Align(
         alignment: Alignment.centerRight,
         child: Text(
-          "30-12-2024 19:22",
+          widget.model.updatedAt.toString(),
           style: TextStyle(
               color: colorTextSecondary,
               fontSize: 12),
