@@ -19,19 +19,18 @@ class SplashController extends GetxController{
   final splashState = Rx(ResponseState<UserEntity>());
 
   void checkSession() async {
-    await Future.delayed(const Duration(seconds: 5), () async {
-      try {
-        await repository.getUserActive();
+    try {
+      final response = await repository.getUserActive();
+      await repository.login(response.userEntity.username, response.userEntity.password);
 
-        Get.offAllNamed(Routes.dashboard);
-      }on FailureResponse catch(e) {
-        if (e.message != null) {
-          Get.offAllNamed(Routes.login);
-          showStandardSnackbar(Get.context!, TypeMessage.error,
-              message: e.message.toString(),
-              duration: DurationMessage.lengthLong);
-        }
+      Get.offAllNamed(Routes.dashboard);
+    }on FailureResponse catch(e) {
+      if (e.message != null) {
+        Get.offAllNamed(Routes.login);
+        showStandardSnackbar(Get.context!, TypeMessage.error,
+            message: e.message.toString(),
+            duration: DurationMessage.lengthLong);
       }
-    });
+    }
   }
 }

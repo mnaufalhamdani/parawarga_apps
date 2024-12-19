@@ -2,6 +2,7 @@
 import 'dart:io';
 
 import 'package:device_info_plus/device_info_plus.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:parawarga_apps/core/failure_response.dart';
@@ -16,6 +17,7 @@ import '../provider/login_provider.dart';
 
 //domain - repository
 abstract class LoginRepository {
+  Future<String> getToken();
   Future<UserAreaDomain> getUserActive();
 
   Future<UserAreaDomain> login(String username, String password);
@@ -29,14 +31,24 @@ class LoginRepositoryImpl extends LoginRepository {
   final DatabaseConfig databaseConfig;
 
   @override
+  Future<String> getToken() async {
+    final secureStorage = FlutterSecureStorage();
+    final token = await secureStorage.read(key: 'jwt_token');
+    return token ?? "unknown";
+  }
+
+  @override
   Future<UserAreaDomain> getUserActive() async {
     final localUser = await databaseConfig.profileDao.getUser();
     final localArea = await databaseConfig.areaDao.getArea();
     if (localUser.isEmpty) {
-      Get.offAllNamed(Routes.login);
+      Future.delayed(const Duration(seconds: 5), () {
+        Get.offAllNamed(Routes.login);
+      });
+
       throw FailureResponse();
     }else {
-      final chekcExpired = JwtDecoder.isExpired(localUser.first.token.toString());
+      final chekcExpired = JwtDecoder.isExpired(await getToken());
       if (chekcExpired) {
         throw FailureResponse(message: msgSessionExpired);
       }else {
@@ -68,6 +80,9 @@ class LoginRepositoryImpl extends LoginRepository {
     );
 
     await databaseConfig.profileDao.deleteAll().then((value) async {
+      final secureStorage = FlutterSecureStorage();
+      await secureStorage.write(key: "jwt_token", value: response.token.toString());
+
       await databaseConfig.profileDao.insertEntity(
           UserMapper(response, username, password));
     });

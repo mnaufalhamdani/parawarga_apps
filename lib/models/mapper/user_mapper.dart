@@ -33,7 +33,6 @@ UserEntity UserMapper(LoginModel model, String username, String password) {
     activated_at : model.activated_at,
     blocked_at : model.blocked_at,
     login_at : model.login_at,
-    token : model.token,
     status : 1,
     statusKirim : 0,
     createdAt : DateFormat('yyyy-MM-dd HH:mm:ss').format(DateTime.now()),

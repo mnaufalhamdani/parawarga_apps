@@ -1,4 +1,5 @@
 // ignore_for_file: prefer_const_constructors
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:parawarga_apps/data/provider/dashboard_provider.dart';
@@ -12,6 +13,7 @@ import '../../utils/strings.dart';
 
 //domain - repository
 abstract class DashboardRepository {
+  Future<String> getToken();
   Future<UserAreaDomain> getUserActive();
 
   Future<ViewDashboardModel> getViewDashboard();
@@ -23,6 +25,13 @@ class DashboardRepositoryImpl extends DashboardRepository {
 
   final DashboardProvider provider;
   final DatabaseConfig databaseConfig;
+
+  @override
+  Future<String> getToken() async {
+    final secureStorage = FlutterSecureStorage();
+    final token = await secureStorage.read(key: 'jwt_token');
+    return token ?? "unknown";
+  }
 
   @override
   Future<UserAreaDomain> getUserActive() async {
@@ -48,7 +57,7 @@ class DashboardRepositoryImpl extends DashboardRepository {
     final areaArray = entity.areaEntity?.map((element) => element.area_id).toList().join(",");
 
     return await provider.getViewDashboard(
-      token: entity.userEntity.token.toString(),
+      token: await getToken(),
       areaArray: areaArray,
       date: date
     );
