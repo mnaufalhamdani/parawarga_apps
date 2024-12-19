@@ -1,26 +1,27 @@
 // ignore_for_file: prefer_const_constructors
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
+import 'package:parawarga_apps/data/provider/dashboard_provider.dart';
+import 'package:parawarga_apps/models/domain/user_area_domain.dart';
 import 'package:parawarga_apps/routes/app_pages.dart';
 import 'package:parawarga_apps/theme/standard_snackbar.dart';
 
 import '../../config/local/database_config.dart';
-import '../../core/failure_response.dart';
-import '../../models/domain/user_area_domain.dart';
+import '../../models/response/view_dashboard_model.dart';
 import '../../utils/strings.dart';
-import '../provider/login_provider.dart';
 
 //domain - repository
-abstract class ProfileRepository {
+abstract class DashboardRepository {
   Future<UserAreaDomain> getUserActive();
 
-  Future<bool> logout();
+  Future<ViewDashboardModel> getViewDashboard();
 }
 
 //data - repository
-class ProfileRepositoryImpl extends ProfileRepository {
-  ProfileRepositoryImpl(this.provider, this.databaseConfig);
+class DashboardRepositoryImpl extends DashboardRepository {
+  DashboardRepositoryImpl(this.provider, this.databaseConfig);
 
-  final LoginProvider provider;
+  final DashboardProvider provider;
   final DatabaseConfig databaseConfig;
 
   @override
@@ -41,15 +42,15 @@ class ProfileRepositoryImpl extends ProfileRepository {
   }
 
   @override
-  Future<bool> logout() async {
-    await databaseConfig.profileDao.deleteAll().catchError((error) {
-      throw FailureResponse(message: error);
-    });
+  Future<ViewDashboardModel> getViewDashboard() async {
+    final entity = await getUserActive();
+    final date = DateFormat('yyyy-MM-dd').format(DateTime.now());
+    final areaArray = entity.areaEntity?.map((element) => element.area_id).toList().join(",");
 
-    await databaseConfig.areaDao.deleteAll().catchError((error) {
-      throw FailureResponse(message: error);
-    });
-
-    return true;
+    return await provider.getViewDashboard(
+      token: entity.userEntity.token.toString(),
+      areaArray: areaArray,
+      date: date
+    );
   }
 }

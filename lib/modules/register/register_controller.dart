@@ -1,7 +1,5 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'dart:developer';
-
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:parawarga_apps/core/data_state.dart';
@@ -34,7 +32,6 @@ class RegisterController extends GetxController{
       await repository.verifyEncodeArea(
           editingControllers[0].text.toString()
       ).then((model) {
-        log("checkArea");
         registerWargaDomain.value.area_generate = model.area_generate;
         registerWargaDomain.value.resultMsgArea =
         "\n${model.area_name}"

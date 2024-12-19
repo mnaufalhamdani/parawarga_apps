@@ -1,6 +1,5 @@
 // ignore_for_file: prefer_const_constructors
 import 'dart:convert';
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:mime/mime.dart';
@@ -27,7 +26,6 @@ class RegisterRepositoryImpl extends RegisterRepository {
 
   @override
   Future<VerifyEncodeModel> verifyEncodeArea(String areaEncoded) async {
-    log("message: ${areaEncoded}");
     return await provider.verifyEncodeArea(areaEncoded: areaEncoded);
   }
 

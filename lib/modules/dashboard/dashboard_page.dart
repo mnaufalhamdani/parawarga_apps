@@ -18,6 +18,7 @@ class DashboardPage extends GetView<DashboardController> {
 
   @override
   Widget build(BuildContext context) {
+    controller.getViewDashboard();
     return Scaffold(
       body: SingleChildScrollView(
           child: Column(
@@ -34,15 +35,14 @@ class DashboardPage extends GetView<DashboardController> {
           // _buildContentVoting(context),
         ],
       )),
-      floatingActionButton: Obx(() =>
-          Visibility(visible: controller.initLoading.value,
+      floatingActionButton: Visibility(visible: true,
               child: FloatingActionButton(
                   shape: CircleBorder(),
                   backgroundColor: Colors.red,
                   onPressed: () {},
                   child: Icon(Iconsax.alarm, color: Colors.white)
               )
-          )),
+          ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }

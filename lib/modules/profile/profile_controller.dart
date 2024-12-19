@@ -3,8 +3,8 @@
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:parawarga_apps/core/constants.dart';
-import 'package:parawarga_apps/data/entities/user/user.dart';
 import 'package:parawarga_apps/data/repository/profile_repository.dart';
+import 'package:parawarga_apps/models/domain/user_area_domain.dart';
 
 import '../../core/data_state.dart';
 import '../../core/failure_response.dart';
@@ -17,7 +17,7 @@ class ProfileController extends GetxController{
   final ProfileRepository repository;
 
   final logoutState = Rx(ResponseState<bool>());
-  final userState = Rx(ResponseState<UserEntity>());
+  final userState = Rx(ResponseState<UserAreaDomain>());
 
   final formKey = GlobalKey<FormState>();
   final editingControllers = List.generate(2, (index) => TextEditingController());

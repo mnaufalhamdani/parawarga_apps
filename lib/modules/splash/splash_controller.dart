@@ -26,6 +26,7 @@ class SplashController extends GetxController{
         Get.offAllNamed(Routes.dashboard);
       }on FailureResponse catch(e) {
         if (e.message != null) {
+          Get.offAllNamed(Routes.login);
           showStandardSnackbar(Get.context!, TypeMessage.error,
               message: e.message.toString(),
               duration: DurationMessage.lengthLong);

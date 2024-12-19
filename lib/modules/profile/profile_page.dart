@@ -102,8 +102,7 @@ class ProfilePage extends GetView<ProfileController> {
                                                 CrossAxisAlignment.end,
                                             children: [
                                               Text(
-                                                controller.userState.value.data
-                                                        ?.name
+                                                controller.userState.value.data?.userEntity.name
                                                         .toString() ??
                                                     "",
                                                 style: TextStyle(
@@ -114,8 +113,7 @@ class ProfilePage extends GetView<ProfileController> {
                                                 overflow: TextOverflow.ellipsis,
                                               ),
                                               Text(
-                                                controller.userState.value.data
-                                                        ?.email
+                                                controller.userState.value.data?.userEntity.email
                                                         .toString() ??
                                                     "",
                                                 style: TextStyle(
@@ -135,11 +133,11 @@ class ProfilePage extends GetView<ProfileController> {
                                             child: CircleAvatar(
                                               backgroundColor: colorDark,
                                               child: ClipOval(
-                                                child: (controller.userState.value.data?.photo != null)
+                                                child: (controller.userState.value.data?.userEntity.photo != null)
                                                     ? Image.network(
-                                                    controller.userState.value.data!.photo.toString(), width: 40, height: 40, fit: BoxFit.cover)
+                                                    controller.userState.value.data!.userEntity.photo.toString(), width: 40, height: 40, fit: BoxFit.cover)
                                                     : Text(
-                                                        getInitials(controller.userState.value.data?.name.toString() ?? ""),
+                                                        getInitials(controller.userState.value.data?.userEntity.name.toString() ?? ""),
                                                         style: TextStyle(
                                                             color: colorTextThird,
                                                             fontWeight: FontWeight.bold,

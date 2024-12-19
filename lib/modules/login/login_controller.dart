@@ -3,7 +3,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:parawarga_apps/core/data_state.dart';
-import 'package:parawarga_apps/data/entities/user/user.dart';
+import 'package:parawarga_apps/models/domain/user_area_domain.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import '../../core/failure_response.dart';
@@ -21,7 +21,7 @@ class LoginController extends GetxController{
 
   final formKey = GlobalKey<FormState>();
   final editingControllers = List.generate(2, (index) => TextEditingController());
-  final loginState = Rx(ResponseState<UserEntity>());
+  final loginState = Rx(ResponseState<UserAreaDomain>());
 
   @override
   Future<void> onInit() async {

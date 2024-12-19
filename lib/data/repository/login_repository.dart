@@ -4,21 +4,21 @@ import 'dart:io';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:get/get.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
-import 'package:parawarga_apps/data/entities/user/user.dart';
+import 'package:parawarga_apps/core/failure_response.dart';
+import 'package:parawarga_apps/models/domain/user_area_domain.dart';
 import 'package:parawarga_apps/models/mapper/area_mapper.dart';
 import 'package:parawarga_apps/models/mapper/user_mapper.dart';
 
 import '../../config/local/database_config.dart';
 import '../../routes/app_pages.dart';
-import '../../theme/standard_snackbar.dart';
 import '../../utils/strings.dart';
 import '../provider/login_provider.dart';
 
 //domain - repository
 abstract class LoginRepository {
-  Future<UserEntity> getUserActive();
+  Future<UserAreaDomain> getUserActive();
 
-  Future<UserEntity> login(String username, String password);
+  Future<UserAreaDomain> login(String username, String password);
 }
 
 //data - repository
@@ -29,33 +29,28 @@ class LoginRepositoryImpl extends LoginRepository {
   final DatabaseConfig databaseConfig;
 
   @override
-  Future<UserEntity> getUserActive() async {
+  Future<UserAreaDomain> getUserActive() async {
     final localUser = await databaseConfig.profileDao.getUser();
+    final localArea = await databaseConfig.areaDao.getArea();
     if (localUser.isEmpty) {
       Get.offAllNamed(Routes.login);
+      throw FailureResponse();
     }else {
       final chekcExpired = JwtDecoder.isExpired(localUser.first.token.toString());
       if (chekcExpired) {
-        Get.offAllNamed(Routes.login);
-        showStandardSnackbar(Get.context!, TypeMessage.error,
-            message: msgSessionExpired,
-            duration: DurationMessage.lengthLong);
+        throw FailureResponse(message: msgSessionExpired);
       }else {
-        final localArea = await databaseConfig.areaDao.getArea();
         if (localArea.isEmpty) {
-          Get.offAllNamed(Routes.login);
-          showStandardSnackbar(Get.context!, TypeMessage.error,
-              message: msgAreaNotFound,
-              duration: DurationMessage.lengthLong);
+          throw FailureResponse(message: msgAreaNotFound);
         }
       }
     }
 
-    return localUser.first;
+    return UserAreaDomain(userEntity: localUser.first, areaEntity: localArea);
   }
 
   @override
-  Future<UserEntity> login(String username, String password) async {
+  Future<UserAreaDomain> login(String username, String password) async {
     var deviceId = "unknown";
     if (Platform.isAndroid) {
       final build = await DeviceInfoPlugin().androidInfo;

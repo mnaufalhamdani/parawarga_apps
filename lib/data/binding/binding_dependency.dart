@@ -1,7 +1,9 @@
 import 'package:get/get.dart';
 import 'package:parawarga_apps/config/local/migration_version.dart';
+import 'package:parawarga_apps/data/provider/dashboard_provider.dart';
 import 'package:parawarga_apps/data/provider/login_provider.dart';
 import 'package:parawarga_apps/data/provider/register_provider.dart';
+import 'package:parawarga_apps/data/repository/dashboard_repository.dart';
 import 'package:parawarga_apps/data/repository/login_repository.dart';
 import 'package:parawarga_apps/data/repository/profile_repository.dart';
 import 'package:parawarga_apps/modules/arisan/arisan_controller.dart';
@@ -46,7 +48,7 @@ class BindingDependency implements Bindings {
     Get.lazyPut(() => SplashController(repository: Get.find()), fenix: true);
     Get.lazyPut(() => LoginController(repository: Get.find()), fenix: true);
     Get.lazyPut(() => RegisterController(repository: Get.find()), fenix: true);
-    Get.lazyPut(() => DashboardController(), fenix: true);
+    Get.lazyPut(() => DashboardController(repository: Get.find()), fenix: true);
     Get.lazyPut(() => ProfileController(repository: Get.find()), fenix: true);
     Get.lazyPut(() => VotingController(), fenix: true);
     Get.lazyPut(() => VotingDetailController(), fenix: true);
@@ -67,10 +69,12 @@ class BindingDependency implements Bindings {
     //Provider
     Get.lazyPut(() => LoginProvider(), fenix: true);
     Get.lazyPut(() => RegisterProvider(), fenix: true);
+    Get.lazyPut(() => DashboardProvider(), fenix: true);
 
     //Repository
     Get.lazyPut<LoginRepository>(() => LoginRepositoryImpl(Get.find(), Get.find()), fenix: true);
     Get.lazyPut<ProfileRepository>(() => ProfileRepositoryImpl(Get.find(), Get.find()), fenix: true);
     Get.lazyPut<RegisterRepository>(() => RegisterRepositoryImpl(Get.find(), Get.find()), fenix: true);
+    Get.lazyPut<DashboardRepository>(() => DashboardRepositoryImpl(Get.find(), Get.find()), fenix: true);
   }
 }
