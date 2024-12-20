@@ -9,6 +9,7 @@ import 'package:parawarga_apps/theme/app_colors.dart';
 import 'package:parawarga_apps/utils/strings.dart';
 
 import '../../../theme/app_theme.dart';
+import '../../../theme/standard_error_page.dart';
 
 class IssueDetailPage extends GetView<IssueDetailController> {
   const IssueDetailPage({super.key});
@@ -99,7 +100,12 @@ class IssueDetailPage extends GetView<IssueDetailController> {
     }
 
     if (data == null || controller.issueState.value.error != null) {
-      return _buildError();
+      return StandardErrorPage(
+        message: controller.issueState.value.error?.message,
+        onPressed: () {
+          controller.getIssueDetail();
+        },
+      );
     }
 
     return SingleChildScrollView(
@@ -206,30 +212,5 @@ class IssueDetailPage extends GetView<IssueDetailController> {
             )
           ]),
         ));
-  }
-
-  _buildError() {
-    return Padding(padding: EdgeInsets.only(top: 100), child: Center(
-        child: GestureDetector(
-            onTap: () {
-              controller.getIssueDetail();
-            },
-            child: SingleChildScrollView(child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Image(
-                    height: 200,
-                    fit: BoxFit.cover,
-                    image: AssetImage(
-                        "assets/images/background/gif_no_data.gif")),
-                Text(
-                  controller.issueState.value.error?.message.toString() ?? "",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(color: Colors.black87),
-                )
-              ],
-            ))
-        ))
-    );
   }
 }

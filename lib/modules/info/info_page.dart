@@ -9,32 +9,38 @@ import 'package:parawarga_apps/routes/app_pages.dart';
 import 'package:parawarga_apps/theme/app_colors.dart';
 import 'package:parawarga_apps/utils/strings.dart';
 
-import '../../core/constants.dart';
 import '../../theme/app_theme.dart';
+import '../../theme/standard_error_page.dart';
 
 class InfoPage extends GetView<InfoController> {
   const InfoPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: _buildContentTop(context),
-    );
+    controller.getInformation();
+    return Obx(() => Scaffold(body: _buildContentTop(context)));
   }
 
   _buildContentTop(BuildContext context) {
     return Container(
       color: colorBackground,
       child: Padding(
-        padding: EdgeInsets.only(top: MediaQuery.of(context).viewPadding.top),
+        padding: EdgeInsets.only(top: MediaQuery
+            .of(context)
+            .viewPadding
+            .top),
         child: Column(
           children: [
             SizedBox(
-              height: MediaQuery.of(context).viewPadding.top * 2,
+              height: MediaQuery
+                  .of(context)
+                  .viewPadding
+                  .top * 2,
               child: Padding(
                 padding: EdgeInsets.only(
                     left: basePadding, right: basePadding),
-                child: Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
+                child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center, children: [
                   GestureDetector(
                       onTap: () {
                         Get.back();
@@ -85,47 +91,39 @@ class InfoPage extends GetView<InfoController> {
   }
 
   _buildContentMainMenu(BuildContext context) {
+    final list = controller.infoState.value.data;
+    if (controller.infoState.value.isLoading) {
+      return Container();
+    }
+
+    if (list == null || list.isEmpty == true ||
+        controller.infoState.value.error != null) {
+      return StandardErrorPage(
+        message: controller.infoState.value.error?.message,
+        onPressed: () {
+          controller.getInformation();
+        },
+      );
+    }
+
     return SingleChildScrollView(
         physics: BouncingScrollPhysics(),
         child: Column(children: [
-          for (int i = 0; i < listInfo.length; i++)
+          for (int i = 0; i < list.length; i++)
             Padding(
                 padding: EdgeInsets.only(
                     top: (i == 0) ? basePadding : baseRadiusForm,
                     left: basePadding,
                     right: basePadding,
-                    bottom: (i == listInfo.length - 1) ? basePadding : baseRadiusForm),
+                    bottom: (i == list.length - 1)
+                        ? basePadding
+                        : baseRadiusForm),
                 child: InfoTile(
-                  model: listInfo[i],
+                  model: list[i],
                   onPressed: (model) async {
                     Get.toNamed(Routes.infoDetail);
                   },
                 ))
         ]));
-  }
-
-  _buildError() {
-    return Padding(padding: EdgeInsets.only(top: 100), child: Center(
-        child: GestureDetector(
-            onTap: () {
-              controller.initMessage.value = "";
-              // controller.getNotificationApprovals();
-            },
-            child: SingleChildScrollView(child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Image(
-                    height: 200,
-                    fit: BoxFit.cover,
-                    image: AssetImage("assets/images/background/gif_no_data.gif")),
-                Text(
-                  controller.initMessage.value,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(color: Colors.black87),
-                )
-              ],
-            ))
-        ))
-    );
   }
 }

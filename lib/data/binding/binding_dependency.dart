@@ -1,10 +1,12 @@
 import 'package:get/get.dart';
 import 'package:parawarga_apps/config/local/migration_version.dart';
 import 'package:parawarga_apps/data/provider/dashboard_provider.dart';
+import 'package:parawarga_apps/data/provider/information_provider.dart';
 import 'package:parawarga_apps/data/provider/issue_provider.dart';
 import 'package:parawarga_apps/data/provider/login_provider.dart';
 import 'package:parawarga_apps/data/provider/register_provider.dart';
 import 'package:parawarga_apps/data/repository/dashboard_repository.dart';
+import 'package:parawarga_apps/data/repository/information_repository.dart';
 import 'package:parawarga_apps/data/repository/issue_repository.dart';
 import 'package:parawarga_apps/data/repository/login_repository.dart';
 import 'package:parawarga_apps/data/repository/profile_repository.dart';
@@ -61,8 +63,8 @@ class BindingDependency implements Bindings {
     Get.lazyPut(() => IssueController(repository: Get.find()), fenix: true);
     Get.lazyPut(() => IssueDetailController(repository: Get.find()), fenix: true);
     Get.lazyPut(() => IssueInputController(), fenix: true);
-    Get.lazyPut(() => InfoController(), fenix: true);
-    Get.lazyPut(() => InfoDetailController(), fenix: true);
+    Get.lazyPut(() => InfoController(repository: Get.find()), fenix: true);
+    Get.lazyPut(() => InfoDetailController(repository: Get.find()), fenix: true);
     Get.lazyPut(() => UnitEmptyController(), fenix: true);
     Get.lazyPut(() => MyAreaController(), fenix: true);
     Get.lazyPut(() => MyAreaDetailController(), fenix: true);
@@ -72,6 +74,7 @@ class BindingDependency implements Bindings {
     Get.lazyPut(() => RegisterProvider(), fenix: true);
     Get.lazyPut(() => DashboardProvider(), fenix: true);
     Get.lazyPut(() => IssueProvider(), fenix: true);
+    Get.lazyPut(() => InformationProvider(), fenix: true);
 
     //Repository
     Get.lazyPut<LoginRepository>(() => LoginRepositoryImpl(Get.find(), Get.find()), fenix: true);
@@ -79,5 +82,6 @@ class BindingDependency implements Bindings {
     Get.lazyPut<RegisterRepository>(() => RegisterRepositoryImpl(Get.find(), Get.find()), fenix: true);
     Get.lazyPut<DashboardRepository>(() => DashboardRepositoryImpl(Get.find(), Get.find()), fenix: true);
     Get.lazyPut<IssueRepository>(() => IssueRepositoryImpl(Get.find(), Get.find()), fenix: true);
+    Get.lazyPut<InformationRepository>(() => InformationRepositoryImpl(Get.find(), Get.find()), fenix: true);
   }
 }

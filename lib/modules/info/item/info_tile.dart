@@ -1,13 +1,14 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:parawarga_apps/models/response/information_model.dart';
 import 'package:parawarga_apps/theme/app_theme.dart';
 
 import '../../../theme/app_colors.dart';
 
 class InfoTile extends StatefulWidget {
-  final Map<String, dynamic> model;
-  final void Function(Map<String, dynamic> model) onPressed;
+  final InformationModel model;
+  final void Function(InformationModel) onPressed;
 
   const InfoTile({
     super.key,
@@ -43,7 +44,7 @@ class InfoTileState extends State<InfoTile> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(widget.model["label"],
+            Text(widget.model.title.toString(),
                 style: TextStyle(
                     color: colorTextSecondary,
                     fontWeight: FontWeight.bold,
@@ -52,7 +53,7 @@ class InfoTileState extends State<InfoTile> {
             Padding(
               padding: EdgeInsets.only(top: baseRadiusForm),
               child: Text(
-                "RT.001 RW.003",
+                widget.model.areaName.toString(),
                 style: TextStyle(color: colorTextSecondary, fontSize: 12),
               ),
             ),
@@ -60,7 +61,7 @@ class InfoTileState extends State<InfoTile> {
                 alignment: Alignment.centerRight,
                 child: Padding(
                     padding: EdgeInsets.only(top: basePadding),
-                    child: Text(widget.model["date"],
+                    child: Text(widget.model.updatedAt.toString(),
                         style: TextStyle(
                             color: colorTextSecondary, fontSize: 10)))
             ),
