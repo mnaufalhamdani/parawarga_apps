@@ -1,12 +1,11 @@
 
 class VerifyNikModel {
-  String? message;
-
   VerifyNikModel({
     this.message,
   });
+  String? message;
 
-  factory VerifyNikModel.fromJson(dynamic json) {
+  factory VerifyNikModel.fromJson(Map<String, dynamic> json) {
     return VerifyNikModel(
       message: json['message'],
     );

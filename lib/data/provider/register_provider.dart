@@ -18,7 +18,7 @@ class RegisterProvider extends BaseService {
 
       final response = await post('verifyEncodeArea', formData, query: params, headers: headers);
       if(response.status.isOk){
-        final VerifyEncodeModel value = VerifyEncodeModel.fromJson(response.body['data']);
+        final value = VerifyEncodeModel.fromJson(response.body['data']);
         return value;
       } else {
         throw FailureResponse.fromJson(response.body ?? response.statusText);
@@ -36,7 +36,7 @@ class RegisterProvider extends BaseService {
 
     final response = await post('verifyNik', formData, query: params, headers: headers);
     if(response.status.isOk){
-      final VerifyNikModel value = VerifyNikModel.fromJson(response.body['data']);
+      final value = VerifyNikModel.fromJson(response.body['data']);
       return value;
     } else {
       throw FailureResponse.fromJson(response.body ?? response.statusText);

@@ -1,35 +1,5 @@
 
 class LoginModel {
-  String? id;
-  String? username;
-  String? password;
-  String? pin;
-  String? name;
-  String? address_ktp;
-  String? address_domisili;
-  String? gender;
-  String? divisi;
-  String? email;
-  String? phone;
-  String? dob;
-  String? pob;
-  String? nik;
-  String? nkk;
-  String? photo_nik;
-  String? photo_nkk;
-  String? photo;
-  String? status_keluarga;
-  String? status_pekerjaan;
-  String? status_agama;
-  String? status_nikah;
-  String? device_id;
-  String? firebase_id;
-  String? activated_at;
-  String? blocked_at;
-  String? login_at;
-  String? token;
-  List<LoginAreaModel> area;
-
   LoginModel({
     this.id,
     this.username,
@@ -62,7 +32,37 @@ class LoginModel {
     required this.area,
   });
 
-  factory LoginModel.fromJson(dynamic json) {
+  String? id;
+  String? username;
+  String? password;
+  String? pin;
+  String? name;
+  String? address_ktp;
+  String? address_domisili;
+  String? gender;
+  String? divisi;
+  String? email;
+  String? phone;
+  String? dob;
+  String? pob;
+  String? nik;
+  String? nkk;
+  String? photo_nik;
+  String? photo_nkk;
+  String? photo;
+  String? status_keluarga;
+  String? status_pekerjaan;
+  String? status_agama;
+  String? status_nikah;
+  String? device_id;
+  String? firebase_id;
+  String? activated_at;
+  String? blocked_at;
+  String? login_at;
+  String? token;
+  List<LoginAreaModel> area;
+
+  factory LoginModel.fromJson(Map<String, dynamic> json) {
     return LoginModel(
       id: json['id'],
       username: json['username'],
@@ -92,29 +92,12 @@ class LoginModel {
       blocked_at: json['blocked_at'],
       login_at: json['login_at'],
       token: json['token'],
-      area: json['area']
-          .map<LoginAreaModel>((dynamic i) => LoginAreaModel.fromJson(i as Map<String, dynamic>))
-          .toList()
+      area: json['area'] == null ? [] : List<LoginAreaModel>.from(json["area"]!.map((x) => LoginAreaModel.fromJson(x))),
     );
   }
 }
 
 class LoginAreaModel {
-  String? area_id;
-  String? area_name;
-  String? address;
-  String? titik_code;
-  String? role_id;
-  String? role;
-  String? license_code_validation;
-  String? end_date;
-  String? license_type;
-  String? status;
-  String? kelurahan_name;
-  String? provinsi_name;
-  String? kabupaten_name;
-  String? kecamatan_name;
-
   LoginAreaModel({
     this.area_id,
     this.area_name,
@@ -131,6 +114,21 @@ class LoginAreaModel {
     this.kabupaten_name,
     this.kecamatan_name,
   });
+
+  String? area_id;
+  String? area_name;
+  String? address;
+  String? titik_code;
+  String? role_id;
+  String? role;
+  String? license_code_validation;
+  String? end_date;
+  String? license_type;
+  String? status;
+  String? kelurahan_name;
+  String? provinsi_name;
+  String? kabupaten_name;
+  String? kecamatan_name;
 
   factory LoginAreaModel.fromJson(Map<String, dynamic> json) {
     return LoginAreaModel(

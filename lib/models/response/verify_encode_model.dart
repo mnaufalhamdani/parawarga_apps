@@ -1,17 +1,5 @@
 
 class VerifyEncodeModel {
-  String? area_generate;
-  String? area_id;
-  String? area_name;
-  String? license_code_validation;
-  String? end_date;
-  String? license_type;
-  String? status;
-  String? kelurahan_name;
-  String? provinsi_name;
-  String? kabupaten_name;
-  String? kecamatan_name;
-
   VerifyEncodeModel({
     this.area_generate,
     this.area_id,
@@ -26,7 +14,19 @@ class VerifyEncodeModel {
     this.kecamatan_name,
   });
 
-  factory VerifyEncodeModel.fromJson(dynamic json) {
+  String? area_generate;
+  String? area_id;
+  String? area_name;
+  String? license_code_validation;
+  String? end_date;
+  String? license_type;
+  String? status;
+  String? kelurahan_name;
+  String? provinsi_name;
+  String? kabupaten_name;
+  String? kecamatan_name;
+
+  factory VerifyEncodeModel.fromJson(Map<String, dynamic> json) {
     return VerifyEncodeModel(
       area_generate: json['area_generate'],
       area_id: json['area_id'],

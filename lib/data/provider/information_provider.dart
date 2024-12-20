@@ -5,7 +5,7 @@ import '../../core/failure_response.dart';
 
 class InformationProvider extends BaseService {
 
-  Future<InformationModel> getInformation({
+  Future<List<InformationModel>> getInformation({
     required String token,
     String? areaArray,
     String? date,
@@ -20,7 +20,7 @@ class InformationProvider extends BaseService {
 
       final response = await get('information/getInformation', query: params, headers: headers);
       if(response.status.isOk){
-        final InformationModel value = InformationModel.fromJson(response.body['data']);
+        final value = List<InformationModel>.from(response.body["data"]!.map((x) => InformationModel.fromJson(x)));
         return value;
       } else {
         throw FailureResponse.fromJson(response.body ?? response.statusText);
@@ -40,7 +40,7 @@ class InformationProvider extends BaseService {
 
     final response = await get('information/getInformationDetail', query: params, headers: headers);
     if(response.status.isOk){
-      final InformationModel value = InformationModel.fromJson(response.body['data']);
+      final value = InformationModel.fromJson(response.body['data']);
       return value;
     } else {
       throw FailureResponse.fromJson(response.body ?? response.statusText);

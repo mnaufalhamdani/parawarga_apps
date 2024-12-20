@@ -1,14 +1,4 @@
 class IssueModel {
-  String? id;
-  String? title;
-  String? message;
-  String? additionalLocation;
-  String? createdBy;
-  String? createdName;
-  String? areaName;
-  String? attachment;
-  String? updatedAt;
-
   IssueModel({
     this.id,
     this.title,
@@ -20,6 +10,16 @@ class IssueModel {
     this.attachment,
     this.updatedAt,
   });
+
+  String? id;
+  String? title;
+  String? message;
+  String? additionalLocation;
+  String? createdBy;
+  String? createdName;
+  String? areaName;
+  String? attachment;
+  String? updatedAt;
 
   factory IssueModel.fromJson(Map<String, dynamic> json){
     return IssueModel(

@@ -1,14 +1,4 @@
 class InformationModel {
-  String? id;
-  String? title;
-  String? message;
-  String? expired;
-  String? urgent;
-  String? createdBy;
-  String? createdName;
-  String? areaName;
-  String? updatedAt;
-
   InformationModel({
     this.id,
     this.title,
@@ -20,6 +10,16 @@ class InformationModel {
     this.areaName,
     this.updatedAt,
   });
+
+  String? id;
+  String? title;
+  String? message;
+  String? expired;
+  String? urgent;
+  String? createdBy;
+  String? createdName;
+  String? areaName;
+  String? updatedAt;
 
   factory InformationModel.fromJson(Map<String, dynamic> json){
     return InformationModel(

@@ -20,7 +20,7 @@ class DashboardProvider extends BaseService {
 
       final response = await get('dashboard/getViewDashboard', query: params, headers: headers);
       if(response.status.isOk){
-        final ViewDashboardModel value = ViewDashboardModel.fromJson(response.body['data']);
+        final value = ViewDashboardModel.fromJson(response.body['data']);
         return value;
       } else {
         throw FailureResponse.fromJson(response.body ?? response.statusText);

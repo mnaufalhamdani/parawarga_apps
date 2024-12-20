@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:parawarga_apps/models/response/issue_detail_model.dart';
 import 'package:parawarga_apps/models/response/issue_model.dart';
 
@@ -43,8 +41,7 @@ class IssueProvider extends BaseService {
 
     final response = await get('issue/getIssueDetail', query: params, headers: headers);
     if(response.status.isOk){
-      final IssueDetailModel value = IssueDetailModel.fromJson(response.body['data']);
-      log("value: ${value.title}");
+      final value = IssueDetailModel.fromJson(response.body['data']);
       return value;
     } else {
       throw FailureResponse.fromJson(response.body ?? response.statusText);

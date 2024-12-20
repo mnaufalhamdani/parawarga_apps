@@ -1,4 +1,13 @@
 class ViewDashboardModel {
+  ViewDashboardModel({
+    this.userId,
+    this.totalArea,
+    this.totalUnit,
+    this.totalUnitEmpty,
+    required this.information,
+    required this.issue
+  });
+
   String? userId;
   String? totalArea;
   String? totalUnit;
@@ -6,42 +15,19 @@ class ViewDashboardModel {
   List<Information> information;
   List<Issue> issue;
 
-  ViewDashboardModel({
-    this.userId,
-      this.totalArea,
-      this.totalUnit,
-      this.totalUnitEmpty,
-      required this.information,
-      required this.issue
-  });
-
-  factory ViewDashboardModel.fromJson(dynamic json) {
+  factory ViewDashboardModel.fromJson(Map<String, dynamic> json) {
     return ViewDashboardModel(
       userId: json['user_id'],
       totalArea: json['total_area'],
       totalUnit: json['total_unit'],
       totalUnitEmpty: json['total_unit_empty'],
-      information: json['information']
-          .map<Information>((dynamic i) => Information.fromJson(i as Map<String, dynamic>))
-          .toList(),
-      issue: json['issue']
-          .map<Issue>((dynamic i) => Issue.fromJson(i as Map<String, dynamic>))
-          .toList()
+      information: json['information'] == null ? [] : List<Information>.from(json["information"]!.map((x) => Information.fromJson(x))),
+      issue: json['issue'] == null ? [] : List<Issue>.from(json["issue"]!.map((x) => Issue.fromJson(x))),
     );
   }
 }
 
 class Information {
-  String? id;
-  String? title;
-  String? message;
-  String? expired;
-  String? urgent;
-  String? createdBy;
-  String? createdName;
-  String? areaName;
-  String? updatedAt;
-
   Information({
     this.id,
     this.title,
@@ -53,6 +39,16 @@ class Information {
     this.areaName,
     this.updatedAt
   });
+
+  String? id;
+  String? title;
+  String? message;
+  String? expired;
+  String? urgent;
+  String? createdBy;
+  String? createdName;
+  String? areaName;
+  String? updatedAt;
 
   factory Information.fromJson(Map<String, dynamic> json) {
     return Information(
@@ -70,16 +66,6 @@ class Information {
 }
 
 class Issue {
-  String? id;
-  String? title;
-  String? message;
-  String? additionalLocation;
-  String? createdBy;
-  String? createdName;
-  String? areaName;
-  String? attachment;
-  String? updatedAt;
-
   Issue({
     this.id,
     this.title,
@@ -91,6 +77,16 @@ class Issue {
     this.attachment,
     this.updatedAt
   });
+
+  String? id;
+  String? title;
+  String? message;
+  String? additionalLocation;
+  String? createdBy;
+  String? createdName;
+  String? areaName;
+  String? attachment;
+  String? updatedAt;
 
   factory Issue.fromJson(Map<String, dynamic> json) {
     return Issue(
