@@ -13,7 +13,7 @@ ThemeData theme() {
       scaffoldBackgroundColor: colorBackground,
       fontFamily: 'bariol',
       appBarTheme: appBarTheme(),
-      textTheme: const TextTheme(bodyMedium: TextStyle(height: 1))
+      textTheme: const TextTheme(bodyMedium: TextStyle(height: 1.1))
   );
 }
 

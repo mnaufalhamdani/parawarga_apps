@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:parawarga_apps/modules/dashboard/dashboard_controller.dart';
+import 'package:parawarga_apps/modules/info/detail/info_detail_page.dart';
 import 'package:parawarga_apps/routes/app_pages.dart';
 import 'package:parawarga_apps/theme/app_colors.dart';
 
@@ -208,7 +209,7 @@ class DashboardPage extends GetView<DashboardController> {
                                         color: colorDark)))),
                         Text(labelVoting,
                             style: TextStyle(
-                                color: colorTextPrimary,
+                                color: colorTextTitle,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 12))
                       ])),
@@ -228,7 +229,7 @@ class DashboardPage extends GetView<DashboardController> {
                                         color: colorDark)))),
                         Text(labelArisan,
                             style: TextStyle(
-                                color: colorTextPrimary,
+                                color: colorTextTitle,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 12))
                       ])),
@@ -248,7 +249,7 @@ class DashboardPage extends GetView<DashboardController> {
                                         Iconsax.card_pos, color: colorDark)))),
                         Text(labelTagihan,
                             style: TextStyle(
-                                color: colorTextPrimary,
+                                color: colorTextTitle,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 12))
                       ])),
@@ -269,7 +270,7 @@ class DashboardPage extends GetView<DashboardController> {
                         ),
                         Text(labelHistory,
                             style: TextStyle(
-                                color: colorTextPrimary,
+                                color: colorTextTitle,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 12))
                       ])),
@@ -333,7 +334,9 @@ class DashboardPage extends GetView<DashboardController> {
                           child: DashboardInfoTile(
                             model: list[i],
                             onPressed: (model) async {
-                              Get.toNamed(Routes.infoDetail);
+                              Get.toNamed(Routes.infoDetail, arguments: {
+                                InfoDetailPage.argId: model.id.toString()
+                              });
                             },
                           ))
                   ])))

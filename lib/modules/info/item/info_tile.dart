@@ -46,7 +46,7 @@ class InfoTileState extends State<InfoTile> {
           children: [
             Text(widget.model.title.toString(),
                 style: TextStyle(
-                    color: colorTextSecondary,
+                    color: colorTextTitle,
                     fontWeight: FontWeight.bold,
                     fontSize: 16)
             ),
@@ -54,7 +54,7 @@ class InfoTileState extends State<InfoTile> {
               padding: EdgeInsets.only(top: baseRadiusForm),
               child: Text(
                 widget.model.areaName.toString(),
-                style: TextStyle(color: colorTextSecondary, fontSize: 12),
+                style: TextStyle(color: colorTextMessage, fontSize: 12),
               ),
             ),
             Align(
@@ -63,7 +63,7 @@ class InfoTileState extends State<InfoTile> {
                     padding: EdgeInsets.only(top: basePadding),
                     child: Text(widget.model.updatedAt.toString(),
                         style: TextStyle(
-                            color: colorTextSecondary, fontSize: 10)))
+                            color: colorTextlabel, fontSize: 10)))
             ),
           ],
         )));

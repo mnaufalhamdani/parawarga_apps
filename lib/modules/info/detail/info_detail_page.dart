@@ -108,36 +108,38 @@ class InfoDetailPage extends GetView<InfoDetailController> {
     return SingleChildScrollView(
         physics: BouncingScrollPhysics(),
         child: Padding(
-          padding: EdgeInsets.all(basePadding),
-          child: Column(children: [
+          padding: EdgeInsets.all(basePaddingInContent),
+          child: Column(crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
             Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    controller.infoState.value.data?.areaName.toString() ?? "",
+                    data.areaName.toString() ?? "",
                     style: TextStyle(
-                        color: colorTextSecondary, fontSize: 12),
+                        color: colorTextMessage, fontSize: 12),
                   ),
                   Text(
-                    controller.infoState.value.data?.updatedAt.toString() ?? "",
+                    data.updatedAt.toString() ?? "",
                     style: TextStyle(
-                        color: colorTextSecondary, fontSize: 12),
+                        color: colorTextlabel, fontSize: 12),
                   )
                 ]
             ),
+            SizedBox(height: basePadding),
+                Text(
+                  data.title.toString() ?? "",
+                  style: TextStyle(
+                      color: colorTextTitle,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18),
+                ),
             SizedBox(height: basePaddingInContent),
             Text(
-              controller.infoState.value.data?.title.toString() ?? "",
+              data.message.toString() ?? "",
+              textAlign: TextAlign.justify,
               style: TextStyle(
-                  color: colorTextPrimary,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18),
-            ),
-            SizedBox(height: basePaddingInContent),
-            Text(
-              controller.infoState.value.data?.message.toString() ?? "",
-              style: TextStyle(
-                  color: colorTextSecondary, fontSize: 12),
+                  color: colorTextMessage, fontSize: 12),
             ),
           ]),
         ));

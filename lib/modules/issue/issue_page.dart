@@ -124,12 +124,12 @@ class IssuePage extends GetView<IssueController> {
           for (int i = 0; i < list.length; i++)
             Padding(
                 padding: EdgeInsets.only(
-                    top: (i == 0) ? basePadding : baseRadiusForm,
-                    left: basePadding,
-                    right: basePadding,
+                    top: (i == 0) ? basePaddingInContent : basePaddingInContent / 2,
+                    left: basePaddingInContent,
+                    right: basePaddingInContent,
                     bottom: (i == list.length - 1)
-                        ? basePadding
-                        : baseRadiusForm),
+                        ? basePaddingInContent
+                        : basePaddingInContent / 2),
                 child: IssueTile(
                   model: list[i],
                   onPressed: (model) async {

@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:parawarga_apps/models/response/issue_detail_model.dart';
 import 'package:parawarga_apps/modules/issue/detail/issue_detail_page.dart';
@@ -16,6 +17,9 @@ class IssueDetailController extends GetxController{
   final id = Get.arguments[IssueDetailPage.argId] as String;
   final IssueRepository repository;
   final issueState = Rx(ResponseState<IssueDetailModel>());
+
+  final pageController = PageController();
+  final pageIndex = Rx(0);
 
   Future<void> getIssueDetail() async {
     try {

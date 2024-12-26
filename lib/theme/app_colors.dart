@@ -15,6 +15,10 @@ Color colorTextPrimary = colorDark;
 Color? colorTextSecondary = Colors.grey.shade700;
 Color? colorTextThird = colorLight;
 
+Color? colorTextTitle = HexColor("#282a2e");
+Color? colorTextlabel = HexColor("#afb1b5");
+Color? colorTextMessage = Colors.grey.shade700;
+
 class HexColor extends Color {
   static int _getColorFromHex(String hexColor) {
     hexColor = hexColor.toUpperCase().replaceAll("#", "");

@@ -242,7 +242,7 @@ class ProfilePage extends GetView<ProfileController> {
                             Expanded(
                                 flex: 1,
                                 child:
-                                    Icon(Iconsax.building_3, color: colorDark)),
+                                    Icon(Iconsax.house, color: colorDark)),
                             Expanded(
                                 flex: 5,
                                 child: Text(

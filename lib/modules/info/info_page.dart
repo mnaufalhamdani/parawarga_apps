@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:parawarga_apps/modules/info/detail/info_detail_page.dart';
 import 'package:parawarga_apps/modules/info/info_controller.dart';
 import 'package:parawarga_apps/modules/info/item/info_tile.dart';
 import 'package:parawarga_apps/routes/app_pages.dart';
@@ -112,16 +113,18 @@ class InfoPage extends GetView<InfoController> {
           for (int i = 0; i < list.length; i++)
             Padding(
                 padding: EdgeInsets.only(
-                    top: (i == 0) ? basePadding : baseRadiusForm,
-                    left: basePadding,
-                    right: basePadding,
+                    top: (i == 0) ? basePaddingInContent : basePaddingInContent / 2,
+                    left: basePaddingInContent,
+                    right: basePaddingInContent,
                     bottom: (i == list.length - 1)
-                        ? basePadding
-                        : baseRadiusForm),
+                        ? basePaddingInContent
+                        : basePaddingInContent / 2),
                 child: InfoTile(
                   model: list[i],
                   onPressed: (model) async {
-                    Get.toNamed(Routes.infoDetail);
+                    Get.toNamed(Routes.infoDetail, arguments: {
+                      InfoDetailPage.argId: model.id.toString()
+                    });
                   },
                 ))
         ]));

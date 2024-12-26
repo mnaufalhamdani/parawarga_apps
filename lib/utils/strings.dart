@@ -86,6 +86,7 @@ String labelStart = 'Mulai';
 String labelEnd = 'Akhir';
 String labelOwner = 'Pemilik';
 String labelStatus = 'Status';
+String labelStatusIssue = 'Status Laporan';
 String labelExpired = 'Expired';
 String labelNote = 'Catatan';
 String labelPeriode = 'Periode';

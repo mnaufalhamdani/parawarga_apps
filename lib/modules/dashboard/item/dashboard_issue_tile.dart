@@ -49,7 +49,7 @@ class DashboardIssueTileState extends State<DashboardIssueTile> {
                         borderRadius: BorderRadius.circular(baseRadiusForm),
                         child: Image.network(height: 50, widget.model.attachment.toString(), fit: BoxFit.cover,
                             errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
-                              return Icon(Iconsax.gallery_slash, color: colorTextSecondary);
+                              return Icon(Iconsax.gallery_slash, color: colorTextTitle);
                             })
                     ),
                 ),
@@ -63,7 +63,7 @@ class DashboardIssueTileState extends State<DashboardIssueTile> {
                           Text(
                             widget.model.title.toString(),
                             style: TextStyle(
-                                color: colorTextSecondary,
+                                color: colorTextTitle,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 16),
                             overflow: TextOverflow.clip,
@@ -73,7 +73,7 @@ class DashboardIssueTileState extends State<DashboardIssueTile> {
                             child: Text(
                               widget.model.areaName.toString(),
                               style: TextStyle(
-                                  color: colorTextSecondary, fontSize: 12),
+                                  color: colorTextMessage, fontSize: 12),
                             ),
                           ),
                           Padding(
@@ -82,7 +82,7 @@ class DashboardIssueTileState extends State<DashboardIssueTile> {
                                 alignment: Alignment.bottomRight,
                                 child: Text(widget.model.updatedAt.toString(),
                                     style: TextStyle(
-                                        color: colorTextSecondary,
+                                        color: colorTextlabel,
                                         fontSize: 11),
                                 ),
                               )),
