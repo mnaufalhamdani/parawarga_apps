@@ -8,16 +8,11 @@ class IssueProvider extends BaseService {
 
   Future<List<IssueModel>> getIssue({
     required String token,
-    String? areaArray,
-    String? date,
   }) async{
       final headers = <String, String>{
         'Authorization': 'Bearer $token',
       };
-      final params = <String, dynamic>{
-        'area_array': areaArray,
-        'date': date
-      };
+      final params = <String, dynamic>{};
 
       final response = await get('issue/getIssue', query: params, headers: headers);
       if(response.status.isOk){

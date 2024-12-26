@@ -7,16 +7,11 @@ class InformationProvider extends BaseService {
 
   Future<List<InformationModel>> getInformation({
     required String token,
-    String? areaArray,
-    String? date,
   }) async{
       final headers = <String, String>{
         'Authorization': 'Bearer $token',
       };
-      final params = <String, dynamic>{
-        'area_array': areaArray,
-        'date': date
-      };
+      final params = <String, dynamic>{};
 
       final response = await get('information/getInformation', query: params, headers: headers);
       if(response.status.isOk){

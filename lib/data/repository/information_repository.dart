@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 import 'package:parawarga_apps/data/provider/information_provider.dart';
 import 'package:parawarga_apps/models/domain/user_area_domain.dart';
 import 'package:parawarga_apps/routes/app_pages.dart';
@@ -53,15 +52,7 @@ class InformationRepositoryImpl extends InformationRepository {
 
   @override
   Future<List<InformationModel>> getInformation() async {
-    final entity = await getUserActive();
-    final date = DateFormat('yyyy-MM-dd').format(DateTime.now());
-    final areaArray = entity.areaEntity?.map((element) => element.area_id).toList().join(",");
-
-    return await provider.getInformation(
-      token: await getToken(),
-      areaArray: areaArray,
-      date: date
-    );
+    return await provider.getInformation(token: await getToken());
   }
 
   @override

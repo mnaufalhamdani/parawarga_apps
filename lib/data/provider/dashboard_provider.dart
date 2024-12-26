@@ -7,16 +7,11 @@ class DashboardProvider extends BaseService {
 
   Future<ViewDashboardModel> getViewDashboard({
     required String token,
-    String? areaArray,
-    String? date,
   }) async{
       final headers = <String, String>{
         'Authorization': 'Bearer $token',
       };
-      final params = <String, dynamic>{
-        'area_array': areaArray,
-        'date': date
-      };
+      final params = <String, dynamic>{};
 
       final response = await get('dashboard/getViewDashboard', query: params, headers: headers);
       if(response.status.isOk){

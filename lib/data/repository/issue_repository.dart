@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 import 'package:parawarga_apps/data/provider/issue_provider.dart';
 import 'package:parawarga_apps/models/domain/user_area_domain.dart';
 import 'package:parawarga_apps/models/response/issue_detail_model.dart';
@@ -54,15 +53,7 @@ class IssueRepositoryImpl extends IssueRepository {
 
   @override
   Future<List<IssueModel>> getIssue() async {
-    final entity = await getUserActive();
-    final date = DateFormat('yyyy-MM-dd').format(DateTime.now());
-    final areaArray = entity.areaEntity?.map((element) => element.area_id).toList().join(",");
-
-    return await provider.getIssue(
-      token: await getToken(),
-      areaArray: areaArray,
-      date: date
-    );
+    return await provider.getIssue(token: await getToken());
   }
 
   @override
