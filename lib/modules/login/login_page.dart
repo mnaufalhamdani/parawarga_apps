@@ -88,8 +88,8 @@ class LoginPage extends GetView<LoginController> {
                           await controller.login().whenComplete(() {
                             if(controller.loginState.value.data != null){
                               Get.offAllNamed(Routes.dashboard);
-                            } else {
-                              showStandardSnackbar(context, TypeMessage.error, message:  controller.loginState.value.error?.message.toString(), duration: DurationMessage.lengthShort);
+                            } else if(controller.loginState.value.error != null){
+                              showStandardSnackbar(context, TypeMessage.error, message:  controller.loginState.value.error?.message.toString());
                             }
                           });
                         }

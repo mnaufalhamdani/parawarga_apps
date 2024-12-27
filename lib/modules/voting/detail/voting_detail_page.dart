@@ -1,25 +1,30 @@
 // ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers
 
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:parawarga_apps/core/constants.dart';
+import 'package:parawarga_apps/models/response/voting_detail_model.dart';
 import 'package:parawarga_apps/modules/voting/detail/voting_detail_controller.dart';
 import 'package:parawarga_apps/theme/app_colors.dart';
 import 'package:parawarga_apps/utils/strings.dart';
 
 import '../../../theme/app_theme.dart';
+import '../../../theme/standard_error_page.dart';
 import '../item/voters_detail_tile.dart';
 import '../item/voting_detail_tile.dart';
 
 class VotingDetailPage extends GetView<VotingDetailController> {
   const VotingDetailPage({super.key});
 
+  static const argId = 'argId';
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: _buildContentTop(context),
-    );
+    controller.getVotingDetail();
+    return Scaffold(body: Obx(() => _buildContentTop(context)));
   }
 
   _buildContentTop(BuildContext context) {
@@ -77,9 +82,7 @@ class VotingDetailPage extends GetView<VotingDetailController> {
                           ),
                           color: colorBackground,
                         ),
-                        child: Obx(() {
-                          return _buildContentMainMenu(context);
-                        }),
+                        child: _buildContentMainMenu(context),
                       ))),
             )
           ],
@@ -89,6 +92,22 @@ class VotingDetailPage extends GetView<VotingDetailController> {
   }
 
   _buildContentMainMenu(BuildContext context) {
+    final data = controller.votingState.value.data;
+    if (controller.votingState.value.isLoading) {
+      return Container();
+    }
+
+    if (data == null || controller.votingState.value.error != null) {
+      return StandardErrorPage(
+        message: controller.votingState.value.error?.message,
+        onPressed: () {
+          controller.getVotingDetail();
+        },
+      );
+    }
+
+    log("_buildContentMainMenu:${controller.votingState.value.data?.voters}");
+
     return Padding(
       padding: EdgeInsets.only(
           left: basePadding, top: basePadding, right: basePadding),
@@ -105,56 +124,66 @@ class VotingDetailPage extends GetView<VotingDetailController> {
                     Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        "RT.001 RW.003",
+                        data.areaName.toString(),
                         style: TextStyle(color: colorLight, fontSize: 12),
                       ),
                     ),
                     Align(
                       alignment: Alignment.centerLeft,
-                      child: Text("Liburan enaknya minggu berapa?",
+                      child: Text(data.name.toString(),
                           style: TextStyle(
                               color: colorLight,
                               fontWeight: FontWeight.bold,
                               fontSize: 16)),
                     ),
                     SizedBox(height: basePaddingInContent),
-                    _buildListVoting(context),
+                    _buildListVoting(context, data),
                   ]))),
-          _buildSummaryVoters(context),
+          _buildSummaryVoters(context, data),
           _buildListVoters(context)
         ],
       ),
     );
   }
 
-  _buildListVoting(BuildContext context) {
+  _buildListVoting(BuildContext context, VotingDetailModel data) {
     return SizedBox(
       height: Get.height / 5,
       child: ListView.builder(
           shrinkWrap: true,
           physics: BouncingScrollPhysics(),
           padding: EdgeInsets.zero,
-          itemCount: listVotes.length,
+          itemCount: data.detail.length,
           itemBuilder: (context, index) {
             return VotingDetailTile(
-              model: listVotes[index],
+              model: data.detail[index],
               onPressed: (model) async {
-                controller.initLabelOfVoters.value = model["label"];
-                controller.listData.value = listVotingDetail2;
+                controller.votersLabel.value = model.answer.toString();
+
+                controller.votersList.value.clear();
+                for (var element in data.voters) {
+                  if(element.urutan == model.urutan){
+                    controller.votersList.value.add(element);
+                  }
+                }
               },
             );
           }),
     );
   }
 
-  _buildSummaryVoters(BuildContext context) {
+  _buildSummaryVoters(BuildContext context, VotingDetailModel data) {
     return Padding(
       padding: EdgeInsets.all(basePaddingInContent),
       child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
         GestureDetector(
             onTap: () {
-              controller.initLabelOfVoters.value = labelTotalMember;
-              controller.listData.value = listVotingDetail;
+              controller.votersLabel.value = labelTotalMember;
+
+              controller.votersList.value.clear();
+              for (var element in data.voters) {
+                controller.votersList.value.add(element);
+              }
             },
             child: Column(children: [
               Card(
@@ -167,12 +196,12 @@ class VotingDetailPage extends GetView<VotingDetailController> {
                         child: Align(
                           alignment: Alignment.center,
                           child: Column(children: [
-                            Text("20",
+                            Text(data.voters.length.toString(),
                                 style: TextStyle(
                                     color: colorDark,
                                     fontWeight: FontWeight.bold,
                                     fontSize: 22)),
-                            Text("Warga",
+                            Text(labelVoters,
                                 style: TextStyle(
                                     color: colorDark, fontSize: 12))
                           ]),
@@ -189,8 +218,14 @@ class VotingDetailPage extends GetView<VotingDetailController> {
         SizedBox(width: basePaddingInContent),
         GestureDetector(
             onTap: () {
-              controller.initLabelOfVoters.value = labelNotVote;
-              controller.listData.value = listVotingDetail2;
+              controller.votersLabel.value = labelNotVote;
+
+              controller.votersList.value.clear();
+              for (var element in data.voters) {
+                if(element.urutan == null){
+                  controller.votersList.value.add(element);
+                }
+              }
             },
             child: Column(children: [
               Card(
@@ -203,12 +238,12 @@ class VotingDetailPage extends GetView<VotingDetailController> {
                         child: Align(
                           alignment: Alignment.center,
                           child: Column(children: [
-                            Text("8",
+                            Text(data.voters.where((element) => element.urutan == null).length.toString(),
                                 style: TextStyle(
                                     color: colorDark,
                                     fontWeight: FontWeight.bold,
                                     fontSize: 22)),
-                            Text("Warga",
+                            Text(labelVoters,
                                 style: TextStyle(
                                     color: colorDark, fontSize: 12))
                           ]),
@@ -255,7 +290,7 @@ class VotingDetailPage extends GetView<VotingDetailController> {
             child: Padding(
                 padding: EdgeInsets.all(basePaddingInContent),
                 child: Column(children: [
-                  Text(controller.initLabelOfVoters.value,
+                  Text(controller.votersLabel.value,
                       style: TextStyle(
                           color: colorPrimary,
                           fontWeight: FontWeight.bold,
@@ -267,10 +302,10 @@ class VotingDetailPage extends GetView<VotingDetailController> {
                             shrinkWrap: true,
                             physics: BouncingScrollPhysics(),
                             padding: EdgeInsets.only(top: baseRadiusForm),
-                            itemCount: controller.listData.value.length,
+                            itemCount: controller.votersList.value.length,
                             itemBuilder: (context, index) {
                               return VotersDetailTile(
-                                model: controller.listData.value[index],
+                                model: controller.votersList.value[index],
                                 onPressed: (model) async {},
                               );
                             })),

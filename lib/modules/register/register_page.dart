@@ -377,7 +377,7 @@ class RegisterPage extends GetView<RegisterController> {
                             if(controller.registerState.value.data != null){
                               showStandardSnackbar(context, TypeMessage.success, message: "Data berhasil terdaftar, silahkan aktivasi melalui email Anda", duration: DurationMessage.lengthLong);
                               Get.back();
-                            }else {
+                            }else if(controller.registerState.value.error != null){
                               showStandardSnackbar(context, TypeMessage.error, message: controller.registerState.value.error?.message.toString(), paddingBottom: 60);
                             }
                           });

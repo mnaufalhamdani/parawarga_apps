@@ -1,12 +1,13 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:parawarga_apps/models/response/voting_detail_model.dart';
 
 import '../../../theme/app_colors.dart';
 
 class VotersDetailTile extends StatefulWidget {
-  final Map<String, dynamic> model;
-  final void Function(Map<String, dynamic> model) onPressed;
+  final Voter model;
+  final void Function(Voter) onPressed;
 
   const VotersDetailTile({
     super.key,
@@ -31,7 +32,7 @@ class VotersDetailTileState extends State<VotersDetailTile> {
           children: [
             Align(
               alignment: Alignment.centerLeft,
-              child: Text(widget.model["name"],
+              child: Text(widget.model.createdName.toString(),
                   textAlign: TextAlign.start,
                   style: TextStyle(
                       color: colorTextSecondary,
@@ -41,7 +42,7 @@ class VotersDetailTileState extends State<VotersDetailTile> {
             Align(
               alignment: Alignment.centerRight,
               child: Text(
-                widget.model["label"],
+                widget.model.answer ?? "-",
                 style: TextStyle(
                     fontStyle: FontStyle.italic,
                     color: colorTextSecondary,

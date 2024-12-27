@@ -1,13 +1,14 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:parawarga_apps/models/response/voting_detail_model.dart';
 import 'package:parawarga_apps/theme/app_theme.dart';
 
 import '../../../theme/app_colors.dart';
 
 class VotingDetailTile extends StatefulWidget {
-  final Map<String, dynamic> model;
-  final void Function(Map<String, dynamic> model) onPressed;
+  final Detail model;
+  final void Function(Detail model) onPressed;
 
   const VotingDetailTile({
     super.key,
@@ -41,21 +42,21 @@ class VotingDetailTileState extends State<VotingDetailTile> {
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(widget.model['label'],
+                    Text(widget.model.answer.toString(),
                         style: TextStyle(
                             fontSize: 14, color: colorTextSecondary)),
                     SizedBox(height: baseRadiusForm),
                     Row(
                       children: [
                         Expanded(
-                          flex: widget.model['percent'],
+                          flex: int.parse(widget.model.votePercent.toString()),
                           child: Container(
                             height: 3,
                             color: colorPrimary,
                           ),
                         ),
                         Expanded(
-                          flex: (100 - widget.model['percent']).toInt(),
+                          flex: (100 - int.parse(widget.model.votePercent.toString())).toInt(),
                           child: Container(
                             height: 2,
                             color: Colors.grey.shade200,
@@ -64,7 +65,7 @@ class VotingDetailTileState extends State<VotingDetailTile> {
                         Expanded(
                           flex: 20,
                           child: Text(
-                              "${widget.model['percent']}%",
+                              "${widget.model.votePercent}%",
                               style: TextStyle(
                                   fontSize: 14, color: colorTextSecondary),
                               textAlign: TextAlign.right),

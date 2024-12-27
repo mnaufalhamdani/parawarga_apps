@@ -76,6 +76,7 @@ String labelAbout = 'Tentang Aplikasi';
 String labelManageAdmin = 'Manajemen Admin';
 String labellogout = 'Keluar';
 String labelTotalMember = 'Total Peserta';
+String labelVoters = 'Pemilih';
 String labelListOfWin = 'List Pemenang';
 String labelRemainingMember = 'Sisa Peserta';
 String labelNotVote = 'Tidak Vote';
