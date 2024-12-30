@@ -1,10 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:parawarga_apps/routes/app_pages.dart';
 import 'package:parawarga_apps/theme/app_theme.dart';
 import 'package:parawarga_apps/theme/standard_button_primary.dart';
 import 'package:parawarga_apps/utils/strings.dart';
@@ -29,13 +26,14 @@ class VotingTile extends StatefulWidget {
 }
 
 class VotingTileState extends State<VotingTile> {
+  var onValue = "";
   @override
   Widget build(BuildContext context) {
 
     return GestureDetector(
         onTap: () {
         },
-        child: (widget.model.urutan != null && widget.model.history.isNotEmpty)
+        child: ((widget.model.urutan != null && widget.model.history.isNotEmpty) || widget.model.isExpired == true)
             ? _buildContentVoted()
             : _buildContentVoting());
   }
@@ -131,7 +129,7 @@ class VotingTileState extends State<VotingTile> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text("Total Vote: $totalVoters pemilih \nKadaluarsa: ${widget.model.updatedAt}",
+                        Text("Total Vote: $totalVoters peserta \nKadaluarsa: ${widget.model.expired}",
                             style: TextStyle(
                                 color: colorTextSecondary, fontSize: 11)),
                         GestureDetector(
@@ -152,7 +150,6 @@ class VotingTileState extends State<VotingTile> {
   }
 
   _buildContentVoting() {
-    var onValue = "";
     return Card(
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(baseRadiusCard)),
@@ -206,14 +203,17 @@ class VotingTileState extends State<VotingTile> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text("Kadaluarsa: ${widget.model.updatedAt.toString()}",
+                      Text("Kadaluarsa: ${widget.model.expired.toString()}",
                           style: TextStyle(
                               color: colorTextSecondary, fontSize: 11)),
-                      StandardButtonPrimary(
-                        titleHint: labelSubmit,
-                        onPressed: (){
-                          widget.onPressed(widget.model, onValue);
-                        },
+                      Visibility(
+                        visible: (widget.model.isExpired == true) ? false : true,
+                        child: StandardButtonPrimary(
+                          titleHint: labelSubmit,
+                          onPressed: (){
+                            widget.onPressed(widget.model, onValue);
+                          },
+                        ),
                       ),
                     ],
                   )

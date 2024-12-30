@@ -4,11 +4,13 @@ import 'package:flutter/material.dart';
 
 class StandardErrorPage extends StatefulWidget {
   final String? message;
+  final double? paddingTop;
   final void Function()? onPressed;
 
   StandardErrorPage({
     Key? key,
     this.message,
+    this.paddingTop,
     this.onPressed,
   }) : super(key: key);
 
@@ -21,7 +23,7 @@ class StandardErrorPageState extends State<StandardErrorPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(padding: EdgeInsets.only(top: 100), child: Center(
+    return Padding(padding: EdgeInsets.only(top: widget.paddingTop ?? 0), child: Center(
         child: GestureDetector(
             onTap: () {
               if(widget.onPressed != null){

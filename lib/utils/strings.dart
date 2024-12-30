@@ -79,6 +79,7 @@ String labelTotalMember = 'Total Peserta';
 String labelVoters = 'Pemilih';
 String labelListOfWin = 'List Pemenang';
 String labelRemainingMember = 'Sisa Peserta';
+String labelMember = 'Peserta';
 String labelNotVote = 'Tidak Vote';
 String labelSubsciption = 'Iuran';
 String labelTotal = 'Total';

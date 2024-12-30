@@ -1,7 +1,5 @@
 import 'package:get/get.dart';
 import 'package:parawarga_apps/models/response/general_model.dart';
-import 'package:parawarga_apps/models/response/issue_detail_model.dart';
-import 'package:parawarga_apps/models/response/issue_model.dart';
 import 'package:parawarga_apps/models/response/voting_detail_model.dart';
 import 'package:parawarga_apps/models/response/voting_model.dart';
 
@@ -61,7 +59,7 @@ class VotingProvider extends BaseService {
 
     final response = await post('voting/saveVoted', formData, query: params, headers: headers);
     if(response.status.isOk){
-      final value = GeneralModel.fromJson(response.body['data']);
+      final value = GeneralModel.fromJson(response.body);
       return value;
     } else {
       throw FailureResponse.fromJson(response.body ?? response.statusText);

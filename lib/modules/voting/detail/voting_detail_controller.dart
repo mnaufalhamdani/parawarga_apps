@@ -2,9 +2,7 @@
 
 import 'dart:async';
 
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:parawarga_apps/core/constants.dart';
 import 'package:parawarga_apps/models/response/voting_detail_model.dart';
 import 'package:parawarga_apps/modules/voting/detail/voting_detail_page.dart';
 import 'package:parawarga_apps/utils/strings.dart';
@@ -24,6 +22,7 @@ class VotingDetailController extends GetxController{
   final votingState = Rx(ResponseState<VotingDetailModel>());
   final votersList = Rx(List<Voter>.empty(growable: true));//is duplicate problem
   final votersLabel = Rx("");
+  final votersClicked = Rxn<int>(null);//null = all voters, 0, tidak vote, >= 1 specific data
 
   // final formKey = GlobalKey<FormState>();
   // final editingControllers = List.generate(2, (index) => TextEditingController());
@@ -53,7 +52,7 @@ class VotingDetailController extends GetxController{
 
       final response = await repository.getVotingDetail(id);
 
-      votersList.value = response.voters;
+      // votersList.value = response.voters;
       votersLabel.value = labelTotalMember;
       votingState.value = ResponseState.success(response);
     }on FailureResponse catch(e) {

@@ -3,6 +3,7 @@ class VotingModel {
     this.id,
     this.name,
     this.expired,
+    this.isExpired,
     this.createdBy,
     this.createdName,
     this.areaId,
@@ -16,6 +17,7 @@ class VotingModel {
   final String? id;
   final String? name;
   final String? expired;
+  final bool? isExpired;
   final String? createdBy;
   final String? createdName;
   final String? areaId;
@@ -30,6 +32,7 @@ class VotingModel {
       id: json["id"],
       name: json["name"],
       expired: json["expired"],
+      isExpired: (json["is_expired"].toString() == "1") ? true : false,
       createdBy: json["created_by"],
       createdName: json["created_name"],
       areaId: json["area_id"],

@@ -101,6 +101,7 @@ class InfoPage extends GetView<InfoController> {
         controller.infoState.value.error != null) {
       return StandardErrorPage(
         message: controller.infoState.value.error?.message,
+        paddingTop: 100,
         onPressed: () {
           controller.getInformation();
         },

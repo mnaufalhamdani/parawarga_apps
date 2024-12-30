@@ -3,14 +3,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:parawarga_apps/core/data_state.dart';
 import 'package:parawarga_apps/modules/voting/detail/voting_detail_page.dart';
 import 'package:parawarga_apps/modules/voting/item/voting_tile.dart';
 import 'package:parawarga_apps/modules/voting/voting_controller.dart';
 import 'package:parawarga_apps/theme/app_colors.dart';
 import 'package:parawarga_apps/utils/strings.dart';
 
-import '../../core/constants.dart';
 import '../../routes/app_pages.dart';
 import '../../theme/app_theme.dart';
 import '../../theme/standard_error_page.dart';
@@ -104,6 +102,7 @@ class VotingPage extends GetView<VotingController> {
         controller.votingState.value.error != null) {
       return StandardErrorPage(
         message: controller.votingState.value.error?.message,
+        paddingTop: 100,
         onPressed: () {
           controller.getVoting();
         },
@@ -125,6 +124,10 @@ class VotingPage extends GetView<VotingController> {
                 child: VotingTile(
                   model: list[i],
                   onPressed: (model, value) async {
+                    if(value.isEmpty) {
+                      return showStandardSnackbar(context, TypeMessage.error, message: "Silahkan pilih salah satu pilihan yang tersedia");
+                    }
+
                     await controller.saveVoted(model, value).whenComplete(() async {
                       if(controller.saveVotedState.value.data != null){
                         await controller.getVoting();

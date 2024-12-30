@@ -348,8 +348,7 @@ class DashboardPage extends GetView<DashboardController> {
   _buildContentAdv(BuildContext context) {
     return Visibility(
         child: Padding(
-          padding: EdgeInsets.only(
-              left: basePadding, top: basePadding, right: basePadding),
+          padding: EdgeInsets.zero,
           child: Card(
             shape:
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),

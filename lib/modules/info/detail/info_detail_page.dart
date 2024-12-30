@@ -99,6 +99,7 @@ class InfoDetailPage extends GetView<InfoDetailController> {
     if (data == null || controller.infoState.value.error != null) {
       return StandardErrorPage(
         message: controller.infoState.value.error?.message,
+        paddingTop: 100,
         onPressed: () {
           controller.getInformationDetail();
         },

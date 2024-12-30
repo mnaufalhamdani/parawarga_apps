@@ -112,6 +112,7 @@ class IssuePage extends GetView<IssueController> {
         controller.issueState.value.error != null) {
       return StandardErrorPage(
         message: controller.issueState.value.error?.message,
+        paddingTop: 100,
         onPressed: () {
           controller.getIssue();
         },
