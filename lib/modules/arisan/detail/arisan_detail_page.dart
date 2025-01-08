@@ -576,23 +576,25 @@ class ArisanDetailPage extends GetView<ArisanDetailController> {
                           color: colorTextlabel,
                           fontWeight: FontWeight.bold,
                           fontSize: 16))),
-              Expanded(child: ListView.builder(
-                physics: BouncingScrollPhysics(),
-                itemCount: data.history.length,
-                itemBuilder: (context, index) {
-                  return FilterHistoryTile(
-                    model: data.history[index],
-                    index: index,
-                    onPressed: (model, index) {
-                      controller.arisanLabel.value = "$labelHistory Pembayaran ${model.periodeName}";
-                      controller.arisanClicked.value = null;
-                      controller.arisanHistory.value = index;
+              (data.history.isEmpty)
+                ? StandardErrorPage(message: msgNotFound)
+                : Expanded(child: ListView.builder(
+                  physics: BouncingScrollPhysics(),
+                  itemCount: data.history.length,
+                  itemBuilder: (context, index) {
+                    return FilterHistoryTile(
+                      model: data.history[index],
+                      index: index,
+                      onPressed: (model, index) {
+                        controller.arisanLabel.value = "$labelHistory Pembayaran ${model.periodeName}";
+                        controller.arisanClicked.value = null;
+                        controller.arisanHistory.value = index;
 
-                      Get.back();
-                    },
-                  );
-                },
-              ))
+                        Get.back();
+                      },
+                    );
+                  },
+                ))
         ]
     )));
   }
