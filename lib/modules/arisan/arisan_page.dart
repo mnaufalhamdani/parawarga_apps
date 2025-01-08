@@ -10,17 +10,16 @@ import 'package:parawarga_apps/routes/app_pages.dart';
 import 'package:parawarga_apps/theme/app_colors.dart';
 import 'package:parawarga_apps/utils/strings.dart';
 
-import '../../core/constants.dart';
 import '../../theme/app_theme.dart';
+import '../../theme/standard_error_page.dart';
 
 class ArisanPage extends GetView<ArisanController> {
   const ArisanPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: _buildContentTop(context),
-    );
+    controller.getArisan();
+    return Scaffold(body: Obx(() => _buildContentTop(context)));
   }
 
   _buildContentTop(BuildContext context) {
@@ -86,21 +85,39 @@ class ArisanPage extends GetView<ArisanController> {
   }
 
   _buildContentMainMenu(BuildContext context) {
+    final list = controller.arisanState.value.data;
+    if (controller.arisanState.value.isLoading) {
+      return Container();
+    }
+
+    if (list == null || list.isEmpty == true ||
+        controller.arisanState.value.error != null) {
+      return StandardErrorPage(
+        message: controller.arisanState.value.error?.message,
+        paddingTop: 100,
+        onPressed: () {
+          controller.getArisan();
+        },
+      );
+    }
+
     return SingleChildScrollView(
         physics: BouncingScrollPhysics(),
         child: Column(children: [
-          for (int i = 0; i < listArisan.length; i++)
+          for (int i = 0; i < list.length; i++)
             Padding(
                 padding: EdgeInsets.only(
-                    top: (i == 0) ? basePadding : baseRadiusForm,
-                    left: basePadding,
-                    right: basePadding,
-                    bottom: (i == listArisan.length - 1) ? basePadding : baseRadiusForm),
+                    top: (i == 0) ? basePaddingInContent : basePaddingInContent / 2,
+                    left: basePaddingInContent,
+                    right: basePaddingInContent,
+                    bottom: (i == list.length - 1)
+                        ? basePaddingInContent
+                        : basePaddingInContent / 2),
                 child: ArisanTile(
-                  model: listArisan[i],
+                  model: list[i],
                   onPressed: (model) async {
                     Get.toNamed(Routes.arisanDetail, arguments: {
-                      ArisanDetailPage.argDataArisan: model
+                      ArisanDetailPage.argId: model.id
                     });
                   },
                 ))

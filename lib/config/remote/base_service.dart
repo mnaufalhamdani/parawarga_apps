@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'dart:developer';
+
 import 'package:get/get.dart';
 
 import '../../utils/environment.dart';
@@ -11,19 +13,22 @@ class BaseService extends GetConnect {
     httpClient.defaultContentType = "application/json";
     httpClient.timeout = Duration(seconds: 60);//1 Menit
     httpClient.addResponseModifier((request, response) async {
-      print("Status: ${response.status.code}");
+      log(request.url.toString());
+      log("Method: ${request.method.toUpperCase()}");
+      log("Status: ${response.status.code}");
+      log("Response: ${response.body.toString()}");
+
       if(response.status.code! >= 300){
-        print(response.statusText);
-        print(response.body);
+        log("Error: ${response.statusText}");
       }
-      // print(request.headers);
-      // print(response.bodyString);
-      // print(response.statusText);
+      // log(request.headers.toString());
+      // log(response.bodyString.toString());
+      // log(response.statusText.toString());
       return response;
     });
     httpClient.addRequestModifier<dynamic>((request) async {
-      print(request.url);
-      print("Method: ${request.method.toUpperCase()}");
+      // log(request.url.toString());
+      // log("Method: ${request.method.toUpperCase()}");
       return request;
     });
     super.onInit();

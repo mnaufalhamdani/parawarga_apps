@@ -355,3 +355,17 @@ String getInitials(String text) {
 
   return initials.length > 2 ? initials.substring(0, 2) : initials; // Limit to 2 initials
 }
+
+String currencyFormat(String number) {
+  List<String> parts = number.split('.');
+  String integerPart = parts[0].replaceAllMapped(
+    RegExp(r'\B(?=(\d{3})+(?!\d))'),
+        (match) => '.',
+  );
+  if(parts.length == 1){
+    return integerPart;
+  }else{
+    return '$integerPart,${parts[1]}';
+  }
+
+}

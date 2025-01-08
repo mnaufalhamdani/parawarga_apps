@@ -47,7 +47,7 @@ class DashboardPage extends GetView<DashboardController> {
               shape: CircleBorder(),
               backgroundColor: Colors.red,
               onPressed: () {},
-              child: Icon(Iconsax.alarm, color: Colors.white)
+              child: Icon(Iconsax.volume_high, color: Colors.white)
           )
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
@@ -348,7 +348,7 @@ class DashboardPage extends GetView<DashboardController> {
   _buildContentAdv(BuildContext context) {
     return Visibility(
         child: Padding(
-          padding: EdgeInsets.zero,
+          padding: EdgeInsets.only(top: basePadding, left: basePadding, right: basePadding),
           child: Card(
             shape:
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),

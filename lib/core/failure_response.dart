@@ -14,8 +14,8 @@ class FailureResponse {
   factory FailureResponse.fromJson(dynamic json) {
     try{
       return FailureResponse(
-          status: json['status'] as int,
-          message: json['messages'] as String
+          status: (json['status'] ?? json['code']) as int,
+          message: (json['messages'] ?? json['message']) as String
       );
     }catch(e) {
       return FailureResponse(message: json.toString());

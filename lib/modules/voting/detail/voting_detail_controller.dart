@@ -20,9 +20,8 @@ class VotingDetailController extends GetxController{
 
   final VotingRepository repository;
   final votingState = Rx(ResponseState<VotingDetailModel>());
-  final votersList = Rx(List<Voter>.empty(growable: true));//is duplicate problem
   final votersLabel = Rx("");
-  final votersClicked = Rxn<int>(null);//null = all voters, 0, tidak vote, >= 1 specific data
+  final votersClicked = Rxn<int>(null);//null = all voters, 0 = not vote, >= 1 specific data
 
   // final formKey = GlobalKey<FormState>();
   // final editingControllers = List.generate(2, (index) => TextEditingController());
@@ -52,7 +51,6 @@ class VotingDetailController extends GetxController{
 
       final response = await repository.getVotingDetail(id);
 
-      // votersList.value = response.voters;
       votersLabel.value = labelTotalMember;
       votingState.value = ResponseState.success(response);
     }on FailureResponse catch(e) {

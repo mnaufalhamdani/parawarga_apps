@@ -19,7 +19,7 @@ class InfoPage extends GetView<InfoController> {
   @override
   Widget build(BuildContext context) {
     controller.getInformation();
-    return Obx(() => Scaffold(body: _buildContentTop(context)));
+    return Scaffold(body: Obx(() => _buildContentTop(context)));
   }
 
   _buildContentTop(BuildContext context) {

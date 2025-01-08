@@ -3,6 +3,7 @@
 import 'package:get/get.dart';
 import 'package:parawarga_apps/data/repository/dashboard_repository.dart';
 import 'package:parawarga_apps/models/response/view_dashboard_model.dart';
+import 'package:parawarga_apps/theme/standard_snackbar.dart';
 
 import '../../core/data_state.dart';
 import '../../core/failure_response.dart';
@@ -22,6 +23,7 @@ class DashboardController extends GetxController{
         dashboardState.value = ResponseState.success(value);
       });
     }on FailureResponse catch(e) {
+      showStandardSnackbar(Get.context!, TypeMessage.error, message: e.message.toString());
       dashboardState.value = ResponseState.failed(e);
     }
   }
