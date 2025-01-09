@@ -285,7 +285,7 @@ class ArisanDetailPage extends GetView<ArisanDetailController> {
                     if (listItem.isEmpty) {
                       showStandardSnackbar(context, TypeMessage.error, message: msgNotFound);
                     }else {
-                      dialogSingleSelect(context, "Pilih Salah Satu Tanggal", listItem, (idIndex, model) {
+                      SingleSelectDialog.show(context, "Pilih Salah Satu Tanggal", listItem, (idIndex, model) {
                         controller.arisanLabel.value = "$labelHistory Pembayaran ${model.message}";
                         controller.arisanClicked.value = null;
                         controller.arisanHistory.value = idIndex;
