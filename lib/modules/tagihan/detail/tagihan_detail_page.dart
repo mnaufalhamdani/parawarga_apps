@@ -22,7 +22,7 @@ class TagihanDetailPage extends GetView<TagihanDetailController> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text(labelTagihan, style: TextStyle(color: colorPrimary)),
+          title: Text(labelTagihanDetail, style: TextStyle(color: colorPrimary)),
           centerTitle: true,
           backgroundColor: colorBackground,
           surfaceTintColor: colorBackground,
@@ -38,8 +38,7 @@ class TagihanDetailPage extends GetView<TagihanDetailController> {
             Stack(
               children: [
                 _buildContentBackground(context),
-                Align(alignment: Alignment.bottomCenter,
-                    child: _buildContentButton(context))
+                _buildContentButton(context)
               ],
             )
         ));
@@ -268,25 +267,26 @@ class TagihanDetailPage extends GetView<TagihanDetailController> {
       tagihanHistory.add(element);
     }
 
-    return Card(
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(baseRadiusCard)),
-        color: Colors.white,
-        elevation: 2,
-        child: Padding(
-          padding: EdgeInsets.all(basePaddingInContent),
-          child: Column(children: [
-            Text("Periode ${data.history[controller.tagihanHistory.value]
-                .periode}",
-                style: TextStyle(
-                    color: colorPrimary,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16)),
-            (tagihanHistory.isEmpty)
+    return Padding(
+      padding: EdgeInsets.only(bottom: baseRadius * 5),
+      child: Card(
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(baseRadiusCard)),
+          color: Colors.white,
+          elevation: 2,
+          child: Padding(
+            padding: EdgeInsets.all(basePaddingInContent),
+            child: Column(children: [
+              Text("Periode ${data.history[controller.tagihanHistory.value].periode} (Rp. ${currencyFormat(data.history[controller.tagihanHistory.value].total.toString())})",
+                  style: TextStyle(
+                      color: colorPrimary,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16)),
+              (tagihanHistory.isEmpty)
                 ? StandardErrorPage(
-              message: msgNotFound,
-              onPressed: () {},
-            )
+                  message: msgNotFound,
+                  onPressed: () {},
+                )
                 : Padding(
                 padding: EdgeInsets.only(top: baseRadiusForm),
                 child: ListView.builder(
@@ -301,38 +301,47 @@ class TagihanDetailPage extends GetView<TagihanDetailController> {
                         onPressed: (model) async {},
                       );
                     })
-            )
-          ]),
-        )
+                )
+            ]),
+          )
+      ),
     );
   }
 
   _buildContentButton(BuildContext context) {
     final data = controller.tagihanState.value.data;
-    if (data != null) {
-      return Container(
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(baseRadiusCard),
-                topRight: Radius.circular(baseRadiusCard),
-              ),
-              color: Colors.white),
-          child: Padding(
-            padding: EdgeInsets.all(baseRadius),
-            child: Row(
-              children: [
-                Expanded(
-                  child: Text(
-                    "Anda telah membayar tagihan selama ${data.myPeriode}. \nApakah Anda akan membayar tagihan untuk periode berikutnya?",
-                    style: TextStyle(color: colorTextlabel, fontSize: 12),
-                  )
-                ),
-                StandardButtonPrimary(titleHint: "Bayar Sekarang!")
-              ],
-            ),
-          )
-      );
+    if (data == null) {
+      return Container();
     }
+
+    return Align(alignment: Alignment.bottomCenter,
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(baseRadiusCard),
+            topRight: Radius.circular(baseRadiusCard),
+          ),
+          color: Colors.white),
+        child: Padding(
+          padding: EdgeInsets.all(baseRadius),
+          child: Row(
+            children: [
+              Expanded(
+                child: Text(
+                  (data.myPeriode.toString() == "0")
+                  ? "Anda belum membayar tagihan ini. \nApakah Anda akan membayarnya?"
+                  : "Anda telah membayar tagihan ini selama ${data.myPeriode} periode. \nApakah Anda akan membayar periode selanjutnya?",
+                  style: TextStyle(color: colorTextMessage, fontSize: 12),
+                )
+              ),
+              SizedBox(width: basePaddingInContent),
+              StandardButtonPrimary(titleHint: labelPayNow, onPressed: (() {
+
+              }))
+            ],
+          ),
+        )
+      ));
   }
 
   _buildContentBottom(BuildContext context) {

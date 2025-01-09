@@ -8,6 +8,7 @@ class TagihanDetailModel {
     this.areaName,
     this.nominal,
     this.periode,
+    this.myPeriode,
     this.totalPeriode,
     this.labelInvoice,
     this.startPeriode,
@@ -25,6 +26,7 @@ class TagihanDetailModel {
   String? areaName;
   String? nominal;
   String? periode;
+  String? myPeriode;
   String? totalPeriode;
   String? labelInvoice;
   String? startPeriode;
@@ -43,6 +45,7 @@ class TagihanDetailModel {
       areaName: json["area_name"],
       nominal: json["nominal"],
       periode: json["periode"],
+      myPeriode: json["my_periode"],
       totalPeriode: json["total_periode"],
       labelInvoice: json["label_invoice"],
       startPeriode: json["start_periode"],
@@ -58,17 +61,20 @@ class History {
   History({
     this.tagihanId,
     this.periode,
+    this.total,
     required this.user,
   });
 
   String? tagihanId;
   String? periode;
+  String? total;
   List<User> user;
 
   factory History.fromJson(Map<String, dynamic> json){
     return History(
       tagihanId: json["tagihan_id"],
       periode: json["periode"],
+      total: json["total"],
       user: json["user"] == null ? [] : List<User>.from(json["user"]!.map((x) => User.fromJson(x))),
     );
   }
