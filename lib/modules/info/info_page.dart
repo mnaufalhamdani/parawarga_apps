@@ -37,28 +37,26 @@ class InfoPage extends GetView<InfoController> {
   _buildContentBackground(BuildContext context) {
     return Container(
       color: colorBackground,
-      child: Expanded(
-        child: Container(
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(baseRadiusCard),
-                  topRight: Radius.circular(baseRadiusCard),
-                ),
-                color: colorPrimary),
-            child: Padding(
-                padding: EdgeInsets.only(top: baseRadiusCard),
-                child: Container(
-                  width: Get.width,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(baseRadiusCard),
-                      topRight: Radius.circular(baseRadiusCard),
-                    ),
-                    color: colorBackground,
+      child: Container(
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(baseRadiusCard),
+                topRight: Radius.circular(baseRadiusCard),
+              ),
+              color: colorPrimary),
+          child: Padding(
+              padding: EdgeInsets.only(top: baseRadiusCard),
+              child: Container(
+                width: Get.width,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(baseRadiusCard),
+                    topRight: Radius.circular(baseRadiusCard),
                   ),
-                  child: _buildContentMainMenu(context),
-                ))),
-      ),
+                  color: colorBackground,
+                ),
+                child: _buildContentMainMenu(context),
+              )))
     );
   }
 

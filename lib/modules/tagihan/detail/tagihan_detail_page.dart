@@ -29,44 +29,45 @@ class TagihanDetailPage extends GetView<TagihanDetailController> {
           elevation: 0,
           leading: IconButton(
             icon: Icon(Icons.arrow_back, color: colorPrimary),
-            onPressed: () { Get.back(); },
+            onPressed: () {
+              Get.back();
+            },
           ),
         ),
         body: Obx(() =>
-        Stack(
-          children: [
-            _buildContentBackground(context),
-            Align(alignment: Alignment.bottomCenter, child: StandardButtonPrimary(titleHint: "TEST"))
-          ],
-        )
-    ));
+            Stack(
+              children: [
+                _buildContentBackground(context),
+                Align(alignment: Alignment.bottomCenter,
+                    child: _buildContentButton(context))
+              ],
+            )
+        ));
   }
 
   _buildContentBackground(BuildContext context) {
     return Container(
       color: colorBackground,
-      child: Expanded(
-        child: Container(
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(baseRadiusCard),
-                  topRight: Radius.circular(baseRadiusCard),
-                ),
-                color: colorPrimary),
-            child: Padding(
-                padding: EdgeInsets.only(top: baseRadiusCard),
-                child: Container(
-                  width: Get.width,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(baseRadiusCard),
-                      topRight: Radius.circular(baseRadiusCard),
-                    ),
-                    color: colorBackground,
+      child: Container(
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(baseRadiusCard),
+                topRight: Radius.circular(baseRadiusCard),
+              ),
+              color: colorPrimary),
+          child: Padding(
+              padding: EdgeInsets.only(top: baseRadiusCard),
+              child: Container(
+                width: Get.width,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(baseRadiusCard),
+                    topRight: Radius.circular(baseRadiusCard),
                   ),
-                  child: _buildContentMainMenu(context),
-                ))),
-      ),
+                  color: colorBackground,
+                ),
+                child: _buildContentMainMenu(context),
+              ))),
     );
   }
 
@@ -90,7 +91,8 @@ class TagihanDetailPage extends GetView<TagihanDetailController> {
         physics: BouncingScrollPhysics(),
         child: Padding(
           padding: EdgeInsets.all(basePadding),
-          child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start, children: [
             Card(
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(baseRadiusCard)),
@@ -165,7 +167,8 @@ class TagihanDetailPage extends GetView<TagihanDetailController> {
                         child: Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
-                            "Rp. ${currencyFormat(data.nominal.toString())} / $labelPeriode",
+                            "Rp. ${currencyFormat(
+                                data.nominal.toString())} / $labelPeriode",
                             style: TextStyle(
                                 color: colorLight,
                                 fontSize: 12,
@@ -273,7 +276,8 @@ class TagihanDetailPage extends GetView<TagihanDetailController> {
         child: Padding(
           padding: EdgeInsets.all(basePaddingInContent),
           child: Column(children: [
-            Text("Periode ${data.history[controller.tagihanHistory.value].periode}",
+            Text("Periode ${data.history[controller.tagihanHistory.value]
+                .periode}",
                 style: TextStyle(
                     color: colorPrimary,
                     fontWeight: FontWeight.bold,
@@ -303,6 +307,34 @@ class TagihanDetailPage extends GetView<TagihanDetailController> {
     );
   }
 
+  _buildContentButton(BuildContext context) {
+    final data = controller.tagihanState.value.data;
+    if (data != null) {
+      return Container(
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(baseRadiusCard),
+                topRight: Radius.circular(baseRadiusCard),
+              ),
+              color: Colors.white),
+          child: Padding(
+            padding: EdgeInsets.all(baseRadius),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    "Anda telah membayar tagihan selama ${data.myPeriode}. \nApakah Anda akan membayar tagihan untuk periode berikutnya?",
+                    style: TextStyle(color: colorTextlabel, fontSize: 12),
+                  )
+                ),
+                StandardButtonPrimary(titleHint: "Bayar Sekarang!")
+              ],
+            ),
+          )
+      );
+    }
+  }
+
   _buildContentBottom(BuildContext context) {
     return showModalBottomSheet(
         context: context,
@@ -316,10 +348,10 @@ class TagihanDetailPage extends GetView<TagihanDetailController> {
             FractionallySizedBox(
                 heightFactor: 0.9,
                 child: Padding(
-                  padding: EdgeInsets.all(basePadding),
-                  child: SingleChildScrollView(
-                    physics: BouncingScrollPhysics(),
-                    child: Column(children: [
+                    padding: EdgeInsets.all(basePadding),
+                    child: SingleChildScrollView(
+                      physics: BouncingScrollPhysics(),
+                      child: Column(children: [
                         Align(
                           alignment: Alignment.center,
                           child: Text("Iuran Kas 2024",
@@ -340,225 +372,250 @@ class TagihanDetailPage extends GetView<TagihanDetailController> {
                         SizedBox(height: basePadding),
                         Container(
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(baseRadiusCard),
-                            color: colorLight
+                              borderRadius: BorderRadius.circular(
+                                  baseRadiusCard),
+                              color: colorLight
                           ),
                           child: Padding(
                             padding: EdgeInsets.all(basePaddingInContent),
-                            child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                              Row(children: [
-                                Expanded(
-                                  flex: 2,
-                                  child: Text(
-                                    labelAccountBankName,
-                                    style: TextStyle(color: colorDark, fontSize: 11),
+                            child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(children: [
+                                    Expanded(
+                                      flex: 2,
+                                      child: Text(
+                                        labelAccountBankName,
+                                        style: TextStyle(
+                                            color: colorDark, fontSize: 11),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex: 1,
+                                      child: Text(
+                                        ":",
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            color: colorDark, fontSize: 11),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex: 8,
+                                      child: Align(
+                                        alignment: Alignment.centerRight,
+                                        child: Text(
+                                          "BCA a.n Naufal Hamdani",
+                                          style: TextStyle(
+                                              color: colorDark,
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.bold),
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(width: basePaddingInContent),
+                                    Expanded(flex: 2, child: SizedBox())
+                                  ]),
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                        top: basePaddingInContent),
+                                    child: Row(children: [
+                                      Expanded(
+                                        flex: 2,
+                                        child: Text(
+                                          labelAccountBank,
+                                          style: TextStyle(
+                                              color: colorDark, fontSize: 11),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        flex: 1,
+                                        child: Text(
+                                          ":",
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                              color: colorDark, fontSize: 11),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        flex: 8,
+                                        child: Align(
+                                          alignment: Alignment.centerRight,
+                                          child: Text(
+                                            "123456789",
+                                            style: TextStyle(
+                                                color: colorDark,
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(width: basePaddingInContent),
+                                      Expanded(flex: 2, child: Container(
+                                          decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(
+                                                      baseRadiusCard)),
+                                              color: colorDark
+                                          ),
+                                          child: Padding(
+                                            padding: EdgeInsets.all(
+                                                basePaddingInContent / 2),
+                                            child: Text(
+                                              labelCopy,
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                  color: colorLight,
+                                                  fontSize: 11,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                          ))
+                                      )
+                                    ]),
                                   ),
-                                ),
-                                Expanded(
-                                  flex: 1,
-                                  child: Text(
-                                    ":",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(color: colorDark, fontSize: 11),
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                        top: basePaddingInContent),
+                                    child: Row(children: [
+                                      Expanded(
+                                        flex: 2,
+                                        child: Text(
+                                          labelNominal,
+                                          style: TextStyle(
+                                              color: colorDark, fontSize: 11),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        flex: 1,
+                                        child: Text(
+                                          ":",
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                              color: colorDark, fontSize: 11),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        flex: 8,
+                                        child: Align(
+                                          alignment: Alignment.centerRight,
+                                          child: Text(
+                                            "Rp. 30.000",
+                                            style: TextStyle(
+                                                color: colorDark,
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(width: basePaddingInContent),
+                                      Expanded(flex: 2, child: Container(
+                                          decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(
+                                                      baseRadiusCard)),
+                                              color: colorDark
+                                          ),
+                                          child: Padding(
+                                            padding: EdgeInsets.all(
+                                                basePaddingInContent / 2),
+                                            child: Text(
+                                              labelCopy,
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                  color: colorLight,
+                                                  fontSize: 11,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                          ))
+                                      )
+                                    ]),
                                   ),
-                                ),
-                                Expanded(
-                                  flex: 8,
-                                  child: Align(
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                        top: basePaddingInContent),
+                                    child: Row(children: [
+                                      Expanded(
+                                        flex: 2,
+                                        child: Text(
+                                          labelNote,
+                                          style: TextStyle(
+                                              color: colorDark, fontSize: 11),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        flex: 1,
+                                        child: Text(
+                                          ":",
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                              color: colorDark, fontSize: 11),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        flex: 8,
+                                        child: Align(
+                                          alignment: Alignment.centerRight,
+                                          child: Text(
+                                            "INV12345678",
+                                            style: TextStyle(
+                                                color: colorDark,
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(width: basePaddingInContent),
+                                      Expanded(flex: 2, child: Container(
+                                          decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(
+                                                      baseRadiusCard)),
+                                              color: colorDark
+                                          ),
+                                          child: Padding(
+                                            padding: EdgeInsets.all(
+                                                basePaddingInContent / 2),
+                                            child: Text(
+                                              labelCopy,
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                  color: colorLight,
+                                                  fontSize: 11,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                          ))
+                                      )
+                                    ]),
+                                  ),
+                                  Align(
                                     alignment: Alignment.centerRight,
                                     child: Text(
-                                      "BCA a.n Naufal Hamdani",
-                                      style: TextStyle(
-                                          color: colorDark,
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.bold),
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
+                                      "Masukkan catatan sesuai isian di atas",
+                                      style: TextStyle(color: colorDark,
+                                          fontSize: 11,
+                                          fontStyle: FontStyle.italic),
                                     ),
-                                  ),
-                                ),
-                                SizedBox(width: basePaddingInContent),
-                                Expanded(flex: 2, child: SizedBox())
-                              ]),
-                              Padding(
-                                padding: EdgeInsets.only(top: basePaddingInContent),
-                                child: Row(children: [
-                                  Expanded(
-                                    flex: 2,
-                                    child: Text(
-                                      labelAccountBank,
-                                      style: TextStyle(color: colorDark, fontSize: 11),
-                                    ),
-                                  ),
-                                  Expanded(
-                                    flex: 1,
-                                    child: Text(
-                                      ":",
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(color: colorDark, fontSize: 11),
-                                    ),
-                                  ),
-                                  Expanded(
-                                    flex: 8,
-                                    child: Align(
-                                      alignment: Alignment.centerRight,
-                                      child: Text(
-                                        "123456789",
-                                        style: TextStyle(
-                                            color: colorDark,
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(width: basePaddingInContent),
-                                  Expanded(flex: 2, child: Container(
-                                      decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.all(Radius.circular(baseRadiusCard)),
-                                          color: colorDark
-                                      ),
-                                      child: Padding(
-                                        padding: EdgeInsets.all(basePaddingInContent / 2),
-                                        child: Text(
-                                          labelCopy,
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                              color: colorLight,
-                                              fontSize: 11,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                      ))
                                   )
                                 ]),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.only(top: basePaddingInContent),
-                                child: Row(children: [
-                                  Expanded(
-                                    flex: 2,
-                                    child: Text(
-                                      labelNominal,
-                                      style: TextStyle(color: colorDark, fontSize: 11),
-                                    ),
-                                  ),
-                                  Expanded(
-                                    flex: 1,
-                                    child: Text(
-                                      ":",
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(color: colorDark, fontSize: 11),
-                                    ),
-                                  ),
-                                  Expanded(
-                                    flex: 8,
-                                    child: Align(
-                                      alignment: Alignment.centerRight,
-                                      child: Text(
-                                        "Rp. 30.000",
-                                        style: TextStyle(
-                                            color: colorDark,
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(width: basePaddingInContent),
-                                  Expanded(flex: 2, child: Container(
-                                      decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.all(Radius.circular(baseRadiusCard)),
-                                          color: colorDark
-                                      ),
-                                      child: Padding(
-                                        padding: EdgeInsets.all(basePaddingInContent / 2),
-                                        child: Text(
-                                          labelCopy,
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                              color: colorLight,
-                                              fontSize: 11,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                      ))
-                                  )
-                                ]),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.only(top: basePaddingInContent),
-                                child: Row(children: [
-                                  Expanded(
-                                    flex: 2,
-                                    child: Text(
-                                      labelNote,
-                                      style: TextStyle(color: colorDark, fontSize: 11),
-                                    ),
-                                  ),
-                                  Expanded(
-                                    flex: 1,
-                                    child: Text(
-                                      ":",
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(color: colorDark, fontSize: 11),
-                                    ),
-                                  ),
-                                  Expanded(
-                                    flex: 8,
-                                    child: Align(
-                                      alignment: Alignment.centerRight,
-                                      child: Text(
-                                        "INV12345678",
-                                        style: TextStyle(
-                                            color: colorDark,
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(width: basePaddingInContent),
-                                  Expanded(flex: 2, child: Container(
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.all(Radius.circular(baseRadiusCard)),
-                                      color: colorDark
-                                    ),
-                                      child: Padding(
-                                        padding: EdgeInsets.all(basePaddingInContent / 2),
-                                        child: Text(
-                                          labelCopy,
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                              color: colorLight,
-                                              fontSize: 11,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                      ))
-                                  )
-                                ]),
-                              ),
-                              Align(
-                                alignment: Alignment.centerRight,
-                                child: Text(
-                                  "Masukkan catatan sesuai isian di atas",
-                                  style: TextStyle(color: colorDark, fontSize: 11, fontStyle: FontStyle.italic),
-                                ),
-                              )
-                            ]),
                           ),
                         ),
                         SizedBox(height: basePadding),
                         Container(
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(baseRadiusCard),
-                            color: Colors.grey
+                              borderRadius: BorderRadius.circular(
+                                  baseRadiusCard),
+                              color: Colors.grey
                           ),
                           height: Get.height / 2,
                         ),
                         SizedBox(height: basePadding),
                         StandardButtonPrimary(
-                            onPressed: () {
-                            },
-                            titleHint: labelBtnConfirm,
-                          ),
+                          onPressed: () {},
+                          titleHint: labelBtnConfirm,
+                        ),
                       ]),
-                  )
+                    )
                 )
             )
     );
