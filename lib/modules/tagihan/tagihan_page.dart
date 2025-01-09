@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:parawarga_apps/modules/tagihan/detail/tagihan_detail_page.dart';
 import 'package:parawarga_apps/modules/tagihan/item/tagihan_tile.dart';
 import 'package:parawarga_apps/modules/tagihan/tagihan_controller.dart';
@@ -10,7 +9,6 @@ import 'package:parawarga_apps/routes/app_pages.dart';
 import 'package:parawarga_apps/theme/app_colors.dart';
 import 'package:parawarga_apps/utils/strings.dart';
 
-import '../../core/constants.dart';
 import '../../theme/app_theme.dart';
 import '../../theme/standard_error_page.dart';
 
@@ -19,68 +17,46 @@ class TagihanPage extends GetView<TagihanController> {
 
   @override
   Widget build(BuildContext context) {
-    controller.getTagihan();
-    return Scaffold(body: Obx(() => _buildContentTop(context)));
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(labelTagihan, style: TextStyle(color: colorPrimary)),
+        centerTitle: true,
+        backgroundColor: colorBackground,
+        surfaceTintColor: colorBackground,
+        elevation: 0,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: colorPrimary),
+          onPressed: () { Get.back(); },
+        ),
+      ),
+      body: Obx(() => _buildContentBackground(context))
+    );
   }
 
-  _buildContentTop(BuildContext context) {
+  _buildContentBackground(BuildContext context) {
     return Container(
       color: colorBackground,
-      child: Padding(
-        padding: EdgeInsets.only(top: MediaQuery.of(context).viewPadding.top),
-        child: Column(
-          children: [
-            SizedBox(
-              height: MediaQuery.of(context).viewPadding.top * 2,
-              child: Padding(
-                padding: EdgeInsets.only(
-                    left: basePadding, right: basePadding),
-                child: Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
-                  GestureDetector(
-                      onTap: () {
-                        Get.back();
-                      },
-                      child: Icon(Iconsax.arrow_left, color: colorPrimary)),
-                  Expanded(
-                    child: Padding(
-                        padding: EdgeInsets.only(left: basePadding),
-                        child: Text(
-                          labelTagihan,
-                          style: TextStyle(
-                              color: colorPrimary,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                        )),
-                  )
-                ]),
-              ),
-            ),
-            Expanded(
-              child: Container(
+      child: Expanded(
+        child: Container(
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(baseRadiusCard),
+                  topRight: Radius.circular(baseRadiusCard),
+                ),
+                color: colorPrimary),
+            child: Padding(
+                padding: EdgeInsets.only(top: baseRadiusCard),
+                child: Container(
+                  width: Get.width,
                   decoration: BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(baseRadiusCard),
-                        topRight: Radius.circular(baseRadiusCard),
-                      ),
-                      color: colorPrimary),
-                  child: Padding(
-                      padding: EdgeInsets.only(top: baseRadiusCard),
-                      child: Container(
-                        width: Get.width,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(baseRadiusCard),
-                            topRight: Radius.circular(baseRadiusCard),
-                          ),
-                          color: colorBackground,
-                        ),
-                        child: _buildContentMainMenu(context),
-                      ))),
-            )
-          ],
-        ),
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(baseRadiusCard),
+                      topRight: Radius.circular(baseRadiusCard),
+                    ),
+                    color: colorBackground,
+                  ),
+                  child: _buildContentMainMenu(context),
+                ))),
       ),
     );
   }

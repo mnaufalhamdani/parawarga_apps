@@ -381,7 +381,7 @@ class DashboardPage extends GetView<DashboardController> {
             Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Row(
                 children: [
-                  Text(labelLaporan,
+                  Text(labelIssue,
                       style: TextStyle(
                           color: colorPrimary,
                           fontWeight: FontWeight.bold,

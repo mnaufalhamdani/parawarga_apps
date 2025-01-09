@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:parawarga_apps/core/constants.dart';
 import 'package:parawarga_apps/models/response/tagihan_detail_model.dart';
 import 'package:parawarga_apps/modules/tagihan/detail/tagihan_detail_controller.dart';
@@ -36,14 +35,14 @@ class TagihanDetailPage extends GetView<TagihanDetailController> {
         body: Obx(() =>
         Stack(
           children: [
-            _buildContentTop(context),
+            _buildContentBackground(context),
             Align(alignment: Alignment.bottomCenter, child: StandardButtonPrimary(titleHint: "TEST"))
           ],
         )
     ));
   }
 
-  _buildContentTop(BuildContext context) {
+  _buildContentBackground(BuildContext context) {
     return Container(
       color: colorBackground,
       child: Expanded(
