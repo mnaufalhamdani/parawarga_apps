@@ -92,6 +92,7 @@ String labelStatus = 'Status';
 String labelStatusIssue = 'Status Laporan';
 String labelExpired = 'Expired';
 String labelNote = 'Catatan';
+String labelMessage = 'Pesan';
 String labelPeriode = 'Periode';
 String labelRandomNow = 'Acak Sekarang';
 String labelRequired = 'Wajib';

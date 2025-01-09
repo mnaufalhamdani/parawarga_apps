@@ -18,7 +18,7 @@ class ArisanPage extends GetView<ArisanController> {
 
   @override
   Widget build(BuildContext context) {
-    controller.getArisan();
+    // controller.getArisan();
     return Scaffold(body: Obx(() => _buildContentTop(context)));
   }
 

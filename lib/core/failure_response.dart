@@ -24,7 +24,7 @@ class FailureResponse {
   }
 }
 
-String errorHandler(int statusCode, String message) {
+String responseHandler(int statusCode, String message) {
   switch (statusCode) {
     case 200: return message;
     case 201: return message;

@@ -12,6 +12,11 @@ class ArisanController extends GetxController{
     required this.repository,
   });
 
+  @override
+  void onInit() {
+    super.onInit();
+    getArisan();
+  }
   final ArisanRepository repository;
   final arisanState = Rx(ResponseState<List<ArisanModel>>());
 

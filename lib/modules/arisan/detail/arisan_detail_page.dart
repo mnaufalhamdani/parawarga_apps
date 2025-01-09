@@ -15,6 +15,9 @@ import 'package:parawarga_apps/models/response/ArisanDetailModel.dart';
 import 'package:parawarga_apps/modules/arisan/detail/arisan_detail_controller.dart';
 import 'package:parawarga_apps/modules/arisan/item/arisan_detail_tile.dart';
 import 'package:parawarga_apps/theme/app_colors.dart';
+import 'package:parawarga_apps/theme/single_select/single_select_dialog.dart';
+import 'package:parawarga_apps/theme/single_select/single_select_domain.dart';
+import 'package:parawarga_apps/theme/standard_snackbar.dart';
 import 'package:parawarga_apps/utils/strings.dart';
 
 import '../../../theme/app_theme.dart';
@@ -24,12 +27,11 @@ import '../../../theme/standard_error_page.dart';
 class ArisanDetailPage extends GetView<ArisanDetailController> {
   const ArisanDetailPage({super.key});
 
-  static const argDataArisan = 'argDataArisan';
   static const argId = 'argId';
 
   @override
   Widget build(BuildContext context) {
-    controller.getArisanDetail();
+    // controller.getArisanDetail();
     return Scaffold(
       body: Obx(() =>_buildContentTop(context)),
       floatingActionButton: Obx(() =>
@@ -259,7 +261,7 @@ class ArisanDetailPage extends GetView<ArisanDetailController> {
                         child: Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
-                            currencyFormat(data.nominal.toString()),
+                            "Rp. ${currencyFormat(data.nominal.toString())}",
                             style: TextStyle(
                                 color: colorLight,
                                 fontSize: 12,
@@ -289,7 +291,7 @@ class ArisanDetailPage extends GetView<ArisanDetailController> {
                         child: Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
-                            currencyFormat(data.totalPayed.toString()),
+                            "Rp. ${currencyFormat(data.totalPayed.toString())}",
                             style: TextStyle(
                                 color: colorLight,
                                 fontSize: 12,
@@ -306,7 +308,23 @@ class ArisanDetailPage extends GetView<ArisanDetailController> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
               GestureDetector(
                   onTap: () {
-                    _buildFilterHistoryBottom(context, data);
+                    final listItem = List<SingleSelectDomain>.empty(growable: true);
+                    for (var i = 0; i < data.history.length; i++) {
+                      listItem.add(SingleSelectDomain(
+                        codeOrId: i.toString(),
+                        message: data.history.elementAt(i).periodeName
+                      ));
+                    }
+
+                    if (listItem.isEmpty) {
+                      showStandardSnackbar(context, TypeMessage.error, message: msgNotFound);
+                    }else {
+                      dialogSingleSelect(context, "Pilih Salah Satu Tanggal", listItem, (idIndex, model) {
+                        controller.arisanLabel.value = "$labelHistory Pembayaran ${model.message}";
+                        controller.arisanClicked.value = null;
+                        controller.arisanHistory.value = idIndex;
+                      });
+                    }
                   },
                   child: Column(children: [
                     Card(
@@ -556,47 +574,6 @@ class ArisanDetailPage extends GetView<ArisanDetailController> {
           ]),
         )
     );
-  }
-
-  _buildFilterHistoryBottom(BuildContext context, ArisanDetailModel data) {
-    return showModalBottomSheet(
-        context: context,
-        isDismissible: true,
-        isScrollControlled: true,
-        backgroundColor: Colors.white,
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
-        builder: (context) => FractionallySizedBox(
-            heightFactor: 0.5,
-            child: Column(children: [
-              Padding(
-                  padding: EdgeInsets.all(basePadding),
-                  child: Text("Pilih Salah Satu Tanggal",
-                      style: TextStyle(
-                          color: colorTextlabel,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16))),
-              (data.history.isEmpty)
-                ? StandardErrorPage(message: msgNotFound)
-                : Expanded(child: ListView.builder(
-                  physics: BouncingScrollPhysics(),
-                  itemCount: data.history.length,
-                  itemBuilder: (context, index) {
-                    return FilterHistoryTile(
-                      model: data.history[index],
-                      index: index,
-                      onPressed: (model, index) {
-                        controller.arisanLabel.value = "$labelHistory Pembayaran ${model.periodeName}";
-                        controller.arisanClicked.value = null;
-                        controller.arisanHistory.value = index;
-
-                        Get.back();
-                      },
-                    );
-                  },
-                ))
-        ]
-    )));
   }
 
   _buildContentBottom(BuildContext context, ArisanDetailModel data) {

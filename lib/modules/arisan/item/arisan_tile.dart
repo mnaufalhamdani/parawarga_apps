@@ -169,7 +169,7 @@ class ArisanTileState extends State<ArisanTile> {
                       Expanded(
                         flex: 8,
                         child: Text(
-                          currencyFormat(widget.model.nominal.toString()),
+                          "Rp. ${currencyFormat(widget.model.nominal.toString())}",
                           style: TextStyle(
                               color: colorTextSecondary,
                               fontSize: 12,
@@ -200,7 +200,7 @@ class ArisanTileState extends State<ArisanTile> {
                         child: Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
-                            currencyFormat(widget.model.totalPayed.toString()),
+                            "Rp. ${currencyFormat(widget.model.totalPayed.toString())}",
                             style: TextStyle(
                                 color: colorTextSecondary,
                                 fontSize: 12,

@@ -106,7 +106,7 @@ class ArisanHistoryTileState extends State<ArisanHistoryTile> {
               Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  currencyFormat(widget.model.nominal ?? "-"),
+                  "Rp. ${currencyFormat(widget.model.nominal ?? "-")}",
                   style: TextStyle(
                       fontStyle: FontStyle.italic,
                       color: colorTextSecondary,

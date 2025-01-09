@@ -2,6 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:parawarga_apps/theme/standard_error_page.dart';
+import 'package:parawarga_apps/theme/standard_text_field_login.dart';
 
 import '../utils/strings.dart';
 import 'app_colors.dart';
@@ -11,14 +13,16 @@ import 'standard_text_field.dart';
 
 class StandardSingleSelectDialog extends StatefulWidget {
   final GlobalKey<FormState>? formKey;
+  final String? title;
   final List<SingleSelectDomain> listItem;
   final void Function(int idIndex, SingleSelectDomain model) onPressed;
 
   StandardSingleSelectDialog({
     Key? key,
     this.formKey,
+    this.title,
     required this.listItem,
-    required this.onPressed,
+    required this.onPressed
   }) : super(key: key);
 
   @override
@@ -57,8 +61,8 @@ class StandardSingleSelectDialogState extends State<StandardSingleSelectDialog> 
           padding: EdgeInsets.all(20),
           child: Text(greetingDialog,
               style: TextStyle(
-                  color: colorTextPrimary,
-                  fontWeight: FontWeight.w800,
+                  color: colorTextlabel,
+                  fontWeight: FontWeight.bold,
                   fontSize: 16))),
       Padding(padding: EdgeInsets.only(bottom: 20),
           child: StandardTextField(
@@ -71,43 +75,24 @@ class StandardSingleSelectDialogState extends State<StandardSingleSelectDialog> 
             },
           )
       ),
-      (list.isNotEmpty) ? Expanded(child: ListView.builder(
-        scrollDirection: Axis.vertical,
-        shrinkWrap: true,
-        physics: BouncingScrollPhysics(),
-        itemBuilder: (context, index) {
-          return ItemSingleSelect(
-            position: index,
-            model: list[index],
-            onPressed: (position, model) {
-              widget.onPressed(position, model);
-              Get.back();
+      (list.isNotEmpty)
+          ? Expanded(child: ListView.builder(
+            scrollDirection: Axis.vertical,
+            shrinkWrap: true,
+            physics: BouncingScrollPhysics(),
+            itemCount: list.length,
+            itemBuilder: (context, index) {
+              return ItemSingleSelect(
+                position: index,
+                model: list[index],
+                onPressed: (position, model) {
+                  widget.onPressed(position, model);
+                  Get.back();
+                },
+              );
             },
-          );
-        },
-        itemCount: list.length,
-      ))
-          : Center(
-          child: GestureDetector(
-              onTap: () {
-                searchList();
-              },
-              child: SingleChildScrollView(child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image(
-                      height: 200,
-                      fit: BoxFit.cover,
-                      image: AssetImage("assets/images/gif_no_data.gif")),
-                  Text(
-                    msgNotFound,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(color: Colors.black87),
-                  )
-                ],
-              ))
-          )
-      )
+          ))
+          : StandardErrorPage(message: msgNotFound)
     ]);
   }
 }

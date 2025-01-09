@@ -99,9 +99,9 @@ class UnitEmptyPage extends GetView<UnitEmptyController> {
                 child: UnitEmptyTile(
                   model: listUnitEmpty[i],
                   onPressed: (model) async {
-                    Get.toNamed(Routes.arisanDetail, arguments: {
-                      ArisanDetailPage.argDataArisan: model
-                    });
+                    // Get.toNamed(Routes.arisanDetail, arguments: {
+                    //   ArisanDetailPage.argDataArisan: model
+                    // });
                   },
                 ))
         ]));
