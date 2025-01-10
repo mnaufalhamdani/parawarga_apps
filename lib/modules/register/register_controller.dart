@@ -3,112 +3,87 @@
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:parawarga_apps/core/data_state.dart';
+import 'package:parawarga_apps/data/repository/register_repository.dart';
 import 'package:parawarga_apps/models/domain/register_warga_domain.dart';
+import 'package:parawarga_apps/theme/standard_snackbar.dart';
 
 import '../../core/failure_response.dart';
 
 class RegisterController extends GetxController{
-  //input kode generate area
-  final formKeyFirst = GlobalKey<FormState>();
-  final editingControllersFirst = List.generate(1, (index) => TextEditingController());
-  final Rx<ResponseState> checkAreaState = Rx(ResponseDefault());
+  RegisterController({
+    required this.repository,
+  });
 
-  // no.ktp
-  final formKeySecond = GlobalKey<FormState>();
-  final editingControllersSecond = List.generate(1, (index) => TextEditingController());
-  final Rx<ResponseState> checkIdState = Rx(ResponseDefault());
+  final RegisterRepository repository;
 
-  //name, alamat ktp, alamat domisili, email, phone
-  final formKeyThird = GlobalKey<FormState>();
-  final editingControllersThird = List.generate(5, (index) => TextEditingController());
-  final Rx<ResponseState> registerState = Rx(ResponseDefault());
+  //kode generate area, no.ktp, name, alamat ktp, alamat domisili, email, phone
+  final formKey = GlobalKey<FormState>();
+  final editingControllers = List.generate(8, (index) => TextEditingController());
+  final registerState = Rx(ResponseState<RegisterWargaDomain>());
 
   final registerWargaDomain = Rx(RegisterWargaDomain());
   final activeStep = Rx(0);
 
   Future<void> checkArea() async {
     try {
-      checkAreaState.value = ResponseLoading();
-      registerWargaDomain.value.area_code_generate = null;
+      registerState.value = ResponseState.loading();
+      registerWargaDomain.value.area_generate = null;
 
-      final areaCode = editingControllersFirst[0].text.toString();
-      registerWargaDomain.value.area_code_generate = areaCode;
-      // await repository.getLogin(
-      //     editingControllers[0].text.toString()
-      // );
-
-      registerWargaDomain.value.resultArea =
-      "\nRT. 001 / RW. 003"
-          "\nKelurahan Tulusrejo, Kecamatan Lowokwaru, Kota Malang, Jawa Timur";
-      registerWargaDomain.value.resultResponsible =
-      "\nMuhammad Naufal Hamdani";
-      checkAreaState.value = ResponseSuccess(registerWargaDomain.value);
-
-      // switch (checkAreaState.value) {
-      //   case ResponseLoading():
-      //     print('ResponseLoading');
-      //     break;
-      //   case ResponseSuccess():
-      //     print('ResponseSuccess');
-      //     break;
-      //   case ResponseFailed():
-      //     print('ResponseFailed');
-      //     break;
-      //   case ResponseDefault():
-      //     print('ResponseDefault');
-      //     break;
-      // }
+      await repository.verifyEncodeArea(
+          editingControllers[0].text.toString()
+      ).then((model) {
+        registerWargaDomain.value.area_generate = model.area_generate;
+        registerWargaDomain.value.resultMsgArea =
+        "\n${model.area_name}"
+            "\n${model.kelurahan_name}, ${model.kecamatan_name}, ${model.kabupaten_name}, ${model.provinsi_name}";
+        registerState.value = ResponseState.success(registerWargaDomain.value);
+      });
     }on FailureResponse catch(e) {
-      checkAreaState.value = ResponseFailed(e);
+      registerState.value = ResponseState.failed(e);
+      showStandardSnackbar(Get.context!, TypeMessage.error, message: e.message.toString(), paddingBottom: 60);
     }
   }
 
   Future<void> checkId() async {
     try {
-      checkIdState.value = ResponseLoading();
-      final nik = editingControllersSecond[0].text.toString();
+      registerState.value = ResponseState.loading();
+      registerWargaDomain.value.nik = null;
 
-      // await repository.getLogin(
-      //     editingControllers[0].text.toString()
-      // );
+      await repository.verifyNik(editingControllers[1].text.toString()).then((model) {
+        registerWargaDomain.value.nik = editingControllers[1].text.toString();
+        registerWargaDomain.value.resultMsgId = "\n${model.message.toString()}";
+      });
 
-      registerWargaDomain.value.nik = nik;
-      registerWargaDomain.value.username = nik;
-      var text = "\nData Anda belum terdaftar di sistem kami, silahkan melanjutkan pendaftaran Anda dengan No. NIK : $nik.";
-
-      // const text = "\nData Anda telah terdaftar di sistem, silahkan untuk masuk menggunakan data yang telah di daftarkan."
-      //     "\nHubungi Call Center kami jika Anda merasa Data Anda di tidak pernah di masukkan di sistem kami.";
-      checkIdState.value = ResponseSuccess(text);
+      registerState.value = ResponseState.success(registerWargaDomain.value);
     }on FailureResponse catch(e) {
-      checkIdState.value = ResponseFailed(e);
+      const text = "\nHubungi kami jika Anda merasa tidak pernah mendaftar di sistem kami.";
+      registerWargaDomain.value.resultMsgId = "\n${e.message.toString()}$text";
+      registerState.value = ResponseState.success(registerWargaDomain.value);
     }
   }
 
   Future<void> registerAsync() async {
     try {
-      registerState.value = ResponseLoading();
-      final name = editingControllersThird[0].text.toString();
-      final address = editingControllersThird[1].text.toString();
-      final addressSecond = editingControllersThird[2].text.toString();
-      final email = editingControllersThird[3].text.toString();
-      final phone = editingControllersThird[4].text.toString();
+      registerState.value = ResponseState.loading();
+      final name = editingControllers[2].text.toString();
+      final address = editingControllers[3].text.toString();
+      final addressSecond = editingControllers[4].text.toString();
+      final email = editingControllers[5].text.toString();
+      final phone = editingControllers[6].text.toString();
+      final password = editingControllers[7].text.toString();
       registerWargaDomain.value.name = name;
       registerWargaDomain.value.address_ktp = address;
       registerWargaDomain.value.address_domisili = addressSecond;
       registerWargaDomain.value.email = email;
+      registerWargaDomain.value.username = email;
       registerWargaDomain.value.phone = phone;
+      registerWargaDomain.value.password = password;
 
-      // await repository.getLogin(
-      //     editingControllers[0].text.toString()
-      // );
-
-      await Future.delayed(Duration(seconds: 5), () {
-        registerState.value = ResponseSuccess(true);
+      await repository.register(registerWargaDomain.value).then((response) {
+        registerState.value = ResponseState.success(registerWargaDomain.value);
       });
     }on FailureResponse catch(e) {
-      await Future.delayed(Duration(seconds: 5), () {
-        registerState.value = ResponseFailed(e);
-      });
+      registerState.value = ResponseState.failed(e);
     }
   }
 }

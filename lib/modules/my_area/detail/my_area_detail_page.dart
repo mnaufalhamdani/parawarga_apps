@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:parawarga_apps/modules/my_area/detail/my_area_detail_controller.dart';
 import 'package:parawarga_apps/theme/app_colors.dart';
 import 'package:parawarga_apps/utils/strings.dart';
@@ -15,69 +14,44 @@ class MyAreaDetailPage extends GetView<MyAreaDetailController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _buildContentTop(context),
+      appBar: AppBar(
+        title: Text(labelMyArea, style: TextStyle(color: colorPrimary)),
+        centerTitle: true,
+        backgroundColor: colorBackground,
+        surfaceTintColor: colorBackground,
+        elevation: 0,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: colorPrimary),
+          onPressed: () { Get.back(); },
+        ),
+      ),
+      body: _buildContentBackground(context),
     );
   }
 
-  _buildContentTop(BuildContext context) {
+  _buildContentBackground(BuildContext context) {
     return Container(
       color: colorBackground,
-      child: Padding(
-        padding: EdgeInsets.only(top: MediaQuery.of(context).viewPadding.top),
-        child: Column(
-          children: [
-            SizedBox(
-              height: MediaQuery.of(context).viewPadding.top * 2,
-              child: Padding(
-                padding: EdgeInsets.only(
-                    left: basePadding, right: basePadding),
-                child: Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
-                  GestureDetector(
-                      onTap: () {
-                        Get.back();
-                      },
-                      child: Icon(Iconsax.arrow_left, color: colorPrimary)),
-                  Expanded(
-                    child: Padding(
-                        padding: EdgeInsets.only(left: basePadding),
-                        child: Text(
-                          labelMyArea,
-                          style: TextStyle(
-                              color: colorPrimary,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                        )),
-                  )
-                ]),
+      child: Container(
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(baseRadiusCard),
+                topRight: Radius.circular(baseRadiusCard),
               ),
-            ),
-            Expanded(
+              color: colorPrimary),
+          child: Padding(
+              padding: EdgeInsets.only(top: baseRadiusCard),
               child: Container(
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(baseRadiusCard),
-                        topRight: Radius.circular(baseRadiusCard),
-                      ),
-                      color: colorPrimary),
-                  child: Padding(
-                      padding: EdgeInsets.only(top: baseRadiusCard),
-                      child: Container(
-                        width: Get.width,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(baseRadiusCard),
-                            topRight: Radius.circular(baseRadiusCard),
-                          ),
-                          color: colorBackground,
-                        ),
-                        child: _buildContentMainMenu(context),
-                      ))),
-            )
-          ],
-        ),
-      ),
+                width: Get.width,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(baseRadiusCard),
+                    topRight: Radius.circular(baseRadiusCard),
+                  ),
+                  color: colorBackground,
+                ),
+                child: _buildContentMainMenu(context),
+              )))
     );
   }
 

@@ -1,7 +1,13 @@
 import 'dart:convert';
 import 'dart:math';
 
+import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+
+import '../theme/standard_snackbar.dart';
+import '../utils/strings.dart';
 
 
 // const String NIK_EXAMPLE = '20101720';
@@ -284,14 +290,14 @@ String getFileSizeString({required int bytes, int decimals = 0}) {
   return ((bytes / pow(1024, i)).toStringAsFixed(decimals)) + suffixes[i];
 }
 
-String encodeBinary(String text) {
+String strToBinary(String text) {
   List<int> encodedBytes = utf8.encode(text);
   return encodedBytes.map((e) =>
       e.toRadixString(2).padLeft(8, '0')
   ).join();
 }
 
-String decodeBinary(String encode) {
+String binaryToStr(String encode) {
   List<int> decodedBytes = [];
   for (int i = 0; i < encode.length; i += 8) {
     String byteString = encode.substring(i, i + 8);
@@ -299,4 +305,67 @@ String decodeBinary(String encode) {
     decodedBytes.add(byte);
   }
   return utf8.decode(decodedBytes);
+}
+
+int? stringToInt(String? value) {
+  if (value == null || value.isEmpty) {
+    return null;
+  }
+  try {
+    return int.tryParse(value);
+  } catch (e) {
+    debugPrint('stringToInt: ${e.toString()}');
+    return null;
+  }
+}
+
+int dateBetween(DateTime from, DateTime to) {
+  from = DateTime(from.year, from.month, from.day);
+  to = DateTime(to.year, to.month, to.day);
+  return (to.difference(from).inHours / 24).round();
+}
+
+void monitorConnection(BuildContext context) {
+  Connectivity().onConnectivityChanged.listen((result) {
+    if (result.where((element) => element == ConnectivityResult.none).isNotEmpty) {
+      showStandardSnackbar(context, TypeMessage.error, message: msgKoneksiError, duration: DurationMessage.lengthInfinite);
+    } else {
+      showStandardSnackbar(context, TypeMessage.success, message: msgKoneksiSukses, duration: DurationMessage.lengthShort);
+    }
+  });
+}
+
+bool checkConnection(BuildContext context) {
+  var connected = false;
+  Connectivity().onConnectivityChanged.listen((result) {
+    if (result.where((element) => element == ConnectivityResult.none).isNotEmpty) {
+      connected = false;
+    } else {
+      connected = true;
+    }
+  });
+  return connected;
+}
+
+String getInitials(String text) {
+  if (text.isEmpty) return "";
+
+  List<String> nameParts = text.split(" ");
+  String initials = nameParts.map((e) => e.isNotEmpty ? e[0].toUpperCase() : "").join();
+
+  return initials.length > 2 ? initials.substring(0, 2) : initials; // Limit to 2 initials
+}
+
+String currencyFormat(String number) {
+  List<String> parts = number.split('.');
+  String integerPart = parts[0].replaceAllMapped(
+    RegExp(r'\B(?=(\d{3})+(?!\d))'),
+        (match) => '.',
+  );
+  if(parts.length == 1){
+    return integerPart;
+  }else{
+    return '$integerPart,${parts[1]}';
+  }
+
 }

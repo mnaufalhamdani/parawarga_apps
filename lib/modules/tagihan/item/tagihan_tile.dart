@@ -1,14 +1,16 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:parawarga_apps/core/constants.dart';
+import 'package:parawarga_apps/models/response/tagihan_model.dart';
 import 'package:parawarga_apps/theme/app_theme.dart';
 
 import '../../../theme/app_colors.dart';
 import '../../../utils/strings.dart';
 
 class TagihanTile extends StatefulWidget {
-  final Map<String, dynamic> model;
-  final void Function(Map<String, dynamic> model) onPressed;
+  final TagihanModel model;
+  final void Function(TagihanModel model) onPressed;
 
   const TagihanTile({
     super.key,
@@ -48,10 +50,10 @@ class TagihanTileState extends State<TagihanTile> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "RT.001 RW.003",
+                              widget.model.areaName.toString(),
                               style: TextStyle(color: colorLight, fontSize: 12),
                             ),
-                            Text(widget.model["name"],
+                            Text(widget.model.name.toString(),
                                 style: TextStyle(
                                     color: colorLight,
                                     fontWeight: FontWeight.bold,
@@ -85,7 +87,7 @@ class TagihanTileState extends State<TagihanTile> {
                           child: Align(
                             alignment: Alignment.centerLeft,
                             child: Text(
-                              widget.model["note"],
+                              widget.model.message ?? "-",
                               style: TextStyle(
                                   color: colorTextSecondary,
                                   fontSize: 12,
@@ -117,7 +119,7 @@ class TagihanTileState extends State<TagihanTile> {
                           child: Align(
                             alignment: Alignment.centerLeft,
                             child: Text(
-                              widget.model["expired"].toString(),
+                              widget.model.endPeriode.toString(),
                               style: TextStyle(
                                   color: colorTextSecondary,
                                   fontSize: 12,
@@ -129,18 +131,18 @@ class TagihanTileState extends State<TagihanTile> {
                       SizedBox(height: basePaddingInContent),
                       Row(children: [
                         Text(
-                          "Rp. ${widget.model["nominal"]}",
+                          "Rp. ${currencyFormat(widget.model.nominal.toString())}",
                           style: TextStyle(color: colorTextSecondary, fontWeight: FontWeight.bold, fontSize: 16),
                         ),
                         Expanded(flex: 1, child: SizedBox()),
                         Container(decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(baseRadiusCard),
-                            color: (widget.model["isRequired"] == true) ? colorDark : colorLight),
+                            color: (widget.model.required == true) ? colorDark : colorLight),
                           child: Padding(
                             padding: EdgeInsets.all(basePaddingInContent / 2),
                             child: Text(
-                              (widget.model["isRequired"] == true) ? labelRequired : labelNotRequired,
-                              style: TextStyle(color: (widget.model["isRequired"] == true) ? colorLight : colorDark, fontSize: 12),
+                              (widget.model.required == true) ? labelRequired : labelNotRequired,
+                              style: TextStyle(color: (widget.model.required == true) ? colorLight : colorDark, fontSize: 12),
                             ),
                           ),
                         )

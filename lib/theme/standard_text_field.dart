@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:parawarga_apps/theme/app_theme.dart';
+import 'package:parawarga_apps/utils/strings.dart';
 
 import 'app_colors.dart';
 
@@ -68,6 +69,20 @@ class StandardTextState extends State<StandardTextField> {
             if (!widget.msgError.isNull) {
               if (value == null || value.isEmpty) {
                 return widget.msgError;
+              }
+            }
+
+            if (widget.isPassword == true) {
+              if (value.toString().length < 8) {
+                return msgFieldShortLength;
+              }else if (!RegExp(r'^[A-Za-z0-9_.]+$').hasMatch(value.toString())){
+                return msgFieldPassword;
+              }
+            }
+
+            if (widget.inputType == TextInputType.emailAddress) {
+              if (value?.isEmail == false){
+                return msgFieldEmail;
               }
             }
             return null;

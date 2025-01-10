@@ -2,103 +2,99 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:iconsax/iconsax.dart';
+import 'package:parawarga_apps/modules/info/detail/info_detail_page.dart';
 import 'package:parawarga_apps/modules/info/info_controller.dart';
 import 'package:parawarga_apps/modules/info/item/info_tile.dart';
 import 'package:parawarga_apps/routes/app_pages.dart';
 import 'package:parawarga_apps/theme/app_colors.dart';
 import 'package:parawarga_apps/utils/strings.dart';
 
-import '../../core/constants.dart';
 import '../../theme/app_theme.dart';
+import '../../theme/standard_error_page.dart';
 
 class InfoPage extends GetView<InfoController> {
   const InfoPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    controller.getInformation();
     return Scaffold(
-      body: _buildContentTop(context),
+      appBar: AppBar(
+        title: Text(labelInfo, style: TextStyle(color: colorPrimary)),
+        centerTitle: true,
+        backgroundColor: colorBackground,
+        surfaceTintColor: colorBackground,
+        elevation: 0,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: colorPrimary),
+          onPressed: () { Get.back(); },
+        ),
+      ),
+      body: Obx(() => _buildContentBackground(context))
     );
   }
 
-  _buildContentTop(BuildContext context) {
+  _buildContentBackground(BuildContext context) {
     return Container(
       color: colorBackground,
-      child: Padding(
-        padding: EdgeInsets.only(top: MediaQuery.of(context).viewPadding.top),
-        child: Column(
-          children: [
-            SizedBox(
-              height: MediaQuery.of(context).viewPadding.top * 2,
-              child: Padding(
-                padding: EdgeInsets.only(
-                    left: basePadding, right: basePadding),
-                child: Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
-                  GestureDetector(
-                      onTap: () {
-                        Get.back();
-                      },
-                      child: Icon(Iconsax.arrow_left, color: colorPrimary)),
-                  Expanded(
-                    child: Padding(
-                        padding: EdgeInsets.only(left: basePadding),
-                        child: Text(
-                          labelInfo,
-                          style: TextStyle(
-                              color: colorPrimary,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                        )),
-                  )
-                ]),
+      child: Container(
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(baseRadiusCard),
+                topRight: Radius.circular(baseRadiusCard),
               ),
-            ),
-            Expanded(
+              color: colorPrimary),
+          child: Padding(
+              padding: EdgeInsets.only(top: baseRadiusCard),
               child: Container(
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(baseRadiusCard),
-                        topRight: Radius.circular(baseRadiusCard),
-                      ),
-                      color: colorPrimary),
-                  child: Padding(
-                      padding: EdgeInsets.only(top: baseRadiusCard),
-                      child: Container(
-                        width: Get.width,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(baseRadiusCard),
-                            topRight: Radius.circular(baseRadiusCard),
-                          ),
-                          color: colorBackground,
-                        ),
-                        child: _buildContentMainMenu(context),
-                      ))),
-            )
-          ],
-        ),
-      ),
+                width: Get.width,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(baseRadiusCard),
+                    topRight: Radius.circular(baseRadiusCard),
+                  ),
+                  color: colorBackground,
+                ),
+                child: _buildContentMainMenu(context),
+              )))
     );
   }
 
   _buildContentMainMenu(BuildContext context) {
+    final list = controller.infoState.value.data;
+    if (controller.infoState.value.isLoading) {
+      return Container();
+    }
+
+    if (list == null || list.isEmpty == true ||
+        controller.infoState.value.error != null) {
+      return StandardErrorPage(
+        message: controller.infoState.value.error?.message,
+        paddingTop: 100,
+        onPressed: () {
+          controller.getInformation();
+        },
+      );
+    }
+
     return SingleChildScrollView(
         physics: BouncingScrollPhysics(),
         child: Column(children: [
-          for (int i = 0; i < listInfo.length; i++)
+          for (int i = 0; i < list.length; i++)
             Padding(
                 padding: EdgeInsets.only(
-                    top: (i == 0) ? basePadding : baseRadiusForm,
-                    left: basePadding,
-                    right: basePadding,
-                    bottom: (i == listInfo.length - 1) ? basePadding : baseRadiusForm),
+                    top: (i == 0) ? basePaddingInContent : basePaddingInContent / 2,
+                    left: basePaddingInContent,
+                    right: basePaddingInContent,
+                    bottom: (i == list.length - 1)
+                        ? basePaddingInContent
+                        : basePaddingInContent / 2),
                 child: InfoTile(
-                  model: listInfo[i],
+                  model: list[i],
                   onPressed: (model) async {
-                    Get.toNamed(Routes.infoDetail);
+                    Get.toNamed(Routes.infoDetail, arguments: {
+                      InfoDetailPage.argId: model.id.toString()
+                    });
                   },
                 ))
         ]));

@@ -1,14 +1,17 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+import 'package:badges/badges.dart' as badges;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:parawarga_apps/core/constants.dart';
+import 'package:parawarga_apps/models/response/ArisanModel.dart';
 import 'package:parawarga_apps/theme/app_theme.dart';
 import 'package:parawarga_apps/utils/strings.dart';
 
 import '../../../theme/app_colors.dart';
 
 class ArisanTile extends StatefulWidget {
-  final Map<String, dynamic> model;
-  final void Function(Map<String, dynamic> model) onPressed;
+  final ArisanModel model;
+  final void Function(ArisanModel model) onPressed;
 
   const ArisanTile({
     super.key,
@@ -23,13 +26,23 @@ class ArisanTile extends StatefulWidget {
 class ArisanTileState extends State<ArisanTile> {
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-        onTap: () {
-          if (!widget.onPressed.isNull) {
-            widget.onPressed(widget.model);
-          }
-        },
-        child: _buildContent(context));
+
+    return badges.Badge(
+      showBadge: widget.model.currentPeriode == widget.model.totalPeriode,
+      position: badges.BadgePosition.topEnd(top: -5, end: -5),
+      badgeContent: Icon(Icons.check, color: Colors.white, size: baseRadius / 1.5),
+      badgeStyle: badges.BadgeStyle(
+        shape: badges.BadgeShape.instagram,
+        badgeColor: colorDark,
+      ),
+      child: GestureDetector(
+          onTap: () {
+            if (!widget.onPressed.isNull) {
+              widget.onPressed(widget.model);
+            }
+          },
+          child: _buildContent(context)),
+    );
   }
 
   _buildContent(BuildContext context) {
@@ -50,15 +63,15 @@ class ArisanTileState extends State<ArisanTile> {
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(widget.model["nameOfArisan"],
+                    Text(
+                      widget.model.areaName.toString(),
+                      style: TextStyle(color: colorLight, fontSize: 12),
+                    ),
+                    Text(widget.model.name.toString(),
                         style: TextStyle(
                             color: colorLight,
                             fontWeight: FontWeight.bold,
                             fontSize: 16)),
-                    Text(
-                      widget.model["area"],
-                      style: TextStyle(color: colorLight, fontSize: 12),
-                    ),
                   ]),
             ),
           ),
@@ -67,38 +80,6 @@ class ArisanTileState extends State<ArisanTile> {
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(children: [
-                      Expanded(
-                        flex: 2,
-                        child: Text(
-                          labelDate,
-                          style: TextStyle(
-                              color: colorTextSecondary, fontSize: 11),
-                        ),
-                      ),
-                      Expanded(
-                        flex: 1,
-                        child: Text(
-                          ":",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              color: colorTextSecondary, fontSize: 11),
-                        ),
-                      ),
-                      Expanded(
-                        flex: 8,
-                        child: Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            widget.model["date"],
-                            style: TextStyle(
-                                color: colorTextSecondary,
-                                fontSize: 12,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                      )
-                    ]),
                     Row(children: [
                       Expanded(
                         flex: 2,
@@ -122,7 +103,43 @@ class ArisanTileState extends State<ArisanTile> {
                         child: Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
-                            "${widget.model["winOfHistories"].length} / ${widget.model["totalSubscription"].length}",
+                            "${
+                                (widget.model.currentPeriode == widget.model.totalPeriode)
+                                  ? widget.model.currentPeriode
+                                  : int.parse(widget.model.currentPeriode.toString()) + 1
+                            } / ${widget.model.totalPeriode}",
+                            style: TextStyle(
+                                color: colorTextSecondary,
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      )
+                    ]),
+                    Row(children: [
+                      Expanded(
+                        flex: 2,
+                        child: Text(
+                          labelDate,
+                          style: TextStyle(
+                              color: colorTextSecondary, fontSize: 11),
+                        ),
+                      ),
+                      Expanded(
+                        flex: 1,
+                        child: Text(
+                          ":",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: colorTextSecondary, fontSize: 11),
+                        ),
+                      ),
+                      Expanded(
+                        flex: 8,
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            widget.model.datePeriode.toString(),
                             style: TextStyle(
                                 color: colorTextSecondary,
                                 fontSize: 12,
@@ -152,7 +169,7 @@ class ArisanTileState extends State<ArisanTile> {
                       Expanded(
                         flex: 8,
                         child: Text(
-                          widget.model["subscription"],
+                          "Rp. ${currencyFormat(widget.model.nominal.toString())}",
                           style: TextStyle(
                               color: colorTextSecondary,
                               fontSize: 12,
@@ -183,7 +200,7 @@ class ArisanTileState extends State<ArisanTile> {
                         child: Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
-                            widget.model["totalSubscription"],
+                            "Rp. ${currencyFormat(widget.model.totalPayed.toString())}",
                             style: TextStyle(
                                 color: colorTextSecondary,
                                 fontSize: 12,

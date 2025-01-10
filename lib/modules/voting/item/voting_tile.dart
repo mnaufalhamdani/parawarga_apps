@@ -2,20 +2,23 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:parawarga_apps/routes/app_pages.dart';
 import 'package:parawarga_apps/theme/app_theme.dart';
 import 'package:parawarga_apps/theme/standard_button_primary.dart';
+import 'package:parawarga_apps/utils/strings.dart';
 
+import '../../../models/response/voting_model.dart';
 import '../../../theme/app_colors.dart';
 
 class VotingTile extends StatefulWidget {
-  final Map<String, dynamic> model;
-  final void Function(Map<String, dynamic> model) onPressed;
+  final VotingModel model;
+  final void Function(VotingModel model, String value) onPressed;
+  final void Function(VotingModel model) onDetail;
 
   const VotingTile({
     super.key,
     required this.model,
     required this.onPressed,
+    required this.onDetail,
   });
 
   @override
@@ -23,20 +26,26 @@ class VotingTile extends StatefulWidget {
 }
 
 class VotingTileState extends State<VotingTile> {
+  var onValue = "";
   @override
   Widget build(BuildContext context) {
+
     return GestureDetector(
         onTap: () {
-          if (!widget.onPressed.isNull) {
-            widget.onPressed(widget.model);
-          }
         },
-        child: (widget.model["percentOfDetails"].length > 0)
+        child: ((widget.model.urutan != null && widget.model.history.isNotEmpty) || widget.model.isExpired == true)
             ? _buildContentVoted()
             : _buildContentVoting());
   }
 
   _buildContentVoted() {
+    var totalVoters = 0;
+    if(widget.model.history.isNotEmpty){
+      for (var element in widget.model.history) {
+        totalVoters += int.parse(element.totalVote ?? "0");
+      }
+    }
+
     return Card(
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(baseRadiusCard)),
@@ -56,10 +65,10 @@ class VotingTileState extends State<VotingTile> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "RT.001 RW.003",
+                          widget.model.areaName.toString(),
                           style: TextStyle(color: colorLight, fontSize: 12),
                         ),
-                        Text(widget.model["label"],
+                        Text(widget.model.name.toString(),
                             style: TextStyle(
                                 color: colorLight,
                                 fontWeight: FontWeight.bold,
@@ -71,9 +80,7 @@ class VotingTileState extends State<VotingTile> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  for (int i = 0;
-                      i < widget.model["percentOfDetails"].length;
-                      i++)
+                  for (int i = 0; i < widget.model.history.length; i++)
                     Padding(
                       padding: EdgeInsets.only(
                           left: basePadding,
@@ -82,24 +89,21 @@ class VotingTileState extends State<VotingTile> {
                       child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(widget.model["percentOfDetails"][i]['label'],
+                            Text(widget.model.history[i].answer.toString(),
                                 style: TextStyle(
                                     fontSize: 14, color: colorTextSecondary)),
                             SizedBox(height: baseRadiusForm),
                             Row(
                               children: [
                                 Expanded(
-                                  flex: widget.model["percentOfDetails"][i]
-                                      ['percent'],
+                                  flex: int.parse(widget.model.history[i].votePercent.toString()),
                                   child: Container(
                                     height: 3,
                                     color: colorPrimary,
                                   ),
                                 ),
                                 Expanded(
-                                  flex: (100 -
-                                          widget.model["percentOfDetails"][i]
-                                              ['percent'])
+                                  flex: (100 - int.parse(widget.model.history[i].votePercent.toString()))
                                       .toInt(),
                                   child: Container(
                                     height: 2,
@@ -109,7 +113,7 @@ class VotingTileState extends State<VotingTile> {
                                 Expanded(
                                   flex: 20,
                                   child: Text(
-                                      "${widget.model["percentOfDetails"][i]['percent']}%",
+                                      "${widget.model.history[i].votePercent}%",
                                       style: TextStyle(
                                           fontSize: 14,
                                           color: colorTextSecondary),
@@ -125,12 +129,12 @@ class VotingTileState extends State<VotingTile> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text("Total Vote: 32 partisipan \nExpired: 30-12-2024",
+                        Text("Total Vote: $totalVoters peserta \nKadaluarsa: ${widget.model.expired}",
                             style: TextStyle(
                                 color: colorTextSecondary, fontSize: 11)),
                         GestureDetector(
                             onTap: () {
-                              Get.toNamed(Routes.votingDetail);
+                              widget.onDetail(widget.model);
                             },
                             child: SizedBox(
                                 width: 35,
@@ -165,10 +169,10 @@ class VotingTileState extends State<VotingTile> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "RT.001 RW.003",
+                          widget.model.areaName.toString(),
                           style: TextStyle(color: colorLight, fontSize: 12),
                         ),
-                        Text(widget.model["label"],
+                        Text(widget.model.name.toString(),
                             style: TextStyle(
                                 color: colorLight,
                                 fontWeight: FontWeight.bold,
@@ -180,30 +184,36 @@ class VotingTileState extends State<VotingTile> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  for (int i = 0; i < widget.model["details"].length; i++)
+                  for (int i = 0; i < widget.model.detail.length; i++)
                     RadioListTile(
-                        title: Text(widget.model["details"][i]['label'],
+                        title: Text(widget.model.detail[i].answer.toString(),
                             style: TextStyle(
                                 fontSize: 14, color: colorTextSecondary)),
-                        value: widget.model["details"][i]['value'],
-                        groupValue: widget.model["value"],
+                        value: widget.model.detail[i].urutan,
+                        groupValue: onValue,
                         visualDensity: VisualDensity(
                             horizontal: VisualDensity.minimumDensity,
                             vertical: VisualDensity.minimumDensity),
                         contentPadding: EdgeInsets.zero,
                         onChanged: (value) {
                           setState(() {
-                            widget.model["value"] = value as int;
+                            onValue = value.toString();
                           });
                         }),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text("Total Vote: 32 partisipan \nExpired: 30-12-2024",
+                      Text("Kadaluarsa: ${widget.model.expired.toString()}",
                           style: TextStyle(
                               color: colorTextSecondary, fontSize: 11)),
-                      StandardButtonPrimary(
-                        titleHint: "Submit",
+                      Visibility(
+                        visible: (widget.model.isExpired == true) ? false : true,
+                        child: StandardButtonPrimary(
+                          titleHint: labelSubmit,
+                          onPressed: (){
+                            widget.onPressed(widget.model, onValue);
+                          },
+                        ),
                       ),
                     ],
                   )
