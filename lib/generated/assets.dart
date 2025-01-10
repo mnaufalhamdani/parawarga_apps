@@ -2,6 +2,7 @@
 class Assets {
   Assets._();
 
+  static const String backgroundGifNoData = 'assets/images/background/gif_no_data.gif';
   static const String backgroundImgBackgroundHeader = 'assets/images/background/img_background_header.png';
   static const String bariolBariol = 'assets/fonts/bariol/Bariol.ttf';
   static const String bariolBariolBold = 'assets/fonts/bariol/Bariol-Bold.ttf';
@@ -14,5 +15,6 @@ class Assets {
   static const String logoImgLogo = 'assets/images/logo/img_logo.png';
   static const String logoImgLogoIcon = 'assets/images/logo/img_logo_icon.png';
   static const String logoImgLogoWhite = 'assets/images/logo/img_logo_white.png';
+  static const String parawargaApps = '.env';
 
 }
