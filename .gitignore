@@ -2,6 +2,7 @@
 .idea/
 build/
 doc/api/
+*.env
 # pubspec.lock  # Except for application packages
 # API documentation directory created by dartdoc
 # files and directories created by other development environments
