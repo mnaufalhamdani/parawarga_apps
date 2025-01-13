@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:parawarga_apps/models/response/general_model.dart';
+import 'package:parawarga_apps/models/response/tagihan_temp_model.dart';
 
 import '../../config/remote/base_service.dart';
 import '../../core/failure_response.dart';
@@ -45,7 +46,27 @@ class TagihanProvider extends BaseService {
     }
   }
 
-  Future<GeneralModel> saveTagihanHistory({
+  Future<TagihanTempModel> getTagihanTemp({
+    required String token,
+    String? id
+  }) async{
+    final headers = <String, String>{
+      'Authorization': 'Bearer $token',
+    };
+    final params = <String, dynamic>{
+      'id': id,
+    };
+
+    final response = await get('tagihan/getTagihanTemp', query: params, headers: headers);
+    if(response.status.isOk){
+      final value = TagihanTempModel.fromJson(response.body['data']);
+      return value;
+    } else {
+      throw FailureResponse.fromJson(response.body ?? response.statusText);
+    }
+  }
+
+  Future<GeneralModel> saveTagihanTemp({
     required String token,
     String? json
   }) async{
@@ -57,7 +78,28 @@ class TagihanProvider extends BaseService {
       'data': json
     });
 
-    final response = await post('tagihan/saveTagihanHistory', formData, query: params, headers: headers);
+    final response = await post('tagihan/saveTagihanTemp', formData, query: params, headers: headers);
+    if(response.status.isOk){
+      final value = GeneralModel.fromJson(response.body);
+      return value;
+    } else {
+      throw FailureResponse.fromJson(response.body ?? response.statusText);
+    }
+  }
+
+  Future<GeneralModel> saveTagihanPembayaran({
+    required String token,
+    String? json
+  }) async{
+    final headers = <String, String>{
+      'Authorization': 'Bearer $token',
+    };
+    final params = <String, dynamic>{};
+    final formData = FormData({
+      'data': json
+    });
+
+    final response = await post('tagihan/saveTagihanPembayaran', formData, query: params, headers: headers);
     if(response.status.isOk){
       final value = GeneralModel.fromJson(response.body);
       return value;

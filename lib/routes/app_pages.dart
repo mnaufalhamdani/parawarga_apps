@@ -16,7 +16,9 @@ import 'package:parawarga_apps/modules/my_area/my_area_page.dart';
 import 'package:parawarga_apps/modules/profile/profile_page.dart';
 import 'package:parawarga_apps/modules/register/register_page.dart';
 import 'package:parawarga_apps/modules/splash/splash_page.dart';
+import 'package:parawarga_apps/modules/tagihan/create/tagihan_create_page.dart';
 import 'package:parawarga_apps/modules/tagihan/detail/tagihan_detail_page.dart';
+import 'package:parawarga_apps/modules/tagihan/pembayaran/tagihan_pembayaran_page.dart';
 import 'package:parawarga_apps/modules/tagihan/tagihan_page.dart';
 import 'package:parawarga_apps/modules/unit_empty/unit_empty_page.dart';
 import 'package:parawarga_apps/modules/voting/detail/voting_detail_page.dart';
@@ -34,6 +36,8 @@ abstract class Routes {
   static const arisanDetail = '/arisanDetail';
   static const tagihan = '/tagihan';
   static const tagihanDetail = '/tagihanDetail';
+  static const tagihanCreate = '/tagihanCreate';
+  static const tagihanPembayaran = '/tagihanPembayaran';
   static const history = '/history';
   static const issue = '/issue';
   static const issueDetail = '/issueDetail';
@@ -58,6 +62,8 @@ abstract class AppPages {
     GetPage(name: Routes.arisanDetail, page: () => ArisanDetailPage()),
     GetPage(name: Routes.tagihan, page: () => TagihanPage()),
     GetPage(name: Routes.tagihanDetail, page: () => TagihanDetailPage()),
+    GetPage(name: Routes.tagihanCreate, page: () => TagihanCreatePage()),
+    GetPage(name: Routes.tagihanPembayaran, page: () => TagihanPembayaranPage()),
     GetPage(name: Routes.history, page: () => HistoryPage()),
     GetPage(name: Routes.issue, page: () => IssuePage()),
     GetPage(name: Routes.issueDetail, page: () => IssueDetailPage()),

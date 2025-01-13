@@ -29,7 +29,9 @@ import 'package:parawarga_apps/modules/my_area/my_area_controller.dart';
 import 'package:parawarga_apps/modules/profile/profile_controller.dart';
 import 'package:parawarga_apps/modules/register/register_controller.dart';
 import 'package:parawarga_apps/modules/splash/splash_controller.dart';
+import 'package:parawarga_apps/modules/tagihan/create/tagihan_create_controller.dart';
 import 'package:parawarga_apps/modules/tagihan/detail/tagihan_detail_controller.dart';
+import 'package:parawarga_apps/modules/tagihan/pembayaran/tagihan_pembayaran_controller.dart';
 import 'package:parawarga_apps/modules/tagihan/tagihan_controller.dart';
 import 'package:parawarga_apps/modules/unit_empty/unit_empty_controller.dart';
 import 'package:parawarga_apps/modules/voting/detail/voting_detail_controller.dart';
@@ -65,6 +67,8 @@ class BindingDependency implements Bindings {
     Get.lazyPut(() => ArisanDetailController(repository: Get.find()), fenix: true);
     Get.lazyPut(() => TagihanController(repository: Get.find()), fenix: true);
     Get.lazyPut(() => TagihanDetailController(repository: Get.find()), fenix: true);
+    Get.lazyPut(() => TagihanCreateController(repository: Get.find()), fenix: true);
+    Get.lazyPut(() => TagihanPembayaranController(repository: Get.find()), fenix: true);
     Get.lazyPut(() => HistoryController(), fenix: true);
     Get.lazyPut(() => IssueController(repository: Get.find()), fenix: true);
     Get.lazyPut(() => IssueDetailController(repository: Get.find()), fenix: true);
