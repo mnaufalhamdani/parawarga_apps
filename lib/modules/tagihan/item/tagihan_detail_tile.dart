@@ -3,11 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:parawarga_apps/core/constants.dart';
 import 'package:parawarga_apps/models/response/tagihan_detail_model.dart';
-import 'package:parawarga_apps/models/response/tagihan_model.dart';
 import 'package:parawarga_apps/theme/app_theme.dart';
 
 import '../../../theme/app_colors.dart';
-import '../../../utils/strings.dart';
 
 class TagihanHistoryTile extends StatefulWidget {
   final History model;
@@ -43,13 +41,13 @@ class TagihanHistoryTileState extends State<TagihanHistoryTile> {
     return Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(baseRadiusCard)),
-      color: (widget.index == widget.indexSelected) ? colorDark : colorLight,
+      color: (widget.index == widget.indexSelected) ? colorSecondary : colorLight,
       elevation: 2,
       child: Padding(
         padding: EdgeInsets.all(baseRadiusForm),
         child: Text(
           "Periode ${widget.model.periode}",
-          style: TextStyle(color: (widget.index == widget.indexSelected) ? colorLight : colorDark, fontSize: 12),
+          style: TextStyle(color: colorTextTitle, fontSize: 12),
         ))
     );
   }
@@ -87,7 +85,7 @@ class TagihanDetailTileState extends State<TagihanDetailTile> {
                 child: Text(widget.model.createdName.toString(),
                     textAlign: TextAlign.start,
                     style: TextStyle(
-                      color: (widget.userId == int.parse(widget.model.userId.toString())) ? colorDark : colorTextTitle,
+                      color: (widget.userId == int.parse(widget.model.userId.toString())) ? colorPrimary : colorTextMessage,
                       fontWeight: FontWeight.bold,
                       fontSize: 16)),
               ),
@@ -97,7 +95,7 @@ class TagihanDetailTileState extends State<TagihanDetailTile> {
                   "Rp. ${currencyFormat(widget.model.nominal ?? "-")}",
                   style: TextStyle(
                     fontStyle: FontStyle.italic,
-                    color: (widget.userId == int.parse(widget.model.userId.toString())) ? colorDark : colorTextMessage,
+                    color: (widget.userId == int.parse(widget.model.userId.toString())) ? colorPrimary : colorTextMessage,
                     fontSize: 12,
                     fontWeight: (widget.userId == int.parse(widget.model.userId.toString())) ? FontWeight.bold : FontWeight.normal),
                 ),

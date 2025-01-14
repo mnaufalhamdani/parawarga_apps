@@ -65,10 +65,10 @@ class MyAreaPage extends GetView<MyAreaController> {
           for (int i = 0; i < listUnitEmpty.length; i++)
             Padding(
                 padding: EdgeInsets.only(
-                    top: (i == 0) ? basePadding : baseRadiusForm,
-                    left: basePadding,
-                    right: basePadding,
-                    bottom: (i == listUnitEmpty.length - 1) ? basePadding : baseRadiusForm),
+                    top: (i == 0) ? basePaddingInContent : basePaddingInContent / 2,
+                    left: basePaddingInContent,
+                    right: basePaddingInContent,
+                    bottom: (i == listUnitEmpty.length - 1) ? basePaddingInContent : basePaddingInContent / 2),
                 child: MyAreaTile(
                   model: listUnitEmpty[i],
                   onPressed: (model) async {

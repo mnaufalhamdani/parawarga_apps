@@ -35,7 +35,7 @@ class VotersDetailTileState extends State<VotersDetailTile> {
               child: Text(widget.model.createdName.toString(),
                   textAlign: TextAlign.start,
                   style: TextStyle(
-                      color: colorTextSecondary,
+                      color: colorTextMessage,
                       fontWeight: FontWeight.bold,
                       fontSize: 16)),
             ),
@@ -45,7 +45,7 @@ class VotersDetailTileState extends State<VotersDetailTile> {
                 widget.model.answer ?? "-",
                 style: TextStyle(
                     fontStyle: FontStyle.italic,
-                    color: colorTextSecondary,
+                    color: colorTextMessage,
                     fontSize: 12),
               ),
             ),

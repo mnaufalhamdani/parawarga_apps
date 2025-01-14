@@ -40,7 +40,7 @@ class ArisanDetailTileState extends State<ArisanDetailTile> {
               child: Text(widget.model.createdName.toString(),
                   textAlign: TextAlign.start,
                   style: TextStyle(
-                      color: (widget.userId == int.parse(widget.model.userId.toString())) ? colorDark : colorTextTitle,
+                      color: (widget.userId == int.parse(widget.model.userId.toString())) ? colorPrimary : colorTextMessage,
                       fontWeight: FontWeight.bold,
                       fontSize: 16)),
             ),
@@ -50,7 +50,7 @@ class ArisanDetailTileState extends State<ArisanDetailTile> {
                 widget.model.unitName ?? labelUnitNotFound,
                 style: TextStyle(
                     fontStyle: FontStyle.italic,
-                    color: (widget.userId == int.parse(widget.model.userId.toString())) ? colorDark : colorTextMessage,
+                    color: (widget.userId == int.parse(widget.model.userId.toString())) ? colorPrimary : colorTextMessage,
                     fontSize: 12,
                     fontWeight: (widget.userId == int.parse(widget.model.userId.toString())) ? FontWeight.bold : FontWeight.normal)),
             ),
@@ -103,7 +103,7 @@ class ArisanHistoryTileState extends State<ArisanHistoryTile> {
                 child: Text(widget.model.createdName.toString(),
                     textAlign: TextAlign.start,
                     style: TextStyle(
-                        color: (widget.userId == int.parse(widget.model.userId.toString())) ? colorDark : colorTextTitle,
+                        color: (widget.userId == int.parse(widget.model.userId.toString())) ? colorPrimary : colorTextMessage,
                         fontWeight: FontWeight.bold,
                         fontSize: 16)),
               ),
@@ -113,7 +113,7 @@ class ArisanHistoryTileState extends State<ArisanHistoryTile> {
                   "Rp. ${currencyFormat(widget.model.nominal ?? "-")}",
                   style: TextStyle(
                     fontStyle: FontStyle.italic,
-                    color: (widget.userId == int.parse(widget.model.userId.toString())) ? colorDark : colorTextMessage,
+                    color: (widget.userId == int.parse(widget.model.userId.toString())) ? colorPrimary : colorTextMessage,
                     fontSize: 12,
                     fontWeight: (widget.userId == int.parse(widget.model.userId.toString())) ? FontWeight.bold : FontWeight.normal)),
               ),

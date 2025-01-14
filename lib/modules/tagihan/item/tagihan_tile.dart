@@ -70,7 +70,7 @@ class TagihanTileState extends State<TagihanTile> {
                           child: Text(
                             labelNote,
                             style: TextStyle(
-                                color: colorTextSecondary, fontSize: 11),
+                                color: colorTextMessage, fontSize: 11),
                           ),
                         ),
                         Expanded(
@@ -79,7 +79,7 @@ class TagihanTileState extends State<TagihanTile> {
                             ":",
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                                color: colorTextSecondary, fontSize: 11),
+                                color: colorTextMessage, fontSize: 11),
                           ),
                         ),
                         Expanded(
@@ -89,7 +89,7 @@ class TagihanTileState extends State<TagihanTile> {
                             child: Text(
                               widget.model.message ?? "-",
                               style: TextStyle(
-                                  color: colorTextSecondary,
+                                  color: colorTextMessage,
                                   fontSize: 12,
                                   fontWeight: FontWeight.bold),
                             ),
@@ -102,7 +102,7 @@ class TagihanTileState extends State<TagihanTile> {
                           child: Text(
                             labelExpired,
                             style: TextStyle(
-                                color: colorTextSecondary, fontSize: 11),
+                                color: colorTextMessage, fontSize: 11),
                           ),
                         ),
                         Expanded(
@@ -111,7 +111,7 @@ class TagihanTileState extends State<TagihanTile> {
                             ":",
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                                color: colorTextSecondary, fontSize: 11),
+                                color: colorTextMessage, fontSize: 11),
                           ),
                         ),
                         Expanded(
@@ -121,7 +121,7 @@ class TagihanTileState extends State<TagihanTile> {
                             child: Text(
                               widget.model.endPeriode.toString(),
                               style: TextStyle(
-                                  color: colorTextSecondary,
+                                  color: colorTextMessage,
                                   fontSize: 12,
                                   fontWeight: FontWeight.bold),
                             ),
@@ -132,17 +132,17 @@ class TagihanTileState extends State<TagihanTile> {
                       Row(children: [
                         Text(
                           "Rp. ${currencyFormat(widget.model.nominal.toString())}",
-                          style: TextStyle(color: colorTextSecondary, fontWeight: FontWeight.bold, fontSize: 16),
+                          style: TextStyle(color: colorTextTitle, fontWeight: FontWeight.bold, fontSize: 16),
                         ),
                         Expanded(flex: 1, child: SizedBox()),
                         Container(decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(baseRadiusCard),
-                            color: (widget.model.required == true) ? colorDark : colorLight),
+                            color: (widget.model.required == true) ? colorPrimary : colorLight),
                           child: Padding(
                             padding: EdgeInsets.all(basePaddingInContent / 2),
                             child: Text(
                               (widget.model.required == true) ? labelRequired : labelNotRequired,
-                              style: TextStyle(color: (widget.model.required == true) ? colorLight : colorDark, fontSize: 12),
+                              style: TextStyle(color: (widget.model.required == true) ? colorLight : colorPrimary, fontSize: 12),
                             ),
                           ),
                         )

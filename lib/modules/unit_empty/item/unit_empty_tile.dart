@@ -50,15 +50,15 @@ class UnitEmptyTileState extends State<UnitEmptyTile> {
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    Text(
+                      widget.model["area"],
+                      style: TextStyle(color: colorLight, fontSize: 12),
+                    ),
                     Text(widget.model["unit"],
                         style: TextStyle(
                             color: colorLight,
                             fontWeight: FontWeight.bold,
                             fontSize: 16)),
-                    Text(
-                      widget.model["area"],
-                      style: TextStyle(color: colorLight, fontSize: 12),
-                    ),
                   ]),
             ),
           ),
@@ -73,7 +73,7 @@ class UnitEmptyTileState extends State<UnitEmptyTile> {
                         child: Text(
                           labelOwner,
                           style: TextStyle(
-                              color: colorTextSecondary, fontSize: 11),
+                              color: colorTextMessage, fontSize: 11),
                         ),
                       ),
                       Expanded(
@@ -82,7 +82,7 @@ class UnitEmptyTileState extends State<UnitEmptyTile> {
                           ":",
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                              color: colorTextSecondary, fontSize: 11),
+                              color: colorTextMessage, fontSize: 11),
                         ),
                       ),
                       Expanded(
@@ -92,7 +92,7 @@ class UnitEmptyTileState extends State<UnitEmptyTile> {
                           child: Text(
                             widget.model["user"],
                             style: TextStyle(
-                                color: colorTextSecondary,
+                                color: colorTextMessage,
                                 fontSize: 12,
                                 fontWeight: FontWeight.bold),
                           ),
@@ -105,7 +105,7 @@ class UnitEmptyTileState extends State<UnitEmptyTile> {
                         child: Text(
                           labelStart,
                           style: TextStyle(
-                              color: colorTextSecondary, fontSize: 11),
+                              color: colorTextMessage, fontSize: 11),
                         ),
                       ),
                       Expanded(
@@ -114,7 +114,7 @@ class UnitEmptyTileState extends State<UnitEmptyTile> {
                           ":",
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                              color: colorTextSecondary, fontSize: 11),
+                              color: colorTextMessage, fontSize: 11),
                         ),
                       ),
                       Expanded(
@@ -124,7 +124,7 @@ class UnitEmptyTileState extends State<UnitEmptyTile> {
                           child: Text(
                             widget.model["startDate"],
                             style: TextStyle(
-                                color: colorTextSecondary,
+                                color: colorTextMessage,
                                 fontSize: 12,
                                 fontWeight: FontWeight.bold),
                           ),
@@ -137,7 +137,7 @@ class UnitEmptyTileState extends State<UnitEmptyTile> {
                         child: Text(
                           labelEnd,
                           style: TextStyle(
-                              color: colorTextSecondary, fontSize: 11),
+                              color: colorTextMessage, fontSize: 11),
                         ),
                       ),
                       Expanded(
@@ -146,7 +146,7 @@ class UnitEmptyTileState extends State<UnitEmptyTile> {
                           ":",
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                              color: colorTextSecondary, fontSize: 11),
+                              color: colorTextMessage, fontSize: 11),
                         ),
                       ),
                       Expanded(
@@ -156,7 +156,7 @@ class UnitEmptyTileState extends State<UnitEmptyTile> {
                           child: Text(
                             widget.model["endDate"],
                             style: TextStyle(
-                                color: colorTextSecondary,
+                                color: colorTextMessage,
                                 fontSize: 12,
                                 fontWeight: FontWeight.bold),
                           ),
@@ -169,7 +169,7 @@ class UnitEmptyTileState extends State<UnitEmptyTile> {
                         child: Text(
                           labelNote,
                           style: TextStyle(
-                              color: colorTextSecondary, fontSize: 11),
+                              color: colorTextMessage, fontSize: 11),
                         ),
                       ),
                       Expanded(
@@ -178,7 +178,7 @@ class UnitEmptyTileState extends State<UnitEmptyTile> {
                           ":",
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                              color: colorTextSecondary, fontSize: 11),
+                              color: colorTextMessage, fontSize: 11),
                         ),
                       ),
                       Expanded(
@@ -186,7 +186,7 @@ class UnitEmptyTileState extends State<UnitEmptyTile> {
                         child: Text(
                           widget.model["note"],
                           style: TextStyle(
-                              color: colorTextSecondary,
+                              color: colorTextMessage,
                               fontSize: 12,
                               fontWeight: FontWeight.bold),
                         ),

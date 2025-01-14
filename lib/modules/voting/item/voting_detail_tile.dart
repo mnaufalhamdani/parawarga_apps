@@ -44,7 +44,7 @@ class VotingDetailTileState extends State<VotingDetailTile> {
                   children: [
                     Text(widget.model.answer.toString(),
                         style: TextStyle(
-                            fontSize: 14, color: colorTextSecondary)),
+                            fontSize: 14, color: colorTextMessage, fontWeight: FontWeight.bold)),
                     SizedBox(height: baseRadiusForm),
                     Row(
                       children: [
@@ -59,7 +59,7 @@ class VotingDetailTileState extends State<VotingDetailTile> {
                           flex: (100 - int.parse(widget.model.votePercent.toString())).toInt(),
                           child: Container(
                             height: 2,
-                            color: Colors.grey.shade200,
+                            color: colorTextlabel,
                           ),
                         ),
                         Expanded(
@@ -67,7 +67,7 @@ class VotingDetailTileState extends State<VotingDetailTile> {
                           child: Text(
                               "${widget.model.votePercent}%",
                               style: TextStyle(
-                                  fontSize: 14, color: colorTextSecondary),
+                                  fontSize: 14, color: colorTextMessage),
                               textAlign: TextAlign.right),
                         ),
                       ],

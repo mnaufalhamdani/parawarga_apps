@@ -114,10 +114,10 @@ class ArisanDetailPage extends GetView<ArisanDetailController> {
         badges.Badge(
         showBadge: data.currentPeriode == data.totalPeriode,
             position: badges.BadgePosition.topEnd(top: -5, end: -5),
-            badgeContent: Icon(Icons.check, color: Colors.white, size: baseRadius / 1.5),
+            badgeContent: Icon(Icons.check, color: colorPrimary, size: baseRadius / 1.5),
             badgeStyle: badges.BadgeStyle(
               shape: badges.BadgeShape.instagram,
-              badgeColor: colorDark,
+              badgeColor: colorSecondary,
             ),
             child:
               Card(
