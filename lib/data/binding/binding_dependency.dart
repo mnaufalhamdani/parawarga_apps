@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:parawarga_apps/config/local/migration_version.dart';
 import 'package:parawarga_apps/data/provider/arisan_provider.dart';
 import 'package:parawarga_apps/data/provider/dashboard_provider.dart';
+import 'package:parawarga_apps/data/provider/history_provider.dart';
 import 'package:parawarga_apps/data/provider/information_provider.dart';
 import 'package:parawarga_apps/data/provider/issue_provider.dart';
 import 'package:parawarga_apps/data/provider/login_provider.dart';
@@ -9,6 +10,7 @@ import 'package:parawarga_apps/data/provider/register_provider.dart';
 import 'package:parawarga_apps/data/provider/voting_provider.dart';
 import 'package:parawarga_apps/data/repository/arisan_repository.dart';
 import 'package:parawarga_apps/data/repository/dashboard_repository.dart';
+import 'package:parawarga_apps/data/repository/history_repository.dart';
 import 'package:parawarga_apps/data/repository/information_repository.dart';
 import 'package:parawarga_apps/data/repository/issue_repository.dart';
 import 'package:parawarga_apps/data/repository/login_repository.dart';
@@ -69,7 +71,7 @@ class BindingDependency implements Bindings {
     Get.lazyPut(() => TagihanDetailController(repository: Get.find()), fenix: true);
     Get.lazyPut(() => TagihanCreateController(repository: Get.find()), fenix: true);
     Get.lazyPut(() => TagihanPembayaranController(repository: Get.find()), fenix: true);
-    Get.lazyPut(() => HistoryController(), fenix: true);
+    Get.lazyPut(() => HistoryController(repository: Get.find()), fenix: true);
     Get.lazyPut(() => IssueController(repository: Get.find()), fenix: true);
     Get.lazyPut(() => IssueDetailController(repository: Get.find()), fenix: true);
     Get.lazyPut(() => IssueInputController(), fenix: true);
@@ -88,6 +90,7 @@ class BindingDependency implements Bindings {
     Get.lazyPut(() => VotingProvider(), fenix: true);
     Get.lazyPut(() => ArisanProvider(), fenix: true);
     Get.lazyPut(() => TagihanProvider(), fenix: true);
+    Get.lazyPut(() => HistoryProvider(), fenix: true);
 
     /** Repository */
     Get.lazyPut<LoginRepository>(() => LoginRepositoryImpl(Get.find(), Get.find()), fenix: true);
@@ -99,5 +102,6 @@ class BindingDependency implements Bindings {
     Get.lazyPut<VotingRepository>(() => VotingRepositoryImpl(Get.find(), Get.find()), fenix: true);
     Get.lazyPut<ArisanRepository>(() => ArisanRepositoryImpl(Get.find(), Get.find()), fenix: true);
     Get.lazyPut<TagihanRepository>(() => TagihanRepositoryImpl(Get.find(), Get.find()), fenix: true);
+    Get.lazyPut<HistoryRepository>(() => HistoryRepositoryImpl(Get.find(), Get.find()), fenix: true);
   }
 }

@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
         theme: theme(),
         title: appName.tr,
         debugShowCheckedModeBanner: (kReleaseMode) ? false : true,
-        initialRoute: Routes.splash,
+        initialRoute: Routes.dashboard,
         getPages: AppPages.pages,
         translationsKeys: AppTranslation.translations,
         locale: Get.deviceLocale,

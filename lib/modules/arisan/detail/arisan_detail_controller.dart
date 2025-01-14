@@ -25,12 +25,14 @@ class ArisanDetailController extends GetxController{
   }
 
   final id = Get.arguments[ArisanDetailPage.argId] as String;
+  final periodeFromHistory = Get.arguments[ArisanDetailPage.argPeriodeFromHistory] as String?;
   final ArisanRepository repository;
 
   final arisanWinnerDomain = Rx(ArisanWinnerDomain());//save arisan win
   final arisanWinnerState = Rx(ResponseState<GeneralModel>());
 
   final arisanState = Rx(ResponseState<ArisanDetailModel>());
+  final userId = Rx<int>(0);//user_id
   final arisanLabel = Rx("");
   final arisanClicked = Rxn<int>(0);//null = history, 0 = pemenang, 1 = sisa peserta
   final arisanHistory = Rx<int>(0);//index history -> user
@@ -39,10 +41,22 @@ class ArisanDetailController extends GetxController{
     try {
       arisanState.value = ResponseState.loading();
 
+      final userActive = await repository.getUserActive();
+      userId.value = userActive.userEntity.id;
+
       final response = await repository.getArisanDetail(id);
 
       arisanLabel.value = labelTotalOfWin;
       arisanClicked.value = 0;
+
+      if(periodeFromHistory != null) {
+        final indexHistory = response.history.indexWhere((element) => element.periodeName == periodeFromHistory);
+
+        arisanLabel.value = "$labelHistory Pembayaran ${response.history[indexHistory].periodeName}";
+        arisanClicked.value = null;
+        arisanHistory.value = indexHistory;
+      }
+
       arisanState.value = ResponseState.success(response);
     }on FailureResponse catch(e) {
       arisanState.value = ResponseState.failed(e);

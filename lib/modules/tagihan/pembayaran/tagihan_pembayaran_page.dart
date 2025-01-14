@@ -304,7 +304,7 @@ class TagihanPembayaranPage extends GetView<TagihanPembayaranController> {
           width: Get.width,
           child: Padding(
             padding: EdgeInsets.all(baseRadiusCard),
-            child: Text("Mohon lakukan pembayaran sebelum ${data.expiredName}",
+            child: Text("Mohon konfirmasi pembayaran sebelum ${data.expiredName}",
               style: TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.bold),
             ),
           ),
@@ -336,57 +336,60 @@ class TagihanPembayaranPage extends GetView<TagihanPembayaranController> {
   }
 
   _buildContentAttachment(BuildContext context, TagihanTempModel data) {
-    return Padding(
-      padding: EdgeInsets.only(top: baseRadius),
-      child: Card(
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(baseRadiusCard)),
-          color: Colors.white,
-          elevation: 2,
-          child: Padding(
-            padding: EdgeInsets.all(basePaddingInContent),
-            child: Column(children: [
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Text("Lampiran Bukti Pembayaran",
-                    style: TextStyle(
-                        color: colorPrimary,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16)),
-              ),
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Text("Pastikan lampiran bukti pembayaran terlihat jelas dan terbaca",
-                    style: TextStyle(
-                        color: colorTextMessage,
-                        fontSize: 12)),
-              ),
-              GestureDetector(
-                onTap: () {
-                  if (data.status == 0){
-                    pickerDialog(context, (path) {
-                      controller.tagihanReceipt.value = path;
-                    });
-                  }
-                },
-                child: SizedBox(
-                    width: Get.width,
-                    height: Get.height / 2,
-                    child: Card(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(baseRadiusCard)),
-                    color: colorBackground,
-                    elevation: 0,
-                        child: (controller.tagihanReceipt.value != null)
-                            ? ClipRRect(
-                              borderRadius: BorderRadius.circular(baseRadiusCard),
-                              child: Image.file(File(controller.tagihanReceipt.value.toString()), fit: BoxFit.cover)
-                            )
-                            : Icon(Iconsax.document_upload, size: 40, color: colorPrimary)
-                    )),
-              ),
-            ]),
-          )
+    return Visibility(
+      visible: data.status == 0 || data.status == 1 || data.status == 3,
+      child: Padding(
+        padding: EdgeInsets.only(top: baseRadius),
+        child: Card(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(baseRadiusCard)),
+            color: Colors.white,
+            elevation: 2,
+            child: Padding(
+              padding: EdgeInsets.all(basePaddingInContent),
+              child: Column(children: [
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text("Lampiran Bukti Pembayaran",
+                      style: TextStyle(
+                          color: colorPrimary,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16)),
+                ),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text("Pastikan lampiran bukti pembayaran terlihat jelas dan terbaca",
+                      style: TextStyle(
+                          color: colorTextMessage,
+                          fontSize: 12)),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    if (data.status == 0){
+                      pickerDialog(context, (path) {
+                        controller.tagihanReceipt.value = path;
+                      });
+                    }
+                  },
+                  child: SizedBox(
+                      width: Get.width,
+                      height: Get.height / 2,
+                      child: Card(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(baseRadiusCard)),
+                      color: colorBackground,
+                      elevation: 0,
+                          child: (controller.tagihanReceipt.value != null)
+                              ? ClipRRect(
+                                borderRadius: BorderRadius.circular(baseRadiusCard),
+                                child: Image.file(File(controller.tagihanReceipt.value.toString()), fit: BoxFit.cover)
+                              )
+                              : Icon(Iconsax.document_upload, size: 40, color: colorPrimary)
+                      )),
+                ),
+              ]),
+            )
+        ),
       ),
     );
   }

@@ -28,6 +28,7 @@ class ArisanDetailPage extends GetView<ArisanDetailController> {
   const ArisanDetailPage({super.key});
 
   static const argId = 'argId';
+  static const argPeriodeFromHistory = 'argPeriodeFromHistory';
 
   @override
   Widget build(BuildContext context) {
@@ -469,39 +470,40 @@ class ArisanDetailPage extends GetView<ArisanDetailController> {
       }
 
       return Card(
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(baseRadiusCard)),
-          color: Colors.white,
-          elevation: 2,
-          child: Padding(
-            padding: EdgeInsets.all(basePaddingInContent),
-            child: Column(children: [
-              Text(controller.arisanLabel.value,
-                  style: TextStyle(
-                      color: colorPrimary,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16)),
-              (arisanHistory.isEmpty)
-                  ? StandardErrorPage(
-                message: msgNotFound,
-                onPressed: () {},
-              )
-                  : Padding(
-                  padding: EdgeInsets.only(top: baseRadiusForm),
-                  child: ListView.builder(
-                      shrinkWrap: true,
-                      physics: BouncingScrollPhysics(),
-                      padding: EdgeInsets.only(top: baseRadiusForm),
-                      itemCount: arisanHistory.length,
-                      itemBuilder: (context, index) {
-                        return ArisanHistoryTile(
-                          model: arisanHistory[index],
-                          onPressed: (model) async {},
-                        );
-                      })
-              )
-            ]),
-          )
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(baseRadiusCard)),
+        color: Colors.white,
+        elevation: 2,
+        child: Padding(
+          padding: EdgeInsets.all(basePaddingInContent),
+          child: Column(children: [
+            Text(controller.arisanLabel.value,
+              style: TextStyle(
+                color: colorPrimary,
+                fontWeight: FontWeight.bold,
+                fontSize: 16)),
+            (arisanHistory.isEmpty)
+                ? StandardErrorPage(
+              message: msgNotFound,
+              onPressed: () {},
+            )
+              : Padding(
+              padding: EdgeInsets.only(top: baseRadiusForm),
+              child: ListView.builder(
+                shrinkWrap: true,
+                physics: BouncingScrollPhysics(),
+                padding: EdgeInsets.only(top: baseRadiusForm),
+                itemCount: arisanHistory.length,
+                itemBuilder: (context, index) {
+                  return ArisanHistoryTile(
+                    model: arisanHistory[index],
+                    userId: controller.userId.value,
+                    onPressed: (model) async {},
+                  );
+                })
+            )
+          ]),
+        )
       );
     }
 
@@ -533,6 +535,7 @@ class ArisanDetailPage extends GetView<ArisanDetailController> {
                     itemBuilder: (context, index) {
                       return ArisanDetailTile(
                         model: arisanList[index],
+                        userId: controller.userId.value,
                         onPressed: (model) async {},
                       );
                     })

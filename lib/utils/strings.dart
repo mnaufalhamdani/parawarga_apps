@@ -71,6 +71,7 @@ String labelIssue = 'Laporan';
 String labelIssueDetail = 'Detail Laporan';
 String labelIssueInput = 'Input Laporan';
 String labelVoting = 'Voting';
+String labelVote = 'Vote';
 String labelVotingDetail = 'Detail Voting';
 String labelTagihan = 'Tagihan';
 String labelTagihanDetail = 'Detail Tagihan';
