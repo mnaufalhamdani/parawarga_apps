@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:parawarga_apps/config/local/migration_version.dart';
+import 'package:parawarga_apps/data/provider/area_provider.dart';
 import 'package:parawarga_apps/data/provider/arisan_provider.dart';
 import 'package:parawarga_apps/data/provider/dashboard_provider.dart';
 import 'package:parawarga_apps/data/provider/history_provider.dart';
@@ -8,6 +9,7 @@ import 'package:parawarga_apps/data/provider/issue_provider.dart';
 import 'package:parawarga_apps/data/provider/login_provider.dart';
 import 'package:parawarga_apps/data/provider/register_provider.dart';
 import 'package:parawarga_apps/data/provider/voting_provider.dart';
+import 'package:parawarga_apps/data/repository/area_repository.dart';
 import 'package:parawarga_apps/data/repository/arisan_repository.dart';
 import 'package:parawarga_apps/data/repository/dashboard_repository.dart';
 import 'package:parawarga_apps/data/repository/history_repository.dart';
@@ -26,8 +28,6 @@ import 'package:parawarga_apps/modules/issue/detail/issue_detail_controller.dart
 import 'package:parawarga_apps/modules/issue/input/issue_input_controller.dart';
 import 'package:parawarga_apps/modules/issue/issue_controller.dart';
 import 'package:parawarga_apps/modules/login/login_controller.dart';
-import 'package:parawarga_apps/modules/my_area/detail/my_area_detail_controller.dart';
-import 'package:parawarga_apps/modules/my_area/my_area_controller.dart';
 import 'package:parawarga_apps/modules/profile/profile_controller.dart';
 import 'package:parawarga_apps/modules/register/register_controller.dart';
 import 'package:parawarga_apps/modules/splash/splash_controller.dart';
@@ -40,6 +40,8 @@ import 'package:parawarga_apps/modules/voting/detail/voting_detail_controller.da
 import 'package:parawarga_apps/modules/voting/voting_controller.dart';
 
 import '../../config/local/database_config.dart';
+import '../../modules/my_area_unit/detail/my_area_detail_controller.dart';
+import '../../modules/my_area_unit/my_area_controller.dart';
 import '../../utils/environment.dart';
 import '../provider/tagihan_provider.dart';
 import '../repository/register_repository.dart';
@@ -77,8 +79,8 @@ class BindingDependency implements Bindings {
     Get.lazyPut(() => IssueInputController(), fenix: true);
     Get.lazyPut(() => InfoController(repository: Get.find()), fenix: true);
     Get.lazyPut(() => InfoDetailController(repository: Get.find()), fenix: true);
-    Get.lazyPut(() => UnitEmptyController(), fenix: true);
-    Get.lazyPut(() => MyAreaController(), fenix: true);
+    Get.lazyPut(() => UnitEmptyController(repository: Get.find()), fenix: true);
+    Get.lazyPut(() => MyAreaController(repository: Get.find()), fenix: true);
     Get.lazyPut(() => MyAreaDetailController(), fenix: true);
 
     /** Provider */
@@ -91,6 +93,7 @@ class BindingDependency implements Bindings {
     Get.lazyPut(() => ArisanProvider(), fenix: true);
     Get.lazyPut(() => TagihanProvider(), fenix: true);
     Get.lazyPut(() => HistoryProvider(), fenix: true);
+    Get.lazyPut(() => AreaProvider(), fenix: true);
 
     /** Repository */
     Get.lazyPut<LoginRepository>(() => LoginRepositoryImpl(Get.find(), Get.find()), fenix: true);
@@ -103,5 +106,6 @@ class BindingDependency implements Bindings {
     Get.lazyPut<ArisanRepository>(() => ArisanRepositoryImpl(Get.find(), Get.find()), fenix: true);
     Get.lazyPut<TagihanRepository>(() => TagihanRepositoryImpl(Get.find(), Get.find()), fenix: true);
     Get.lazyPut<HistoryRepository>(() => HistoryRepositoryImpl(Get.find(), Get.find()), fenix: true);
+    Get.lazyPut<AreaRepository>(() => AreaRepositoryImpl(Get.find(), Get.find()), fenix: true);
   }
 }

@@ -2,11 +2,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:parawarga_apps/modules/my_area/detail/my_area_detail_controller.dart';
 import 'package:parawarga_apps/theme/app_colors.dart';
 import 'package:parawarga_apps/utils/strings.dart';
 
 import '../../../theme/app_theme.dart';
+import 'my_area_detail_controller.dart';
 
 class MyAreaDetailPage extends GetView<MyAreaDetailController> {
   const MyAreaDetailPage({super.key});

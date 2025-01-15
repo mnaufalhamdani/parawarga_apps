@@ -4,7 +4,7 @@ import 'dart:async';
 
 import 'package:get/get.dart';
 import 'package:parawarga_apps/models/domain/arisan_domain.dart';
-import 'package:parawarga_apps/models/response/ArisanDetailModel.dart';
+import 'package:parawarga_apps/models/response/arisan_detail_model.dart';
 import 'package:parawarga_apps/models/response/general_model.dart';
 import 'package:parawarga_apps/modules/arisan/detail/arisan_detail_page.dart';
 

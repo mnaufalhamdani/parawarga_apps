@@ -160,7 +160,7 @@ class DashboardPage extends GetView<DashboardController> {
                                               crossAxisAlignment:
                                               CrossAxisAlignment.end,
                                               children: [
-                                                Text(labelMyArea,
+                                                Text(labelMyAreaUnit,
                                                     style: TextStyle(
                                                         fontSize: 11,
                                                         fontWeight: FontWeight

@@ -11,8 +11,6 @@ import 'package:parawarga_apps/modules/issue/detail/issue_detail_page.dart';
 import 'package:parawarga_apps/modules/issue/input/issue_input_page.dart';
 import 'package:parawarga_apps/modules/issue/issue_page.dart';
 import 'package:parawarga_apps/modules/login/login_page.dart';
-import 'package:parawarga_apps/modules/my_area/detail/my_area_detail_page.dart';
-import 'package:parawarga_apps/modules/my_area/my_area_page.dart';
 import 'package:parawarga_apps/modules/profile/profile_page.dart';
 import 'package:parawarga_apps/modules/register/register_page.dart';
 import 'package:parawarga_apps/modules/splash/splash_page.dart';
@@ -23,6 +21,9 @@ import 'package:parawarga_apps/modules/tagihan/tagihan_page.dart';
 import 'package:parawarga_apps/modules/unit_empty/unit_empty_page.dart';
 import 'package:parawarga_apps/modules/voting/detail/voting_detail_page.dart';
 import 'package:parawarga_apps/modules/voting/voting_page.dart';
+
+import '../modules/my_area_unit/detail/my_area_detail_page.dart';
+import '../modules/my_area_unit/my_area_page.dart';
 
 abstract class Routes {
   static const login = '/login';

@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:parawarga_apps/core/constants.dart';
-import 'package:parawarga_apps/models/response/ArisanDetailModel.dart';
+import 'package:parawarga_apps/models/response/arisan_detail_model.dart';
 import 'package:parawarga_apps/theme/app_theme.dart';
 import 'package:parawarga_apps/utils/strings.dart';
 

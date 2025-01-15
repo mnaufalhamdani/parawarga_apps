@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:parawarga_apps/core/extension.dart';
-import 'package:parawarga_apps/models/response/HistoryModel.dart';
+import 'package:parawarga_apps/models/response/history_model.dart';
 import 'package:parawarga_apps/theme/app_theme.dart';
 
 import '../../../core/constants.dart';

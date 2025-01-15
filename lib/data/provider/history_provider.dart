@@ -1,4 +1,4 @@
-import 'package:parawarga_apps/models/response/HistoryModel.dart';
+import 'package:parawarga_apps/models/response/history_model.dart';
 
 import '../../config/remote/base_service.dart';
 import '../../core/failure_response.dart';

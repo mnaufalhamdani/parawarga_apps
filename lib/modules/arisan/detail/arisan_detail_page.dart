@@ -11,7 +11,7 @@ import 'package:intl/intl.dart';
 import 'package:parawarga_apps/core/constants.dart';
 import 'package:parawarga_apps/core/data_state.dart';
 import 'package:parawarga_apps/models/domain/arisan_domain.dart';
-import 'package:parawarga_apps/models/response/ArisanDetailModel.dart';
+import 'package:parawarga_apps/models/response/arisan_detail_model.dart';
 import 'package:parawarga_apps/modules/arisan/detail/arisan_detail_controller.dart';
 import 'package:parawarga_apps/modules/arisan/item/arisan_detail_tile.dart';
 import 'package:parawarga_apps/theme/app_colors.dart';

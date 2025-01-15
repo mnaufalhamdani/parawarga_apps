@@ -2,7 +2,7 @@
 
 import 'package:get/get.dart';
 import 'package:parawarga_apps/data/repository/arisan_repository.dart';
-import 'package:parawarga_apps/models/response/ArisanModel.dart';
+import 'package:parawarga_apps/models/response/arisan_model.dart';
 
 import '../../core/data_state.dart';
 import '../../core/failure_response.dart';

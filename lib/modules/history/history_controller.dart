@@ -2,7 +2,7 @@
 
 import 'package:get/get.dart';
 import 'package:parawarga_apps/data/repository/history_repository.dart';
-import 'package:parawarga_apps/models/response/HistoryModel.dart';
+import 'package:parawarga_apps/models/response/history_model.dart';
 
 import '../../core/data_state.dart';
 import '../../core/failure_response.dart';

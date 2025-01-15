@@ -3,7 +3,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:parawarga_apps/data/provider/history_provider.dart';
 import 'package:parawarga_apps/models/domain/user_area_domain.dart';
-import 'package:parawarga_apps/models/response/HistoryModel.dart';
+import 'package:parawarga_apps/models/response/history_model.dart';
 import 'package:parawarga_apps/routes/app_pages.dart';
 import 'package:parawarga_apps/theme/standard_snackbar.dart';
 

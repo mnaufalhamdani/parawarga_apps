@@ -1,35 +1,30 @@
 // ignore_for_file: prefer_const_constructors
-import 'dart:convert';
-
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
-import 'package:parawarga_apps/data/provider/arisan_provider.dart';
-import 'package:parawarga_apps/models/domain/arisan_domain.dart';
+import 'package:parawarga_apps/data/provider/area_provider.dart';
 import 'package:parawarga_apps/models/domain/user_area_domain.dart';
-import 'package:parawarga_apps/models/response/arisan_detail_model.dart';
-import 'package:parawarga_apps/models/response/arisan_model.dart';
-import 'package:parawarga_apps/models/response/general_model.dart';
+import 'package:parawarga_apps/models/response/my_area_unit_model.dart';
 import 'package:parawarga_apps/routes/app_pages.dart';
 import 'package:parawarga_apps/theme/standard_snackbar.dart';
 
 import '../../config/local/database_config.dart';
+import '../../models/response/area_unit_model.dart';
 import '../../utils/strings.dart';
 
 //domain - repository
-abstract class ArisanRepository {
+abstract class AreaRepository {
   Future<String> getToken();
   Future<UserAreaDomain> getUserActive();
 
-  Future<List<ArisanModel>> getArisan();
-  Future<ArisanDetailModel> getArisanDetail(String id);
-  Future<GeneralModel> saveArisanWinner(ArisanWinnerDomain domain);
+  Future<List<AreaUnitModel>> getEmptyUnit();
+  Future<List<MyAreaUnitModel>> getMyAreaUnit();
 }
 
 //data - repository
-class ArisanRepositoryImpl extends ArisanRepository {
-  ArisanRepositoryImpl(this.provider, this.databaseConfig);
+class AreaRepositoryImpl extends AreaRepository {
+  AreaRepositoryImpl(this.provider, this.databaseConfig);
 
-  final ArisanProvider provider;
+  final AreaProvider provider;
   final DatabaseConfig databaseConfig;
 
   @override
@@ -57,27 +52,17 @@ class ArisanRepositoryImpl extends ArisanRepository {
   }
 
   @override
-  Future<List<ArisanModel>> getArisan() async {
-    return await provider.getArisan(token: await getToken());
-  }
-
-  @override
-  Future<ArisanDetailModel> getArisanDetail(String id) async {
-    return await provider.getArisanDetail(
+  Future<List<AreaUnitModel>> getEmptyUnit() async {
+    return await provider.getAreaUnit(
       token: await getToken(),
-      id: id
+      empty: "yes"
     );
   }
 
   @override
-  Future<GeneralModel> saveArisanWinner(ArisanWinnerDomain domain) async {
-    final user = await getUserActive();
-    domain.created_by = user.userEntity.id;
-
-    final json = jsonEncode(domain).toString();
-    return await provider.saveArisanWinner(
-      token: await getToken(),
-      json: json
+  Future<List<MyAreaUnitModel>> getMyAreaUnit() async {
+    return await provider.getMyAreaUnit(
+      token: await getToken()
     );
   }
 }

@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:parawarga_apps/theme/app_theme.dart';
 import 'package:parawarga_apps/theme/standard_button_primary.dart';
 import 'package:parawarga_apps/utils/strings.dart';
@@ -139,7 +138,7 @@ class VotingTileState extends State<VotingTile> {
                             child: SizedBox(
                                 width: 35,
                                 height: 35,
-                                child: Icon(Iconsax.info_circle,
+                                child: Icon(Icons.info_outline_rounded,
                                     color: colorSecondary)))
                       ],
                     ),
