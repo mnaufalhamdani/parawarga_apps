@@ -11,6 +11,7 @@ import 'package:parawarga_apps/theme/standard_snackbar.dart';
 import 'package:parawarga_apps/utils/strings.dart';
 
 import '../../theme/app_theme.dart';
+import '../../theme/standard_alert_dialog.dart';
 
 class ProfilePage extends GetView<ProfileController> {
   const ProfilePage({super.key});
@@ -355,15 +356,18 @@ class ProfilePage extends GetView<ProfileController> {
                   Divider(color: Colors.grey.shade200),
                   GestureDetector(
                     onTap: () async {
-                      await controller.logout().whenComplete(() {
-                        if (controller.logoutState.value.data == true) {
-                          Get.offAllNamed(Routes.login);
-                        } else {
-                          showStandardSnackbar(context, TypeMessage.error,
-                              message: controller
-                                  .logoutState.value.error?.message
-                                  .toString());
-                        }
+                      StandardAlertDialog.show(
+                          context,
+                          "Keluar",
+                          "Apakah Anda yakin keluar dari akun ini?", () async {
+                        await controller.logout().whenComplete(() {
+                          if (controller.logoutState.value.data == true) {
+                            Get.offAllNamed(Routes.login);
+                          } else {
+                            showStandardSnackbar(context, TypeMessage.error,
+                              message: controller.logoutState.value.error?.message.toString());
+                          }
+                        });
                       });
                     },
                     child: Padding(

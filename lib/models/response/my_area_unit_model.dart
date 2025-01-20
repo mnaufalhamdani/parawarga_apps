@@ -7,7 +7,6 @@ class MyAreaUnitModel {
     this.endDate,
     this.rt,
     this.rw,
-    this.phone,
     this.photoArea,
     this.totalUnit,
     this.totalUser,
@@ -26,7 +25,6 @@ class MyAreaUnitModel {
   String? endDate;
   String? rt;
   String? rw;
-  String? phone;
   String? photoArea;
   String? totalUnit;
   String? totalUser;
@@ -46,7 +44,6 @@ class MyAreaUnitModel {
       endDate: json["end_date"],
       rt: json["rt"],
       rw: json["rw"],
-      phone: json["phone"],
       photoArea: json["photo_area"],
       totalUnit: json["total_unit"],
       totalUser: json["total_user"],
@@ -68,6 +65,7 @@ class Detail {
     this.keterangan,
     this.positionName,
     this.name,
+    this.phone,
   });
 
   String? managementId;
@@ -75,6 +73,7 @@ class Detail {
   String? keterangan;
   String? positionName;
   String? name;
+  String? phone;
 
   factory Detail.fromJson(Map<String, dynamic> json){
     return Detail(
@@ -83,6 +82,7 @@ class Detail {
       keterangan: json["keterangan"],
       positionName: json["position_name"],
       name: json["name"],
+      phone: json["phone"],
     );
   }
 }
@@ -95,7 +95,7 @@ class Unit {
     this.latitude,
     this.longitude,
     this.contract,
-    this.emptyId,
+    this.isEmpty,
   });
 
   String? id;
@@ -103,8 +103,8 @@ class Unit {
   String? additionalDesc;
   String? latitude;
   String? longitude;
-  String? contract;
-  String? emptyId;
+  bool? contract;
+  bool? isEmpty;
 
   factory Unit.fromJson(Map<String, dynamic> json){
     return Unit(
@@ -113,8 +113,8 @@ class Unit {
       additionalDesc: json["additional_desc"],
       latitude: json["latitude"],
       longitude: json["longitude"],
-      contract: json["contract"],
-      emptyId: json["empty_id"],
+      contract: (json["contract"].toString() == "1") ? true : false,
+      isEmpty: (json["is_empty"].toString() == "1") ? true : false,
     );
   }
 }

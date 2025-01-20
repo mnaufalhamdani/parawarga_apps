@@ -150,7 +150,7 @@ class FilterHistoryTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(padding: EdgeInsets.only(left: basePadding, right: basePadding),
         child: SizedBox(
-            width: double.infinity,
+            width: Get.width,
             child: TextButton(
               onPressed: (){
                 onPressed(model, index);

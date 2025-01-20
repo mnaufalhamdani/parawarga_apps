@@ -1,4 +1,6 @@
+import 'package:get/get.dart';
 import 'package:parawarga_apps/models/response/area_unit_model.dart';
+import 'package:parawarga_apps/models/response/general_model.dart';
 
 import '../../config/remote/base_service.dart';
 import '../../core/failure_response.dart';
@@ -39,6 +41,69 @@ class AreaProvider extends BaseService {
     final response = await get('area/getMyAreaUnit', query: params, headers: headers);
     if(response.status.isOk){
       final value = List<MyAreaUnitModel>.from(response.body["data"]!.map((x) => MyAreaUnitModel.fromJson(x)));
+      return value;
+    } else {
+      throw FailureResponse.fromJson(response.body ?? response.statusText);
+    }
+  }
+
+  Future<GeneralModel> saveMyArea({
+    required String token,
+    String? areaEncoded,
+  }) async{
+    final headers = <String, String>{
+      'Authorization': 'Bearer $token',
+    };
+    final params = <String, dynamic>{};
+    final formData = FormData({
+      'area_encoded': areaEncoded
+    });
+
+    final response = await post('area/saveMyArea', formData, query: params, headers: headers);
+    if(response.status.isOk){
+      final value = GeneralModel.fromJson(response.body);
+      return value;
+    } else {
+      throw FailureResponse.fromJson(response.body ?? response.statusText);
+    }
+  }
+
+  Future<GeneralModel> saveMyUnit({
+    required String token,
+    String? json,
+  }) async{
+    final headers = <String, String>{
+      'Authorization': 'Bearer $token',
+    };
+    final params = <String, dynamic>{};
+    final formData = FormData({
+      'data': json
+    });
+
+    final response = await post('area/saveMyUnit', formData, query: params, headers: headers);
+    if(response.status.isOk){
+      final value = GeneralModel.fromJson(response.body);
+      return value;
+    } else {
+      throw FailureResponse.fromJson(response.body ?? response.statusText);
+    }
+  }
+
+  Future<GeneralModel> removeMyUnit({
+    required String token,
+    String? unitId
+  }) async{
+    final headers = <String, String>{
+      'Authorization': 'Bearer $token',
+    };
+    final params = <String, dynamic>{};
+    final formData = FormData({
+      'unit_id': unitId
+    });
+
+    final response = await post('area/removeMyUnit', formData, query: params, headers: headers);
+    if(response.status.isOk){
+      final value = GeneralModel.fromJson(response.body);
       return value;
     } else {
       throw FailureResponse.fromJson(response.body ?? response.statusText);

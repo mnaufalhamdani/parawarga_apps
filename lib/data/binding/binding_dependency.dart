@@ -41,6 +41,7 @@ import 'package:parawarga_apps/modules/voting/voting_controller.dart';
 
 import '../../config/local/database_config.dart';
 import '../../modules/my_area_unit/detail/my_area_detail_controller.dart';
+import '../../modules/my_area_unit/input/my_unit_input_controller.dart';
 import '../../modules/my_area_unit/my_area_controller.dart';
 import '../../utils/environment.dart';
 import '../provider/tagihan_provider.dart';
@@ -80,8 +81,9 @@ class BindingDependency implements Bindings {
     Get.lazyPut(() => InfoController(repository: Get.find()), fenix: true);
     Get.lazyPut(() => InfoDetailController(repository: Get.find()), fenix: true);
     Get.lazyPut(() => UnitEmptyController(repository: Get.find()), fenix: true);
-    Get.lazyPut(() => MyAreaController(repository: Get.find()), fenix: true);
+    Get.lazyPut(() => MyAreaController(repository: Get.find(), repositoryRegister: Get.find()), fenix: true);
     Get.lazyPut(() => MyAreaDetailController(), fenix: true);
+    Get.lazyPut(() => MyUnitInputController(repository: Get.find()), fenix: true);
 
     /** Provider */
     Get.lazyPut(() => LoginProvider(), fenix: true);

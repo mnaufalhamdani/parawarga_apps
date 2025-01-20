@@ -73,71 +73,7 @@ class MyAreaTileState extends State<MyAreaTile> {
                   children: [
                     Row(children: [
                       Expanded(
-                        flex: 2,
-                        child: Text(
-                          labelPhone,
-                          style: TextStyle(
-                              color: colorTextMessage, fontSize: 11),
-                        ),
-                      ),
-                      Expanded(
-                        flex: 1,
-                        child: Text(
-                          ":",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              color: colorTextMessage, fontSize: 11),
-                        ),
-                      ),
-                      Expanded(
-                        flex: 8,
-                        child: Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            widget.model.phone ?? "-",
-                            style: TextStyle(
-                                color: colorTextMessage,
-                                fontSize: 12,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                      )
-                    ]),
-                    Row(children: [
-                      Expanded(
-                        flex: 2,
-                        child: Text(
-                          "$labelTotal $labelUnit",
-                          style: TextStyle(
-                              color: colorTextMessage, fontSize: 11),
-                        ),
-                      ),
-                      Expanded(
-                        flex: 1,
-                        child: Text(
-                          ":",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              color: colorTextMessage, fontSize: 11),
-                        ),
-                      ),
-                      Expanded(
-                        flex: 8,
-                        child: Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            widget.model.totalUnit ?? "0",
-                            style: TextStyle(
-                                color: colorTextMessage,
-                                fontSize: 12,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                      )
-                    ]),
-                    Row(children: [
-                      Expanded(
-                        flex: 2,
+                        flex: 3,
                         child: Text(
                           "$labelTotal $labelCitizen",
                           style: TextStyle(
@@ -154,7 +90,7 @@ class MyAreaTileState extends State<MyAreaTile> {
                         ),
                       ),
                       Expanded(
-                        flex: 8,
+                        flex: 7,
                         child: Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
@@ -165,7 +101,41 @@ class MyAreaTileState extends State<MyAreaTile> {
                                 fontWeight: FontWeight.bold),
                           ),
                         ),
-                      )
+                      ),
+                      Expanded(flex: 1, child: Container())
+                    ]),
+                    Row(children: [
+                      Expanded(
+                        flex: 3,
+                        child: Text(
+                          "$labelTotal $labelUnit",
+                          style: TextStyle(
+                              color: colorTextMessage, fontSize: 11),
+                        ),
+                      ),
+                      Expanded(
+                        flex: 1,
+                        child: Text(
+                          ":",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: colorTextMessage, fontSize: 11),
+                        ),
+                      ),
+                      Expanded(
+                        flex: 7,
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            widget.model.totalUnit ?? "0",
+                            style: TextStyle(
+                                color: colorTextMessage,
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ),
+                      Expanded(flex: 1, child: Container())
                     ]),
                     GestureDetector(
                       onTap: () {
@@ -175,9 +145,9 @@ class MyAreaTileState extends State<MyAreaTile> {
                       },
                       child: Row(children: [
                         Expanded(
-                          flex: 2,
+                          flex: 3,
                           child: Text(
-                            "$labelTotal $labelAdmin",
+                            "$labelTotal $labelAdminCitizen",
                             style: TextStyle(
                                 color: colorTextMessage, fontSize: 11),
                           ),
@@ -192,7 +162,7 @@ class MyAreaTileState extends State<MyAreaTile> {
                           ),
                         ),
                         Expanded(
-                          flex: 8,
+                          flex: 7,
                           child: Text(
                             "${widget.model.detail.length}",
                             style: TextStyle(
@@ -201,10 +171,10 @@ class MyAreaTileState extends State<MyAreaTile> {
                                 fontWeight: FontWeight.bold),
                           ),
                         ),
-                        Icon(Icons.info_outline_rounded, color: colorTextMessage, size: baseRadius)
+                        Expanded(flex: 1, child: Icon(Icons.info_outline_rounded, color: colorTextMessage, size: baseRadius))
                       ]),
                     ),
-                    SizedBox(height: basePaddingInContent),
+                    SizedBox(height: basePaddingInContent / 2),
                     GestureDetector(
                       onTap: () {
                         if (!widget.onPressedMyUnit.isNull) {
@@ -213,7 +183,7 @@ class MyAreaTileState extends State<MyAreaTile> {
                       },
                       child: Row(children: [
                         Expanded(
-                          flex: 2,
+                          flex: 3,
                           child: Text(
                             "$labelTotal $labelUnit $labelMy",
                             style: TextStyle(
@@ -230,7 +200,7 @@ class MyAreaTileState extends State<MyAreaTile> {
                           ),
                         ),
                         Expanded(
-                          flex: 8,
+                          flex: 7,
                           child: Text(
                             "${widget.model.unit.length}",
                             style: TextStyle(
@@ -239,10 +209,10 @@ class MyAreaTileState extends State<MyAreaTile> {
                                 fontWeight: FontWeight.bold),
                           ),
                         ),
-                        Icon(Icons.info_outline_rounded, color: colorTextMessage, size: baseRadius)
+                        Expanded(flex: 1, child: Icon(Icons.info_outline_rounded, color: colorTextMessage, size: baseRadius))
                       ]),
                     ),
-                    SizedBox(height: basePaddingInContent),
+                    SizedBox(height: basePaddingInContent / 2),
                   ]))
         ]));
   }
@@ -250,10 +220,12 @@ class MyAreaTileState extends State<MyAreaTile> {
 
 class ManagementTile extends StatefulWidget {
   final Detail model;
+  final bool isLast;
 
   const ManagementTile({
     super.key,
     required this.model,
+    required this.isLast,
   });
 
   @override
@@ -272,9 +244,17 @@ class ManagementTileState extends State<ManagementTile> {
             style: TextStyle(color: colorTextMessage, fontSize: 12, fontWeight: FontWeight.bold),
           ),
           Text(
-            widget.model.positionName.toString(),
+            widget.model.phone.toString(),
             style: TextStyle(color: colorTextMessage, fontSize: 12),
           ),
+          Align(
+            alignment: Alignment.centerRight,
+            child: Text(
+              widget.model.positionName.toString(),
+              style: TextStyle(color: colorTextMessage, fontSize: 12),
+            ),
+          ),
+          Visibility(visible: !widget.isLast, child: Divider(color: Colors.grey.shade200,))
         ]
     ));
   }
@@ -282,10 +262,14 @@ class ManagementTileState extends State<ManagementTile> {
 
 class MyUnitTile extends StatefulWidget {
   final Unit model;
+  final bool isLast;
+  final void Function(Unit model) onPressed;
 
   const MyUnitTile({
     super.key,
     required this.model,
+    required this.isLast,
+    required this.onPressed,
   });
 
   @override
@@ -295,25 +279,73 @@ class MyUnitTile extends StatefulWidget {
 class MyUnitTileState extends State<MyUnitTile> {
   @override
   Widget build(BuildContext context) {
-    return Padding(padding: EdgeInsets.only(left: basePadding, right: basePadding),
-        child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                widget.model.name.toString(),
-                style: TextStyle(color: colorTextMessage, fontSize: 12, fontWeight: FontWeight.bold),
-              ),
-              Text(
-                "Catatan: ${widget.model.additionalDesc ?? "-"}",
-                style: TextStyle(color: colorTextMessage, fontSize: 12),
-              ),
-              Visibility(
-                visible: widget.model.emptyId != null,
-                child: Text(labelUnitEmpty,
-                  style: TextStyle(color: colorTextMessage, fontSize: 12),
+    return GestureDetector(
+      onTap: () {
+        if (!widget.onPressed.isNull) {
+          widget.onPressed(widget.model);
+        }
+      },
+      child: Padding(padding: EdgeInsets.only(left: basePadding, right: basePadding),
+          child: SizedBox(
+            width: Get.width,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Expanded(
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              widget.model.name.toString(),
+                              style: TextStyle(color: colorTextMessage, fontSize: 12, fontWeight: FontWeight.bold),
+                            ),
+                            Text(
+                              "Catatan: ${widget.model.additionalDesc ?? "-"}",
+                              style: TextStyle(color: colorTextMessage, fontSize: 12),
+                            ),
+                            Row(children: [
+                              Visibility(
+                                  visible: widget.model.isEmpty == true,
+                                  child: Container(margin: EdgeInsets.only(top: basePaddingInContent / 2), decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(baseRadiusCard),
+                                      color: colorPrimary),
+                                    child: Padding(
+                                      padding: EdgeInsets.all(basePaddingInContent / 2),
+                                      child: Text(
+                                        labelUnitEmpty,
+                                        style: TextStyle(color: colorLight, fontSize: 12),
+                                      ),
+                                    ),
+                                  )
+                              ),
+                              Visibility(visible: widget.model.isEmpty == true, child: SizedBox(width: basePaddingInContent / 2)),
+                              Visibility(
+                                  visible: widget.model.contract == true,
+                                  child: Container(margin: EdgeInsets.only(top: basePaddingInContent / 2), decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(baseRadiusCard),
+                                      color: colorLight),
+                                    child: Padding(
+                                      padding: EdgeInsets.all(basePaddingInContent / 2),
+                                      child: Text(
+                                        labelTitleContract,
+                                        style: TextStyle(color: colorPrimary, fontSize: 12),
+                                      ),
+                                    ),
+                                  )
+                              )
+                            ])
+                          ]
+                      ),
+                    ),
+                  ],
                 ),
-              )
-            ]
-        ));
+
+                Visibility(visible: !widget.isLast, child: Divider(color: Colors.grey.shade200,))
+              ],
+            ),
+          )),
+    );
   }
 }

@@ -113,7 +113,11 @@ class IssueInputPage extends GetView<IssueInputController> {
                         : baseRadiusForm),
                 child: IssueInputFileTile(
                     model: listHistory[i], onPressed: (model) async {})),
-          StandardButtonPrimary(titleHint: labelSubmit)
+          Container(
+            width: Get.width,
+            margin: EdgeInsets.only(left: basePadding, right: basePadding, bottom: basePadding),
+            child: StandardButtonPrimary(titleHint: labelSubmit)
+          )
         ]));
   }
 }

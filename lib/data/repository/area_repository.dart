@@ -1,8 +1,13 @@
 // ignore_for_file: prefer_const_constructors
+import 'dart:convert';
+import 'dart:developer';
+
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:parawarga_apps/data/provider/area_provider.dart';
+import 'package:parawarga_apps/models/domain/area_domain.dart';
 import 'package:parawarga_apps/models/domain/user_area_domain.dart';
+import 'package:parawarga_apps/models/response/general_model.dart';
 import 'package:parawarga_apps/models/response/my_area_unit_model.dart';
 import 'package:parawarga_apps/routes/app_pages.dart';
 import 'package:parawarga_apps/theme/standard_snackbar.dart';
@@ -18,6 +23,9 @@ abstract class AreaRepository {
 
   Future<List<AreaUnitModel>> getEmptyUnit();
   Future<List<MyAreaUnitModel>> getMyAreaUnit();
+  Future<GeneralModel> saveMyArea(String areaEncoded);
+  Future<GeneralModel> saveMyUnit(MyUnitDomain domain);
+  Future<GeneralModel> removeMyUnit(String unitId);
 }
 
 //data - repository
@@ -63,6 +71,37 @@ class AreaRepositoryImpl extends AreaRepository {
   Future<List<MyAreaUnitModel>> getMyAreaUnit() async {
     return await provider.getMyAreaUnit(
       token: await getToken()
+    );
+  }
+
+  @override
+  Future<GeneralModel> saveMyArea(String areaEncoded) async {
+    log("saveMyArea: $areaEncoded");
+    return await provider.saveMyArea(
+      token: await getToken(),
+      areaEncoded: areaEncoded
+    );
+  }
+
+  @override
+  Future<GeneralModel> saveMyUnit(MyUnitDomain domain) async {
+    final user = await getUserActive();
+    domain.created_by = user.userEntity.id;
+
+    final json = jsonEncode(domain).toString();
+    log("saveMyUnit: $json");
+    return await provider.saveMyUnit(
+      token: await getToken(),
+      json: json
+    );
+  }
+
+  @override
+  Future<GeneralModel> removeMyUnit(String unitId) async {
+    log("removeMyUnit: $unitId");
+    return await provider.removeMyUnit(
+      token: await getToken(),
+      unitId: unitId
     );
   }
 }

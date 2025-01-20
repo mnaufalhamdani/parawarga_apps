@@ -56,7 +56,7 @@ class ArisanDetailPage extends GetView<ArisanDetailController> {
                       _buildContentBottom(context, data);
                     }
                   },
-                  child: Icon(Iconsax.convert_3d_cube, color: colorDark)
+                  child: Icon(Iconsax.convert_3d_cube, color: colorPrimary)
               )
           )),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
@@ -617,31 +617,35 @@ class ArisanDetailPage extends GetView<ArisanDetailController> {
                       SizedBox(height: basePaddingInContent),
                       Visibility(
                         visible: (data.timeToDice == true) ? true : false,
-                        child: StandardButtonPrimary(
-                          isLoading: controller.arisanWinnerState.value.isLoading == true,
-                          isEnabled: (controller.arisanWinnerState.value.data == null) ? true : false,
-                          titleHint: labelRandomNow,
-                          onPressed: () async {
-                            if (controller.arisanWinnerDomain.value.user_id == null) {
-                              var dice = Fortune.randomInt(0, remainingMemeber.length);
+                        child: Container(
+                          width: Get.width,
+                          margin: EdgeInsets.only(left: basePadding, right: basePadding),
+                          child: StandardButtonPrimary(
+                            isLoading: controller.arisanWinnerState.value.isLoading == true,
+                            isEnabled: (controller.arisanWinnerState.value.data == null) ? true : false,
+                            titleHint: labelRandomNow,
+                            onPressed: () async {
+                              if (controller.arisanWinnerDomain.value.user_id == null) {
+                                var dice = Fortune.randomInt(0, remainingMemeber.length);
 
-                              controller.arisanWinnerDomain.value = ArisanWinnerDomain(
-                                  dice: dice,
-                                  arisan_id: data.id,
-                                  user_id: int.parse(remainingMemeber.elementAt(dice).userId.toString()),
-                                  name: remainingMemeber.elementAt(dice).createdName,
-                                  periode: data.periode,
-                                  win_date: DateFormat('yyyy-MM-dd HH:mm:ss').format(DateTime.now()),
-                                  win_nominal: data.totalPayed,
-                              );
-                            }
+                                controller.arisanWinnerDomain.value = ArisanWinnerDomain(
+                                    dice: dice,
+                                    arisan_id: data.id,
+                                    user_id: int.parse(remainingMemeber.elementAt(dice).userId.toString()),
+                                    name: remainingMemeber.elementAt(dice).createdName,
+                                    periode: data.periode,
+                                    win_date: DateFormat('yyyy-MM-dd HH:mm:ss').format(DateTime.now()),
+                                    win_nominal: data.totalPayed,
+                                );
+                              }
 
-                            if (controller.arisanWinnerDomain.value.dice != null) {
-                              stramController.add(controller.arisanWinnerDomain.value.dice ?? 0);
-                            }
+                              if (controller.arisanWinnerDomain.value.dice != null) {
+                                stramController.add(controller.arisanWinnerDomain.value.dice ?? 0);
+                              }
 
-                            await controller.saveArisanWinner();
-                          },
+                              await controller.saveArisanWinner();
+                            },
+                          ),
                         ),
                       ),
                       SizedBox(height: basePaddingInContent),

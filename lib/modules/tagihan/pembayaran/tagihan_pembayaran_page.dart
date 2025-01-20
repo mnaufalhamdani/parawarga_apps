@@ -167,7 +167,7 @@ class TagihanPembayaranPage extends GetView<TagihanPembayaranController> {
                         child: Icon(Iconsax.copy, color: colorLight, size: baseRadius)
                       )
                     ]),
-                    SizedBox(height: basePaddingInContent),
+                    SizedBox(height: basePaddingInContent / 2),
                     Row(children: [
                       Expanded(
                         flex: 3,
@@ -206,7 +206,7 @@ class TagihanPembayaranPage extends GetView<TagihanPembayaranController> {
                           child: Icon(Iconsax.copy, color: colorLight, size: baseRadius)
                       )
                     ]),
-                    SizedBox(height: basePaddingInContent),
+                    SizedBox(height: basePaddingInContent / 2),
                     Row(children: [
                       Expanded(
                         flex: 3,
@@ -245,7 +245,7 @@ class TagihanPembayaranPage extends GetView<TagihanPembayaranController> {
                           child: Icon(Iconsax.copy, color: colorLight, size: baseRadius)
                       )
                     ]),
-                    SizedBox(height: basePaddingInContent),
+                    SizedBox(height: basePaddingInContent / 2),
                     ((data.status ?? 0) > 0)
                     ? Row(children: [
                       Expanded(
@@ -363,6 +363,7 @@ class TagihanPembayaranPage extends GetView<TagihanPembayaranController> {
                           color: colorTextMessage,
                           fontSize: 12)),
                 ),
+                SizedBox(height: basePaddingInContent),
                 GestureDetector(
                   onTap: () {
                     if (data.status == 0){
@@ -379,7 +380,12 @@ class TagihanPembayaranPage extends GetView<TagihanPembayaranController> {
                           borderRadius: BorderRadius.circular(baseRadiusCard)),
                       color: colorBackground,
                       elevation: 0,
-                          child: (controller.tagihanReceipt.value != null)
+                          child: (data.receipt != null)
+                            ? ClipRRect(
+                              borderRadius: BorderRadius.circular(baseRadiusCard),
+                              child: Image.network(data.receipt.toString(), fit: BoxFit.cover)
+                            )
+                            : (controller.tagihanReceipt.value != null)
                               ? ClipRRect(
                                 borderRadius: BorderRadius.circular(baseRadiusCard),
                                 child: Image.file(File(controller.tagihanReceipt.value.toString()), fit: BoxFit.cover)
@@ -397,24 +403,22 @@ class TagihanPembayaranPage extends GetView<TagihanPembayaranController> {
   _buildContentButton(BuildContext context, TagihanTempModel data) {
     return Visibility(
       visible: data.status == 0,
-      child: Padding(
-        padding: EdgeInsets.only(top: baseRadius, bottom: baseRadius),
-          child: SizedBox(
-            width: Get.width,
-            child: StandardButtonPrimary(
-              titleHint: labelBtnConfirm,
-              isLoading: controller.tagihanPembayaranState.value.isLoading,
-              onPressed: (() async {
-                await controller.saveTagihanPembayaran().whenComplete(() async {
-                  if(controller.tagihanPembayaranState.value.error != null) {
-                    showStandardSnackbar(context, TypeMessage.error, message: controller.tagihanPembayaranState.value.error?.message.toString());
-                  }else {
-                    showStandardSnackbar(context, TypeMessage.success, message: controller.tagihanPembayaranState.value.data?.messages.toString());
-                    await controller.getTagihanTemp();
-                  }
-                });
-              })),
-        ),
+      child: Container(
+        width: Get.width,
+        margin: EdgeInsets.only(top: basePadding, bottom: basePadding),
+        child: StandardButtonPrimary(
+            titleHint: labelBtnConfirm,
+            isLoading: controller.tagihanPembayaranState.value.isLoading,
+            onPressed: (() async {
+              await controller.saveTagihanPembayaran().whenComplete(() async {
+                if(controller.tagihanPembayaranState.value.error != null) {
+                  showStandardSnackbar(context, TypeMessage.error, message: controller.tagihanPembayaranState.value.error?.message.toString());
+                }else {
+                  showStandardSnackbar(context, TypeMessage.success, message: controller.tagihanPembayaranState.value.data?.data.toString());
+                  await controller.getTagihanTemp();
+                }
+              });
+            })),
       ),
     );
   }

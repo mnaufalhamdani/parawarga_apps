@@ -11,6 +11,7 @@ import 'package:parawarga_apps/modules/issue/detail/issue_detail_page.dart';
 import 'package:parawarga_apps/modules/issue/input/issue_input_page.dart';
 import 'package:parawarga_apps/modules/issue/issue_page.dart';
 import 'package:parawarga_apps/modules/login/login_page.dart';
+import 'package:parawarga_apps/modules/my_area_unit/input/my_unit_input_page.dart';
 import 'package:parawarga_apps/modules/profile/profile_page.dart';
 import 'package:parawarga_apps/modules/register/register_page.dart';
 import 'package:parawarga_apps/modules/splash/splash_page.dart';
@@ -48,6 +49,7 @@ abstract class Routes {
   static const unitEmpty = '/unitEmpty';
   static const myArea = '/myArea';
   static const myAreaDetail = '/myAreaDetail';
+  static const myUnitInput = '/myUnitInput';
 }
 
 abstract class AppPages {
@@ -74,5 +76,6 @@ abstract class AppPages {
     GetPage(name: Routes.unitEmpty, page: () => UnitEmptyPage()),
     GetPage(name: Routes.myArea, page: () => MyAreaPage()),
     GetPage(name: Routes.myAreaDetail, page: () => MyAreaDetailPage()),
+    GetPage(name: Routes.myUnitInput, page: () => MyUnitInputPage()),
   ];
 }

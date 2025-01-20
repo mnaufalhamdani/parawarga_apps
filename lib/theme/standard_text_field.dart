@@ -106,7 +106,7 @@ class StandardTextState extends State<StandardTextField> {
               focusedErrorBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(baseRadiusForm), borderSide: BorderSide(color: Colors.red)),
               contentPadding: EdgeInsets.only(left: 20, right: 20),
               labelText: widget.titleHint,
-              labelStyle: TextStyle(color: colorTextSecondary),
+              labelStyle: TextStyle(color: colorTextMessage),
               filled: true,
               fillColor: Colors.grey.shade200,
               suffixIcon: widget.isPassword == true

@@ -38,7 +38,7 @@ class IssuePage extends GetView<IssueController> {
           onPressed: () {
             Get.toNamed(Routes.issueInput);
           },
-          child: Icon(Iconsax.add, color: colorDark)
+          child: Icon(Iconsax.add, color: colorPrimary)
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
