@@ -46,6 +46,8 @@
         <string>googlechromes</string>
         <string>comgooglemaps</string>
     </array>
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>App requires your location to pick coordinates.</string>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>

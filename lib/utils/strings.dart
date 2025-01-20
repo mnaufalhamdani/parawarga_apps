@@ -128,3 +128,4 @@ String labelCamera = 'Kamera';
 String labelGallery = 'Galeri';
 String labelPayNow = 'Bayar Sekarang!';
 String labelSettingUnit = 'Pengaturan Unit';
+String labelChooseLocation = 'Pilih Titik Lokasi';

@@ -4,6 +4,8 @@ import 'dart:math';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:geocoder2/geocoder2.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../theme/standard_snackbar.dart';
@@ -368,4 +370,17 @@ String currencyFormat(String number) {
     return '$integerPart,${parts[1]}';
   }
 
+}
+
+Future<Position> getLocation() async {
+  return await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+}
+
+Future<String> getAddressLocation(double latitude, double longitude) async {
+  final data = await Geocoder2.getDataFromCoordinates(
+      latitude: latitude,
+      longitude: longitude,
+      googleMapApiKey: "AIzaSyA0IdzEPhbsBIS_uzSD5JxJ4BJfxmKyS6s");
+  final text = "${data.address}, ${data.country}, ${data.state}";
+  return text;
 }

@@ -1,7 +1,6 @@
-import 'package:equatable/equatable.dart';
-import 'package:flutter/cupertino.dart';
 
-class VotingDetailModel extends Equatable {
+
+class VotingDetailModel{
   VotingDetailModel({
     this.id,
     this.areaId,
@@ -24,21 +23,6 @@ class VotingDetailModel extends Equatable {
   List<Detail> detail;
   List<Voter> voters;
 
-  @override
-  List<Object?> get props {
-    return [
-      id,
-      areaId,
-      name,
-      expired,
-      createdName,
-      areaName,
-      updatedAt,
-      detail,
-      voters,
-    ];
-  }
-
   factory VotingDetailModel.fromJson(Map<String, dynamic> json){
     return VotingDetailModel(
       id: json["id"],
@@ -54,7 +38,7 @@ class VotingDetailModel extends Equatable {
   }
 }
 
-class Detail extends Equatable {
+class Detail {
   Detail({
     this.votingId,
     this.urutan,
@@ -71,18 +55,6 @@ class Detail extends Equatable {
   String? totalUser;
   String? votePercent;
 
-  @override
-  List<Object?> get props {
-    return [
-      votingId,
-      urutan,
-      answer,
-      totalVote,
-      totalUser,
-      votePercent,
-    ];
-  }
-
   factory Detail.fromJson(Map<String, dynamic> json){
     return Detail(
       votingId: json["voting_id"],
@@ -95,7 +67,7 @@ class Detail extends Equatable {
   }
 }
 
-class Voter extends Equatable {
+class Voter {
   Voter({
     this.votingId,
     this.urutan,
@@ -111,18 +83,6 @@ class Voter extends Equatable {
   String? userId;
   String? createdName;
   String? updatedAt;
-
-  @override
-  List<Object?> get props {
-    return [
-      votingId,
-      urutan,
-      answer,
-      userId,
-      createdName,
-      updatedAt,
-    ];
-  }
 
   factory Voter.fromJson(Map<String, dynamic> json){
     return Voter(

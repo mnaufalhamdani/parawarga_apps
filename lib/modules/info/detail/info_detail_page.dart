@@ -85,12 +85,12 @@ class InfoDetailPage extends GetView<InfoDetailController> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    data.areaName.toString() ?? "",
+                    data.areaName.toString(),
                     style: TextStyle(
                         color: colorTextMessage, fontSize: 12),
                   ),
                   Text(
-                    data.updatedAt.toString() ?? "",
+                    data.updatedAt.toString(),
                     style: TextStyle(
                         color: colorTextlabel, fontSize: 12),
                   )
@@ -98,7 +98,7 @@ class InfoDetailPage extends GetView<InfoDetailController> {
             ),
             SizedBox(height: basePadding),
                 Text(
-                  data.title.toString() ?? "",
+                  data.title.toString(),
                   style: TextStyle(
                       color: colorTextTitle,
                       fontWeight: FontWeight.bold,
@@ -106,7 +106,7 @@ class InfoDetailPage extends GetView<InfoDetailController> {
                 ),
             SizedBox(height: basePaddingInContent),
             Text(
-              data.message.toString() ?? "",
+              data.message ?? "-",
               textAlign: TextAlign.justify,
               style: TextStyle(
                   color: colorTextMessage, fontSize: 12),

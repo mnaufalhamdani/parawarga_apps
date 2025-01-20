@@ -34,11 +34,14 @@ class MyUnitInputController extends GetxController{
     }
   }
 
+  // final initLatitude = Rx(0.0);
+  // final initLongitude = Rx(0.0);
+
   final formKey = GlobalKey<FormState>();
   final editingControllers = List.generate(2, (index) => TextEditingController());
-  // final switchControllers = Rx(false);
   final myUnitDomain = Rx(MyUnitDomain());
   final isContract = Rx(false);
+  final isLocated = Rx(false);
   final saveOrRemoveState = Rx(ResponseState<GeneralModel>());
 
   Future<void> saveMyUnit() async {

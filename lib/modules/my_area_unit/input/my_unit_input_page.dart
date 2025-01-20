@@ -1,13 +1,16 @@
 // ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers
 
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:parawarga_apps/modules/my_area_unit/input/my_unit_input_controller.dart';
 import 'package:parawarga_apps/theme/app_colors.dart';
 import 'package:parawarga_apps/theme/standard_button_primary.dart';
 import 'package:parawarga_apps/theme/standard_text_field.dart';
 import 'package:parawarga_apps/utils/strings.dart';
 
+import '../../../routes/app_pages.dart';
 import '../../../theme/app_theme.dart';
 import '../../../theme/standard_snackbar.dart';
 
@@ -17,8 +20,36 @@ class MyUnitInputPage extends GetView<MyUnitInputController> {
   static const argAreaId = 'argAreaId';
   static const argUnit = 'argUnit';
 
+  Future<void> checkLocationPermission() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    // Check if location services are enabled
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      showStandardSnackbar(Get.context!, TypeMessage.error,
+          message: "Location services are disabled. Please enable them.");
+    }
+
+    // Request permission
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        showStandardSnackbar(Get.context!, TypeMessage.error,
+            message: "Location permission denied.");
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      showStandardSnackbar(Get.context!, TypeMessage.error,
+          message: "Location permission is permanently denied.");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    checkLocationPermission();
     return Scaffold(
       appBar: AppBar(
         title: Text(labelSettingUnit, style: TextStyle(color: colorPrimary)),
@@ -77,7 +108,55 @@ class MyUnitInputPage extends GetView<MyUnitInputController> {
             titleHint: labelDesc,
             inputAction: TextInputAction.done),
           Padding(
-            padding: EdgeInsets.all(basePadding),
+            padding: EdgeInsets.only(left: basePadding, right: basePadding),
+            child: GestureDetector(
+              onTap: () async {
+                final result = await Get.toNamed(Routes.myUnitInputMap);
+                if (result != null){
+                  final latLong = result as LatLng;
+                  controller.myUnitDomain.value.latitude = latLong.latitude.toString();
+                  controller.myUnitDomain.value.longitude = latLong.longitude.toString();
+                  if (controller.myUnitDomain.value.latitude != null || controller.myUnitDomain.value.longitude != null) {
+                    controller.isLocated.value = true;
+                  }
+                  showStandardSnackbar(Get.context!, TypeMessage.info, message: ":Lokasi telah diatur");
+                }
+              },
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Expanded(
+                    child: Text("Atur Lokasi Unit",
+                      style: TextStyle(
+                        color: colorTextMessage,
+                        fontSize: 16)),
+                  ),
+                  Switch(
+                    value: controller.isLocated.value,
+                    onChanged: (value) async {
+                      final result = await Get.toNamed(Routes.myUnitInputMap);
+                      if (result != null){
+                        final latLong = result as LatLng;
+                        controller.myUnitDomain.value.latitude = latLong.latitude.toString();
+                        controller.myUnitDomain.value.longitude = latLong.longitude.toString();
+                        if (controller.myUnitDomain.value.latitude != null || controller.myUnitDomain.value.longitude != null) {
+                          controller.isLocated.value = true;
+                        }
+
+                        showStandardSnackbar(Get.context!, TypeMessage.info, message: ":Lokasi telah diatur");
+                      }
+                    },
+                    activeColor: colorPrimary, // Color when switched on
+                    inactiveThumbColor: colorTextMessage, // Thumb color when off
+                    inactiveTrackColor: Colors.grey.shade200, // Track color when off
+                  ),
+                ],
+              ),
+            )
+          ),
+          Padding(
+            padding: EdgeInsets.only(left: basePadding, right: basePadding, bottom: basePadding),
             child: Row(children: [
               Expanded(child: Text("Unit kontrak / sewa",
                 style: TextStyle(

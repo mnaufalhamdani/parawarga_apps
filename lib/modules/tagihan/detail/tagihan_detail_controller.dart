@@ -1,8 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:parawarga_apps/core/constants.dart';
 import 'package:parawarga_apps/models/response/tagihan_detail_model.dart';
 import 'package:parawarga_apps/modules/tagihan/detail/tagihan_detail_page.dart';
 
