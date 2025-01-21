@@ -9,6 +9,7 @@ import 'package:parawarga_apps/models/domain/area_domain.dart';
 import 'package:parawarga_apps/models/domain/user_area_domain.dart';
 import 'package:parawarga_apps/models/response/general_model.dart';
 import 'package:parawarga_apps/models/response/my_area_unit_model.dart';
+import 'package:parawarga_apps/models/response/my_unit_empty_model.dart';
 import 'package:parawarga_apps/routes/app_pages.dart';
 import 'package:parawarga_apps/theme/standard_snackbar.dart';
 
@@ -23,8 +24,10 @@ abstract class AreaRepository {
 
   Future<List<AreaUnitModel>> getEmptyUnit();
   Future<List<MyAreaUnitModel>> getMyAreaUnit();
+  Future<MyUnitEmptyModel> getMyUnitEmpty(String unitId);
   Future<GeneralModel> saveMyArea(String areaEncoded);
   Future<GeneralModel> saveMyUnit(MyUnitDomain domain);
+  Future<GeneralModel> saveManageEmptyUnit(MyUnitEmptyDomain domain);
   Future<GeneralModel> removeMyUnit(String unitId);
 }
 
@@ -75,6 +78,14 @@ class AreaRepositoryImpl extends AreaRepository {
   }
 
   @override
+  Future<MyUnitEmptyModel> getMyUnitEmpty(String unitId) async {
+    return await provider.getMyUnitEmpty(
+      token: await getToken(),
+      unitId: unitId
+    );
+  }
+
+  @override
   Future<GeneralModel> saveMyArea(String areaEncoded) async {
     log("saveMyArea: $areaEncoded");
     return await provider.saveMyArea(
@@ -91,6 +102,19 @@ class AreaRepositoryImpl extends AreaRepository {
     final json = jsonEncode(domain).toString();
     log("saveMyUnit: $json");
     return await provider.saveMyUnit(
+      token: await getToken(),
+      json: json
+    );
+  }
+
+  @override
+  Future<GeneralModel> saveManageEmptyUnit(MyUnitEmptyDomain domain) async {
+    final user = await getUserActive();
+    domain.created_by = user.userEntity.id;
+
+    final json = jsonEncode(domain).toString();
+    log("saveMyUnit: $json");
+    return await provider.saveManageEmptyUnit(
       token: await getToken(),
       json: json
     );

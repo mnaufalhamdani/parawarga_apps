@@ -28,6 +28,7 @@ import 'package:parawarga_apps/modules/issue/detail/issue_detail_controller.dart
 import 'package:parawarga_apps/modules/issue/input/issue_input_controller.dart';
 import 'package:parawarga_apps/modules/issue/issue_controller.dart';
 import 'package:parawarga_apps/modules/login/login_controller.dart';
+import 'package:parawarga_apps/modules/my_area_unit/empty/my_unit_empty_controller.dart';
 import 'package:parawarga_apps/modules/my_area_unit/input/my_unit_input_map_controller.dart';
 import 'package:parawarga_apps/modules/profile/profile_controller.dart';
 import 'package:parawarga_apps/modules/register/register_controller.dart';
@@ -85,7 +86,8 @@ class BindingDependency implements Bindings {
     Get.lazyPut(() => MyAreaController(repository: Get.find(), repositoryRegister: Get.find()), fenix: true);
     Get.lazyPut(() => MyAreaDetailController(), fenix: true);
     Get.lazyPut(() => MyUnitInputController(repository: Get.find()), fenix: true);
-    Get.lazyPut(() => MyUnitInputMapController(repository: Get.find()), fenix: true);
+    Get.lazyPut(() => MyUnitInputMapController(), fenix: true);
+    Get.lazyPut(() => MyUnitEmptyController(repository: Get.find()), fenix: true);
 
     /** Provider */
     Get.lazyPut(() => LoginProvider(), fenix: true);

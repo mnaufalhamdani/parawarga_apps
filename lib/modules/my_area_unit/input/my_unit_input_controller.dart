@@ -34,9 +34,6 @@ class MyUnitInputController extends GetxController{
     }
   }
 
-  // final initLatitude = Rx(0.0);
-  // final initLongitude = Rx(0.0);
-
   final formKey = GlobalKey<FormState>();
   final editingControllers = List.generate(2, (index) => TextEditingController());
   final myUnitDomain = Rx(MyUnitDomain());

@@ -22,6 +22,7 @@ String msgFieldShortLength = 'Isian terlalu pendek';
 String msgFieldPassword = 'Isian password harus kombinasi huruf kecil, huruf besar dan angka';
 String msgFieldEmail = 'Isian email tidak valid';
 String msgSessionExpired = 'Sesi kadaluarsa, silahkan masuk kembali';
+String msgDateBetween = 'Tanggal akhir harus melebihi tanggal mulai';
 
 //Greeting
 String greetingDialog = 'Pilih Salah Satu Item';
@@ -129,3 +130,4 @@ String labelGallery = 'Galeri';
 String labelPayNow = 'Bayar Sekarang!';
 String labelSettingUnit = 'Pengaturan Unit';
 String labelChooseLocation = 'Pilih Titik Lokasi';
+String labelBackNow = 'Kembali Sekarang';

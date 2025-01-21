@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:parawarga_apps/core/data_state.dart';
 import 'package:parawarga_apps/models/response/my_area_unit_model.dart';
+import 'package:parawarga_apps/modules/my_area_unit/empty/my_unit_empty_page.dart';
 import 'package:parawarga_apps/modules/my_area_unit/input/my_unit_input_page.dart';
 import 'package:parawarga_apps/modules/my_area_unit/item/setting_unit_tile.dart';
 import 'package:parawarga_apps/theme/app_colors.dart';
@@ -297,7 +298,11 @@ class MyAreaPage extends GetView<MyAreaController> {
                         });
                         controller.getMyUnit();
                       } else if (model == 1) {//atur unit kosong
-
+                        await Get.toNamed(Routes.myUnitEmpty, arguments: {
+                          MyUnitEmptyPage.argUnitId: data.id,
+                          MyUnitEmptyPage.argUnitName: data.name,
+                        });
+                        controller.getMyUnit();
                       } else if (model == 2) {//lihat lokasi
                         if(data.latitude != null && data.longitude != null) {
                           final googleUrl = "https://www.google.com/maps/search/?api=1&query=${data.latitude},${data.longitude}";
