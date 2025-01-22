@@ -139,9 +139,7 @@ class MyAreaTileState extends State<MyAreaTile> {
                     ]),
                     GestureDetector(
                       onTap: () {
-                        if (!widget.onPressedManagement.isNull) {
-                          widget.onPressedManagement(widget.model);
-                        }
+                        widget.onPressedManagement(widget.model);
                       },
                       child: Row(children: [
                         Expanded(
@@ -177,9 +175,7 @@ class MyAreaTileState extends State<MyAreaTile> {
                     SizedBox(height: basePaddingInContent / 2),
                     GestureDetector(
                       onTap: () {
-                        if (!widget.onPressedMyUnit.isNull) {
-                          widget.onPressedMyUnit(widget.model);
-                        }
+                        widget.onPressedMyUnit(widget.model);
                       },
                       child: Row(children: [
                         Expanded(
@@ -281,9 +277,7 @@ class MyUnitTileState extends State<MyUnitTile> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        if (!widget.onPressed.isNull) {
-          widget.onPressed(widget.model);
-        }
+        widget.onPressed(widget.model);
       },
       child: Padding(padding: EdgeInsets.only(left: basePadding, right: basePadding),
           child: SizedBox(

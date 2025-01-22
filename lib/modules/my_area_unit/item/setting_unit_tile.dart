@@ -36,9 +36,7 @@ class SettingUnitTileState extends State<SettingUnitTile> {
       width: Get.width,
       child: TextButton(
           onPressed: () {
-            if (!widget.onPressed.isNull) {
-              widget.onPressed(widget.index);
-            }
+            widget.onPressed(widget.index);
           },
           child: Text(message,
               style: TextStyle(color: (widget.isLast) ? Colors.red.shade700 : colorTextMessage, fontSize: 16))

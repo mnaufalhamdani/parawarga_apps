@@ -29,9 +29,7 @@ class ArisanDetailTileState extends State<ArisanDetailTile> {
   Widget build(BuildContext context) {
     return GestureDetector(
         onTap: () {
-          if (!widget.onPressed.isNull) {
-            widget.onPressed(widget.model);
-          }
+          widget.onPressed(widget.model);
         },
         child: Column(
           children: [
@@ -92,7 +90,7 @@ class ArisanHistoryTileState extends State<ArisanHistoryTile> {
   Widget build(BuildContext context) {
     return GestureDetector(
         onTap: () {
-          if (!widget.onPressed.isNull) {
+          if (widget.onPressed != null) {
             widget.onPressed(widget.model);
           }
         },

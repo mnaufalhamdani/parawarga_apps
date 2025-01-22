@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_const_constructors_in_immutables, use_super_parameters, prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:parawarga_apps/theme/app_theme.dart';
 
 import 'app_colors.dart';
@@ -41,18 +40,18 @@ class StandardButtonPrimaryState extends State<StandardButtonPrimary> {
     return SizedBox(
       child: ElevatedButton(
         onPressed: () {
-          if(widget.isEnabled.isNull || widget.isEnabled == true) {
-            if (!widget.formKey.isNull){
+          if(widget.isEnabled == null || widget.isEnabled == true) {
+            if (widget.formKey != null){
               if (widget.formKey!.currentState!.validate()) {
                 if (widget.isLoading == false){
-                  if(!widget.onPressed.isNull){
+                  if(widget.onPressed != null){
                     widget.onPressed!();
                   }
                 }
               }
             }else {
               if (widget.isLoading == false){
-                if(!widget.onPressed.isNull){
+                if(widget.onPressed != null){
                   widget.onPressed!();
                 }
               }
@@ -60,7 +59,7 @@ class StandardButtonPrimaryState extends State<StandardButtonPrimary> {
           }
         },
         style: ButtonStyle(
-            backgroundColor: widget.isEnabled.isNull || widget.isEnabled == true
+            backgroundColor: widget.isEnabled == null || widget.isEnabled == true
                 ? widget.isLoading == true
                 ? WidgetStateProperty.all(Colors.grey)
                 : WidgetStateProperty.all(widget.buttonColor ?? colorButtonThird)
@@ -81,7 +80,7 @@ class StandardButtonPrimaryState extends State<StandardButtonPrimary> {
                 )))
             : Text(widget.titleHint,
             style: TextStyle(
-                color: (widget.color.isNull) ? colorTextSecondary : widget.color,
+                color: (widget.color == null) ? colorTextSecondary : widget.color,
                 fontWeight: FontWeight.bold)),
       ),
     );

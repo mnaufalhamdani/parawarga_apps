@@ -66,7 +66,7 @@ class StandardTextState extends State<StandardTextField> {
           obscureText: widget.isPassword == true ? obscurePassword : false,
           textCapitalization: TextCapitalization.sentences,
           validator: (value) {
-            if (!widget.msgError.isNull) {
+            if (widget.msgError != null) {
               if (value == null || value.isEmpty) {
                 return widget.msgError;
               }
@@ -88,7 +88,7 @@ class StandardTextState extends State<StandardTextField> {
             return null;
           },
           onTap: () {
-            if (!widget.onPressed.isNull) {
+            if (widget.onPressed != null) {
               widget.onPressed!();
             }
           },

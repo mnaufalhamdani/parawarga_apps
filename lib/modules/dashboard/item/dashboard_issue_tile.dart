@@ -1,6 +1,5 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:parawarga_apps/models/response/view_dashboard_model.dart';
 import 'package:parawarga_apps/theme/app_theme.dart';
@@ -26,9 +25,7 @@ class DashboardIssueTileState extends State<DashboardIssueTile> {
   Widget build(BuildContext context) {
     return GestureDetector(
         onTap: () {
-          if (!widget.onPressed.isNull) {
-            widget.onPressed(widget.model);
-          }
+          widget.onPressed(widget.model);
         },
         child: _buildContent());
   }

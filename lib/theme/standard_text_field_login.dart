@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_const_constructors_in_immutables, use_super_parameters, prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:parawarga_apps/theme/app_theme.dart';
 
@@ -73,7 +72,7 @@ class StandardTextState extends State<StandardTextFieldLogin> {
             style: TextStyle(fontSize: 14, color: colorTextPrimary),
             obscureText: widget.isPassword == true ? obscurePassword : false,
             validator: (value) {
-              if (!widget.msgError.isNull) {
+              if (widget.msgError != null) {
                 if (value == null || value.isEmpty) {
                   return widget.msgError;
                 }
@@ -81,7 +80,7 @@ class StandardTextState extends State<StandardTextFieldLogin> {
               return null;
             },
             onTap: () {
-              if (!widget.onPressed.isNull) {
+              if (widget.onPressed != null) {
                 widget.onPressed!();
               }
             },

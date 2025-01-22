@@ -29,9 +29,7 @@ class HistoryTileState extends State<HistoryTile> {
   Widget build(BuildContext context) {
     return GestureDetector(
         onTap: () {
-          if (!widget.onPressed.isNull) {
-            widget.onPressed(widget.model);
-          }
+          widget.onPressed(widget.model);
         },
         child: _buildContent(context));
   }

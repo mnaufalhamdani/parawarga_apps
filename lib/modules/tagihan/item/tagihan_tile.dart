@@ -27,9 +27,7 @@ class TagihanTileState extends State<TagihanTile> {
   Widget build(BuildContext context) {
     return GestureDetector(
         onTap: () {
-          if (!widget.onPressed.isNull) {
-            widget.onPressed(widget.model);
-          }
+          widget.onPressed(widget.model);
         },
         child: Card(
             shape: RoundedRectangleBorder(

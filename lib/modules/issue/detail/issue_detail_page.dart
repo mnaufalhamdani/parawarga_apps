@@ -6,7 +6,6 @@ import 'package:iconsax/iconsax.dart';
 import 'package:parawarga_apps/modules/issue/detail/issue_detail_controller.dart';
 import 'package:parawarga_apps/modules/issue/item/issue_status_tile.dart';
 import 'package:parawarga_apps/theme/app_colors.dart';
-import 'package:parawarga_apps/theme/standard_zoom_image_dialog.dart';
 import 'package:parawarga_apps/utils/strings.dart';
 import 'package:widget_zoom/widget_zoom.dart';
 

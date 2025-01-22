@@ -6,7 +6,6 @@ import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:parawarga_apps/models/domain/issue_domain.dart';
 import 'package:parawarga_apps/theme/app_theme.dart';
-import 'package:parawarga_apps/theme/standard_picker_field.dart';
 import 'package:widget_zoom/widget_zoom.dart';
 
 import '../../../theme/app_colors.dart';
@@ -55,22 +54,18 @@ class IssueInputFileTileState extends State<IssueInputFileTile> {
               ),
             ),
             IconButton(
-                icon: Icon(Iconsax.edit, color: colorSecondary, size: baseRadius),
-                onPressed: () {
-                  widget.onPressed(widget.model, widget.index);
-                }
+              icon: Icon(Iconsax.edit, color: colorSecondary, size: baseRadius),
+              onPressed: () {
+                widget.onPressed(widget.model, widget.index);
+              }
             ),
-            widget.onRemove.isNull
-                ? Container()
-                : IconButton(
-                icon: Icon(Iconsax.trash, color: Colors.red.shade700, size: baseRadius),
-                onPressed: () {
-                  setState(() {
-                    if(!widget.onRemove.isNull){
-                      widget.onRemove(widget.model, widget.index);
-                    }
-                  });
-                }
+            IconButton(
+              icon: Icon(Iconsax.trash, color: Colors.red.shade700, size: baseRadius),
+              onPressed: () {
+                setState(() {
+                  widget.onRemove(widget.model, widget.index);
+                });
+              }
             )
           ]),
           _loadFileFoto()
@@ -80,7 +75,7 @@ class IssueInputFileTileState extends State<IssueInputFileTile> {
   }
 
   _loadFileFoto() {
-    if(!widget.model.attachment.isNull) {
+    if(widget.model.attachment != null) {
       if (widget.model.attachment.toString().contains("http")){
         return ClipRRect(
           borderRadius: BorderRadius.circular(baseRadiusCard),

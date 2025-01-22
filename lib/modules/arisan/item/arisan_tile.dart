@@ -37,9 +37,7 @@ class ArisanTileState extends State<ArisanTile> {
       ),
       child: GestureDetector(
           onTap: () {
-            if (!widget.onPressed.isNull) {
-              widget.onPressed(widget.model);
-            }
+            widget.onPressed(widget.model);
           },
           child: _buildContent(context)),
     );
