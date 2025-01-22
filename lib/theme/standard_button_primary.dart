@@ -51,7 +51,11 @@ class StandardButtonPrimaryState extends State<StandardButtonPrimary> {
                 }
               }
             }else {
-              widget.onPressed!();
+              if (widget.isLoading == false){
+                if(!widget.onPressed.isNull){
+                  widget.onPressed!();
+                }
+              }
             }
           }
         },

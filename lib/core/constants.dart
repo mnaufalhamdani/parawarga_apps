@@ -4,9 +4,10 @@ import 'dart:math';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:geocoder2/geocoder2.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:parawarga_apps/core/failure_response.dart';
 
 import '../theme/standard_snackbar.dart';
 import '../utils/strings.dart';
@@ -372,15 +373,26 @@ String currencyFormat(String number) {
 
 }
 
-Future<Position> getLocation() async {
-  return await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+Future<Position?> getLocation() async {
+  Position? position;
+  await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high).then((value) {
+    position = value;
+  }).catchError((error) {
+    throw FailureResponse(message: error.toString());
+  });
+  return position;
 }
 
 Future<String> getAddressLocation(double latitude, double longitude) async {
-  final data = await Geocoder2.getDataFromCoordinates(
-      latitude: latitude,
-      longitude: longitude,
-      googleMapApiKey: "AIzaSyA0IdzEPhbsBIS_uzSD5JxJ4BJfxmKyS6s");
-  final text = "${data.address}, ${data.country}, ${data.state}";
-  return text;
+  String response = msgUnknown;
+  await placemarkFromCoordinates(latitude, longitude).then((value) {
+    if (value.isNotEmpty) {
+      response = "${value.first.street}, ${value.first.subLocality}, ${value.first.locality}, ${value.first.subAdministrativeArea}, ${value.first.administrativeArea}, ${value.first.country}";
+    }else{
+      response = "ini $msgUnknown";
+    }
+  }).catchError((error) {
+    throw FailureResponse(message: error.toString());
+  });
+  return response;
 }

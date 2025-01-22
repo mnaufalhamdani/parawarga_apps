@@ -131,19 +131,18 @@ class MyUnitEmptyPage extends GetView<MyUnitEmptyController> {
                 width: Get.width,
                 margin: EdgeInsets.only(left: basePadding, right: basePadding, top: basePadding),
                 child: StandardButtonPrimary(
+                  formKey: controller.formKey,
                   titleHint: labelSubmit,
                   isLoading: controller.saveState.value.isLoading,
                   onPressed: () async {
-                    if (controller.formKey.currentState!.validate()) {
-                      await controller.saveManageEmptyUnit().whenComplete(() {
-                        if (controller.saveState.value.error != null){
-                          showStandardSnackbar(context, TypeMessage.error, message: controller.saveState.value.error?.message.toString());
-                        }else {
-                          showStandardSnackbar(context, TypeMessage.success, message: controller.saveState.value.data?.data.toString());
-                          Get.back();
-                        }
-                      });
-                    }
+                    await controller.saveManageEmptyUnit().whenComplete(() {
+                      if (controller.saveState.value.error != null){
+                        showStandardSnackbar(context, TypeMessage.error, message: controller.saveState.value.error?.message.toString());
+                      }else {
+                        showStandardSnackbar(context, TypeMessage.success, message: controller.saveState.value.data?.data.toString());
+                        Get.back();
+                      }
+                    });
                   },
                 ),
               )

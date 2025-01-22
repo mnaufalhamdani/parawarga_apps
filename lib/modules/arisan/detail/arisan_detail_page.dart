@@ -56,7 +56,7 @@ class ArisanDetailPage extends GetView<ArisanDetailController> {
                       _buildContentBottom(context, data);
                     }
                   },
-                  child: Icon(Iconsax.convert_3d_cube, color: colorPrimary)
+                  child: Icon(Iconsax.convert_3d_cube, color: colorTextSecondary)
               )
           )),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,

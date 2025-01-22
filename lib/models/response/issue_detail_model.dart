@@ -9,6 +9,7 @@ class IssueDetailModel {
     this.additionalLocation,
     this.createdBy,
     this.createdName,
+    this.photo,
     this.areaName,
     this.updatedAt,
     required this.history,
@@ -24,6 +25,7 @@ class IssueDetailModel {
   String? additionalLocation;
   String? createdBy;
   String? createdName;
+  String? photo;
   String? areaName;
   String? updatedAt;
   List<History> history;
@@ -40,6 +42,7 @@ class IssueDetailModel {
       additionalLocation: json["additional_location"],
       createdBy: json["created_by"],
       createdName: json["created_name"],
+      photo: json["photo"],
       areaName: json["area_name"],
       updatedAt: json["updated_at"],
       history: json["history"] == null ? [] : List<History>.from(json["history"]!.map((x) => History.fromJson(x))),

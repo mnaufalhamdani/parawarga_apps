@@ -47,7 +47,7 @@ class DashboardPage extends GetView<DashboardController> {
               shape: CircleBorder(),
               backgroundColor: Colors.red,
               onPressed: () {},
-              child: Icon(Iconsax.volume_high, color: Colors.white)
+              child: Icon(Iconsax.alarm, color: Colors.white)
           )
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,

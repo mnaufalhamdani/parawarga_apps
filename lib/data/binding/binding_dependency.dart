@@ -79,7 +79,7 @@ class BindingDependency implements Bindings {
     Get.lazyPut(() => HistoryController(repository: Get.find()), fenix: true);
     Get.lazyPut(() => IssueController(repository: Get.find()), fenix: true);
     Get.lazyPut(() => IssueDetailController(repository: Get.find()), fenix: true);
-    Get.lazyPut(() => IssueInputController(), fenix: true);
+    Get.lazyPut(() => IssueInputController(repository: Get.find()), fenix: true);
     Get.lazyPut(() => InfoController(repository: Get.find()), fenix: true);
     Get.lazyPut(() => InfoDetailController(repository: Get.find()), fenix: true);
     Get.lazyPut(() => UnitEmptyController(repository: Get.find()), fenix: true);

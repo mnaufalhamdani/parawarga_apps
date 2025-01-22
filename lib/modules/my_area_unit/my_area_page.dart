@@ -46,7 +46,7 @@ class MyAreaPage extends GetView<MyAreaController> {
           onPressed: () {
             _buildContentBottomAddMyArea(context);
           },
-          child: Icon(Iconsax.add, color: colorPrimary)
+          child: Icon(Iconsax.add, color: colorTextSecondary)
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );

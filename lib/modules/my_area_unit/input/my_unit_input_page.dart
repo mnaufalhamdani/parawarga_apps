@@ -177,19 +177,18 @@ class MyUnitInputPage extends GetView<MyUnitInputController> {
             width: Get.width,
             margin: EdgeInsets.only(left: basePadding, right: basePadding),
             child: StandardButtonPrimary(
+              formKey: controller.formKey,
               titleHint: labelSubmit,
               isLoading: controller.saveOrRemoveState.value.isLoading,
               onPressed: () async {
-                if (controller.formKey.currentState!.validate()) {
-                  await controller.saveMyUnit().whenComplete(() {
-                    if (controller.saveOrRemoveState.value.error != null){
-                      showStandardSnackbar(context, TypeMessage.error, message: controller.saveOrRemoveState.value.error?.message.toString());
-                    }else {
-                      showStandardSnackbar(context, TypeMessage.success, message: controller.saveOrRemoveState.value.data?.data.toString());
-                      Get.back();
-                    }
-                  });
-                }
+                await controller.saveMyUnit().whenComplete(() {
+                  if (controller.saveOrRemoveState.value.error != null){
+                    showStandardSnackbar(context, TypeMessage.error, message: controller.saveOrRemoveState.value.error?.message.toString());
+                  }else {
+                    showStandardSnackbar(context, TypeMessage.success, message: controller.saveOrRemoveState.value.data?.data.toString());
+                    Get.back();
+                  }
+                });
               },
             ),
           )
