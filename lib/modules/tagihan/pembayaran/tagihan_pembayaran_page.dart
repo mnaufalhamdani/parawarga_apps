@@ -13,9 +13,10 @@ import 'package:parawarga_apps/theme/app_colors.dart';
 import 'package:parawarga_apps/theme/standard_button_primary.dart';
 import 'package:parawarga_apps/theme/standard_snackbar.dart';
 import 'package:parawarga_apps/utils/strings.dart';
+import 'package:widget_zoom/widget_zoom.dart';
 
 import '../../../theme/app_theme.dart';
-import '../../../theme/picker_dialog.dart';
+import '../../../theme/standard_picker_dialog.dart';
 import '../../../theme/standard_error_page.dart';
 
 class TagihanPembayaranPage extends GetView<TagihanPembayaranController> {
@@ -367,7 +368,7 @@ class TagihanPembayaranPage extends GetView<TagihanPembayaranController> {
                 GestureDetector(
                   onTap: () {
                     if (data.status == 0){
-                      pickerDialog(context, (path) {
+                      StandardPickerDialog.show(context, (path) {
                         controller.tagihanReceipt.value = path;
                       });
                     }
@@ -383,7 +384,10 @@ class TagihanPembayaranPage extends GetView<TagihanPembayaranController> {
                           child: (data.receipt != null)
                             ? ClipRRect(
                               borderRadius: BorderRadius.circular(baseRadiusCard),
-                              child: Image.network(data.receipt.toString(), fit: BoxFit.cover)
+                              child: WidgetZoom(
+                                heroAnimationTag: "Zoom",
+                                zoomWidget: Image.network(data.receipt.toString(), fit: BoxFit.cover)
+                              )
                             )
                             : (controller.tagihanReceipt.value != null)
                               ? ClipRRect(

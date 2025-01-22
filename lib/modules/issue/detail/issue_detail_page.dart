@@ -6,7 +6,9 @@ import 'package:iconsax/iconsax.dart';
 import 'package:parawarga_apps/modules/issue/detail/issue_detail_controller.dart';
 import 'package:parawarga_apps/modules/issue/item/issue_status_tile.dart';
 import 'package:parawarga_apps/theme/app_colors.dart';
+import 'package:parawarga_apps/theme/standard_zoom_image_dialog.dart';
 import 'package:parawarga_apps/utils/strings.dart';
+import 'package:widget_zoom/widget_zoom.dart';
 
 import '../../../theme/app_theme.dart';
 import '../../../theme/standard_error_page.dart';
@@ -102,7 +104,20 @@ class IssueDetailPage extends GetView<IssueDetailController> {
             Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Icon(Iconsax.user, color: colorTextTitle, size: 30),
+                  SizedBox(
+                      width: 30,
+                      height: 30,
+                      child: CircleAvatar(
+                        child: ClipOval(
+                          child: (controller.issueState.value.data?.photo != null)
+                            ? WidgetZoom(
+                              heroAnimationTag: "Zoom",
+                              zoomWidget: Image.network(controller.issueState.value.data!.photo.toString(), width: 30, height: 30, fit: BoxFit.cover)
+                            )
+                            : Icon(Iconsax.user, color: colorTextTitle, size: 30),
+                        ),
+                      ),
+                    ),
                   SizedBox(width: basePaddingInContent),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -132,15 +147,18 @@ class IssueDetailPage extends GetView<IssueDetailController> {
                 },
                 itemBuilder: (context, index) {
                   return ClipRRect(
-                      borderRadius: BorderRadius.circular(basePaddingInContent),
-                      child: Image.network(
-                          data.attachment[index].attachment.toString(),
-                          fit: BoxFit.cover,
-                          errorBuilder: (BuildContext context, Object exception,
-                              StackTrace? stackTrace) {
-                            return Icon(
-                                Iconsax.gallery_slash, color: colorTextTitle);
-                          })
+                    borderRadius: BorderRadius.circular(basePaddingInContent),
+                    child: WidgetZoom(
+                      heroAnimationTag: "Zoom",
+                      zoomWidget: Image.network(
+                        data.attachment[index].attachment.toString(),
+                        fit: BoxFit.cover,
+                        errorBuilder: (BuildContext context, Object exception,
+                            StackTrace? stackTrace) {
+                          return Icon(
+                              Iconsax.gallery_slash, color: colorTextTitle);
+                        }),
+                    )
                   );
                 },
               ),
