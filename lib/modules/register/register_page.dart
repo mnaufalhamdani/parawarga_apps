@@ -8,8 +8,8 @@ import 'package:iconsax/iconsax.dart';
 import 'package:parawarga_apps/modules/register/register_controller.dart';
 import 'package:parawarga_apps/theme/app_colors.dart';
 import 'package:parawarga_apps/theme/app_theme.dart';
-import 'package:parawarga_apps/theme/picker_dialog.dart';
 import 'package:parawarga_apps/theme/standard_button_register.dart';
+import 'package:parawarga_apps/theme/standard_picker_dialog.dart';
 import 'package:parawarga_apps/theme/standard_snackbar.dart';
 
 import '../../theme/standard_text_field.dart';
@@ -271,7 +271,7 @@ class RegisterPage extends GetView<RegisterController> {
                               style: TextStyle(color: colorTextSecondary))),
                       GestureDetector(
                           onTap: () {
-                            pickerDialog(context, (path) {
+                            StandardPickerDialog.show(context, (path) {
                               controller.registerWargaDomain.value.photo_temp = path;
                             });
                           },
