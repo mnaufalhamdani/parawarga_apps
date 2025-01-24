@@ -28,8 +28,12 @@ import 'package:parawarga_apps/modules/issue/detail/issue_detail_controller.dart
 import 'package:parawarga_apps/modules/issue/input/issue_input_controller.dart';
 import 'package:parawarga_apps/modules/issue/issue_controller.dart';
 import 'package:parawarga_apps/modules/login/login_controller.dart';
-import 'package:parawarga_apps/modules/my_area_unit/empty/my_unit_empty_controller.dart';
-import 'package:parawarga_apps/modules/my_area_unit/input/my_unit_input_map_controller.dart';
+import 'package:parawarga_apps/modules/my_area_unit/my_area_controller.dart';
+import 'package:parawarga_apps/modules/profile/about_app/about_app_controller.dart';
+import 'package:parawarga_apps/modules/profile/my_unit/empty/my_unit_empty_controller.dart';
+import 'package:parawarga_apps/modules/profile/my_unit/input/my_unit_input_controller.dart';
+import 'package:parawarga_apps/modules/profile/my_unit/input/my_unit_input_map_controller.dart';
+import 'package:parawarga_apps/modules/profile/my_unit/my_unit_controller.dart';
 import 'package:parawarga_apps/modules/profile/profile_controller.dart';
 import 'package:parawarga_apps/modules/register/register_controller.dart';
 import 'package:parawarga_apps/modules/splash/splash_controller.dart';
@@ -42,9 +46,6 @@ import 'package:parawarga_apps/modules/voting/detail/voting_detail_controller.da
 import 'package:parawarga_apps/modules/voting/voting_controller.dart';
 
 import '../../config/local/database_config.dart';
-import '../../modules/my_area_unit/detail/my_area_detail_controller.dart';
-import '../../modules/my_area_unit/input/my_unit_input_controller.dart';
-import '../../modules/my_area_unit/my_area_controller.dart';
 import '../../utils/environment.dart';
 import '../provider/tagihan_provider.dart';
 import '../repository/register_repository.dart';
@@ -84,10 +85,11 @@ class BindingDependency implements Bindings {
     Get.lazyPut(() => InfoDetailController(repository: Get.find()), fenix: true);
     Get.lazyPut(() => UnitEmptyController(repository: Get.find()), fenix: true);
     Get.lazyPut(() => MyAreaController(repository: Get.find(), repositoryRegister: Get.find()), fenix: true);
-    Get.lazyPut(() => MyAreaDetailController(), fenix: true);
+    Get.lazyPut(() => MyUnitController(repository: Get.find(), repositoryRegister: Get.find()), fenix: true);
     Get.lazyPut(() => MyUnitInputController(repository: Get.find()), fenix: true);
     Get.lazyPut(() => MyUnitInputMapController(), fenix: true);
     Get.lazyPut(() => MyUnitEmptyController(repository: Get.find()), fenix: true);
+    Get.lazyPut(() => AboutAppController(repository: Get.find()), fenix: true);
 
     /** Provider */
     Get.lazyPut(() => LoginProvider(), fenix: true);

@@ -41,7 +41,7 @@ class StandardAlertDialog {
                     titleHint: labelNo,
                     color: Colors.white,
                     buttonColor: Colors.red.shade700,
-                    onPressed: (() async {
+                    onPressed: (() {
                       Get.back();
                     })),
                 SizedBox(width: basePaddingInContent),

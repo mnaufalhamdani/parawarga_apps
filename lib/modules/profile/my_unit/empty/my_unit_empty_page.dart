@@ -3,14 +3,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:parawarga_apps/modules/my_area_unit/empty/my_unit_empty_controller.dart';
 import 'package:parawarga_apps/theme/app_colors.dart';
 import 'package:parawarga_apps/theme/standard_button_primary.dart';
 import 'package:parawarga_apps/theme/standard_text_field.dart';
 import 'package:parawarga_apps/utils/strings.dart';
 
-import '../../../theme/app_theme.dart';
-import '../../../theme/standard_snackbar.dart';
+import '../../../../theme/app_theme.dart';
+import '../../../../theme/standard_snackbar.dart';
+import 'my_unit_empty_controller.dart';
 
 class MyUnitEmptyPage extends GetView<MyUnitEmptyController> {
   const MyUnitEmptyPage({super.key});

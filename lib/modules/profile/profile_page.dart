@@ -9,6 +9,7 @@ import 'package:parawarga_apps/routes/app_pages.dart';
 import 'package:parawarga_apps/theme/app_colors.dart';
 import 'package:parawarga_apps/theme/standard_snackbar.dart';
 import 'package:parawarga_apps/utils/strings.dart';
+import 'package:widget_zoom/widget_zoom.dart';
 
 import '../../theme/app_theme.dart';
 import '../../theme/standard_alert_dialog.dart';
@@ -90,7 +91,7 @@ class ProfilePage extends GetView<ProfileController> {
                                             Get.back();
                                           },
                                           child: Icon(Iconsax.arrow_left,
-                                              color: colorDark)),
+                                              color: colorTextTitle)),
                                     ),
                                     Expanded(
                                         flex: 3,
@@ -102,24 +103,19 @@ class ProfilePage extends GetView<ProfileController> {
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.end,
                                             children: [
-                                              Text(
-                                                controller.userState.value.data?.userEntity.name
-                                                        .toString() ??
-                                                    "",
+                                              Text(controller.userState.value.data?.userEntity.name ?? "",
                                                 style: TextStyle(
-                                                    color: colorTextPrimary,
+                                                    color: colorTextTitle,
                                                     fontWeight: FontWeight.bold,
                                                     fontSize: 16),
                                                 maxLines: 1,
                                                 overflow: TextOverflow.ellipsis,
                                               ),
                                               Text(
-                                                controller.userState.value.data?.userEntity.email
-                                                        .toString() ??
-                                                    "",
+                                                controller.userState.value.data?.userEntity.email ?? "",
                                                 style: TextStyle(
-                                                    color: colorTextSecondary,
-                                                    fontSize: 11),
+                                                    color: colorTextMessage,
+                                                    fontSize: 12),
                                               ),
                                             ],
                                           ),
@@ -132,11 +128,13 @@ class ProfilePage extends GetView<ProfileController> {
                                             width: 40,
                                             height: 40,
                                             child: CircleAvatar(
-                                              backgroundColor: colorDark,
+                                              backgroundColor: colorTextTitle,
                                               child: ClipOval(
                                                 child: (controller.userState.value.data?.userEntity.photo != null)
-                                                    ? Image.network(
-                                                    controller.userState.value.data!.userEntity.photo.toString(), width: 40, height: 40, fit: BoxFit.cover)
+                                                    ? WidgetZoom(
+                                                        heroAnimationTag: "Zoom",
+                                                        zoomWidget: Image.network(controller.userState.value.data!.userEntity.photo.toString(), width: 40, height: 40, fit: BoxFit.cover),
+                                                    )
                                                     : Text(
                                                         getInitials(controller.userState.value.data?.userEntity.name.toString() ?? ""),
                                                         style: TextStyle(
@@ -177,13 +175,13 @@ class ProfilePage extends GetView<ProfileController> {
                             Expanded(
                                 flex: 1,
                                 child: Icon(Iconsax.clipboard_text,
-                                    color: colorDark)),
+                                    color: colorTextTitle)),
                             Expanded(
                                 flex: 5,
                                 child: Text(
                                   labelAllMenu,
                                   style: TextStyle(
-                                      color: colorTextPrimary,
+                                      color: colorTextTitle,
                                       fontWeight: FontWeight.bold,
                                       fontSize: 12),
                                   maxLines: 1,
@@ -194,7 +192,7 @@ class ProfilePage extends GetView<ProfileController> {
                                 child: Align(
                                   alignment: Alignment.centerRight,
                                   child: Icon(Iconsax.arrow_right_3,
-                                      color: colorDark),
+                                      color: colorTextTitle),
                                 ))
                           ]),
                     ),
@@ -210,13 +208,13 @@ class ProfilePage extends GetView<ProfileController> {
                             Expanded(
                                 flex: 1,
                                 child: Icon(Iconsax.profile_2user,
-                                    color: colorDark)),
+                                    color: colorTextTitle)),
                             Expanded(
                                 flex: 5,
                                 child: Text(
                                   labelAdminCitizen,
                                   style: TextStyle(
-                                      color: colorTextPrimary,
+                                      color: colorTextTitle,
                                       fontWeight: FontWeight.bold,
                                       fontSize: 12),
                                   maxLines: 1,
@@ -227,14 +225,16 @@ class ProfilePage extends GetView<ProfileController> {
                                 child: Align(
                                   alignment: Alignment.centerRight,
                                   child: Icon(Iconsax.arrow_right_3,
-                                      color: colorDark),
+                                      color: colorTextTitle),
                                 ))
                           ]),
                     ),
                   ),
                   Divider(color: Colors.grey.shade200),
                   GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      Get.toNamed(Routes.myUnit);
+                    },
                     child: Padding(
                       padding: EdgeInsets.all(baseRadiusForm),
                       child: Row(
@@ -243,13 +243,13 @@ class ProfilePage extends GetView<ProfileController> {
                             Expanded(
                                 flex: 1,
                                 child:
-                                    Icon(Iconsax.house, color: colorDark)),
+                                    Icon(Iconsax.house, color: colorTextTitle)),
                             Expanded(
                                 flex: 5,
                                 child: Text(
-                                  labelManageUnit,
+                                  labelMyUnit,
                                   style: TextStyle(
-                                      color: colorTextPrimary,
+                                      color: colorTextTitle,
                                       fontWeight: FontWeight.bold,
                                       fontSize: 12),
                                   maxLines: 1,
@@ -260,7 +260,7 @@ class ProfilePage extends GetView<ProfileController> {
                                 child: Align(
                                   alignment: Alignment.centerRight,
                                   child: Icon(Iconsax.arrow_right_3,
-                                      color: colorDark),
+                                      color: colorTextTitle),
                                 ))
                           ]),
                     ),
@@ -280,13 +280,13 @@ class ProfilePage extends GetView<ProfileController> {
                               Expanded(
                                   flex: 1,
                                   child:
-                                      Icon(Iconsax.setting, color: colorDark)),
+                                      Icon(Iconsax.setting, color: colorTextTitle)),
                               Expanded(
                                   flex: 5,
                                   child: Text(
                                     labelManageAdmin,
                                     style: TextStyle(
-                                        color: colorTextPrimary,
+                                        color: colorTextTitle,
                                         fontWeight: FontWeight.bold,
                                         fontSize: 12),
                                     maxLines: 1,
@@ -297,7 +297,7 @@ class ProfilePage extends GetView<ProfileController> {
                                   child: Align(
                                     alignment: Alignment.centerRight,
                                     child: Icon(Iconsax.arrow_right_3,
-                                        color: colorDark),
+                                        color: colorTextTitle),
                                   ))
                             ]),
                       ),
@@ -322,7 +322,9 @@ class ProfilePage extends GetView<ProfileController> {
               child: Column(
                 children: [
                   GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      Get.toNamed(Routes.aboutAppPage);
+                    },
                     child: Padding(
                       padding: EdgeInsets.all(baseRadiusForm),
                       child: Row(
@@ -331,13 +333,13 @@ class ProfilePage extends GetView<ProfileController> {
                             Expanded(
                                 flex: 1,
                                 child: Icon(Iconsax.info_circle,
-                                    color: colorDark)),
+                                    color: colorTextTitle)),
                             Expanded(
                                 flex: 5,
                                 child: Text(
                                   labelAbout,
                                   style: TextStyle(
-                                      color: colorTextPrimary,
+                                      color: colorTextTitle,
                                       fontWeight: FontWeight.bold,
                                       fontSize: 12),
                                   maxLines: 1,
@@ -348,7 +350,7 @@ class ProfilePage extends GetView<ProfileController> {
                                 child: Align(
                                   alignment: Alignment.centerRight,
                                   child: Icon(Iconsax.arrow_right_3,
-                                      color: colorDark),
+                                      color: colorTextTitle),
                                 ))
                           ]),
                     ),

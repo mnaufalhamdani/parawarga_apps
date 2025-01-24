@@ -5,11 +5,11 @@ import 'package:get/get.dart';
 import 'package:parawarga_apps/models/domain/area_domain.dart';
 import 'package:parawarga_apps/models/response/general_model.dart';
 import 'package:parawarga_apps/models/response/my_area_unit_model.dart';
-import 'package:parawarga_apps/modules/my_area_unit/input/my_unit_input_page.dart';
 
-import '../../../core/data_state.dart';
-import '../../../core/failure_response.dart';
-import '../../../data/repository/area_repository.dart';
+import '../../../../core/data_state.dart';
+import '../../../../core/failure_response.dart';
+import '../../../../data/repository/area_repository.dart';
+import 'my_unit_input_page.dart';
 
 class MyUnitInputController extends GetxController{
   MyUnitInputController({

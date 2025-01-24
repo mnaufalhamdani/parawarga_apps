@@ -43,14 +43,14 @@ class StandardButtonPrimaryState extends State<StandardButtonPrimary> {
           if(widget.isEnabled == null || widget.isEnabled == true) {
             if (widget.formKey != null){
               if (widget.formKey!.currentState!.validate()) {
-                if (widget.isLoading == false){
+                if (widget.isLoading == false || widget.isLoading == null){
                   if(widget.onPressed != null){
                     widget.onPressed!();
                   }
                 }
               }
             }else {
-              if (widget.isLoading == false){
+              if (widget.isLoading == false || widget.isLoading == null){
                 if(widget.onPressed != null){
                   widget.onPressed!();
                 }

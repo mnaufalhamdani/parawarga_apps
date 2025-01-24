@@ -5,17 +5,11 @@ import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:parawarga_apps/core/data_state.dart';
 import 'package:parawarga_apps/models/response/my_area_unit_model.dart';
-import 'package:parawarga_apps/modules/my_area_unit/empty/my_unit_empty_page.dart';
-import 'package:parawarga_apps/modules/my_area_unit/input/my_unit_input_page.dart';
-import 'package:parawarga_apps/modules/my_area_unit/item/setting_unit_tile.dart';
 import 'package:parawarga_apps/theme/app_colors.dart';
-import 'package:parawarga_apps/theme/standard_alert_dialog.dart';
 import 'package:parawarga_apps/theme/standard_button_primary.dart';
 import 'package:parawarga_apps/theme/standard_snackbar.dart';
 import 'package:parawarga_apps/utils/strings.dart';
-import 'package:url_launcher/url_launcher.dart';
 
-import '../../routes/app_pages.dart';
 import '../../theme/app_theme.dart';
 import '../../theme/standard_error_page.dart';
 import '../../theme/standard_text_field.dart';
@@ -110,9 +104,6 @@ class MyAreaPage extends GetView<MyAreaController> {
                   onPressedManagement: (model) async {
                     _buildContentBottomManagement(context, model);
                   },
-                  onPressedMyUnit: (model) async {
-                    _buildContentBottomMyUnit(context, model);
-                  },
                 ))
         ]));
   }
@@ -172,172 +163,6 @@ class MyAreaPage extends GetView<MyAreaController> {
                 : StandardErrorPage(message: msgNotFound)
             ])
         )
-    );
-  }
-
-  _buildContentBottomMyUnit(BuildContext context, MyAreaUnitModel data) {
-    return showModalBottomSheet(
-        context: context,
-        isDismissible: true,
-        isScrollControlled: true,
-        backgroundColor: Colors.white,
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.vertical(top: Radius.circular(baseRadius))),
-        builder: (context) => FractionallySizedBox(
-            heightFactor: 0.6,
-            child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(children: [
-                    Expanded(
-                      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                        Padding(
-                            padding: EdgeInsets.only(top: basePadding, left: basePadding),
-                            child: Text("$labelUnit $labelMy",
-                                style: TextStyle(
-                                    color: colorTextTitle,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 16))),
-                        Padding(
-                            padding: EdgeInsets.only(left: basePadding, bottom: basePaddingInContent),
-                            child: Text("Berikut adalah unit yang Anda miliki di Area ${data.areaName}.",
-                                style: TextStyle(
-                                    color: colorTextMessage,
-                                    fontSize: 12))),
-                      ]),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(top: basePaddingInContent, left: basePaddingInContent, right: basePadding),
-                      child: FloatingActionButton.small(
-                          shape: CircleBorder(),
-                          backgroundColor: colorSecondary,
-                          elevation: 0,
-                          onPressed: () async {
-                            Get.back();
-                            await Get.toNamed(Routes.myUnitInput, arguments: {
-                              MyUnitInputPage.argAreaId: data.areaId
-                            });
-                            controller.getMyUnit();
-                          },
-                          child: Icon(Iconsax.add, color: colorPrimary)
-                      ),
-                    )
-                  ]),
-                  (data.unit.isNotEmpty)
-                  ? Expanded(
-                    child: Padding(
-                      padding: EdgeInsets.only(left: basePaddingInContent, right: basePaddingInContent, bottom: basePaddingInContent),
-                      child: Card(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(baseRadiusCard)),
-                          color: colorBackground,
-                          elevation: 0,
-                          child: Padding(
-                            padding: EdgeInsets.only(top: basePaddingInContent, bottom: basePaddingInContent),
-                            child: ListView.builder(
-                              scrollDirection: Axis.vertical,
-                              shrinkWrap: true,
-                              physics: BouncingScrollPhysics(),
-                              itemCount: data.unit.length,
-                              itemBuilder: (context, index) {
-                                return MyUnitTile(
-                                  model: data.unit[index],
-                                  isLast: index == data.unit.length - 1,
-                                  onPressed: (model) {
-                                    _buildContentDialogManageUnit(context, model, data);
-                                  }
-                                );
-                              },
-                            ),
-                          )),
-                    ),
-                  )
-                  : StandardErrorPage(message: msgNotFound)
-                ])
-        )
-    );
-  }
-
-  _buildContentDialogManageUnit(BuildContext context, Unit data, MyAreaUnitModel area) {
-    showDialog(
-      context: context,
-      builder: (context) => Dialog(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(baseRadius)),
-        child: Padding(
-          padding: const EdgeInsets.all(basePadding),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(labelSettingUnit,
-                  style: TextStyle(
-                      color: colorTextTitle,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16)),
-              Text("Pilih salah satu pengaturan dibawah ini",
-                  style: TextStyle(
-                      color: colorTextMessage,
-                      fontSize: 12)),
-              SizedBox(height: basePaddingInContent),
-              ListView.builder(
-                scrollDirection: Axis.vertical,
-                shrinkWrap: true,
-                physics: BouncingScrollPhysics(),
-                itemCount: 4,
-                itemBuilder: (context, index) {
-                  return SettingUnitTile(
-                    index: index,
-                    isLast: index == (4 - 1),
-                    onPressed: (model) async {
-                      Get.back();
-                      Get.back();
-                      if (model == 0) {//ubah data
-                        await Get.toNamed(Routes.myUnitInput, arguments: {
-                          MyUnitInputPage.argAreaId: area.areaId,
-                          MyUnitInputPage.argUnit: data
-                        });
-                        controller.getMyUnit();
-                      } else if (model == 1) {//atur unit kosong
-                        await Get.toNamed(Routes.myUnitEmpty, arguments: {
-                          MyUnitEmptyPage.argUnitId: data.id,
-                          MyUnitEmptyPage.argUnitName: data.name,
-                        });
-                        controller.getMyUnit();
-                      } else if (model == 2) {//lihat lokasi
-                        if(data.latitude != null && data.longitude != null) {
-                          final googleUrl = "https://www.google.com/maps/search/?api=1&query=${data.latitude},${data.longitude}";
-                          if (await canLaunchUrl(Uri.parse(googleUrl))) {
-                            await launchUrl(Uri.parse(googleUrl));
-                          } else {
-                            throw "Map tidak ditemukan";
-                          }
-                        }else {
-                          showStandardSnackbar(context, TypeMessage.error, message: "Lokasi belum diatur");
-                        }
-                      } else if (model == 3) {//hapus data
-                        StandardAlertDialog.show(
-                          context,
-                          "Hapus Unit",
-                          "Apakah Anda yakin menghapus unit ${data.name}?", () async {
-                          await controller.removeMyUnit(data.id.toString()).whenComplete(() {
-                            if (controller.saveOrRemoveState.value.error != null){
-                              showStandardSnackbar(Get.context!, TypeMessage.error, message: controller.saveOrRemoveState.value.error?.message.toString());
-                            }else {
-                              showStandardSnackbar(Get.context!, TypeMessage.success, message: controller.saveOrRemoveState.value.data?.data.toString());
-                              controller.getMyUnit();
-                            }
-                          });
-
-                          controller.saveOrRemoveState.value = ResponseState.def();
-                        });
-                      }
-                    });
-                },
-              )
-            ],
-          ),
-        ),
-      ),
     );
   }
 

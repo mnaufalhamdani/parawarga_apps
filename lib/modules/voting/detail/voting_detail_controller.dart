@@ -29,7 +29,6 @@ class VotingDetailController extends GetxController{
   // final initMounted = false.obs;
   // final initMessage = "".obs;
   // final initLabelOfVoters = labelTotalMember.obs;
-  // final listData = listVotingDetail.obs;
   // final scrollController = ScrollController().obs;
 
   // @override
