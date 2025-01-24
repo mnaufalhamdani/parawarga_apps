@@ -5,9 +5,11 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:parawarga_apps/core/failure_response.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 import '../theme/standard_snackbar.dart';
 import '../utils/strings.dart';
@@ -34,6 +36,38 @@ Map<String, IconData> mapperIcon = <String, IconData>{
   'about': Icons.help_outline_rounded,
   'logout': Iconsax.profile_delete,
 };
+
+Future<void> checkPermissionStatus() async {
+  final locationEnabled = await Geolocator.isLocationServiceEnabled();
+
+  if (await Permission.storage.status.isDenied) {
+    await Permission.storage.request().whenComplete(() async {
+      if (await Permission.storage.status.isDenied) {
+        return showStandardSnackbar(Get.context!, TypeMessage.error, message: msgStorageDenied, duration: DurationMessage.lengthLong);
+      }
+    });
+  }
+
+  if (await Permission.manageExternalStorage.status.isDenied) {
+    await Permission.manageExternalStorage.request().whenComplete(() async {
+      if (await Permission.manageExternalStorage.status.isDenied) {
+        return showStandardSnackbar(Get.context!, TypeMessage.error, message: msgStorageDenied, duration: DurationMessage.lengthLong);
+      }
+    });
+  }
+
+  if (await Permission.location.status.isDenied) {
+    await Permission.location.request().whenComplete(() async {
+      if (await Permission.location.status.isDenied) {
+        return showStandardSnackbar(Get.context!, TypeMessage.error, message: msgLocationDenied, duration: DurationMessage.lengthLong);
+      }
+    });
+  }
+
+  if (!locationEnabled) {
+    return showStandardSnackbar(Get.context!, TypeMessage.error, message: msgLocationNotEnabled, duration: DurationMessage.lengthLong);
+  }
+}
 
 String generateRandomId() {
   final random = Random();
@@ -109,22 +143,15 @@ int dateBetween(DateTime from, DateTime to) {
   return (to.difference(from).inHours / 24).round();
 }
 
-void monitorConnection(BuildContext context) {
-  Connectivity().onConnectivityChanged.listen((result) {
-    if (result.where((element) => element == ConnectivityResult.none).isNotEmpty) {
-      showStandardSnackbar(context, TypeMessage.error, message: msgKoneksiError, duration: DurationMessage.lengthInfinite);
-    } else {
-      showStandardSnackbar(context, TypeMessage.success, message: msgKoneksiSukses, duration: DurationMessage.lengthShort);
-    }
-  });
-}
-
-bool checkConnection(BuildContext context) {
+Future<bool> checkConnection() async {
   var connected = false;
-  Connectivity().onConnectivityChanged.listen((result) {
-    if (result.where((element) => element == ConnectivityResult.none).isNotEmpty) {
-      connected = false;
-    } else {
+  print("object");
+  await Connectivity().checkConnectivity().then((value) {
+    if (value.where((element) =>
+      element == ConnectivityResult.mobile
+      || element == ConnectivityResult.wifi
+      || element == ConnectivityResult.ethernet).isNotEmpty) {
+      print("object1");
       connected = true;
     }
   });

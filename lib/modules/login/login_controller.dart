@@ -6,6 +6,7 @@ import 'package:parawarga_apps/core/data_state.dart';
 import 'package:parawarga_apps/models/domain/user_area_domain.dart';
 import 'package:permission_handler/permission_handler.dart';
 
+import '../../core/constants.dart';
 import '../../core/failure_response.dart';
 import '../../data/repository/login_repository.dart';
 
@@ -27,7 +28,7 @@ class LoginController extends GetxController{
   Future<void> onInit() async {
     super.onInit();
 
-    checkPermissionStatus();
+    await checkPermissionStatus();
   }
 
   Future<void> login() async {
@@ -45,13 +46,4 @@ class LoginController extends GetxController{
     }
   }
 
-  Future<void> checkPermissionStatus() async {
-    final status1 = await Permission.storage.status;
-    final status2 = await Permission.manageExternalStorage.status;
-
-    if (status1.isDenied || status2.isDenied) {
-      await Permission.storage.request();
-      await Permission.manageExternalStorage.request();
-    }
-  }
 }

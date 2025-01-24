@@ -2,6 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:parawarga_apps/core/constants.dart';
 import 'package:parawarga_apps/models/domain/area_domain.dart';
 import 'package:parawarga_apps/models/response/general_model.dart';
 import 'package:parawarga_apps/models/response/my_area_unit_model.dart';
@@ -22,9 +23,9 @@ class MyUnitInputController extends GetxController{
   final unit = Get.arguments[MyUnitInputPage.argUnit] as Unit?;
 
   @override
-  void onInit() {
+  Future<void> onInit() async {
     super.onInit();
-
+    await checkPermissionStatus();
     /** if edit data */
     if (unit != null) {
       myUnitDomain.value.id = unit!.id;

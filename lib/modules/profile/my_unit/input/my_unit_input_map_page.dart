@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:parawarga_apps/core/constants.dart';
 import 'package:parawarga_apps/theme/app_colors.dart';
 import 'package:parawarga_apps/theme/standard_button_primary.dart';
 import 'package:parawarga_apps/utils/strings.dart';
@@ -21,33 +22,7 @@ class MyUnitInputMapPage extends GetView<MyUnitInputMapController> {
   static const argLongitude = 'argLongitude';
 
   Future<void> getUserLocation(BuildContext context) async {
-    bool serviceEnabled;
-    LocationPermission permission;
-
-    // Check if location services are enabled
-    serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    if (!serviceEnabled) {
-      showStandardSnackbar(Get.context!, TypeMessage.error,
-          message: "Location services are disabled. Please enable them.");
-      return;
-    }
-
-    // Request permission
-    permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.denied) {
-        showStandardSnackbar(Get.context!, TypeMessage.error,
-            message: "Location permission denied.");
-        return;
-      }
-    }
-
-    if (permission == LocationPermission.deniedForever) {
-      showStandardSnackbar(Get.context!, TypeMessage.error,
-          message: "Location permission is permanently denied.");
-      return;
-    }
+    await checkPermissionStatus();
 
     // Get current location
     Position position = await Geolocator.getCurrentPosition(

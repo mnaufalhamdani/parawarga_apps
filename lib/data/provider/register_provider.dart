@@ -12,9 +12,11 @@ class RegisterProvider extends BaseService {
   Future<VerifyEncodeModel> verifyEncodeArea({
     required String areaEncoded
   }) async{
-    if (!checkConnection()){
-      throw FailureResponse(message: msgKoneksiError);
-    }
+    await checkConnection().then((value) {
+      if(!value) {
+        throw FailureResponse(message: msgKoneksiError);
+      }
+    });
 
     final headers = <String, String>{};
     final params = <String, dynamic>{};

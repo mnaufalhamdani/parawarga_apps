@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers
 
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:parawarga_apps/theme/app_colors.dart';
@@ -20,36 +19,8 @@ class MyUnitInputPage extends GetView<MyUnitInputController> {
   static const argAreaId = 'argAreaId';
   static const argUnit = 'argUnit';
 
-  Future<void> checkLocationPermission() async {
-    bool serviceEnabled;
-    LocationPermission permission;
-
-    // Check if location services are enabled
-    serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    if (!serviceEnabled) {
-      showStandardSnackbar(Get.context!, TypeMessage.error,
-          message: "Location services are disabled. Please enable them.");
-    }
-
-    // Request permission
-    permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.denied) {
-        showStandardSnackbar(Get.context!, TypeMessage.error,
-            message: "Location permission denied.");
-      }
-    }
-
-    if (permission == LocationPermission.deniedForever) {
-      showStandardSnackbar(Get.context!, TypeMessage.error,
-          message: "Location permission is permanently denied.");
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
-    checkLocationPermission();
     return Scaffold(
       appBar: AppBar(
         title: Text(labelSettingUnit, style: TextStyle(color: colorPrimary)),
