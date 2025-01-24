@@ -14,9 +14,11 @@ class LoginProvider extends BaseService {
     String? device_id,
     String? firebase_id,
   }) async{
-    if (!checkConnection()){
-      throw FailureResponse(message: msgKoneksiError);
-    }
+    await checkConnection().then((value) {
+      if(!value) {
+        throw FailureResponse(message: msgKoneksiError);
+      }
+    });
 
     final headers = <String, String>{};
     final params = <String, dynamic>{};

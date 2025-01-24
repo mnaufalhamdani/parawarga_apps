@@ -13,9 +13,11 @@ class ArisanProvider extends BaseService {
   Future<List<ArisanModel>> getArisan({
     required String token,
   }) async{
-    if (!checkConnection()){
-      throw FailureResponse(message: msgKoneksiError);
-    }
+    await checkConnection().then((value) {
+      if(!value) {
+        throw FailureResponse(message: msgKoneksiError);
+      }
+    });
 
     final headers = <String, String>{
       'Authorization': 'Bearer $token',
@@ -35,9 +37,11 @@ class ArisanProvider extends BaseService {
     required String token,
     String? id
   }) async{
-    if (!checkConnection()){
-      throw FailureResponse(message: msgKoneksiError);
-    }
+    await checkConnection().then((value) {
+      if(!value) {
+        throw FailureResponse(message: msgKoneksiError);
+      }
+    });
 
     final headers = <String, String>{
       'Authorization': 'Bearer $token',
@@ -59,9 +63,11 @@ class ArisanProvider extends BaseService {
     required String token,
     String? json
   }) async{
-    if (!checkConnection()){
-      throw FailureResponse(message: msgKoneksiError);
-    }
+    await checkConnection().then((value) {
+      if(!value) {
+        throw FailureResponse(message: msgKoneksiError);
+      }
+    });
 
     final headers = <String, String>{
       'Authorization': 'Bearer $token',

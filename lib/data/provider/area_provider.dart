@@ -16,9 +16,11 @@ class AreaProvider extends BaseService {
     String? empty,
     String? myUnit,
   }) async{
-    if (!checkConnection()){
-      throw FailureResponse(message: msgKoneksiError);
-    }
+    await checkConnection().then((value) {
+      if(!value) {
+        throw FailureResponse(message: msgKoneksiError);
+      }
+    });
 
     final headers = <String, String>{
       'Authorization': 'Bearer $token',
@@ -40,9 +42,11 @@ class AreaProvider extends BaseService {
   Future<List<MyAreaUnitModel>> getMyAreaUnit({
     required String token,
   }) async{
-    if (!checkConnection()){
-      throw FailureResponse(message: msgKoneksiError);
-    }
+    await checkConnection().then((value) {
+      if(!value) {
+        throw FailureResponse(message: msgKoneksiError);
+      }
+    });
 
     final headers = <String, String>{
       'Authorization': 'Bearer $token',
@@ -62,9 +66,11 @@ class AreaProvider extends BaseService {
     required String token,
     String? unitId,
   }) async{
-    if (!checkConnection()){
-      throw FailureResponse(message: msgKoneksiError);
-    }
+    await checkConnection().then((value) {
+      if(!value) {
+        throw FailureResponse(message: msgKoneksiError);
+      }
+    });
 
     final headers = <String, String>{
       'Authorization': 'Bearer $token',
@@ -86,9 +92,11 @@ class AreaProvider extends BaseService {
     required String token,
     String? areaEncoded,
   }) async{
-    if (!checkConnection()){
-      throw FailureResponse(message: msgKoneksiError);
-    }
+    await checkConnection().then((value) {
+      if(!value) {
+        throw FailureResponse(message: msgKoneksiError);
+      }
+    });
 
     final headers = <String, String>{
       'Authorization': 'Bearer $token',
@@ -111,9 +119,11 @@ class AreaProvider extends BaseService {
     required String token,
     String? json,
   }) async{
-    if (!checkConnection()){
-      throw FailureResponse(message: msgKoneksiError);
-    }
+    await checkConnection().then((value) {
+      if(!value) {
+        throw FailureResponse(message: msgKoneksiError);
+      }
+    });
 
     final headers = <String, String>{
       'Authorization': 'Bearer $token',
@@ -136,9 +146,11 @@ class AreaProvider extends BaseService {
     required String token,
     String? json,
   }) async{
-    if (!checkConnection()){
-      throw FailureResponse(message: msgKoneksiError);
-    }
+    await checkConnection().then((value) {
+      if(!value) {
+        throw FailureResponse(message: msgKoneksiError);
+      }
+    });
 
     final headers = <String, String>{
       'Authorization': 'Bearer $token',
@@ -161,9 +173,11 @@ class AreaProvider extends BaseService {
     required String token,
     String? unitId
   }) async{
-    if (!checkConnection()){
-      throw FailureResponse(message: msgKoneksiError);
-    }
+    await checkConnection().then((value) {
+      if(!value) {
+        throw FailureResponse(message: msgKoneksiError);
+      }
+    });
 
     final headers = <String, String>{
       'Authorization': 'Bearer $token',

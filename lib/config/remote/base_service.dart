@@ -21,16 +21,9 @@ class BaseService extends GetConnect {
       if(response.status.code! >= 300){
         log("Error: ${response.statusText}");
       }
-      // log(request.headers.toString());
-      // log(response.bodyString.toString());
-      // log(response.statusText.toString());
       return response;
     });
-    httpClient.addRequestModifier<dynamic>((request) async {
-      // log(request.url.toString());
-      // log("Method: ${request.method.toUpperCase()}");
-      return request;
-    });
+
     super.onInit();
   }
 }

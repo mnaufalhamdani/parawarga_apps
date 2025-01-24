@@ -10,9 +10,11 @@ class InformationProvider extends BaseService {
   Future<List<InformationModel>> getInformation({
     required String token,
   }) async{
-    if (!checkConnection()){
-      throw FailureResponse(message: msgKoneksiError);
-    }
+    await checkConnection().then((value) {
+      if(!value) {
+        throw FailureResponse(message: msgKoneksiError);
+      }
+    });
 
     final headers = <String, String>{
       'Authorization': 'Bearer $token',
@@ -32,9 +34,11 @@ class InformationProvider extends BaseService {
     required String token,
     String? id
   }) async{
-    if (!checkConnection()){
-      throw FailureResponse(message: msgKoneksiError);
-    }
+    await checkConnection().then((value) {
+      if(!value) {
+        throw FailureResponse(message: msgKoneksiError);
+      }
+    });
 
     final headers = <String, String>{
       'Authorization': 'Bearer $token',
