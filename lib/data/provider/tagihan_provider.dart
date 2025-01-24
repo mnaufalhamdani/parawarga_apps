@@ -3,33 +3,43 @@ import 'package:parawarga_apps/models/response/general_model.dart';
 import 'package:parawarga_apps/models/response/tagihan_temp_model.dart';
 
 import '../../config/remote/base_service.dart';
+import '../../core/constants.dart';
 import '../../core/failure_response.dart';
 import '../../models/response/tagihan_detail_model.dart';
 import '../../models/response/tagihan_model.dart';
+import '../../utils/strings.dart';
 
 class TagihanProvider extends BaseService {
 
   Future<List<TagihanModel>> getTagihan({
     required String token,
   }) async{
-      final headers = <String, String>{
-        'Authorization': 'Bearer $token',
-      };
-      final params = <String, dynamic>{};
+    if (!checkConnection()){
+      throw FailureResponse(message: msgKoneksiError);
+    }
 
-      final response = await get('tagihan/getTagihan', query: params, headers: headers);
-      if(response.status.isOk){
-        final value = List<TagihanModel>.from(response.body["data"]!.map((x) => TagihanModel.fromJson(x)));
-        return value;
-      } else {
-        throw FailureResponse.fromJson(response.body ?? response.statusText);
-      }
+    final headers = <String, String>{
+      'Authorization': 'Bearer $token',
+    };
+    final params = <String, dynamic>{};
+
+    final response = await get('tagihan/getTagihan', query: params, headers: headers);
+    if(response.status.isOk){
+      final value = List<TagihanModel>.from(response.body["data"]!.map((x) => TagihanModel.fromJson(x)));
+      return value;
+    } else {
+      throw FailureResponse.fromJson(response.body ?? response.statusText);
+    }
   }
 
   Future<TagihanDetailModel> getTagihanDetail({
     required String token,
     String? id
   }) async{
+    if (!checkConnection()){
+      throw FailureResponse(message: msgKoneksiError);
+    }
+
     final headers = <String, String>{
       'Authorization': 'Bearer $token',
     };
@@ -50,6 +60,10 @@ class TagihanProvider extends BaseService {
     required String token,
     String? id
   }) async{
+    if (!checkConnection()){
+      throw FailureResponse(message: msgKoneksiError);
+    }
+
     final headers = <String, String>{
       'Authorization': 'Bearer $token',
     };
@@ -70,6 +84,10 @@ class TagihanProvider extends BaseService {
     required String token,
     String? json
   }) async{
+    if (!checkConnection()){
+      throw FailureResponse(message: msgKoneksiError);
+    }
+
     final headers = <String, String>{
       'Authorization': 'Bearer $token',
     };
@@ -91,6 +109,10 @@ class TagihanProvider extends BaseService {
     required String token,
     String? json
   }) async{
+    if (!checkConnection()){
+      throw FailureResponse(message: msgKoneksiError);
+    }
+
     final headers = <String, String>{
       'Authorization': 'Bearer $token',
     };

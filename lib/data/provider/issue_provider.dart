@@ -4,31 +4,41 @@ import 'package:parawarga_apps/models/response/issue_detail_model.dart';
 import 'package:parawarga_apps/models/response/issue_model.dart';
 
 import '../../config/remote/base_service.dart';
+import '../../core/constants.dart';
 import '../../core/failure_response.dart';
+import '../../utils/strings.dart';
 
 class IssueProvider extends BaseService {
 
   Future<List<IssueModel>> getIssue({
     required String token,
   }) async{
-      final headers = <String, String>{
-        'Authorization': 'Bearer $token',
-      };
-      final params = <String, dynamic>{};
+    if (!checkConnection()){
+      throw FailureResponse(message: msgKoneksiError);
+    }
 
-      final response = await get('issue/getIssue', query: params, headers: headers);
-      if(response.status.isOk){
-        final value = List<IssueModel>.from(response.body["data"]!.map((x) => IssueModel.fromJson(x)));
-        return value;
-      } else {
-        throw FailureResponse.fromJson(response.body ?? response.statusText);
-      }
+    final headers = <String, String>{
+      'Authorization': 'Bearer $token',
+    };
+    final params = <String, dynamic>{};
+
+    final response = await get('issue/getIssue', query: params, headers: headers);
+    if(response.status.isOk){
+      final value = List<IssueModel>.from(response.body["data"]!.map((x) => IssueModel.fromJson(x)));
+      return value;
+    } else {
+      throw FailureResponse.fromJson(response.body ?? response.statusText);
+    }
   }
 
   Future<IssueDetailModel> getIssueDetail({
     required String token,
     String? id
   }) async{
+    if (!checkConnection()){
+      throw FailureResponse(message: msgKoneksiError);
+    }
+
     final headers = <String, String>{
       'Authorization': 'Bearer $token',
     };
@@ -49,6 +59,10 @@ class IssueProvider extends BaseService {
     required String token,
     String? json
   }) async{
+    if (!checkConnection()){
+      throw FailureResponse(message: msgKoneksiError);
+    }
+
     final headers = <String, String>{
       'Authorization': 'Bearer $token',
     };

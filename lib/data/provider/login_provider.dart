@@ -1,4 +1,6 @@
 import 'package:get/get.dart';
+import 'package:parawarga_apps/core/constants.dart';
+import 'package:parawarga_apps/utils/strings.dart';
 
 import '../../config/remote/base_service.dart';
 import '../../core/failure_response.dart';
@@ -12,22 +14,26 @@ class LoginProvider extends BaseService {
     String? device_id,
     String? firebase_id,
   }) async{
-      final headers = <String, String>{};
-      final params = <String, dynamic>{};
-      final formData = FormData({
-        'username': username,
-        'password': password,
-        'device_id': device_id,
-        'firebase_id': firebase_id,
-      });
+    if (!checkConnection()){
+      throw FailureResponse(message: msgKoneksiError);
+    }
 
-      final response = await post('login', formData, query: params, headers: headers);
-      if(response.status.isOk){
-        final LoginModel value = LoginModel.fromJson(response.body['data']);
-        return value;
-      } else {
-        throw FailureResponse.fromJson(response.body ?? response.statusText);
-      }
+    final headers = <String, String>{};
+    final params = <String, dynamic>{};
+    final formData = FormData({
+      'username': username,
+      'password': password,
+      'device_id': device_id,
+      'firebase_id': firebase_id,
+    });
+
+    final response = await post('login', formData, query: params, headers: headers);
+    if(response.status.isOk){
+      final LoginModel value = LoginModel.fromJson(response.body['data']);
+      return value;
+    } else {
+      throw FailureResponse.fromJson(response.body ?? response.statusText);
+    }
   }
   //
   // Future<UpdateAppModel> checkUpdateApp() async{

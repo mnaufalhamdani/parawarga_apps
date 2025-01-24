@@ -4,8 +4,10 @@ import 'package:parawarga_apps/models/response/general_model.dart';
 import 'package:parawarga_apps/models/response/my_unit_empty_model.dart';
 
 import '../../config/remote/base_service.dart';
+import '../../core/constants.dart';
 import '../../core/failure_response.dart';
 import '../../models/response/my_area_unit_model.dart';
+import '../../utils/strings.dart';
 
 class AreaProvider extends BaseService {
 
@@ -14,26 +16,34 @@ class AreaProvider extends BaseService {
     String? empty,
     String? myUnit,
   }) async{
-      final headers = <String, String>{
-        'Authorization': 'Bearer $token',
-      };
-      final params = <String, dynamic>{
-        'empty': empty,
-        'my_unit': myUnit,
-      };
+    if (!checkConnection()){
+      throw FailureResponse(message: msgKoneksiError);
+    }
 
-      final response = await get('area/getAllUnit', query: params, headers: headers);
-      if(response.status.isOk){
-        final value = List<AreaUnitModel>.from(response.body["data"]!.map((x) => AreaUnitModel.fromJson(x)));
-        return value;
-      } else {
-        throw FailureResponse.fromJson(response.body ?? response.statusText);
-      }
+    final headers = <String, String>{
+      'Authorization': 'Bearer $token',
+    };
+    final params = <String, dynamic>{
+      'empty': empty,
+      'my_unit': myUnit,
+    };
+
+    final response = await get('area/getAllUnit', query: params, headers: headers);
+    if(response.status.isOk){
+      final value = List<AreaUnitModel>.from(response.body["data"]!.map((x) => AreaUnitModel.fromJson(x)));
+      return value;
+    } else {
+      throw FailureResponse.fromJson(response.body ?? response.statusText);
+    }
   }
 
   Future<List<MyAreaUnitModel>> getMyAreaUnit({
     required String token,
   }) async{
+    if (!checkConnection()){
+      throw FailureResponse(message: msgKoneksiError);
+    }
+
     final headers = <String, String>{
       'Authorization': 'Bearer $token',
     };
@@ -52,6 +62,10 @@ class AreaProvider extends BaseService {
     required String token,
     String? unitId,
   }) async{
+    if (!checkConnection()){
+      throw FailureResponse(message: msgKoneksiError);
+    }
+
     final headers = <String, String>{
       'Authorization': 'Bearer $token',
     };
@@ -72,6 +86,10 @@ class AreaProvider extends BaseService {
     required String token,
     String? areaEncoded,
   }) async{
+    if (!checkConnection()){
+      throw FailureResponse(message: msgKoneksiError);
+    }
+
     final headers = <String, String>{
       'Authorization': 'Bearer $token',
     };
@@ -93,6 +111,10 @@ class AreaProvider extends BaseService {
     required String token,
     String? json,
   }) async{
+    if (!checkConnection()){
+      throw FailureResponse(message: msgKoneksiError);
+    }
+
     final headers = <String, String>{
       'Authorization': 'Bearer $token',
     };
@@ -114,6 +136,10 @@ class AreaProvider extends BaseService {
     required String token,
     String? json,
   }) async{
+    if (!checkConnection()){
+      throw FailureResponse(message: msgKoneksiError);
+    }
+
     final headers = <String, String>{
       'Authorization': 'Bearer $token',
     };
@@ -135,6 +161,10 @@ class AreaProvider extends BaseService {
     required String token,
     String? unitId
   }) async{
+    if (!checkConnection()){
+      throw FailureResponse(message: msgKoneksiError);
+    }
+
     final headers = <String, String>{
       'Authorization': 'Bearer $token',
     };
