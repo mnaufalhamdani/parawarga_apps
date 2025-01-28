@@ -3,19 +3,16 @@ import 'dart:convert';
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
-import 'package:parawarga_apps/data/provider/issue_provider.dart';
 import 'package:parawarga_apps/data/provider/voting_provider.dart';
 import 'package:parawarga_apps/models/domain/user_area_domain.dart';
 import 'package:parawarga_apps/models/domain/voting_domain.dart';
 import 'package:parawarga_apps/models/response/general_model.dart';
-import 'package:parawarga_apps/models/response/issue_detail_model.dart';
 import 'package:parawarga_apps/models/response/voting_detail_model.dart';
 import 'package:parawarga_apps/models/response/voting_model.dart';
 import 'package:parawarga_apps/routes/app_pages.dart';
 import 'package:parawarga_apps/theme/standard_snackbar.dart';
 
 import '../../config/local/database_config.dart';
-import '../../models/response/issue_model.dart';
 import '../../utils/strings.dart';
 
 //domain - repository

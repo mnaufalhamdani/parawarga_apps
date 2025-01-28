@@ -8,6 +8,7 @@ import 'package:parawarga_apps/models/domain/user_area_domain.dart';
 
 import '../../core/data_state.dart';
 import '../../core/failure_response.dart';
+import '../../data/entities/auth_menu/auth_menu.dart';
 
 class ProfileController extends GetxController{
   ProfileController({
@@ -16,6 +17,7 @@ class ProfileController extends GetxController{
 
   final ProfileRepository repository;
 
+  final authMenuState = Rx(ResponseState<List<AuthMenuEntity>>());
   final logoutState = Rx(ResponseState<bool>());
   final userState = Rx(ResponseState<UserAreaDomain>());
 
@@ -35,8 +37,14 @@ class ProfileController extends GetxController{
   Future<void> checkUser() async {
     try {
       userState.value = ResponseState.loading();
-      final response = await repository.getUserActive();
-      userState.value = ResponseState.success(response);
+
+      await repository.getAuthMenu().then((value) {
+        authMenuState.value = ResponseState.success(value);
+      });
+
+      await repository.getUserActive().then((value) {
+        userState.value = ResponseState.success(value);
+      });
     }on FailureResponse catch(e) {
       userState.value = ResponseState.failed(e);
     }

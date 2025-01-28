@@ -2,9 +2,14 @@ import 'dart:convert';
 import 'dart:math';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:get/get.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:parawarga_apps/core/failure_response.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 import '../theme/standard_snackbar.dart';
 import '../utils/strings.dart';
@@ -19,237 +24,50 @@ List<String> listExample = [
   "Indonesia", "Malaysia", "Brunei", "Myanmar", "Singapore"
 ];
 
-List<Map<String, dynamic>> listInfo = [
-  {"label": "Terungkap Biang Kerok Sritex Berdarah-darah Berujung Pailit", "date": "30-10-2024"},
-  {"label": "Penegasan Kejagung Tak Ada Politisasi Terkait Penetapan Tersangka Tom Lembong", "date": "30-10-2024"},
-  {"label": "Menhan Israel Soal Serangan ke Iran: Akan Tunjukkan Kekuatan Kami", "date": "30-10-2024"},
-];
+Map<String, IconData> mapperIcon = <String, IconData>{
+  'like_dislike': Iconsax.like_dislike,
+  '3d_cube': Iconsax.convert_3d_cube,
+  'card_pos': Iconsax.card_pos,
+  'history': Iconsax.timer,
+  'all_menu': Iconsax.clipboard_text,
+  'admin': Iconsax.user_octagon,
+  'unit': Iconsax.house,
+  'setting': Iconsax.setting,
+  'about': Icons.help_outline_rounded,
+  'logout': Iconsax.profile_delete,
+};
 
-List<Map<String, dynamic>> listLaporan = [
-  {"area":"RT.001 RW.003", "label": "Terungkap Biang Kerok Sritex Berdarah-darah Berujung Pailit", "date": "30-10-2024", "address_detail": "Di gang IV", "photo":"https://www.visa.co.id/dam/VCOM/regional/ap/indonesia/global-elements/images/wonderful-indonesia-hot-deals-800x450.jpg"},
-  {"area":"RT.002 RW.003", "label": "Penegasan Kejagung Tak Ada Politisasi Terkait Penetapan Tersangka Tom Lembong", "date": "30-10-2024", "address_detail": "Di gang VII", "photo":"https://www.indonesia.travel/content/dam/indtravelrevamp/en/destinations/revision-2019/all-revision-destination/baliH.jpg"},
-  {"area":"RT.013 RW.003", "label": "Menhan Israel Soal Serangan ke Iran: Akan Tunjukkan Kekuatan Kami", "date": "30-10-2024", "address_detail": "Di gang V", "photo":"https://www.indonesia.travel/content/dam/indtravelrevamp/en/destinations/revisi-all-destination-s-image/destination-revision-part-two/headerbintan.jpg"},
-];
+Future<void> checkPermissionStatus() async {
+  final locationEnabled = await Geolocator.isLocationServiceEnabled();
 
-List<Map<String, dynamic>> listVoting = [
-  {"label": "Rapat Warga enaknya minggu berapa? Mohon segera di vote yaa", "value": 0, "details": [
-    {"label": "Minggu 1", "value": 1},
-    {"label": "Minggu 2", "value": 2},
-    {"label": "Minggu 3", "value": 3},
-    {"label": "Minggu 4", "value": 4},
-  ], "percentOfDetails": []},
-  {"label": "Liburan enaknya minggu berapa?", "value": 0, "details": [
-    {"label": "Minggu 1", "value": 1},
-    {"label": "Minggu 2", "value": 2},
-    {"label": "Minggu 3", "value": 3},
-    {"label": "Minggu 4", "value": 4},
-  ], "percentOfDetails": [
-    {"label": "Minggu 1", "percent": 50},
-    {"label": "Minggu 2", "percent": 20},
-    {"label": "Minggu 3", "percent": 10},
-    {"label": "Minggu 4", "percent": 20},
-  ]},
-  {"label": "Kerja bakti enaknya minggu berapa?", "value": 0, "details": [
-    {"label": "Minggu 1", "value": 1},
-    {"label": "Minggu 2", "value": 2},
-    {"label": "Minggu 3", "value": 3},
-    {"label": "Minggu 4", "value": 4},
-  ], "percentOfDetails": []},
-  {"label": "Pemilihan ketua minggu ke berapa?", "value": 0, "details": [
-    {"label": "Minggu 1", "value": 1},
-    {"label": "Minggu 2", "value": 2},
-    {"label": "Minggu 3", "value": 3},
-    {"label": "Minggu 4", "value": 4},
-  ], "percentOfDetails": []}
-];
+  if (await Permission.storage.status.isDenied) {
+    await Permission.storage.request().whenComplete(() async {
+      if (await Permission.storage.status.isDenied) {
+        return showStandardSnackbar(Get.context!, TypeMessage.error, message: msgStorageDenied, duration: DurationMessage.lengthLong);
+      }
+    });
+  }
 
-List<Map<String, dynamic>> listVotes = [
-  {"label": "Minggu 1", "percent": 50},
-  {"label": "Minggu 2", "percent": 20},
-  {"label": "Minggu 3", "percent": 10},
-  {"label": "Minggu 4", "percent": 20},
-];
+  if (await Permission.manageExternalStorage.status.isDenied) {
+    await Permission.manageExternalStorage.request().whenComplete(() async {
+      if (await Permission.manageExternalStorage.status.isDenied) {
+        return showStandardSnackbar(Get.context!, TypeMessage.error, message: msgStorageDenied, duration: DurationMessage.lengthLong);
+      }
+    });
+  }
 
-List<Map<String, dynamic>> listVotingDetail = [
-  {"name": "Akbar", "user_id": 1, "label": "Minggu 1"},
-  {"name": "Bakrie", "user_id": 2, "label": "Minggu 2"},
-  {"name": "Cintya", "user_id": 3, "label": "Minggu 3"},
-  {"name": "Daniel", "user_id": 4, "label": "Minggu 1"},
-  {"name": "Effendy", "user_id": 5, "label": "Minggu 4"},
-  {"name": "Franky", "user_id": 1, "label": "Minggu 4"},
-  {"name": "Georgio", "user_id": 2, "label": "Minggu 4"},
-  {"name": "Hulk", "user_id": 3, "label": "Minggu 2"},
-  {"name": "Indah", "user_id": 4, "label": "Minggu 2"},
-  {"name": "Jessica", "user_id": 5, "label": "Minggu 3"},
-];
+  if (await Permission.location.status.isDenied) {
+    await Permission.location.request().whenComplete(() async {
+      if (await Permission.location.status.isDenied) {
+        return showStandardSnackbar(Get.context!, TypeMessage.error, message: msgLocationDenied, duration: DurationMessage.lengthLong);
+      }
+    });
+  }
 
-List<Map<String, dynamic>> listVotingDetail2 = [
-  {"name": "Akbar", "user_id": 1, "label": "Minggu 4"},
-  {"name": "Bakrie", "user_id": 2, "label": "Minggu 4"},
-  {"name": "Cintya", "user_id": 3, "label": "Minggu 1"},
-  {"name": "Daniel", "user_id": 4, "label": "Minggu 2"},
-  {"name": "Effendy", "user_id": 5, "label": "Minggu 2"},
-  {"name": "Franky", "user_id": 1, "label": "Minggu 2"},
-  {"name": "Georgio", "user_id": 2, "label": "Minggu 2"},
-  {"name": "Hulk", "user_id": 3, "label": "Minggu 2"},
-  {"name": "Indah", "user_id": 4, "label": "Minggu 1"},
-  {"name": "Jessica", "user_id": 5, "label": "Minggu 3"},
-];
-
-List<Map<String, dynamic>> listArisan = [
-  {
-    "area":"RT.001 RW.003",
-    "nameOfArisan": "Arisan Pkk Tahun 1",
-    "date": "30-10-2024",
-    "subscription": "100.000",
-    "totalSubscription": "1.000.000",
-    "totalMember": [
-      {"name": "Akbar", "user_id": 1, "payed": "100.000"},
-      {"name": "Bakrie", "user_id": 2, "payed": "100.000"},
-      {"name": "Cintya", "user_id": 3, "payed": "100.000"},
-      {"name": "Daniel", "user_id": 4, "payed": "100.000"},
-      {"name": "Effendy", "user_id": 5, "payed": "100.000"},
-      {"name": "Franky", "user_id": 1, "payed": "100.000"},
-      {"name": "Georgio", "user_id": 2, "payed": "100.000"},
-      {"name": "Hulk", "user_id": 3, "payed": "100.000"},
-      {"name": "Indah", "user_id": 4, "payed": "100.000"},
-      {"name": "Jessica", "user_id": 5, "payed": "100.000"},
-    ],
-    "availableMember": [
-      {"name": "Akbar", "user_id": 1, "unit_name": "Unit 1"},
-      {"name": "Bakrie", "user_id": 2, "unit_name": "Unit 2"},
-      {"name": "Cintya", "user_id": 3, "unit_name": "Unit 3"},
-      {"name": "Daniel", "user_id": 4, "unit_name": "Unit 4"},
-      {"name": "Effendy", "user_id": 5, "unit_name": "Unit 5"},
-    ],
-    "winOfHistories": [
-      {"name": "Franky", "user_id": 1, "unit_name": "Unit 11", "date": "30-09-2024"},
-      {"name": "Georgio", "user_id": 2, "unit_name": "Unit 22", "date": "30-07-2024"},
-      {"name": "Hulk", "user_id": 3, "unit_name": "Unit 33", "date": "30-08-2024"},
-      {"name": "Indah", "user_id": 4, "unit_name": "Unit 44", "date": "30-05-2024"},
-      {"name": "Jessica", "user_id": 5, "unit_name": "Unit 55", "date": "30-06-2024"},
-    ],
-  },
-  {
-    "area":"Cluster Merdeka",
-    "nameOfArisan": "Arisan Anak Muda",
-    "date": "30-10-2024",
-    "subscription": "1.000.000",
-    "totalSubscription": "10.000.000",
-    "totalMember": [
-      {"name": "Akbar", "user_id": 1, "payed": "1.000.000"},
-      {"name": "Bakrie", "user_id": 2, "payed": "1.000.000"},
-      {"name": "Cintya", "user_id": 3, "payed": "1.000.000"},
-      {"name": "Daniel", "user_id": 4, "payed": "1.000.000"},
-      {"name": "Effendy", "user_id": 5, "payed": "1.000.000"},
-      {"name": "Franky", "user_id": 1, "payed": "1.000.000"},
-      {"name": "Georgio", "user_id": 2, "payed": "1.000.000"},
-      {"name": "Hulk", "user_id": 3, "payed": "1.000.000"},
-      {"name": "Indah", "user_id": 4, "payed": "1.000.000"},
-      {"name": "Jessica", "user_id": 5, "payed": "1.000.000"},
-    ],
-    "availableMember": [
-      {"name": "Akbar", "user_id": 1, "unit_name": "Unit 1"},
-      {"name": "Bakrie", "user_id": 2, "unit_name": "Unit 2"},
-      {"name": "Cintya", "user_id": 3, "unit_name": "Unit 3"},
-      {"name": "Daniel", "user_id": 4, "unit_name": "Unit 4"},
-      {"name": "Effendy", "user_id": 5, "unit_name": "Unit 5"},
-    ],
-    "winOfHistories": [
-      {"name": "Franky", "user_id": 1, "unit_name": "Unit 11", "date": "30-09-2024"},
-      {"name": "Georgio", "user_id": 2, "unit_name": "Unit 22", "date": "30-07-2024"},
-      {"name": "Hulk", "user_id": 3, "unit_name": "Unit 33", "date": "30-08-2024"},
-      {"name": "Indah", "user_id": 4, "unit_name": "Unit 44", "date": "30-05-2024"},
-      {"name": "Jessica", "user_id": 5, "unit_name": "Unit 55", "date": "30-06-2024"},
-    ],
-  },
-  {
-    "area":"RT.001 RW.003",
-    "nameOfArisan": "Arisan Karang Taruna",
-    "date": "30-10-2024",
-    "subscription": "500.000",
-    "totalSubscription": "5.000.000",
-    "totalMember": [
-      {"name": "Akbar", "user_id": 1, "payed": "500.000"},
-      {"name": "Bakrie", "user_id": 2, "payed": "500.000"},
-      {"name": "Cintya", "user_id": 3, "payed": "500.000"},
-      {"name": "Daniel", "user_id": 4, "payed": "500.000"},
-      {"name": "Effendy", "user_id": 5, "payed": "500.000"},
-      {"name": "Franky", "user_id": 1, "payed": "500.000"},
-      {"name": "Georgio", "user_id": 2, "payed": "500.000"},
-      {"name": "Hulk", "user_id": 3, "payed": "10.000"},
-      {"name": "Indah", "user_id": 4, "payed": "10.000"},
-      {"name": "Jessica", "user_id": 5, "payed": "10.000"},
-    ],
-    "availableMember": [
-      {"name": "Akbar", "user_id": 1, "unit_name": "Unit 1"},
-      {"name": "Bakrie", "user_id": 2, "unit_name": "Unit 2"},
-      {"name": "Cintya", "user_id": 3, "unit_name": "Unit 3"},
-      {"name": "Daniel", "user_id": 4, "unit_name": "Unit 4"},
-      {"name": "Effendy", "user_id": 5, "unit_name": "Unit 5"},
-    ],
-    "winOfHistories": [
-      {"name": "Franky", "user_id": 1, "unit_name": "Unit 11", "date": "30-09-2024"},
-      {"name": "Georgio", "user_id": 2, "unit_name": "Unit 22", "date": "30-07-2024"},
-      {"name": "Hulk", "user_id": 3, "unit_name": "Unit 33", "date": "30-08-2024"},
-      {"name": "Indah", "user_id": 4, "unit_name": "Unit 44", "date": "30-05-2024"},
-      {"name": "Jessica", "user_id": 5, "unit_name": "Unit 55", "date": "30-06-2024"},
-    ],
-  },
-  {
-    "area":"Kost Merah Putih",
-    "nameOfArisan": "Gang Gong",
-    "date": "30-10-2024",
-    "subscription": "10.000",
-    "totalSubscription": "100.000",
-    "totalMember": [
-      {"name": "Akbar", "user_id": 1, "payed": "10.000"},
-      {"name": "Bakrie", "user_id": 2, "payed": "10.000"},
-      {"name": "Cintya", "user_id": 3, "payed": "10.000"},
-      {"name": "Daniel", "user_id": 4, "payed": "10.000"},
-      {"name": "Effendy", "user_id": 5, "payed": "10.000"},
-      {"name": "Franky", "user_id": 1, "payed": "10.000"},
-      {"name": "Georgio", "user_id": 2, "payed": "10.000"},
-      {"name": "Hulk", "user_id": 3, "payed": "10.000"},
-      {"name": "Indah", "user_id": 4, "payed": "10.000"},
-      {"name": "Jessica", "user_id": 5, "payed": "10.000"},
-    ],
-    "availableMember": [
-      {"name": "Akbar", "user_id": 1, "unit_name": "Unit 1"},
-      {"name": "Bakrie", "user_id": 2, "unit_name": "Unit 2"},
-      {"name": "Cintya", "user_id": 3, "unit_name": "Unit 3"},
-      {"name": "Daniel", "user_id": 4, "unit_name": "Unit 4"},
-      {"name": "Effendy", "user_id": 5, "unit_name": "Unit 5"},
-    ],
-    "winOfHistories": [
-      {"name": "Franky", "user_id": 1, "unit_name": "Unit 11", "date": "30-09-2024"},
-      {"name": "Georgio", "user_id": 2, "unit_name": "Unit 22", "date": "30-07-2024"},
-      {"name": "Hulk", "user_id": 3, "unit_name": "Unit 33", "date": "30-08-2024"},
-      {"name": "Indah", "user_id": 4, "unit_name": "Unit 44", "date": "30-05-2024"},
-      {"name": "Jessica", "user_id": 5, "unit_name": "Unit 55", "date": "30-06-2024"},
-    ],
-  },
-];
-
-List<Map<String, dynamic>> listTagihan = [
-  {"name": "Iuran Kas 2024", "note": "Mohon dibayar diawal bulan", "nominal": "100.000", "isRequired": true, "expired": null, "isPeriode": true, "periodeStatus":"month", "periodeRemaining":"5"},
-  {"name": "Sumbangan Masjid", "note": "Mohon dibayar seiklasnya", "nominal": "5.000", "isRequired": false, "expired": "2-12-2024", "isPeriode": true, "periodeStatus":"week", "periodeRemaining":"5"},
-  {"name": "Sumbangan Jembatan", "note": "", "nominal": "30.000", "isRequired": false, "isPeriode": false, "expired": "12-12-2024"},
-];
-
-List<Map<String, dynamic>> listHistory = [
-  {"category": "arisan", "name": "Arisan Pkk Tahun 1", "area": "RT.001 RW.003", "created": "30-10-2024", "id": 1},
-  {"category": "tagihan", "name": "Iuran Kas 2024", "area": "RT.001 RW.003", "created": "2-12-2024", "id": 2},
-  {"category": "tagihan", "name": "Sumbangan Masjid", "area": "RT.002 RW.003", "created": "2-2-2024", "id": 3},
-  {"category": "laporan", "name": "Jembatan tidak roboh", "area": "RT.001 RW.004", "created": "10-10-2024", "id": 4},//iconsax.message_text
-  {"category": "alarm", "name": "Tombol Panik", "area": "RT.001 RW.004", "created": "11-11-2024", "id": 5},
-];
-
-List<Map<String, dynamic>> listUnitEmpty = [
-  {"area": "RT.001 RW.003", "unit": "Jl. Bantaran IV-C No.5", "startDate": "11-11-2024", "endDate": "30-11-2024", "note": "Pergi ke desa untuk acara", "user": "Dani"},
-  {"area": "Kost Sarimbi", "unit": "Kamar No.5", "startDate": "19-11-2024", "endDate": "22-12-2024", "note": "", "user": "Naufal"},
-  {"area": "Dusun Sratu", "unit": "Gang masjid", "startDate": "29-11-2024", "endDate": "", "note": "", "user": "Hamdan"},
-];
+  if (!locationEnabled) {
+    return showStandardSnackbar(Get.context!, TypeMessage.error, message: msgLocationNotEnabled, duration: DurationMessage.lengthLong);
+  }
+}
 
 String generateRandomId() {
   final random = Random();
@@ -325,22 +143,15 @@ int dateBetween(DateTime from, DateTime to) {
   return (to.difference(from).inHours / 24).round();
 }
 
-void monitorConnection(BuildContext context) {
-  Connectivity().onConnectivityChanged.listen((result) {
-    if (result.where((element) => element == ConnectivityResult.none).isNotEmpty) {
-      showStandardSnackbar(context, TypeMessage.error, message: msgKoneksiError, duration: DurationMessage.lengthInfinite);
-    } else {
-      showStandardSnackbar(context, TypeMessage.success, message: msgKoneksiSukses, duration: DurationMessage.lengthShort);
-    }
-  });
-}
-
-bool checkConnection(BuildContext context) {
+Future<bool> checkConnection() async {
   var connected = false;
-  Connectivity().onConnectivityChanged.listen((result) {
-    if (result.where((element) => element == ConnectivityResult.none).isNotEmpty) {
-      connected = false;
-    } else {
+  print("object");
+  await Connectivity().checkConnectivity().then((value) {
+    if (value.where((element) =>
+      element == ConnectivityResult.mobile
+      || element == ConnectivityResult.wifi
+      || element == ConnectivityResult.ethernet).isNotEmpty) {
+      print("object1");
       connected = true;
     }
   });
@@ -368,4 +179,28 @@ String currencyFormat(String number) {
     return '$integerPart,${parts[1]}';
   }
 
+}
+
+Future<Position?> getLocation() async {
+  Position? position;
+  await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high).then((value) {
+    position = value;
+  }).catchError((error) {
+    throw FailureResponse(message: error.toString());
+  });
+  return position;
+}
+
+Future<String> getAddressLocation(double latitude, double longitude) async {
+  String response = msgUnknown;
+  await placemarkFromCoordinates(latitude, longitude).then((value) {
+    if (value.isNotEmpty) {
+      response = "${value.first.street}, ${value.first.subLocality}, ${value.first.locality}, ${value.first.subAdministrativeArea}, ${value.first.administrativeArea}, ${value.first.country}";
+    }else{
+      response = "ini $msgUnknown";
+    }
+  }).catchError((error) {
+    throw FailureResponse(message: error.toString());
+  });
+  return response;
 }

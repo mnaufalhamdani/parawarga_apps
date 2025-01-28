@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class Environments {
   static const String local = 'local';
@@ -29,16 +30,16 @@ class ConfigEnvironments {
   static final List<EnvData> _availableEnvironments = [
     EnvData(
         env: Environments.local,
-        url: 'http://10.8.12.234/parawarga/service/',
-        dbName: 'parawarga_local.db'),
+        url: dotenv.get('BASE_URL_LOCAL', fallback: ''),
+        dbName: dotenv.get('BASE_DB_LOCAL', fallback: '')),
     EnvData(
         env: Environments.development,
-        url: 'https://appdk-trial.duakelinci.id:9393/api/dkportal/v2/',
-        dbName: 'parawarga_debug.db'),
+        url: dotenv.get('BASE_URL_DEV', fallback: ''),
+        dbName: dotenv.get('BASE_DB_DEV', fallback: '')),
     EnvData(
         env: Environments.production,
-        url: 'https://dkapi.duakelinci.id:9393/dkportal/v2/',
-        dbName: 'parawarga.db'),
+        url: dotenv.get('BASE_URL_PROD', fallback: ''),
+        dbName: dotenv.get('BASE_DB_PROD', fallback: '')),
   ];
 
   static EnvData getEnvironment() {

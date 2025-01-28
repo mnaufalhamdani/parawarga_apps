@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
@@ -12,6 +13,7 @@ import '../../config/local/database_config.dart';
 import '../../models/domain/tagihan_domain.dart';
 import '../../models/response/tagihan_detail_model.dart';
 import '../../models/response/tagihan_model.dart';
+import '../../models/response/tagihan_temp_model.dart';
 import '../../utils/strings.dart';
 import '../provider/tagihan_provider.dart';
 
@@ -22,7 +24,9 @@ abstract class TagihanRepository {
 
   Future<List<TagihanModel>> getTagihan();
   Future<TagihanDetailModel> getTagihanDetail(String id);
-  Future<GeneralModel> saveTagihanHistory(TagihanHistoryDomain domain);
+  Future<TagihanTempModel> getTagihanTemp(String id);
+  Future<GeneralModel> saveTagihanTemp(TagihanTempDomain domain);
+  Future<GeneralModel> saveTagihanPembayaran(TagihanPembayaranDomain domain);
 }
 
 //data - repository
@@ -70,14 +74,33 @@ class TagihanRepositoryImpl extends TagihanRepository {
   }
 
   @override
-  Future<GeneralModel> saveTagihanHistory(TagihanHistoryDomain domain) async {
+  Future<TagihanTempModel> getTagihanTemp(String id) async {
+    return await provider.getTagihanTemp(
+        token: await getToken(),
+        id: id
+    );
+  }
+
+  @override
+  Future<GeneralModel> saveTagihanTemp(TagihanTempDomain domain) async {
     final user = await getUserActive();
-    domain.created_by = user.userEntity.id;
+    domain.user_id = user.userEntity.id;
 
     final json = jsonEncode(domain).toString();
-    return await provider.saveTagihanHistory(
+    log("saveTagihanTemp: $json");
+    return await provider.saveTagihanTemp(
       token: await getToken(),
       json: json
+    );
+  }
+
+  @override
+  Future<GeneralModel> saveTagihanPembayaran(TagihanPembayaranDomain domain) async {
+    final json = jsonEncode(domain).toString();
+    log("saveTagihanPembayaran: $json");
+    return await provider.saveTagihanPembayaran(
+        token: await getToken(),
+    json: json
     );
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 import 'package:parawarga_apps/routes/app_pages.dart';
 
@@ -10,7 +11,9 @@ import 'utils/strings.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await dotenv.load();
   await BindingDependency().dependencies();
+
   runApp(const MyApp());
 }
 

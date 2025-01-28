@@ -66,7 +66,7 @@ class StandardTextState extends State<StandardTextField> {
           obscureText: widget.isPassword == true ? obscurePassword : false,
           textCapitalization: TextCapitalization.sentences,
           validator: (value) {
-            if (!widget.msgError.isNull) {
+            if (widget.msgError != null) {
               if (value == null || value.isEmpty) {
                 return widget.msgError;
               }
@@ -88,7 +88,7 @@ class StandardTextState extends State<StandardTextField> {
             return null;
           },
           onTap: () {
-            if (!widget.onPressed.isNull) {
+            if (widget.onPressed != null) {
               widget.onPressed!();
             }
           },
@@ -106,7 +106,7 @@ class StandardTextState extends State<StandardTextField> {
               focusedErrorBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(baseRadiusForm), borderSide: BorderSide(color: Colors.red)),
               contentPadding: EdgeInsets.only(left: 20, right: 20),
               labelText: widget.titleHint,
-              labelStyle: TextStyle(color: colorTextSecondary),
+              labelStyle: TextStyle(color: colorTextMessage),
               filled: true,
               fillColor: Colors.grey.shade200,
               suffixIcon: widget.isPassword == true

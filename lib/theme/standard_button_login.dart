@@ -44,11 +44,11 @@ class StandardButtonLoginState extends State<StandardButtonLogin> {
           width: Get.width,
           child: ElevatedButton(
             onPressed: () {
-              if(widget.isEnabled.isNull || widget.isEnabled == true) {
-                if (!widget.formKey.isNull){
+              if(widget.isEnabled == null || widget.isEnabled == true) {
+                if (widget.formKey != null){
                   if (widget.formKey!.currentState!.validate()) {
                     if (widget.isLoading == false){
-                      if(!widget.onPressed.isNull){
+                      if(widget.onPressed != null){
                         widget.onPressed!();
                       }
                     }
@@ -59,7 +59,7 @@ class StandardButtonLoginState extends State<StandardButtonLogin> {
               }
             },
             style: ButtonStyle(
-                backgroundColor: widget.isEnabled.isNull || widget.isEnabled == true
+                backgroundColor: widget.isEnabled == null || widget.isEnabled == true
                   ? widget.isLoading == true
                     ? WidgetStateProperty.all(Colors.grey)
                     : WidgetStateProperty.all(widget.buttonColor ?? colorButtonPrimary)
@@ -82,7 +82,7 @@ class StandardButtonLoginState extends State<StandardButtonLogin> {
                 style: TextStyle(
                     fontSize: 14,
                     letterSpacing: 2.5,
-                    color: (widget.color.isNull) ? Colors.white : widget.color,
+                    color: (widget.color == null) ? Colors.white : widget.color,
                     fontWeight: FontWeight.bold)),
           ),
         ));

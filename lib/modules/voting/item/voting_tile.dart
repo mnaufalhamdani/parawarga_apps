@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:parawarga_apps/theme/app_theme.dart';
 import 'package:parawarga_apps/theme/standard_button_primary.dart';
 import 'package:parawarga_apps/utils/strings.dart';
@@ -91,7 +90,7 @@ class VotingTileState extends State<VotingTile> {
                           children: [
                             Text(widget.model.history[i].answer.toString(),
                                 style: TextStyle(
-                                    fontSize: 14, color: colorTextSecondary)),
+                                    fontSize: 14, color: colorTextMessage, fontWeight: FontWeight.bold)),
                             SizedBox(height: baseRadiusForm),
                             Row(
                               children: [
@@ -107,7 +106,7 @@ class VotingTileState extends State<VotingTile> {
                                       .toInt(),
                                   child: Container(
                                     height: 2,
-                                    color: Colors.grey.shade200,
+                                    color: colorTextlabel,
                                   ),
                                 ),
                                 Expanded(
@@ -116,7 +115,7 @@ class VotingTileState extends State<VotingTile> {
                                       "${widget.model.history[i].votePercent}%",
                                       style: TextStyle(
                                           fontSize: 14,
-                                          color: colorTextSecondary),
+                                          color: colorTextMessage),
                                       textAlign: TextAlign.right),
                                 ),
                               ],
@@ -131,7 +130,7 @@ class VotingTileState extends State<VotingTile> {
                       children: [
                         Text("Total Vote: $totalVoters peserta \nKadaluarsa: ${widget.model.expired}",
                             style: TextStyle(
-                                color: colorTextSecondary, fontSize: 11)),
+                                color: colorTextMessage, fontSize: 11)),
                         GestureDetector(
                             onTap: () {
                               widget.onDetail(widget.model);
@@ -139,8 +138,8 @@ class VotingTileState extends State<VotingTile> {
                             child: SizedBox(
                                 width: 35,
                                 height: 35,
-                                child: Icon(Iconsax.info_circle,
-                                    color: colorPrimary)))
+                                child: Icon(Icons.info_outline_rounded,
+                                    color: colorSecondary)))
                       ],
                     ),
                   )
@@ -188,7 +187,7 @@ class VotingTileState extends State<VotingTile> {
                     RadioListTile(
                         title: Text(widget.model.detail[i].answer.toString(),
                             style: TextStyle(
-                                fontSize: 14, color: colorTextSecondary)),
+                                fontSize: 14, color: colorTextMessage, fontWeight: FontWeight.bold)),
                         value: widget.model.detail[i].urutan,
                         groupValue: onValue,
                         visualDensity: VisualDensity(
@@ -205,7 +204,7 @@ class VotingTileState extends State<VotingTile> {
                     children: [
                       Text("Kadaluarsa: ${widget.model.expired.toString()}",
                           style: TextStyle(
-                              color: colorTextSecondary, fontSize: 11)),
+                              color: colorTextMessage, fontSize: 11)),
                       Visibility(
                         visible: (widget.model.isExpired == true) ? false : true,
                         child: StandardButtonPrimary(

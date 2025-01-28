@@ -23,8 +23,10 @@ class SingleSelectDialog {
             heightFactor: 0.6,
             child: StandardSingleSelectDialog(
                 listItem: listItem,
+                title: title,
                 onPressed: (idIndex, message) {
-                  onPressed(idIndex, message);
+                  WidgetsBinding.instance
+                      .addPostFrameCallback((_) => onPressed(idIndex, message));
                 })
         )
     );

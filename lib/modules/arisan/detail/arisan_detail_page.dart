@@ -11,7 +11,7 @@ import 'package:intl/intl.dart';
 import 'package:parawarga_apps/core/constants.dart';
 import 'package:parawarga_apps/core/data_state.dart';
 import 'package:parawarga_apps/models/domain/arisan_domain.dart';
-import 'package:parawarga_apps/models/response/ArisanDetailModel.dart';
+import 'package:parawarga_apps/models/response/arisan_detail_model.dart';
 import 'package:parawarga_apps/modules/arisan/detail/arisan_detail_controller.dart';
 import 'package:parawarga_apps/modules/arisan/item/arisan_detail_tile.dart';
 import 'package:parawarga_apps/theme/app_colors.dart';
@@ -28,6 +28,7 @@ class ArisanDetailPage extends GetView<ArisanDetailController> {
   const ArisanDetailPage({super.key});
 
   static const argId = 'argId';
+  static const argPeriodeFromHistory = 'argPeriodeFromHistory';
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +56,7 @@ class ArisanDetailPage extends GetView<ArisanDetailController> {
                       _buildContentBottom(context, data);
                     }
                   },
-                  child: Icon(Iconsax.convert_3d_cube, color: colorDark)
+                  child: Icon(Iconsax.convert_3d_cube, color: colorTextSecondary)
               )
           )),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
@@ -113,10 +114,10 @@ class ArisanDetailPage extends GetView<ArisanDetailController> {
         badges.Badge(
         showBadge: data.currentPeriode == data.totalPeriode,
             position: badges.BadgePosition.topEnd(top: -5, end: -5),
-            badgeContent: Icon(Icons.check, color: Colors.white, size: baseRadius / 1.5),
+            badgeContent: Icon(Icons.check, color: colorPrimary, size: baseRadius / 1.5),
             badgeStyle: badges.BadgeStyle(
               shape: badges.BadgeShape.instagram,
-              badgeColor: colorDark,
+              badgeColor: colorSecondary,
             ),
             child:
               Card(
@@ -469,39 +470,40 @@ class ArisanDetailPage extends GetView<ArisanDetailController> {
       }
 
       return Card(
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(baseRadiusCard)),
-          color: Colors.white,
-          elevation: 2,
-          child: Padding(
-            padding: EdgeInsets.all(basePaddingInContent),
-            child: Column(children: [
-              Text(controller.arisanLabel.value,
-                  style: TextStyle(
-                      color: colorPrimary,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16)),
-              (arisanHistory.isEmpty)
-                  ? StandardErrorPage(
-                message: msgNotFound,
-                onPressed: () {},
-              )
-                  : Padding(
-                  padding: EdgeInsets.only(top: baseRadiusForm),
-                  child: ListView.builder(
-                      shrinkWrap: true,
-                      physics: BouncingScrollPhysics(),
-                      padding: EdgeInsets.only(top: baseRadiusForm),
-                      itemCount: arisanHistory.length,
-                      itemBuilder: (context, index) {
-                        return ArisanHistoryTile(
-                          model: arisanHistory[index],
-                          onPressed: (model) async {},
-                        );
-                      })
-              )
-            ]),
-          )
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(baseRadiusCard)),
+        color: Colors.white,
+        elevation: 2,
+        child: Padding(
+          padding: EdgeInsets.all(basePaddingInContent),
+          child: Column(children: [
+            Text(controller.arisanLabel.value,
+              style: TextStyle(
+                color: colorPrimary,
+                fontWeight: FontWeight.bold,
+                fontSize: 16)),
+            (arisanHistory.isEmpty)
+                ? StandardErrorPage(
+              message: msgNotFound,
+              onPressed: () {},
+            )
+              : Padding(
+              padding: EdgeInsets.only(top: baseRadiusForm),
+              child: ListView.builder(
+                shrinkWrap: true,
+                physics: BouncingScrollPhysics(),
+                padding: EdgeInsets.only(top: baseRadiusForm),
+                itemCount: arisanHistory.length,
+                itemBuilder: (context, index) {
+                  return ArisanHistoryTile(
+                    model: arisanHistory[index],
+                    userId: controller.userId.value,
+                    onPressed: (model) async {},
+                  );
+                })
+            )
+          ]),
+        )
       );
     }
 
@@ -533,6 +535,7 @@ class ArisanDetailPage extends GetView<ArisanDetailController> {
                     itemBuilder: (context, index) {
                       return ArisanDetailTile(
                         model: arisanList[index],
+                        userId: controller.userId.value,
                         onPressed: (model) async {},
                       );
                     })
@@ -614,31 +617,35 @@ class ArisanDetailPage extends GetView<ArisanDetailController> {
                       SizedBox(height: basePaddingInContent),
                       Visibility(
                         visible: (data.timeToDice == true) ? true : false,
-                        child: StandardButtonPrimary(
-                          isLoading: controller.arisanWinnerState.value.isLoading == true,
-                          isEnabled: (controller.arisanWinnerState.value.data == null) ? true : false,
-                          titleHint: labelRandomNow,
-                          onPressed: () async {
-                            if (controller.arisanWinnerDomain.value.user_id == null) {
-                              var dice = Fortune.randomInt(0, remainingMemeber.length);
+                        child: Container(
+                          width: Get.width,
+                          margin: EdgeInsets.only(left: basePadding, right: basePadding),
+                          child: StandardButtonPrimary(
+                            isLoading: controller.arisanWinnerState.value.isLoading == true,
+                            isEnabled: (controller.arisanWinnerState.value.data == null) ? true : false,
+                            titleHint: labelRandomNow,
+                            onPressed: () async {
+                              if (controller.arisanWinnerDomain.value.user_id == null) {
+                                var dice = Fortune.randomInt(0, remainingMemeber.length);
 
-                              controller.arisanWinnerDomain.value = ArisanWinnerDomain(
-                                  dice: dice,
-                                  arisan_id: data.id,
-                                  user_id: int.parse(remainingMemeber.elementAt(dice).userId.toString()),
-                                  name: remainingMemeber.elementAt(dice).createdName,
-                                  periode: data.periode,
-                                  win_date: DateFormat('yyyy-MM-dd HH:mm:ss').format(DateTime.now()),
-                                  win_nominal: data.totalPayed,
-                              );
-                            }
+                                controller.arisanWinnerDomain.value = ArisanWinnerDomain(
+                                    dice: dice,
+                                    arisan_id: data.id,
+                                    user_id: int.parse(remainingMemeber.elementAt(dice).userId.toString()),
+                                    name: remainingMemeber.elementAt(dice).createdName,
+                                    periode: data.periode,
+                                    win_date: DateFormat('yyyy-MM-dd HH:mm:ss').format(DateTime.now()),
+                                    win_nominal: data.totalPayed,
+                                );
+                              }
 
-                            if (controller.arisanWinnerDomain.value.dice != null) {
-                              stramController.add(controller.arisanWinnerDomain.value.dice ?? 0);
-                            }
+                              if (controller.arisanWinnerDomain.value.dice != null) {
+                                stramController.add(controller.arisanWinnerDomain.value.dice ?? 0);
+                              }
 
-                            await controller.saveArisanWinner();
-                          },
+                              await controller.saveArisanWinner();
+                            },
+                          ),
                         ),
                       ),
                       SizedBox(height: basePaddingInContent),

@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:parawarga_apps/theme/standard_error_page.dart';
-import 'package:parawarga_apps/theme/standard_text_field_login.dart';
 
 import '../utils/strings.dart';
 import 'app_colors.dart';
@@ -59,7 +58,7 @@ class StandardSingleSelectDialogState extends State<StandardSingleSelectDialog> 
     return Column(children: [
       Padding(
           padding: EdgeInsets.all(20),
-          child: Text(greetingDialog,
+          child: Text(widget.title ?? greetingDialog,
               style: TextStyle(
                   color: colorTextlabel,
                   fontWeight: FontWeight.bold,

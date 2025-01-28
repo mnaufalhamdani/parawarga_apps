@@ -77,6 +77,16 @@ dependencies:
   #https://pub.dev/packages/flutter_dotenv
   flutter_dotenv: ^5.2.1
 
+  #https://pub.dev/packages/url_launcher
+  url_launcher: ^6.3.1
+
+  #https://pub.dev/packages/widget_zoom
+  widget_zoom: ^0.0.4
+
+  google_maps_flutter: ^2.2.2
+  geolocator: ^11.0.0
+  geocoding: ^3.0.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -98,6 +108,7 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
+    - .env #root project .env
     - assets/
     - assets/fonts/
     - assets/fonts/bariol/

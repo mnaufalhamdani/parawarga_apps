@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:parawarga_apps/core/constants.dart';
-import 'package:parawarga_apps/models/response/ArisanDetailModel.dart';
+import 'package:parawarga_apps/models/response/arisan_detail_model.dart';
 import 'package:parawarga_apps/theme/app_theme.dart';
 import 'package:parawarga_apps/utils/strings.dart';
 
@@ -10,11 +10,13 @@ import '../../../theme/app_colors.dart';
 
 class ArisanDetailTile extends StatefulWidget {
   final Detail model;
+  final int userId;//user_id from login
   final void Function(Detail model) onPressed;
 
   const ArisanDetailTile({
     super.key,
     required this.model,
+    required this.userId,
     required this.onPressed,
   });
 
@@ -27,9 +29,7 @@ class ArisanDetailTileState extends State<ArisanDetailTile> {
   Widget build(BuildContext context) {
     return GestureDetector(
         onTap: () {
-          if (!widget.onPressed.isNull) {
-            widget.onPressed(widget.model);
-          }
+          widget.onPressed(widget.model);
         },
         child: Column(
           children: [
@@ -38,7 +38,7 @@ class ArisanDetailTileState extends State<ArisanDetailTile> {
               child: Text(widget.model.createdName.toString(),
                   textAlign: TextAlign.start,
                   style: TextStyle(
-                      color: colorTextSecondary,
+                      color: (widget.userId == int.parse(widget.model.userId.toString())) ? colorPrimary : colorTextMessage,
                       fontWeight: FontWeight.bold,
                       fontSize: 16)),
             ),
@@ -48,9 +48,9 @@ class ArisanDetailTileState extends State<ArisanDetailTile> {
                 widget.model.unitName ?? labelUnitNotFound,
                 style: TextStyle(
                     fontStyle: FontStyle.italic,
-                    color: colorTextSecondary,
-                    fontSize: 12),
-              ),
+                    color: (widget.userId == int.parse(widget.model.userId.toString())) ? colorPrimary : colorTextMessage,
+                    fontSize: 12,
+                    fontWeight: (widget.userId == int.parse(widget.model.userId.toString())) ? FontWeight.bold : FontWeight.normal)),
             ),
             Visibility(visible: (widget.model.winDate != null) ? true : false, child: Align(
               alignment: Alignment.centerRight,
@@ -58,7 +58,7 @@ class ArisanDetailTileState extends State<ArisanDetailTile> {
                 widget.model.winDate.toString(),
                 style: TextStyle(
                     fontStyle: FontStyle.italic,
-                    color: colorTextSecondary,
+                    color: colorTextlabel,
                     fontSize: 12),
               ),
             )),
@@ -71,11 +71,13 @@ class ArisanDetailTileState extends State<ArisanDetailTile> {
 
 class ArisanHistoryTile extends StatefulWidget {
   final User model;
+  final int userId;//user_id from login
   final void Function(User model) onPressed;
 
   const ArisanHistoryTile({
     super.key,
     required this.model,
+    required this.userId,
     required this.onPressed,
   });
 
@@ -88,7 +90,7 @@ class ArisanHistoryTileState extends State<ArisanHistoryTile> {
   Widget build(BuildContext context) {
     return GestureDetector(
         onTap: () {
-          if (!widget.onPressed.isNull) {
+          if (widget.onPressed != null) {
             widget.onPressed(widget.model);
           }
         },
@@ -99,7 +101,7 @@ class ArisanHistoryTileState extends State<ArisanHistoryTile> {
                 child: Text(widget.model.createdName.toString(),
                     textAlign: TextAlign.start,
                     style: TextStyle(
-                        color: colorTextSecondary,
+                        color: (widget.userId == int.parse(widget.model.userId.toString())) ? colorPrimary : colorTextMessage,
                         fontWeight: FontWeight.bold,
                         fontSize: 16)),
               ),
@@ -108,10 +110,10 @@ class ArisanHistoryTileState extends State<ArisanHistoryTile> {
                 child: Text(
                   "Rp. ${currencyFormat(widget.model.nominal ?? "-")}",
                   style: TextStyle(
-                      fontStyle: FontStyle.italic,
-                      color: colorTextSecondary,
-                      fontSize: 12),
-                ),
+                    fontStyle: FontStyle.italic,
+                    color: (widget.userId == int.parse(widget.model.userId.toString())) ? colorPrimary : colorTextMessage,
+                    fontSize: 12,
+                    fontWeight: (widget.userId == int.parse(widget.model.userId.toString())) ? FontWeight.bold : FontWeight.normal)),
               ),
               Align(
                 alignment: Alignment.centerRight,
@@ -119,7 +121,7 @@ class ArisanHistoryTileState extends State<ArisanHistoryTile> {
                   widget.model.updatedAt.toString(),
                   style: TextStyle(
                       fontStyle: FontStyle.italic,
-                      color: colorTextSecondary,
+                      color: colorTextlabel,
                       fontSize: 12),
                 ),
               ),
@@ -146,7 +148,7 @@ class FilterHistoryTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(padding: EdgeInsets.only(left: basePadding, right: basePadding),
         child: SizedBox(
-            width: double.infinity,
+            width: Get.width,
             child: TextButton(
               onPressed: (){
                 onPressed(model, index);

@@ -30,6 +30,7 @@ class LoginModel {
     this.login_at,
     this.token,
     required this.area,
+    required this.menu,
   });
 
   String? id;
@@ -61,6 +62,7 @@ class LoginModel {
   String? login_at;
   String? token;
   List<LoginAreaModel> area;
+  List<MenuModel> menu;
 
   factory LoginModel.fromJson(Map<String, dynamic> json) {
     return LoginModel(
@@ -93,6 +95,7 @@ class LoginModel {
       login_at: json['login_at'],
       token: json['token'],
       area: json['area'] == null ? [] : List<LoginAreaModel>.from(json["area"]!.map((x) => LoginAreaModel.fromJson(x))),
+      menu: json['menu'] == null ? [] : List<MenuModel>.from(json["menu"]!.map((x) => MenuModel.fromJson(x))),
     );
   }
 }
@@ -146,6 +149,68 @@ class LoginAreaModel {
       provinsi_name: json['provinsi_name'],
       kabupaten_name: json['kabupaten_name'],
       kecamatan_name: json['kecamatan_name'],
+    );
+  }
+}
+
+class MenuModel {
+  MenuModel({
+    this.userId,
+    this.menuId,
+    this.isCreate,
+    this.isRead,
+    this.isUpdate,
+    this.isDelete,
+    this.isApprove,
+    this.status,
+    this.urutan,
+    this.typeMenu,
+    this.name,
+    this.slug,
+    this.link,
+    this.icon,
+    this.level,
+    this.parentId,
+    this.keterangan,
+  });
+
+  int? userId;
+  int? menuId;
+  int? isCreate;
+  int? isRead;
+  int? isUpdate;
+  int? isDelete;
+  int? isApprove;
+  int? status;
+  int? urutan;
+  String? typeMenu;
+  String? name;
+  String? slug;
+  String? link;
+  String? icon;
+  int? level;
+  int? parentId;
+  String? keterangan;
+
+  factory MenuModel.fromJson(Map<String, dynamic> json){
+    return MenuModel(
+      userId: int.parse(json["user_id"]),
+      menuId: int.parse(json["menu_id"]),
+      isCreate: int.parse(json["is_create"]),
+      isRead: int.parse(json["is_read"]),
+      isUpdate: int.parse(json["is_update"]),
+      isDelete: int.parse(json["is_delete"]),
+      isApprove: int.parse(json["is_approve"]),
+      status: int.parse(json["status"]),
+      urutan: int.parse(json["urutan"]),
+      typeMenu: json["type_menu"],
+      name: json["name"],
+      slug: json["slug"],
+      link: json["link"],
+      icon: json["icon"],
+      level: int.parse(json["level"]),
+      parentId: int.parse(json["parent_id"]),
+      keterangan: json["keterangan"],
     );
   }
 }

@@ -1,6 +1,5 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:parawarga_apps/models/response/voting_detail_model.dart';
 import 'package:parawarga_apps/theme/app_theme.dart';
 
@@ -25,9 +24,7 @@ class VotingDetailTileState extends State<VotingDetailTile> {
   Widget build(BuildContext context) {
     return GestureDetector(
         onTap: () {
-          if (!widget.onPressed.isNull) {
-            widget.onPressed(widget.model);
-          }
+          widget.onPressed(widget.model);
         },
         child: Padding(
           padding: EdgeInsets.only(
@@ -44,7 +41,7 @@ class VotingDetailTileState extends State<VotingDetailTile> {
                   children: [
                     Text(widget.model.answer.toString(),
                         style: TextStyle(
-                            fontSize: 14, color: colorTextSecondary)),
+                            fontSize: 14, color: colorTextMessage, fontWeight: FontWeight.bold)),
                     SizedBox(height: baseRadiusForm),
                     Row(
                       children: [
@@ -59,7 +56,7 @@ class VotingDetailTileState extends State<VotingDetailTile> {
                           flex: (100 - int.parse(widget.model.votePercent.toString())).toInt(),
                           child: Container(
                             height: 2,
-                            color: Colors.grey.shade200,
+                            color: colorTextlabel,
                           ),
                         ),
                         Expanded(
@@ -67,7 +64,7 @@ class VotingDetailTileState extends State<VotingDetailTile> {
                           child: Text(
                               "${widget.model.votePercent}%",
                               style: TextStyle(
-                                  fontSize: 14, color: colorTextSecondary),
+                                  fontSize: 14, color: colorTextMessage),
                               textAlign: TextAlign.right),
                         ),
                       ],

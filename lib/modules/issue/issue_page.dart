@@ -35,10 +35,11 @@ class IssuePage extends GetView<IssueController> {
       floatingActionButton: FloatingActionButton(
           shape: CircleBorder(),
           backgroundColor: colorSecondary,
-          onPressed: () {
-            Get.toNamed(Routes.issueInput);
+          onPressed: () async {
+            await Get.toNamed(Routes.issueInput);
+            controller.getIssue();
           },
-          child: Icon(Iconsax.add, color: colorDark)
+          child: Icon(Iconsax.add, color: colorTextSecondary)
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );

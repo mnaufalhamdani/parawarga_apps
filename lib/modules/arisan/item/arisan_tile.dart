@@ -3,7 +3,7 @@ import 'package:badges/badges.dart' as badges;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:parawarga_apps/core/constants.dart';
-import 'package:parawarga_apps/models/response/ArisanModel.dart';
+import 'package:parawarga_apps/models/response/arisan_model.dart';
 import 'package:parawarga_apps/theme/app_theme.dart';
 import 'package:parawarga_apps/utils/strings.dart';
 
@@ -30,16 +30,14 @@ class ArisanTileState extends State<ArisanTile> {
     return badges.Badge(
       showBadge: widget.model.currentPeriode == widget.model.totalPeriode,
       position: badges.BadgePosition.topEnd(top: -5, end: -5),
-      badgeContent: Icon(Icons.check, color: Colors.white, size: baseRadius / 1.5),
+      badgeContent: Icon(Icons.check, color: colorPrimary, size: baseRadius / 1.5),
       badgeStyle: badges.BadgeStyle(
         shape: badges.BadgeShape.instagram,
-        badgeColor: colorDark,
+        badgeColor: colorSecondary,
       ),
       child: GestureDetector(
           onTap: () {
-            if (!widget.onPressed.isNull) {
-              widget.onPressed(widget.model);
-            }
+            widget.onPressed(widget.model);
           },
           child: _buildContent(context)),
     );
@@ -86,7 +84,7 @@ class ArisanTileState extends State<ArisanTile> {
                         child: Text(
                           labelPeriode,
                           style: TextStyle(
-                              color: colorTextSecondary, fontSize: 11),
+                              color: colorTextMessage, fontSize: 11),
                         ),
                       ),
                       Expanded(
@@ -95,7 +93,7 @@ class ArisanTileState extends State<ArisanTile> {
                           ":",
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                              color: colorTextSecondary, fontSize: 11),
+                              color: colorTextMessage, fontSize: 11),
                         ),
                       ),
                       Expanded(
@@ -109,7 +107,7 @@ class ArisanTileState extends State<ArisanTile> {
                                   : int.parse(widget.model.currentPeriode.toString()) + 1
                             } / ${widget.model.totalPeriode}",
                             style: TextStyle(
-                                color: colorTextSecondary,
+                                color: colorTextMessage,
                                 fontSize: 12,
                                 fontWeight: FontWeight.bold),
                           ),
@@ -122,7 +120,7 @@ class ArisanTileState extends State<ArisanTile> {
                         child: Text(
                           labelDate,
                           style: TextStyle(
-                              color: colorTextSecondary, fontSize: 11),
+                              color: colorTextMessage, fontSize: 11),
                         ),
                       ),
                       Expanded(
@@ -131,7 +129,7 @@ class ArisanTileState extends State<ArisanTile> {
                           ":",
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                              color: colorTextSecondary, fontSize: 11),
+                              color: colorTextMessage, fontSize: 11),
                         ),
                       ),
                       Expanded(
@@ -141,7 +139,7 @@ class ArisanTileState extends State<ArisanTile> {
                           child: Text(
                             widget.model.datePeriode.toString(),
                             style: TextStyle(
-                                color: colorTextSecondary,
+                                color: colorTextMessage,
                                 fontSize: 12,
                                 fontWeight: FontWeight.bold),
                           ),
@@ -154,7 +152,7 @@ class ArisanTileState extends State<ArisanTile> {
                         child: Text(
                           labelSubsciption,
                           style: TextStyle(
-                              color: colorTextSecondary, fontSize: 11),
+                              color: colorTextMessage, fontSize: 11),
                         ),
                       ),
                       Expanded(
@@ -163,7 +161,7 @@ class ArisanTileState extends State<ArisanTile> {
                           ":",
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                              color: colorTextSecondary, fontSize: 11),
+                              color: colorTextMessage, fontSize: 11),
                         ),
                       ),
                       Expanded(
@@ -171,7 +169,7 @@ class ArisanTileState extends State<ArisanTile> {
                         child: Text(
                           "Rp. ${currencyFormat(widget.model.nominal.toString())}",
                           style: TextStyle(
-                              color: colorTextSecondary,
+                              color: colorTextMessage,
                               fontSize: 12,
                               fontWeight: FontWeight.bold),
                         ),
@@ -183,7 +181,7 @@ class ArisanTileState extends State<ArisanTile> {
                         child: Text(
                           labelTotal,
                           style: TextStyle(
-                              color: colorTextSecondary, fontSize: 11),
+                              color: colorTextMessage, fontSize: 11),
                         ),
                       ),
                       Expanded(
@@ -192,7 +190,7 @@ class ArisanTileState extends State<ArisanTile> {
                           ":",
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                              color: colorTextSecondary, fontSize: 11),
+                              color: colorTextMessage, fontSize: 11),
                         ),
                       ),
                       Expanded(
@@ -202,7 +200,7 @@ class ArisanTileState extends State<ArisanTile> {
                           child: Text(
                             "Rp. ${currencyFormat(widget.model.totalPayed.toString())}",
                             style: TextStyle(
-                                color: colorTextSecondary,
+                                color: colorTextMessage,
                                 fontSize: 12,
                                 fontWeight: FontWeight.bold),
                           ),

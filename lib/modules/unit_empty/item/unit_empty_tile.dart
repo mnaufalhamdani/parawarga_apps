@@ -1,14 +1,15 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:parawarga_apps/models/response/area_unit_model.dart';
 import 'package:parawarga_apps/theme/app_theme.dart';
 import 'package:parawarga_apps/utils/strings.dart';
 
 import '../../../theme/app_colors.dart';
 
 class UnitEmptyTile extends StatefulWidget {
-  final Map<String, dynamic> model;
-  final void Function(Map<String, dynamic> model) onPressed;
+  final AreaUnitModel model;
+  final void Function(AreaUnitModel model) onPressed;
 
   const UnitEmptyTile({
     super.key,
@@ -25,9 +26,7 @@ class UnitEmptyTileState extends State<UnitEmptyTile> {
   Widget build(BuildContext context) {
     return GestureDetector(
         onTap: () {
-          if (!widget.onPressed.isNull) {
-            widget.onPressed(widget.model);
-          }
+          widget.onPressed(widget.model);
         },
         child: _buildContent(context));
   }
@@ -50,15 +49,15 @@ class UnitEmptyTileState extends State<UnitEmptyTile> {
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(widget.model["unit"],
+                    Text(
+                      widget.model.areaName.toString(),
+                      style: TextStyle(color: colorLight, fontSize: 12),
+                    ),
+                    Text(widget.model.name ?? msgNotFound,
                         style: TextStyle(
                             color: colorLight,
                             fontWeight: FontWeight.bold,
                             fontSize: 16)),
-                    Text(
-                      widget.model["area"],
-                      style: TextStyle(color: colorLight, fontSize: 12),
-                    ),
                   ]),
             ),
           ),
@@ -73,7 +72,7 @@ class UnitEmptyTileState extends State<UnitEmptyTile> {
                         child: Text(
                           labelOwner,
                           style: TextStyle(
-                              color: colorTextSecondary, fontSize: 11),
+                              color: colorTextMessage, fontSize: 11),
                         ),
                       ),
                       Expanded(
@@ -82,7 +81,7 @@ class UnitEmptyTileState extends State<UnitEmptyTile> {
                           ":",
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                              color: colorTextSecondary, fontSize: 11),
+                              color: colorTextMessage, fontSize: 11),
                         ),
                       ),
                       Expanded(
@@ -90,9 +89,9 @@ class UnitEmptyTileState extends State<UnitEmptyTile> {
                         child: Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
-                            widget.model["user"],
+                            widget.model.createdName.toString(),
                             style: TextStyle(
-                                color: colorTextSecondary,
+                                color: colorTextMessage,
                                 fontSize: 12,
                                 fontWeight: FontWeight.bold),
                           ),
@@ -105,7 +104,7 @@ class UnitEmptyTileState extends State<UnitEmptyTile> {
                         child: Text(
                           labelStart,
                           style: TextStyle(
-                              color: colorTextSecondary, fontSize: 11),
+                              color: colorTextMessage, fontSize: 11),
                         ),
                       ),
                       Expanded(
@@ -114,7 +113,7 @@ class UnitEmptyTileState extends State<UnitEmptyTile> {
                           ":",
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                              color: colorTextSecondary, fontSize: 11),
+                              color: colorTextMessage, fontSize: 11),
                         ),
                       ),
                       Expanded(
@@ -122,9 +121,9 @@ class UnitEmptyTileState extends State<UnitEmptyTile> {
                         child: Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
-                            widget.model["startDate"],
+                            widget.model.startDate.toString(),
                             style: TextStyle(
-                                color: colorTextSecondary,
+                                color: colorTextMessage,
                                 fontSize: 12,
                                 fontWeight: FontWeight.bold),
                           ),
@@ -135,9 +134,9 @@ class UnitEmptyTileState extends State<UnitEmptyTile> {
                       Expanded(
                         flex: 2,
                         child: Text(
-                          labelEnd,
+                          labelBack,
                           style: TextStyle(
-                              color: colorTextSecondary, fontSize: 11),
+                              color: colorTextMessage, fontSize: 11),
                         ),
                       ),
                       Expanded(
@@ -146,7 +145,7 @@ class UnitEmptyTileState extends State<UnitEmptyTile> {
                           ":",
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                              color: colorTextSecondary, fontSize: 11),
+                              color: colorTextMessage, fontSize: 11),
                         ),
                       ),
                       Expanded(
@@ -154,9 +153,9 @@ class UnitEmptyTileState extends State<UnitEmptyTile> {
                         child: Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
-                            widget.model["endDate"],
+                            widget.model.endDate ?? "Tidak diketahui",
                             style: TextStyle(
-                                color: colorTextSecondary,
+                                color: colorTextMessage,
                                 fontSize: 12,
                                 fontWeight: FontWeight.bold),
                           ),
@@ -169,7 +168,7 @@ class UnitEmptyTileState extends State<UnitEmptyTile> {
                         child: Text(
                           labelNote,
                           style: TextStyle(
-                              color: colorTextSecondary, fontSize: 11),
+                              color: colorTextMessage, fontSize: 11),
                         ),
                       ),
                       Expanded(
@@ -178,15 +177,15 @@ class UnitEmptyTileState extends State<UnitEmptyTile> {
                           ":",
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                              color: colorTextSecondary, fontSize: 11),
+                              color: colorTextMessage, fontSize: 11),
                         ),
                       ),
                       Expanded(
                         flex: 8,
                         child: Text(
-                          widget.model["note"],
+                          widget.model.message ?? "-",
                           style: TextStyle(
-                              color: colorTextSecondary,
+                              color: colorTextMessage,
                               fontSize: 12,
                               fontWeight: FontWeight.bold),
                         ),

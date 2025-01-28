@@ -11,12 +11,18 @@ import 'package:parawarga_apps/modules/issue/detail/issue_detail_page.dart';
 import 'package:parawarga_apps/modules/issue/input/issue_input_page.dart';
 import 'package:parawarga_apps/modules/issue/issue_page.dart';
 import 'package:parawarga_apps/modules/login/login_page.dart';
-import 'package:parawarga_apps/modules/my_area/detail/my_area_detail_page.dart';
-import 'package:parawarga_apps/modules/my_area/my_area_page.dart';
+import 'package:parawarga_apps/modules/my_area_unit/my_area_page.dart';
+import 'package:parawarga_apps/modules/profile/about_app/about_app_page.dart';
+import 'package:parawarga_apps/modules/profile/my_unit/empty/my_unit_empty_page.dart';
+import 'package:parawarga_apps/modules/profile/my_unit/input/my_unit_input_map_page.dart';
+import 'package:parawarga_apps/modules/profile/my_unit/input/my_unit_input_page.dart';
+import 'package:parawarga_apps/modules/profile/my_unit/my_unit_page.dart';
 import 'package:parawarga_apps/modules/profile/profile_page.dart';
 import 'package:parawarga_apps/modules/register/register_page.dart';
 import 'package:parawarga_apps/modules/splash/splash_page.dart';
+import 'package:parawarga_apps/modules/tagihan/create/tagihan_create_page.dart';
 import 'package:parawarga_apps/modules/tagihan/detail/tagihan_detail_page.dart';
+import 'package:parawarga_apps/modules/tagihan/pembayaran/tagihan_pembayaran_page.dart';
 import 'package:parawarga_apps/modules/tagihan/tagihan_page.dart';
 import 'package:parawarga_apps/modules/unit_empty/unit_empty_page.dart';
 import 'package:parawarga_apps/modules/voting/detail/voting_detail_page.dart';
@@ -34,6 +40,8 @@ abstract class Routes {
   static const arisanDetail = '/arisanDetail';
   static const tagihan = '/tagihan';
   static const tagihanDetail = '/tagihanDetail';
+  static const tagihanCreate = '/tagihanCreate';
+  static const tagihanPembayaran = '/tagihanPembayaran';
   static const history = '/history';
   static const issue = '/issue';
   static const issueDetail = '/issueDetail';
@@ -42,7 +50,11 @@ abstract class Routes {
   static const infoDetail = '/infoDetail';
   static const unitEmpty = '/unitEmpty';
   static const myArea = '/myArea';
-  static const myAreaDetail = '/myAreaDetail';
+  static const myUnit = '/myUnit';
+  static const myUnitInput = '/myUnitInput';
+  static const myUnitInputMap = '/myUnitInputMap';
+  static const myUnitEmpty = '/myUnitEmpty';
+  static const aboutAppPage = '/aboutAppPage';
 }
 
 abstract class AppPages {
@@ -58,6 +70,8 @@ abstract class AppPages {
     GetPage(name: Routes.arisanDetail, page: () => ArisanDetailPage()),
     GetPage(name: Routes.tagihan, page: () => TagihanPage()),
     GetPage(name: Routes.tagihanDetail, page: () => TagihanDetailPage()),
+    GetPage(name: Routes.tagihanCreate, page: () => TagihanCreatePage()),
+    GetPage(name: Routes.tagihanPembayaran, page: () => TagihanPembayaranPage()),
     GetPage(name: Routes.history, page: () => HistoryPage()),
     GetPage(name: Routes.issue, page: () => IssuePage()),
     GetPage(name: Routes.issueDetail, page: () => IssueDetailPage()),
@@ -66,6 +80,10 @@ abstract class AppPages {
     GetPage(name: Routes.infoDetail, page: () => InfoDetailPage()),
     GetPage(name: Routes.unitEmpty, page: () => UnitEmptyPage()),
     GetPage(name: Routes.myArea, page: () => MyAreaPage()),
-    GetPage(name: Routes.myAreaDetail, page: () => MyAreaDetailPage()),
+    GetPage(name: Routes.myUnit, page: () => MyUnitPage()),
+    GetPage(name: Routes.myUnitInput, page: () => MyUnitInputPage()),
+    GetPage(name: Routes.myUnitInputMap, page: () => MyUnitInputMapPage()),
+    GetPage(name: Routes.myUnitEmpty, page: () => MyUnitEmptyPage()),
+    GetPage(name: Routes.aboutAppPage, page: () => AboutAppPage()),
   ];
 }

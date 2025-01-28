@@ -7,14 +7,20 @@ import 'package:parawarga_apps/modules/history/item/history_tile.dart';
 import 'package:parawarga_apps/theme/app_colors.dart';
 import 'package:parawarga_apps/utils/strings.dart';
 
-import '../../core/constants.dart';
+import '../../routes/app_pages.dart';
 import '../../theme/app_theme.dart';
+import '../../theme/standard_error_page.dart';
+import '../arisan/detail/arisan_detail_page.dart';
+import '../issue/detail/issue_detail_page.dart';
+import '../tagihan/pembayaran/tagihan_pembayaran_page.dart';
+import '../voting/detail/voting_detail_page.dart';
 
 class HistoryPage extends GetView<HistoryController> {
   const HistoryPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    controller.getHistory();
     return Scaffold(
       appBar: AppBar(
         title: Text(labelHistory, style: TextStyle(color: colorPrimary)),
@@ -27,7 +33,7 @@ class HistoryPage extends GetView<HistoryController> {
           onPressed: () { Get.back(); },
         ),
       ),
-      body: _buildContentBackground(context),
+      body: Obx(() => _buildContentBackground(context)),
     );
   }
 
@@ -58,19 +64,53 @@ class HistoryPage extends GetView<HistoryController> {
   }
 
   _buildContentMainMenu(BuildContext context) {
+    final list = controller.historyState.value.data;
+    if (controller.historyState.value.isLoading) {
+      return Container();
+    }
+
+    if (list == null || list.isEmpty == true ||
+        controller.historyState.value.error != null) {
+      return StandardErrorPage(
+        message: controller.historyState.value.error?.message,
+        paddingTop: 100,
+        onPressed: () {
+          controller.getHistory();
+        },
+      );
+    }
+
     return SingleChildScrollView(
         physics: BouncingScrollPhysics(),
         child: Column(children: [
-          for (int i = 0; i < listHistory.length; i++)
+          for (int i = 0; i < list.length; i++)
             Padding(
                 padding: EdgeInsets.only(
-                    top: (i == 0) ? basePadding : baseRadiusForm,
-                    left: basePadding,
-                    right: basePadding,
-                    bottom: (i == listHistory.length - 1) ? basePadding : baseRadiusForm),
+                    top: (i == 0) ? basePaddingInContent : basePaddingInContent / 2,
+                    left: basePaddingInContent,
+                    right: basePaddingInContent,
+                    bottom: (i == list.length - 1) ? basePaddingInContent : basePaddingInContent),
                 child: HistoryTile(
-                  model: listHistory[i],
+                  model: list[i],
                   onPressed: (model) async {
+                    if (model.typeMenu == "tagihan"){
+                      Get.toNamed(Routes.tagihanPembayaran, arguments: {
+                        TagihanPembayaranPage.argId: model.id
+                      });
+                    }else if(model.typeMenu == "voting") {
+                      Get.toNamed(Routes.votingDetail, arguments: {
+                        VotingDetailPage.argId: model.id
+                      });
+                    }else if(model.typeMenu == "arisan") {
+                      Get.toNamed(Routes.arisanDetail, arguments: {
+                        ArisanDetailPage.argId: model.id,
+                        ArisanDetailPage.argPeriodeFromHistory: model.message,
+                      });
+                    }else if(model.typeMenu == "issue") {
+                      Get.toNamed(Routes.issueDetail, arguments: {
+                        IssueDetailPage.argId: model.id
+                      });
+                    }
                   },
                 ))
         ]));

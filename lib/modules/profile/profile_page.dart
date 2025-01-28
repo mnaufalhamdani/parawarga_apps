@@ -9,8 +9,10 @@ import 'package:parawarga_apps/routes/app_pages.dart';
 import 'package:parawarga_apps/theme/app_colors.dart';
 import 'package:parawarga_apps/theme/standard_snackbar.dart';
 import 'package:parawarga_apps/utils/strings.dart';
+import 'package:widget_zoom/widget_zoom.dart';
 
 import '../../theme/app_theme.dart';
+import '../../theme/standard_alert_dialog.dart';
 
 class ProfilePage extends GetView<ProfileController> {
   const ProfilePage({super.key});
@@ -27,7 +29,7 @@ class ProfilePage extends GetView<ProfileController> {
             _buildContentHeader(context),
             _buildContentTop(context),
             _buildContentMainMenu(context),
-            _buildContentSecondMenu(context),
+            // _buildContentSecondMenu(context),
           ],
         );
       })),
@@ -89,7 +91,7 @@ class ProfilePage extends GetView<ProfileController> {
                                             Get.back();
                                           },
                                           child: Icon(Iconsax.arrow_left,
-                                              color: colorDark)),
+                                              color: colorTextTitle)),
                                     ),
                                     Expanded(
                                         flex: 3,
@@ -101,24 +103,19 @@ class ProfilePage extends GetView<ProfileController> {
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.end,
                                             children: [
-                                              Text(
-                                                controller.userState.value.data?.userEntity.name
-                                                        .toString() ??
-                                                    "",
+                                              Text(controller.userState.value.data?.userEntity.name ?? "",
                                                 style: TextStyle(
-                                                    color: colorTextPrimary,
+                                                    color: colorTextTitle,
                                                     fontWeight: FontWeight.bold,
                                                     fontSize: 16),
                                                 maxLines: 1,
                                                 overflow: TextOverflow.ellipsis,
                                               ),
                                               Text(
-                                                controller.userState.value.data?.userEntity.email
-                                                        .toString() ??
-                                                    "",
+                                                controller.userState.value.data?.userEntity.email ?? "",
                                                 style: TextStyle(
-                                                    color: colorTextSecondary,
-                                                    fontSize: 11),
+                                                    color: colorTextMessage,
+                                                    fontSize: 12),
                                               ),
                                             ],
                                           ),
@@ -131,11 +128,13 @@ class ProfilePage extends GetView<ProfileController> {
                                             width: 40,
                                             height: 40,
                                             child: CircleAvatar(
-                                              backgroundColor: colorDark,
+                                              backgroundColor: colorTextTitle,
                                               child: ClipOval(
                                                 child: (controller.userState.value.data?.userEntity.photo != null)
-                                                    ? Image.network(
-                                                    controller.userState.value.data!.userEntity.photo.toString(), width: 40, height: 40, fit: BoxFit.cover)
+                                                    ? WidgetZoom(
+                                                        heroAnimationTag: "Zoom",
+                                                        zoomWidget: Image.network(controller.userState.value.data!.userEntity.photo.toString(), width: 40, height: 40, fit: BoxFit.cover),
+                                                    )
                                                     : Text(
                                                         getInitials(controller.userState.value.data?.userEntity.name.toString() ?? ""),
                                                         style: TextStyle(
@@ -155,156 +154,233 @@ class ProfilePage extends GetView<ProfileController> {
   }
 
   _buildContentMainMenu(BuildContext context) {
-    return Padding(
-        padding: EdgeInsets.only(left: basePadding, right: basePadding),
-        child: Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(baseRadiusCard)),
-              color: colorLight,
-            ),
-            child: Padding(
-              padding: EdgeInsets.all(baseRadiusForm),
-              child: Column(
-                children: [
-                  GestureDetector(
-                    onTap: () {},
-                    child: Padding(
-                      padding: EdgeInsets.all(baseRadiusForm),
-                      child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Expanded(
-                                flex: 1,
-                                child: Icon(Iconsax.clipboard_text,
-                                    color: colorDark)),
-                            Expanded(
-                                flex: 5,
-                                child: Text(
-                                  labelAllMenu,
-                                  style: TextStyle(
-                                      color: colorTextPrimary,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 12),
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                )),
-                            Expanded(
-                                flex: 1,
-                                child: Align(
-                                  alignment: Alignment.centerRight,
-                                  child: Icon(Iconsax.arrow_right_3,
-                                      color: colorDark),
-                                ))
-                          ]),
-                    ),
-                  ),
-                  Divider(color: Colors.grey.shade200),
-                  GestureDetector(
-                    onTap: () {},
-                    child: Padding(
-                      padding: EdgeInsets.all(baseRadiusForm),
-                      child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Expanded(
-                                flex: 1,
-                                child: Icon(Iconsax.profile_2user,
-                                    color: colorDark)),
-                            Expanded(
-                                flex: 5,
-                                child: Text(
-                                  labelAdminCitizen,
-                                  style: TextStyle(
-                                      color: colorTextPrimary,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 12),
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                )),
-                            Expanded(
-                                flex: 1,
-                                child: Align(
-                                  alignment: Alignment.centerRight,
-                                  child: Icon(Iconsax.arrow_right_3,
-                                      color: colorDark),
-                                ))
-                          ]),
-                    ),
-                  ),
-                  Divider(color: Colors.grey.shade200),
-                  GestureDetector(
-                    onTap: () {},
-                    child: Padding(
-                      padding: EdgeInsets.all(baseRadiusForm),
-                      child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Expanded(
-                                flex: 1,
-                                child:
-                                    Icon(Iconsax.house, color: colorDark)),
-                            Expanded(
-                                flex: 5,
-                                child: Text(
-                                  labelManageUnit,
-                                  style: TextStyle(
-                                      color: colorTextPrimary,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 12),
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                )),
-                            Expanded(
-                                flex: 1,
-                                child: Align(
-                                  alignment: Alignment.centerRight,
-                                  child: Icon(Iconsax.arrow_right_3,
-                                      color: colorDark),
-                                ))
-                          ]),
-                    ),
-                  ),
-                  Visibility(
-                      visible: true,
-                      child: Divider(color: Colors.grey.shade200)),
-                  Visibility(
-                    visible: true,
-                    child: GestureDetector(
-                      onTap: () {},
-                      child: Padding(
-                        padding: EdgeInsets.all(baseRadiusForm),
-                        child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Expanded(
-                                  flex: 1,
-                                  child:
-                                      Icon(Iconsax.setting, color: colorDark)),
-                              Expanded(
-                                  flex: 5,
-                                  child: Text(
-                                    labelManageAdmin,
-                                    style: TextStyle(
-                                        color: colorTextPrimary,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 12),
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                  )),
-                              Expanded(
-                                  flex: 1,
-                                  child: Align(
-                                    alignment: Alignment.centerRight,
-                                    child: Icon(Iconsax.arrow_right_3,
-                                        color: colorDark),
-                                  ))
-                            ]),
-                      ),
-                    ),
-                  ),
-                ],
+    final authMenu = controller.authMenuState.value.data;
+    if(authMenu == null){
+      return Container();
+    }
+
+    return Container(
+      margin: EdgeInsets.only(left: basePadding, right: basePadding),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(baseRadiusCard)),
+        color: colorLight,
+      ),
+      child: ListView.builder(
+        shrinkWrap: true,
+        physics: NeverScrollableScrollPhysics(),
+        padding: EdgeInsets.all(baseRadiusForm),
+        itemCount: authMenu.length,
+        itemBuilder: (context, i) {
+          return Column(
+            children: [
+              GestureDetector(
+                onTap: () {
+                  if (authMenu[i].slug != labellogout.toLowerCase()){
+                    try {
+                      Get.toNamed(authMenu[i].link.toString());
+                    }catch (e) {
+                      showStandardSnackbar(context, TypeMessage.error, message: "Navigasi tidak ditemukan");
+                    }
+
+                  }else{
+                    StandardAlertDialog.show(
+                        context,
+                        "Keluar",
+                        "Apakah Anda yakin keluar dari akun ini?", () async {
+                      await controller.logout().whenComplete(() {
+                        if (controller.logoutState.value.data == true) {
+                          Get.offAllNamed(Routes.login);
+                        } else {
+                          showStandardSnackbar(context, TypeMessage.error,
+                              message: controller.logoutState.value.error?.message.toString());
+                        }
+                      });
+                    });
+                  }
+                },
+                child: Padding(
+                  padding: EdgeInsets.all(baseRadiusForm),
+                  child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Expanded(
+                            flex: 1,
+                            child: Icon(mapperIcon.entries.where((element) => element.key == authMenu[i].icon).first.value,
+                                color: (authMenu[i].slug != labellogout.toLowerCase()) ? colorTextTitle : Colors.red.shade700)),
+                        Expanded(
+                            flex: 5,
+                            child: Text(
+                              authMenu[i].name.toString(),
+                              style: TextStyle(
+                                  color: (authMenu[i].slug != labellogout.toLowerCase()) ? colorTextTitle : Colors.red.shade700,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 12),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            )),
+                        Expanded(
+                            flex: 1,
+                            child: Align(
+                              alignment: Alignment.centerRight,
+                              child: Icon(Iconsax.arrow_right_3,
+                                  color: (authMenu[i].slug != labellogout.toLowerCase()) ? colorTextTitle : Colors.red.shade700),
+                            ))
+                      ]),
+                ),
               ),
-            )));
+              (i != (authMenu.length - 1))
+                  ? Divider(color: Colors.grey.shade200)
+                  : Container()
+            ],
+          );
+        }
+      )
+      // Padding(
+      //   padding: EdgeInsets.all(baseRadiusForm),
+      //   child: Column(
+      //     children: [
+      //       GestureDetector(
+      //         onTap: () {},
+      //         child: Padding(
+      //           padding: EdgeInsets.all(baseRadiusForm),
+      //           child: Row(
+      //               crossAxisAlignment: CrossAxisAlignment.center,
+      //               children: [
+      //                 Expanded(
+      //                     flex: 1,
+      //                     child: Icon(Iconsax.clipboard_text,
+      //                         color: colorTextTitle)),
+      //                 Expanded(
+      //                     flex: 5,
+      //                     child: Text(
+      //                       labelAllMenu,
+      //                       style: TextStyle(
+      //                           color: colorTextTitle,
+      //                           fontWeight: FontWeight.bold,
+      //                           fontSize: 12),
+      //                       maxLines: 1,
+      //                       overflow: TextOverflow.ellipsis,
+      //                     )),
+      //                 Expanded(
+      //                     flex: 1,
+      //                     child: Align(
+      //                       alignment: Alignment.centerRight,
+      //                       child: Icon(Iconsax.arrow_right_3,
+      //                           color: colorTextTitle),
+      //                     ))
+      //               ]),
+      //         ),
+      //       ),
+      //       Divider(color: Colors.grey.shade200),
+      //       GestureDetector(
+      //         onTap: () {},
+      //         child: Padding(
+      //           padding: EdgeInsets.all(baseRadiusForm),
+      //           child: Row(
+      //               crossAxisAlignment: CrossAxisAlignment.center,
+      //               children: [
+      //                 Expanded(
+      //                     flex: 1,
+      //                     child: Icon(Iconsax.profile_2user,
+      //                         color: colorTextTitle)),
+      //                 Expanded(
+      //                     flex: 5,
+      //                     child: Text(
+      //                       labelAdminCitizen,
+      //                       style: TextStyle(
+      //                           color: colorTextTitle,
+      //                           fontWeight: FontWeight.bold,
+      //                           fontSize: 12),
+      //                       maxLines: 1,
+      //                       overflow: TextOverflow.ellipsis,
+      //                     )),
+      //                 Expanded(
+      //                     flex: 1,
+      //                     child: Align(
+      //                       alignment: Alignment.centerRight,
+      //                       child: Icon(Iconsax.arrow_right_3,
+      //                           color: colorTextTitle),
+      //                     ))
+      //               ]),
+      //         ),
+      //       ),
+      //       Divider(color: Colors.grey.shade200),
+      //       GestureDetector(
+      //         onTap: () {
+      //           Get.toNamed(Routes.myUnit);
+      //         },
+      //         child: Padding(
+      //           padding: EdgeInsets.all(baseRadiusForm),
+      //           child: Row(
+      //               crossAxisAlignment: CrossAxisAlignment.center,
+      //               children: [
+      //                 Expanded(
+      //                     flex: 1,
+      //                     child:
+      //                         Icon(Iconsax.house, color: colorTextTitle)),
+      //                 Expanded(
+      //                     flex: 5,
+      //                     child: Text(
+      //                       labelMyUnit,
+      //                       style: TextStyle(
+      //                           color: colorTextTitle,
+      //                           fontWeight: FontWeight.bold,
+      //                           fontSize: 12),
+      //                       maxLines: 1,
+      //                       overflow: TextOverflow.ellipsis,
+      //                     )),
+      //                 Expanded(
+      //                     flex: 1,
+      //                     child: Align(
+      //                       alignment: Alignment.centerRight,
+      //                       child: Icon(Iconsax.arrow_right_3,
+      //                           color: colorTextTitle),
+      //                     ))
+      //               ]),
+      //         ),
+      //       ),
+      //       Visibility(
+      //           visible: true,
+      //           child: Divider(color: Colors.grey.shade200)),
+      //       Visibility(
+      //         visible: true,
+      //         child: GestureDetector(
+      //           onTap: () {},
+      //           child: Padding(
+      //             padding: EdgeInsets.all(baseRadiusForm),
+      //             child: Row(
+      //                 crossAxisAlignment: CrossAxisAlignment.center,
+      //                 children: [
+      //                   Expanded(
+      //                       flex: 1,
+      //                       child:
+      //                           Icon(Iconsax.setting, color: colorTextTitle)),
+      //                   Expanded(
+      //                       flex: 5,
+      //                       child: Text(
+      //                         labelManageAdmin,
+      //                         style: TextStyle(
+      //                             color: colorTextTitle,
+      //                             fontWeight: FontWeight.bold,
+      //                             fontSize: 12),
+      //                         maxLines: 1,
+      //                         overflow: TextOverflow.ellipsis,
+      //                       )),
+      //                   Expanded(
+      //                       flex: 1,
+      //                       child: Align(
+      //                         alignment: Alignment.centerRight,
+      //                         child: Icon(Iconsax.arrow_right_3,
+      //                             color: colorTextTitle),
+      //                       ))
+      //                 ]),
+      //           ),
+      //         ),
+      //       ),
+      //     ],
+      //   ),
+      // )
+    );
   }
 
   _buildContentSecondMenu(BuildContext context) {
@@ -321,7 +397,9 @@ class ProfilePage extends GetView<ProfileController> {
               child: Column(
                 children: [
                   GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      Get.toNamed(Routes.aboutAppPage);
+                    },
                     child: Padding(
                       padding: EdgeInsets.all(baseRadiusForm),
                       child: Row(
@@ -330,13 +408,13 @@ class ProfilePage extends GetView<ProfileController> {
                             Expanded(
                                 flex: 1,
                                 child: Icon(Iconsax.info_circle,
-                                    color: colorDark)),
+                                    color: colorTextTitle)),
                             Expanded(
                                 flex: 5,
                                 child: Text(
                                   labelAbout,
                                   style: TextStyle(
-                                      color: colorTextPrimary,
+                                      color: colorTextTitle,
                                       fontWeight: FontWeight.bold,
                                       fontSize: 12),
                                   maxLines: 1,
@@ -347,7 +425,7 @@ class ProfilePage extends GetView<ProfileController> {
                                 child: Align(
                                   alignment: Alignment.centerRight,
                                   child: Icon(Iconsax.arrow_right_3,
-                                      color: colorDark),
+                                      color: colorTextTitle),
                                 ))
                           ]),
                     ),
@@ -355,15 +433,18 @@ class ProfilePage extends GetView<ProfileController> {
                   Divider(color: Colors.grey.shade200),
                   GestureDetector(
                     onTap: () async {
-                      await controller.logout().whenComplete(() {
-                        if (controller.logoutState.value.data == true) {
-                          Get.offAllNamed(Routes.login);
-                        } else {
-                          showStandardSnackbar(context, TypeMessage.error,
-                              message: controller
-                                  .logoutState.value.error?.message
-                                  .toString());
-                        }
+                      StandardAlertDialog.show(
+                          context,
+                          "Keluar",
+                          "Apakah Anda yakin keluar dari akun ini?", () async {
+                        await controller.logout().whenComplete(() {
+                          if (controller.logoutState.value.data == true) {
+                            Get.offAllNamed(Routes.login);
+                          } else {
+                            showStandardSnackbar(context, TypeMessage.error,
+                              message: controller.logoutState.value.error?.message.toString());
+                          }
+                        });
                       });
                     },
                     child: Padding(

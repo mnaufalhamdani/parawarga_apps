@@ -1,19 +1,27 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:parawarga_apps/models/domain/issue_domain.dart';
 import 'package:parawarga_apps/theme/app_theme.dart';
+import 'package:widget_zoom/widget_zoom.dart';
 
 import '../../../theme/app_colors.dart';
 
 class IssueInputFileTile extends StatefulWidget {
-  final Map<String, dynamic> model;
-  final void Function(Map<String, dynamic> model) onPressed;
+  final InputIssueAttachmentDomain model;
+  final int index;
+  final void Function(InputIssueAttachmentDomain model, int index) onPressed;
+  final void Function(InputIssueAttachmentDomain model, int index) onRemove;
 
   const IssueInputFileTile({
     super.key,
     required this.model,
+    required this.index,
     required this.onPressed,
+    required this.onRemove,
   });
 
   @override
@@ -23,51 +31,76 @@ class IssueInputFileTile extends StatefulWidget {
 class IssueInputFileTileState extends State<IssueInputFileTile> {
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-        onTap: () {
-          if (!widget.onPressed.isNull) {
-            widget.onPressed(widget.model);
-          }
-        },
-        child: _buildContent());
+    return _buildContent();
   }
 
+  /// if you take the widget from the [StandardPickerField] it won't take realtime Obx data
   _buildContent() {
-    return Row(
-      children: [
-        Card(
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(baseRadiusCard)),
-            color: Colors.white,
-            elevation: 2,
-            child: Padding(
-                padding: EdgeInsets.all(baseRadiusForm),
-                child: Container(width: Get.width - (Get.width / 3), height: Get.width - (Get.width / 1.5), color: Colors.grey,))),
-        SizedBox(width: basePaddingInContent),
-        Column(children: [
-          GestureDetector(
-            onTap: () {},
-            child: CircleAvatar(
-              backgroundColor: colorLight,
-              child: SizedBox(
-                width: 35,
-                child: Icon(Iconsax.edit, color: colorDark),
+    final fileName = widget.model.attachment.toString().split('/').last;
+    return Padding(
+      padding: EdgeInsets.only(left: basePaddingInContent, right: basePaddingInContent, top: basePaddingInContent),
+      child: Container(
+        width: Get.width,
+        decoration: BoxDecoration(
+            color: Colors.grey.shade200,
+            borderRadius: BorderRadius.all(Radius.circular(basePaddingInContent))
+        ),
+        child: Column(children: [
+          Row(children: [
+            Expanded(
+              child: Padding(
+                  padding: EdgeInsets.only(left: basePaddingInContent, right: basePaddingInContent),
+                  child: Text(fileName, style: TextStyle(color: colorTextTitle, fontSize: 12, fontWeight: FontWeight.bold), maxLines: 1, overflow: TextOverflow.ellipsis,)
               ),
             ),
-          ),
-          SizedBox(height: Get.width - (Get.width / 1.1)),
-          GestureDetector(
-            onTap: () {},
-            child: CircleAvatar(
-              backgroundColor: Colors.red.shade100,
-              child: SizedBox(
-                width: 35,
-                child: Icon(Iconsax.trash, color: Colors.red.shade700),
-              ),
+            IconButton(
+              icon: Icon(Iconsax.edit, color: colorSecondary, size: baseRadius),
+              onPressed: () {
+                widget.onPressed(widget.model, widget.index);
+              }
             ),
-          )
-        ])
-      ],
+            IconButton(
+              icon: Icon(Iconsax.trash, color: Colors.red.shade700, size: baseRadius),
+              onPressed: () {
+                setState(() {
+                  widget.onRemove(widget.model, widget.index);
+                });
+              }
+            )
+          ]),
+          _loadFileFoto()
+        ]),
+      ),
     );
+  }
+
+  _loadFileFoto() {
+    if(widget.model.attachment != null) {
+      if (widget.model.attachment.toString().contains("http")){
+        return ClipRRect(
+          borderRadius: BorderRadius.circular(baseRadiusCard),
+          child: WidgetZoom(
+            heroAnimationTag: "Zoom",
+            zoomWidget: Image.network(widget.model.attachment.toString(), width: Get.width, height: 120, fit: BoxFit.cover,
+              errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
+                return Icon(Iconsax.gallery_slash, color: colorTextTitle);
+              }),
+            )
+        );
+      }
+      else{
+        return ClipRRect(
+          borderRadius: BorderRadius.circular(baseRadiusCard),
+          child: WidgetZoom(
+            heroAnimationTag: "Zoom",
+            zoomWidget: Image.file(File(widget.model.attachment.toString()), width: Get.width, height: 120, fit: BoxFit.cover,
+              errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
+                return Icon(Iconsax.gallery_slash, color: colorTextTitle);
+              }),
+            )
+        );
+      }
+    }
+    return Container(height: 120);
   }
 }
