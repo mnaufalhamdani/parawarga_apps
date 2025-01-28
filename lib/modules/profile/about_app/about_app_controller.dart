@@ -30,7 +30,7 @@ class AboutAppController extends GetxController{
       "Keamanan Data : Informasi pribadi pengguna dan area dilindungi dengan enkripsi",
       "Notifikasi : Pemberitahuan secara real-time untuk mendukung setiap aktivitas penting di area",
       "Smart Home (Coming Soon) : Integrasi dengan perangkat pintar di rumah Anda seperti TV, lampu, pintu, atau AC",
-      "Korespondensi (Coming Soon) : Pengajuan surat penting kepada pengelola dengan cepat melalui aplikasi",
+      "Pengajuan Surat (Coming Soon) : Pengajuan surat penting untuk Kelurahan dan Kecamatan dengan cepat melalui aplikasi",
     ];
     textAddress.value = "Pondok Benowo Indah Blok CK No. 3, Surabaya, Jawa Timur, Indonesia";
     textPhone.value = "+6285155470876";

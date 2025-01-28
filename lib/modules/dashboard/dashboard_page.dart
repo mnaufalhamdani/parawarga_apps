@@ -4,10 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:parawarga_apps/core/constants.dart';
+import 'package:parawarga_apps/modules/dashboard/alarm/Dashboard_alarm_dialog.dart';
 import 'package:parawarga_apps/modules/dashboard/dashboard_controller.dart';
 import 'package:parawarga_apps/modules/info/detail/info_detail_page.dart';
 import 'package:parawarga_apps/routes/app_pages.dart';
 import 'package:parawarga_apps/theme/app_colors.dart';
+import 'package:parawarga_apps/theme/standard_snackbar.dart';
 
 import '../../theme/app_theme.dart';
 import '../../utils/strings.dart';
@@ -44,12 +46,29 @@ class DashboardPage extends GetView<DashboardController> {
             )),
       ),
       floatingActionButton: Visibility(visible: true,
-          child: FloatingActionButton(
+          child: Obx(() => FloatingActionButton(
               shape: CircleBorder(),
-              backgroundColor: Colors.red,
-              onPressed: () {},
+              backgroundColor: Colors.red.shade700,
+              onPressed: () {
+                final listArea = controller.userAreaState.value.data?.areaEntity;
+                if (listArea != null){
+                  DashboardAlarmDialog.show(context, listArea, (areaId, message) async {
+                    await controller.saveAlarm(areaId, message).whenComplete(() {
+                      if (controller.saveAlarmState.value.error != null) {
+                        showStandardSnackbar(context, TypeMessage.error,
+                            message: controller.saveAlarmState.value.error?.message.toString());
+                      } else {
+                        showStandardSnackbar(context, TypeMessage.success,
+                            message: controller.saveAlarmState.value.data?.data.toString());
+                      }
+                    });
+                  });
+                }else {
+                  showStandardSnackbar(context, TypeMessage.error, message: "Area tidak ditemukan");
+                }
+              },
               child: Icon(Iconsax.alarm, color: Colors.white)
-          )
+          ))
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );

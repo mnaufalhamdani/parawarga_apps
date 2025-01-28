@@ -51,6 +51,7 @@ String labelCreateAccount = 'Daftar Sekarang.';
 String labelRegisterSubMessage = 'Klik disini.';
 String labelYes = 'Ya';
 String labelNo = 'Tidak';
+String labelPanic = 'Panik';
 String labelChooseHere = 'Pilih Disini';
 String labelKodeArea = 'Kode Area';
 String labelKtp = 'No. NIK';
