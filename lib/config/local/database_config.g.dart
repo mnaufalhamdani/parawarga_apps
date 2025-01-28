@@ -65,13 +65,15 @@ class _$DatabaseConfig extends DatabaseConfig {
 
   AreaDao? _areaDaoInstance;
 
+  AuthMenuDao? _authMenuDaoInstance;
+
   Future<sqflite.Database> open(
     String path,
     List<Migration> migrations, [
     Callback? callback,
   ]) async {
     final databaseOptions = sqflite.OpenDatabaseOptions(
-      version: 3,
+      version: 4,
       onConfigure: (database) async {
         await database.execute('PRAGMA foreign_keys = ON');
         await callback?.onConfigure?.call(database);
@@ -90,6 +92,8 @@ class _$DatabaseConfig extends DatabaseConfig {
             'CREATE TABLE IF NOT EXISTS `user` (`id` INTEGER NOT NULL, `username` TEXT NOT NULL, `password` TEXT NOT NULL, `pin` INTEGER, `name` TEXT, `address_ktp` TEXT, `address_domisili` TEXT, `gender` TEXT, `divisi` TEXT, `email` TEXT, `phone` TEXT, `dob` TEXT, `pob` TEXT, `nik` TEXT, `nkk` TEXT, `photo_nik` TEXT, `photo_nkk` TEXT, `photo` TEXT, `status_keluarga` INTEGER, `status_pekerjaan` INTEGER, `status_agama` INTEGER, `status_nikah` INTEGER, `device_id` TEXT, `firebase_id` TEXT, `activated_at` TEXT, `blocked_at` TEXT, `login_at` TEXT, `token` TEXT, `newApps` INTEGER, `status` INTEGER, `statusKirim` INTEGER, `createdAt` TEXT, `updatedAt` TEXT, PRIMARY KEY (`id`))');
         await database.execute(
             'CREATE TABLE IF NOT EXISTS `area` (`area_id` INTEGER NOT NULL, `area_name` TEXT NOT NULL, `address` TEXT NOT NULL, `role_id` INTEGER, `license_code_validation` TEXT, `end_date` TEXT, `license_type` TEXT, `kelurahan_name` TEXT, `provinsi_name` TEXT, `kabupaten_name` TEXT, `kecamatan_name` TEXT, `status` INTEGER, `statusKirim` INTEGER, `createdAt` TEXT, `updatedAt` TEXT, PRIMARY KEY (`area_id`))');
+        await database.execute(
+            'CREATE TABLE IF NOT EXISTS `auth_menu` (`menu_id` INTEGER NOT NULL, `is_create` INTEGER, `is_read` INTEGER, `is_update` INTEGER, `is_delete` INTEGER, `is_approve` INTEGER, `urutan` INTEGER, `type_menu` TEXT, `name` TEXT, `slug` TEXT, `link` TEXT, `icon` TEXT, `level` INTEGER, `parent_id` INTEGER, `keterangan` TEXT, `status` INTEGER, `statusKirim` INTEGER, `createdAt` TEXT, `updatedAt` TEXT, PRIMARY KEY (`menu_id`))');
 
         await callback?.onCreate?.call(database, version);
       },
@@ -105,6 +109,11 @@ class _$DatabaseConfig extends DatabaseConfig {
   @override
   AreaDao get areaDao {
     return _areaDaoInstance ??= _$AreaDao(database, changeListener);
+  }
+
+  @override
+  AuthMenuDao get authMenuDao {
+    return _authMenuDaoInstance ??= _$AuthMenuDao(database, changeListener);
   }
 }
 
@@ -454,5 +463,154 @@ class _$AreaDao extends AreaDao {
   @override
   Future<void> deleteEntity(AreaEntity model) async {
     await _areaEntityDeletionAdapter.delete(model);
+  }
+}
+
+class _$AuthMenuDao extends AuthMenuDao {
+  _$AuthMenuDao(
+    this.database,
+    this.changeListener,
+  )   : _queryAdapter = QueryAdapter(database),
+        _authMenuEntityInsertionAdapter = InsertionAdapter(
+            database,
+            'auth_menu',
+            (AuthMenuEntity item) => <String, Object?>{
+                  'menu_id': item.menu_id,
+                  'is_create': item.is_create,
+                  'is_read': item.is_read,
+                  'is_update': item.is_update,
+                  'is_delete': item.is_delete,
+                  'is_approve': item.is_approve,
+                  'urutan': item.urutan,
+                  'type_menu': item.type_menu,
+                  'name': item.name,
+                  'slug': item.slug,
+                  'link': item.link,
+                  'icon': item.icon,
+                  'level': item.level,
+                  'parent_id': item.parent_id,
+                  'keterangan': item.keterangan,
+                  'status': item.status,
+                  'statusKirim': item.statusKirim,
+                  'createdAt': item.createdAt,
+                  'updatedAt': item.updatedAt
+                }),
+        _authMenuEntityUpdateAdapter = UpdateAdapter(
+            database,
+            'auth_menu',
+            ['menu_id'],
+            (AuthMenuEntity item) => <String, Object?>{
+                  'menu_id': item.menu_id,
+                  'is_create': item.is_create,
+                  'is_read': item.is_read,
+                  'is_update': item.is_update,
+                  'is_delete': item.is_delete,
+                  'is_approve': item.is_approve,
+                  'urutan': item.urutan,
+                  'type_menu': item.type_menu,
+                  'name': item.name,
+                  'slug': item.slug,
+                  'link': item.link,
+                  'icon': item.icon,
+                  'level': item.level,
+                  'parent_id': item.parent_id,
+                  'keterangan': item.keterangan,
+                  'status': item.status,
+                  'statusKirim': item.statusKirim,
+                  'createdAt': item.createdAt,
+                  'updatedAt': item.updatedAt
+                }),
+        _authMenuEntityDeletionAdapter = DeletionAdapter(
+            database,
+            'auth_menu',
+            ['menu_id'],
+            (AuthMenuEntity item) => <String, Object?>{
+                  'menu_id': item.menu_id,
+                  'is_create': item.is_create,
+                  'is_read': item.is_read,
+                  'is_update': item.is_update,
+                  'is_delete': item.is_delete,
+                  'is_approve': item.is_approve,
+                  'urutan': item.urutan,
+                  'type_menu': item.type_menu,
+                  'name': item.name,
+                  'slug': item.slug,
+                  'link': item.link,
+                  'icon': item.icon,
+                  'level': item.level,
+                  'parent_id': item.parent_id,
+                  'keterangan': item.keterangan,
+                  'status': item.status,
+                  'statusKirim': item.statusKirim,
+                  'createdAt': item.createdAt,
+                  'updatedAt': item.updatedAt
+                });
+
+  final sqflite.DatabaseExecutor database;
+
+  final StreamController<String> changeListener;
+
+  final QueryAdapter _queryAdapter;
+
+  final InsertionAdapter<AuthMenuEntity> _authMenuEntityInsertionAdapter;
+
+  final UpdateAdapter<AuthMenuEntity> _authMenuEntityUpdateAdapter;
+
+  final DeletionAdapter<AuthMenuEntity> _authMenuEntityDeletionAdapter;
+
+  @override
+  Future<void> deleteAll() async {
+    await _queryAdapter.queryNoReturn('DELETE FROM auth_menu');
+  }
+
+  @override
+  Future<List<AuthMenuEntity>> getAuthMenu() async {
+    return _queryAdapter.queryList(
+        'SELECT * FROM auth_menu WHERE status = 1 ORDER BY urutan ASC',
+        mapper: (Map<String, Object?> row) => AuthMenuEntity(
+            menu_id: row['menu_id'] as int,
+            is_create: row['is_create'] as int?,
+            is_read: row['is_read'] as int?,
+            is_update: row['is_update'] as int?,
+            is_delete: row['is_delete'] as int?,
+            is_approve: row['is_approve'] as int?,
+            urutan: row['urutan'] as int?,
+            type_menu: row['type_menu'] as String?,
+            name: row['name'] as String?,
+            slug: row['slug'] as String?,
+            link: row['link'] as String?,
+            icon: row['icon'] as String?,
+            level: row['level'] as int?,
+            parent_id: row['parent_id'] as int?,
+            keterangan: row['keterangan'] as String?,
+            status: row['status'] as int?,
+            statusKirim: row['statusKirim'] as int?,
+            createdAt: row['createdAt'] as String?,
+            updatedAt: row['updatedAt'] as String?));
+  }
+
+  @override
+  Future<List<AuthMenuEntity>> getAuthMenuByMenu(String typeMenu) async {
+    return _queryAdapter.queryList(
+        'SELECT * FROM auth_menu WHERE type_menu = ?1 AND status = 1 ORDER BY urutan ASC',
+        mapper: (Map<String, Object?> row) => AuthMenuEntity(menu_id: row['menu_id'] as int, is_create: row['is_create'] as int?, is_read: row['is_read'] as int?, is_update: row['is_update'] as int?, is_delete: row['is_delete'] as int?, is_approve: row['is_approve'] as int?, urutan: row['urutan'] as int?, type_menu: row['type_menu'] as String?, name: row['name'] as String?, slug: row['slug'] as String?, link: row['link'] as String?, icon: row['icon'] as String?, level: row['level'] as int?, parent_id: row['parent_id'] as int?, keterangan: row['keterangan'] as String?, status: row['status'] as int?, statusKirim: row['statusKirim'] as int?, createdAt: row['createdAt'] as String?, updatedAt: row['updatedAt'] as String?),
+        arguments: [typeMenu]);
+  }
+
+  @override
+  Future<void> insertEntity(AuthMenuEntity model) async {
+    await _authMenuEntityInsertionAdapter.insert(
+        model, OnConflictStrategy.replace);
+  }
+
+  @override
+  Future<void> updateEntity(AuthMenuEntity model) async {
+    await _authMenuEntityUpdateAdapter.update(
+        model, OnConflictStrategy.replace);
+  }
+
+  @override
+  Future<void> deleteEntity(AuthMenuEntity model) async {
+    await _authMenuEntityDeletionAdapter.delete(model);
   }
 }

@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:get/get.dart';
+import 'package:parawarga_apps/data/entities/auth_menu/auth_menu.dart';
 import 'package:parawarga_apps/data/repository/dashboard_repository.dart';
 import 'package:parawarga_apps/models/response/view_dashboard_model.dart';
 import 'package:parawarga_apps/theme/standard_snackbar.dart';
@@ -15,10 +16,16 @@ class DashboardController extends GetxController{
 
   final DashboardRepository repository;
   
+  final authMenuState = Rx(ResponseState<List<AuthMenuEntity>>());
   final dashboardState = Rx(ResponseState<ViewDashboardModel>());
+
   Future<void> getViewDashboard() async {
     try {
       dashboardState.value = ResponseState.loading();
+      await repository.getAuthMenu().then((value) {
+        authMenuState.value = ResponseState.success(value);
+      });
+
       await repository.getViewDashboard().then((value) {
         dashboardState.value = ResponseState.success(value);
       });

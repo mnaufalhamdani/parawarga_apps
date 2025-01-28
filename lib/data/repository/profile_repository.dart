@@ -8,11 +8,13 @@ import '../../config/local/database_config.dart';
 import '../../core/failure_response.dart';
 import '../../models/domain/user_area_domain.dart';
 import '../../utils/strings.dart';
+import '../entities/auth_menu/auth_menu.dart';
 import '../provider/login_provider.dart';
 
 //domain - repository
 abstract class ProfileRepository {
   Future<UserAreaDomain> getUserActive();
+  Future<List<AuthMenuEntity>> getAuthMenu();
 
   Future<bool> logout();
 }
@@ -55,5 +57,10 @@ class ProfileRepositoryImpl extends ProfileRepository {
     await secureStorage.deleteAll();
 
     return true;
+  }
+
+  @override
+  Future<List<AuthMenuEntity>> getAuthMenu() async {
+    return await databaseConfig.authMenuDao.getAuthMenuByMenu("profile");
   }
 }

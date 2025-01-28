@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
+import 'package:parawarga_apps/data/entities/auth_menu/auth_menu.dart';
 import 'package:parawarga_apps/data/provider/dashboard_provider.dart';
 import 'package:parawarga_apps/models/domain/user_area_domain.dart';
 import 'package:parawarga_apps/routes/app_pages.dart';
@@ -14,6 +15,7 @@ import '../../utils/strings.dart';
 abstract class DashboardRepository {
   Future<String> getToken();
   Future<UserAreaDomain> getUserActive();
+  Future<List<AuthMenuEntity>> getAuthMenu();
 
   Future<ViewDashboardModel> getViewDashboard();
 }
@@ -52,5 +54,10 @@ class DashboardRepositoryImpl extends DashboardRepository {
   @override
   Future<ViewDashboardModel> getViewDashboard() async {
     return await provider.getViewDashboard(token: await getToken());
+  }
+
+  @override
+  Future<List<AuthMenuEntity>> getAuthMenu() async {
+    return await databaseConfig.authMenuDao.getAuthMenuByMenu("dashboard");
   }
 }

@@ -60,6 +60,7 @@ class BindingDependency implements Bindings {
     final database = await $FloorDatabaseConfig.databaseBuilder(env.dbName).addMigrations([
       migration1to2,
       migration2to3,
+      migration3to4,
     ]).build();
     Get.lazyPut<DatabaseConfig>(() => database, fenix: true);
 

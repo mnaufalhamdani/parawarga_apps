@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:parawarga_apps/core/constants.dart';
 import 'package:parawarga_apps/modules/dashboard/dashboard_controller.dart';
 import 'package:parawarga_apps/modules/info/detail/info_detail_page.dart';
 import 'package:parawarga_apps/routes/app_pages.dart';
@@ -187,95 +188,44 @@ class DashboardPage extends GetView<DashboardController> {
   }
 
   _buildContentMenu(BuildContext context) {
-    return Visibility(
-        child: Padding(
-            padding: EdgeInsets.only(left: basePadding, right: basePadding),
-            child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  GestureDetector(
-                      onTap: () {
-                        Get.toNamed(Routes.voting);
-                      },
-                      child: Column(children: [
-                        Card(
-                            color: colorSecondary,
-                            child: Padding(
-                                padding: EdgeInsets.all(baseRadiusForm),
-                                child: SizedBox(
-                                    width: 35,
-                                    height: 35,
-                                    child: Icon(Iconsax.like_dislike,
-                                        color: colorDark)))),
-                        Text(labelVoting,
-                            style: TextStyle(
-                                color: colorTextTitle,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 12))
-                      ])),
-                  GestureDetector(
-                      onTap: () {
-                        Get.toNamed(Routes.arisan);
-                      },
-                      child: Column(children: [
-                        Card(
-                            color: colorSecondary,
-                            child: Padding(
-                                padding: EdgeInsets.all(baseRadiusForm),
-                                child: SizedBox(
-                                    width: 35,
-                                    height: 35,
-                                    child: Icon(Iconsax.convert_3d_cube,
-                                        color: colorDark)))),
-                        Text(labelArisan,
-                            style: TextStyle(
-                                color: colorTextTitle,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 12))
-                      ])),
-                  GestureDetector(
-                      onTap: () {
-                        Get.toNamed(Routes.tagihan);
-                      },
-                      child: Column(children: [
-                        Card(
-                            color: colorSecondary,
-                            child: Padding(
-                                padding: EdgeInsets.all(baseRadiusForm),
-                                child: SizedBox(
-                                    width: 35,
-                                    height: 35,
-                                    child: Icon(
-                                        Iconsax.card_pos, color: colorDark)))),
-                        Text(labelTagihan,
-                            style: TextStyle(
-                                color: colorTextTitle,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 12))
-                      ])),
-                  GestureDetector(
-                      onTap: () {
-                        Get.toNamed(Routes.history);
-                      },
-                      child: Column(children: [
-                        Card(
-                            color: colorSecondary,
-                            child: Padding(
-                                padding: EdgeInsets.all(baseRadiusForm),
-                                child: SizedBox(
-                                    width: 35,
-                                    height: 35,
-                                    child: Icon(
-                                        Iconsax.timer, color: colorDark)))
-                        ),
-                        Text(labelHistory,
-                            style: TextStyle(
-                                color: colorTextTitle,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 12))
-                      ])),
-                ])
-        ));
+    final authMenu = controller.authMenuState.value.data;
+    if(authMenu == null){
+      return Container();
+    }
+
+    return GridView.count(
+      padding: EdgeInsets.only(left: basePaddingInContent, right: basePaddingInContent),
+      shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
+      crossAxisCount: 4,
+      children: [
+        for (int i = 0; i < authMenu.length; i++)
+          GestureDetector(
+            onTap: () {
+              Get.toNamed(authMenu[i].link.toString());
+            },
+            child: Column(children: [
+              Card(
+                  color: colorSecondary,
+                  child: Padding(
+                      padding: EdgeInsets.all(baseRadiusForm),
+                      child: SizedBox(
+                          width: 35,
+                          height: 35,
+                          child: Icon(
+                            mapperIcon.entries.where((element) => element.key == authMenu[i].icon).first.value,
+                            color: colorDark
+                          )))),
+              Text(authMenu[i].name.toString(),
+                  style: TextStyle(
+                      color: colorTextTitle,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 12),
+              maxLines: 1,
+              overflow: TextOverflow.clip,)
+            ]))
+      ]
+    );
   }
 
   _buildContentInfo(BuildContext context) {

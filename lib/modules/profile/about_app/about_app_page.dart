@@ -32,7 +32,6 @@ class AboutAppPage extends GetView<AboutAppController> {
 
   _buildContentBackground(BuildContext context) {
     return SingleChildScrollView(
-      physics: BouncingScrollPhysics(),
       child: Column(
         children: [
           Container(
@@ -82,16 +81,15 @@ class AboutAppPage extends GetView<AboutAppController> {
   }
 
   _buildContentMainMenu(BuildContext context) {
-    return SingleChildScrollView(
-      child: Padding(
-        padding: EdgeInsets.all(basePaddingInContent),
-        child: Column(crossAxisAlignment: CrossAxisAlignment.start,
+    return Padding(
+      padding: EdgeInsets.all(basePaddingInContent),
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _buildContentAbout(),
             _buildContentSuperior(),
             _buildContentAddress()
           ]),
-        ));
+    );
   }
 
   _buildContentAbout() {

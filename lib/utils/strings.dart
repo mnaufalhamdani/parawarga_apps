@@ -23,6 +23,9 @@ String msgFieldPassword = 'Isian password harus kombinasi huruf kecil, huruf bes
 String msgFieldEmail = 'Isian email tidak valid';
 String msgSessionExpired = 'Sesi kadaluarsa, silahkan masuk kembali';
 String msgDateBetween = 'Tanggal akhir harus melebihi tanggal mulai';
+String msgStorageDenied = 'Akses penyimpanan tidak di izinkan';
+String msgLocationDenied = 'Akses lokasi tidak di izinkan';
+String msgLocationNotEnabled = 'Akses lokasi tidak di nyalakan';
 
 //Greeting
 String greetingDialog = 'Pilih Salah Satu Item';

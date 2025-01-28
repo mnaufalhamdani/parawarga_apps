@@ -29,7 +29,7 @@ class ProfilePage extends GetView<ProfileController> {
             _buildContentHeader(context),
             _buildContentTop(context),
             _buildContentMainMenu(context),
-            _buildContentSecondMenu(context),
+            // _buildContentSecondMenu(context),
           ],
         );
       })),
@@ -154,158 +154,233 @@ class ProfilePage extends GetView<ProfileController> {
   }
 
   _buildContentMainMenu(BuildContext context) {
-    return Padding(
-        padding: EdgeInsets.only(left: basePadding, right: basePadding),
-        child: Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(baseRadiusCard)),
-              color: colorLight,
-            ),
-            child: Padding(
-              padding: EdgeInsets.all(baseRadiusForm),
-              child: Column(
-                children: [
-                  GestureDetector(
-                    onTap: () {},
-                    child: Padding(
-                      padding: EdgeInsets.all(baseRadiusForm),
-                      child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Expanded(
-                                flex: 1,
-                                child: Icon(Iconsax.clipboard_text,
-                                    color: colorTextTitle)),
-                            Expanded(
-                                flex: 5,
-                                child: Text(
-                                  labelAllMenu,
-                                  style: TextStyle(
-                                      color: colorTextTitle,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 12),
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                )),
-                            Expanded(
-                                flex: 1,
-                                child: Align(
-                                  alignment: Alignment.centerRight,
-                                  child: Icon(Iconsax.arrow_right_3,
-                                      color: colorTextTitle),
-                                ))
-                          ]),
-                    ),
-                  ),
-                  Divider(color: Colors.grey.shade200),
-                  GestureDetector(
-                    onTap: () {},
-                    child: Padding(
-                      padding: EdgeInsets.all(baseRadiusForm),
-                      child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Expanded(
-                                flex: 1,
-                                child: Icon(Iconsax.profile_2user,
-                                    color: colorTextTitle)),
-                            Expanded(
-                                flex: 5,
-                                child: Text(
-                                  labelAdminCitizen,
-                                  style: TextStyle(
-                                      color: colorTextTitle,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 12),
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                )),
-                            Expanded(
-                                flex: 1,
-                                child: Align(
-                                  alignment: Alignment.centerRight,
-                                  child: Icon(Iconsax.arrow_right_3,
-                                      color: colorTextTitle),
-                                ))
-                          ]),
-                    ),
-                  ),
-                  Divider(color: Colors.grey.shade200),
-                  GestureDetector(
-                    onTap: () {
-                      Get.toNamed(Routes.myUnit);
-                    },
-                    child: Padding(
-                      padding: EdgeInsets.all(baseRadiusForm),
-                      child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Expanded(
-                                flex: 1,
-                                child:
-                                    Icon(Iconsax.house, color: colorTextTitle)),
-                            Expanded(
-                                flex: 5,
-                                child: Text(
-                                  labelMyUnit,
-                                  style: TextStyle(
-                                      color: colorTextTitle,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 12),
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                )),
-                            Expanded(
-                                flex: 1,
-                                child: Align(
-                                  alignment: Alignment.centerRight,
-                                  child: Icon(Iconsax.arrow_right_3,
-                                      color: colorTextTitle),
-                                ))
-                          ]),
-                    ),
-                  ),
-                  Visibility(
-                      visible: true,
-                      child: Divider(color: Colors.grey.shade200)),
-                  Visibility(
-                    visible: true,
-                    child: GestureDetector(
-                      onTap: () {},
-                      child: Padding(
-                        padding: EdgeInsets.all(baseRadiusForm),
-                        child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Expanded(
-                                  flex: 1,
-                                  child:
-                                      Icon(Iconsax.setting, color: colorTextTitle)),
-                              Expanded(
-                                  flex: 5,
-                                  child: Text(
-                                    labelManageAdmin,
-                                    style: TextStyle(
-                                        color: colorTextTitle,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 12),
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                  )),
-                              Expanded(
-                                  flex: 1,
-                                  child: Align(
-                                    alignment: Alignment.centerRight,
-                                    child: Icon(Iconsax.arrow_right_3,
-                                        color: colorTextTitle),
-                                  ))
-                            ]),
-                      ),
-                    ),
-                  ),
-                ],
+    final authMenu = controller.authMenuState.value.data;
+    if(authMenu == null){
+      return Container();
+    }
+
+    return Container(
+      margin: EdgeInsets.only(left: basePadding, right: basePadding),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(baseRadiusCard)),
+        color: colorLight,
+      ),
+      child: ListView.builder(
+        shrinkWrap: true,
+        physics: NeverScrollableScrollPhysics(),
+        padding: EdgeInsets.all(baseRadiusForm),
+        itemCount: authMenu.length,
+        itemBuilder: (context, i) {
+          return Column(
+            children: [
+              GestureDetector(
+                onTap: () {
+                  if (authMenu[i].slug != labellogout.toLowerCase()){
+                    try {
+                      Get.toNamed(authMenu[i].link.toString());
+                    }catch (e) {
+                      showStandardSnackbar(context, TypeMessage.error, message: "Navigasi tidak ditemukan");
+                    }
+
+                  }else{
+                    StandardAlertDialog.show(
+                        context,
+                        "Keluar",
+                        "Apakah Anda yakin keluar dari akun ini?", () async {
+                      await controller.logout().whenComplete(() {
+                        if (controller.logoutState.value.data == true) {
+                          Get.offAllNamed(Routes.login);
+                        } else {
+                          showStandardSnackbar(context, TypeMessage.error,
+                              message: controller.logoutState.value.error?.message.toString());
+                        }
+                      });
+                    });
+                  }
+                },
+                child: Padding(
+                  padding: EdgeInsets.all(baseRadiusForm),
+                  child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Expanded(
+                            flex: 1,
+                            child: Icon(mapperIcon.entries.where((element) => element.key == authMenu[i].icon).first.value,
+                                color: (authMenu[i].slug != labellogout.toLowerCase()) ? colorTextTitle : Colors.red.shade700)),
+                        Expanded(
+                            flex: 5,
+                            child: Text(
+                              authMenu[i].name.toString(),
+                              style: TextStyle(
+                                  color: (authMenu[i].slug != labellogout.toLowerCase()) ? colorTextTitle : Colors.red.shade700,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 12),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            )),
+                        Expanded(
+                            flex: 1,
+                            child: Align(
+                              alignment: Alignment.centerRight,
+                              child: Icon(Iconsax.arrow_right_3,
+                                  color: (authMenu[i].slug != labellogout.toLowerCase()) ? colorTextTitle : Colors.red.shade700),
+                            ))
+                      ]),
+                ),
               ),
-            )));
+              (i != (authMenu.length - 1))
+                  ? Divider(color: Colors.grey.shade200)
+                  : Container()
+            ],
+          );
+        }
+      )
+      // Padding(
+      //   padding: EdgeInsets.all(baseRadiusForm),
+      //   child: Column(
+      //     children: [
+      //       GestureDetector(
+      //         onTap: () {},
+      //         child: Padding(
+      //           padding: EdgeInsets.all(baseRadiusForm),
+      //           child: Row(
+      //               crossAxisAlignment: CrossAxisAlignment.center,
+      //               children: [
+      //                 Expanded(
+      //                     flex: 1,
+      //                     child: Icon(Iconsax.clipboard_text,
+      //                         color: colorTextTitle)),
+      //                 Expanded(
+      //                     flex: 5,
+      //                     child: Text(
+      //                       labelAllMenu,
+      //                       style: TextStyle(
+      //                           color: colorTextTitle,
+      //                           fontWeight: FontWeight.bold,
+      //                           fontSize: 12),
+      //                       maxLines: 1,
+      //                       overflow: TextOverflow.ellipsis,
+      //                     )),
+      //                 Expanded(
+      //                     flex: 1,
+      //                     child: Align(
+      //                       alignment: Alignment.centerRight,
+      //                       child: Icon(Iconsax.arrow_right_3,
+      //                           color: colorTextTitle),
+      //                     ))
+      //               ]),
+      //         ),
+      //       ),
+      //       Divider(color: Colors.grey.shade200),
+      //       GestureDetector(
+      //         onTap: () {},
+      //         child: Padding(
+      //           padding: EdgeInsets.all(baseRadiusForm),
+      //           child: Row(
+      //               crossAxisAlignment: CrossAxisAlignment.center,
+      //               children: [
+      //                 Expanded(
+      //                     flex: 1,
+      //                     child: Icon(Iconsax.profile_2user,
+      //                         color: colorTextTitle)),
+      //                 Expanded(
+      //                     flex: 5,
+      //                     child: Text(
+      //                       labelAdminCitizen,
+      //                       style: TextStyle(
+      //                           color: colorTextTitle,
+      //                           fontWeight: FontWeight.bold,
+      //                           fontSize: 12),
+      //                       maxLines: 1,
+      //                       overflow: TextOverflow.ellipsis,
+      //                     )),
+      //                 Expanded(
+      //                     flex: 1,
+      //                     child: Align(
+      //                       alignment: Alignment.centerRight,
+      //                       child: Icon(Iconsax.arrow_right_3,
+      //                           color: colorTextTitle),
+      //                     ))
+      //               ]),
+      //         ),
+      //       ),
+      //       Divider(color: Colors.grey.shade200),
+      //       GestureDetector(
+      //         onTap: () {
+      //           Get.toNamed(Routes.myUnit);
+      //         },
+      //         child: Padding(
+      //           padding: EdgeInsets.all(baseRadiusForm),
+      //           child: Row(
+      //               crossAxisAlignment: CrossAxisAlignment.center,
+      //               children: [
+      //                 Expanded(
+      //                     flex: 1,
+      //                     child:
+      //                         Icon(Iconsax.house, color: colorTextTitle)),
+      //                 Expanded(
+      //                     flex: 5,
+      //                     child: Text(
+      //                       labelMyUnit,
+      //                       style: TextStyle(
+      //                           color: colorTextTitle,
+      //                           fontWeight: FontWeight.bold,
+      //                           fontSize: 12),
+      //                       maxLines: 1,
+      //                       overflow: TextOverflow.ellipsis,
+      //                     )),
+      //                 Expanded(
+      //                     flex: 1,
+      //                     child: Align(
+      //                       alignment: Alignment.centerRight,
+      //                       child: Icon(Iconsax.arrow_right_3,
+      //                           color: colorTextTitle),
+      //                     ))
+      //               ]),
+      //         ),
+      //       ),
+      //       Visibility(
+      //           visible: true,
+      //           child: Divider(color: Colors.grey.shade200)),
+      //       Visibility(
+      //         visible: true,
+      //         child: GestureDetector(
+      //           onTap: () {},
+      //           child: Padding(
+      //             padding: EdgeInsets.all(baseRadiusForm),
+      //             child: Row(
+      //                 crossAxisAlignment: CrossAxisAlignment.center,
+      //                 children: [
+      //                   Expanded(
+      //                       flex: 1,
+      //                       child:
+      //                           Icon(Iconsax.setting, color: colorTextTitle)),
+      //                   Expanded(
+      //                       flex: 5,
+      //                       child: Text(
+      //                         labelManageAdmin,
+      //                         style: TextStyle(
+      //                             color: colorTextTitle,
+      //                             fontWeight: FontWeight.bold,
+      //                             fontSize: 12),
+      //                         maxLines: 1,
+      //                         overflow: TextOverflow.ellipsis,
+      //                       )),
+      //                   Expanded(
+      //                       flex: 1,
+      //                       child: Align(
+      //                         alignment: Alignment.centerRight,
+      //                         child: Icon(Iconsax.arrow_right_3,
+      //                             color: colorTextTitle),
+      //                       ))
+      //                 ]),
+      //           ),
+      //         ),
+      //       ),
+      //     ],
+      //   ),
+      // )
+    );
   }
 
   _buildContentSecondMenu(BuildContext context) {
