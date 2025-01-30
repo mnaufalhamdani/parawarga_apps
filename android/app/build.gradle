@@ -39,6 +39,13 @@ android {
         targetSdk = flutter.targetSdkVersion
         versionCode = flutterVersionCode.toInteger()
         versionName = flutterVersionName
+
+        def dotenv = new Properties()
+        def dotenvFile = file("../../.env")
+        if (dotenvFile.exists()) {
+            dotenvFile.withReader("UTF-8") { reader -> dotenv.load(reader) }
+        }
+        manifestPlaceholders["GOOGLE_KEY"] = dotenv.getProperty("GOOGLE_KEY", "")
     }
 
     buildTypes {

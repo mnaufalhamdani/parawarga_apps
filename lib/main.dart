@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 import 'package:parawarga_apps/routes/app_pages.dart';
@@ -13,6 +14,14 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load();
   await BindingDependency().dependencies();
+
+  /// Setup Google API Key For IOS
+  const platform = MethodChannel('com.example.parawarga_apps/env');
+  String googleKey = dotenv.env['GOOGLE_KEY'] ?? '';
+
+  try {
+    await platform.invokeMethod('setApiKey', {"GOOGLE_KEY": googleKey});
+  } catch (e) {}
 
   runApp(const MyApp());
 }
