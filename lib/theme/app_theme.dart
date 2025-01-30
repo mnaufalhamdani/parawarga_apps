@@ -21,8 +21,8 @@ AppBarTheme appBarTheme() {
   return AppBarTheme(
       backgroundColor: colorPrimary,
       elevation: 2,
-      iconTheme: IconThemeData(color: Colors.white),
-      titleTextStyle: TextStyle(color: Colors.white, fontSize: 18),
+      iconTheme: const IconThemeData(color: Colors.white),
+      titleTextStyle: const TextStyle(color: Colors.white, fontSize: 18),
       centerTitle: true
   );
 }

@@ -2,9 +2,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:parawarga_apps/modules/alarm/alarm_detail_page.dart';
 import 'package:parawarga_apps/modules/history/history_controller.dart';
 import 'package:parawarga_apps/modules/history/item/history_tile.dart';
 import 'package:parawarga_apps/theme/app_colors.dart';
+import 'package:parawarga_apps/theme/standard_snackbar.dart';
 import 'package:parawarga_apps/utils/strings.dart';
 
 import '../../routes/app_pages.dart';
@@ -110,6 +112,12 @@ class HistoryPage extends GetView<HistoryController> {
                       Get.toNamed(Routes.issueDetail, arguments: {
                         IssueDetailPage.argId: model.id
                       });
+                    }else if(model.typeMenu == "alarm") {
+                      Get.toNamed(Routes.alarmDetail, arguments: {
+                        AlarmDetailPage.argId: model.id
+                      });
+                    }else {
+                      showStandardSnackbar(context, TypeMessage.error, message: "Navigasi tidak ditemukan");
                     }
                   },
                 ))

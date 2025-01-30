@@ -54,7 +54,7 @@ class StandardTextState extends State<StandardTextField> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: EdgeInsets.only(left: 20, right: 20, top: 20),
+        padding: EdgeInsets.only(left: basePadding, right: basePadding, top: basePadding),
         child: TextFormField(
           controller: widget.editingController,
           keyboardType: widget.inputType ?? TextInputType.name,

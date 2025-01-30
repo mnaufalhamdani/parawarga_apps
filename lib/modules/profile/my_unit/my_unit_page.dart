@@ -158,7 +158,7 @@ class MyUnitPage extends GetView<MyUnitController> {
                           if (await canLaunchUrl(Uri.parse(googleUrl))) {
                             await launchUrl(Uri.parse(googleUrl));
                           } else {
-                            throw "Map tidak ditemukan";
+                            showStandardSnackbar(Get.context!, TypeMessage.error, message: "Map tidak ditemukan");
                           }
                         }else {
                           showStandardSnackbar(context, TypeMessage.error, message: "Lokasi belum diatur");

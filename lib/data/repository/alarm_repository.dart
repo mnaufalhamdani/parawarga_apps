@@ -1,36 +1,28 @@
 // ignore_for_file: prefer_const_constructors
-import 'dart:convert';
-import 'dart:developer';
-
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
-import 'package:parawarga_apps/data/entities/auth_menu/auth_menu.dart';
-import 'package:parawarga_apps/data/provider/dashboard_provider.dart';
-import 'package:parawarga_apps/models/domain/alarm_domain.dart';
+import 'package:parawarga_apps/data/provider/alarm_provider.dart';
 import 'package:parawarga_apps/models/domain/user_area_domain.dart';
-import 'package:parawarga_apps/models/response/general_model.dart';
 import 'package:parawarga_apps/routes/app_pages.dart';
 import 'package:parawarga_apps/theme/standard_snackbar.dart';
 
 import '../../config/local/database_config.dart';
-import '../../models/response/view_dashboard_model.dart';
+import '../../models/response/alarm_detail_model.dart';
 import '../../utils/strings.dart';
 
 //domain - repository
-abstract class DashboardRepository {
+abstract class AlarmRepository {
   Future<String> getToken();
   Future<UserAreaDomain> getUserActive();
-  Future<List<AuthMenuEntity>> getAuthMenu();
 
-  Future<ViewDashboardModel> getViewDashboard();
-  Future<GeneralModel> saveAlarm(InputAlarmDomain domain);
+  Future<AlarmDetailModel> getAlarmDetail(String id);
 }
 
 //data - repository
-class DashboardRepositoryImpl extends DashboardRepository {
-  DashboardRepositoryImpl(this.provider, this.databaseConfig);
+class AlarmRepositoryImpl extends AlarmRepository {
+  AlarmRepositoryImpl(this.provider, this.databaseConfig);
 
-  final DashboardProvider provider;
+  final AlarmProvider provider;
   final DatabaseConfig databaseConfig;
 
   @override
@@ -56,27 +48,11 @@ class DashboardRepositoryImpl extends DashboardRepository {
 
     return UserAreaDomain(userEntity: localUser.first, areaEntity: localArea);
   }
-
   @override
-  Future<List<AuthMenuEntity>> getAuthMenu() async {
-    return await databaseConfig.authMenuDao.getAuthMenuByMenu("dashboard");
-  }
-
-  @override
-  Future<ViewDashboardModel> getViewDashboard() async {
-    return await provider.getViewDashboard(token: await getToken());
-  }
-
-  @override
-  Future<GeneralModel> saveAlarm(InputAlarmDomain domain) async {
-    final user = await getUserActive();
-    domain.created_by = user.userEntity.id;
-
-    final json = jsonEncode(domain).toString();
-    log("alarmmessage: $json");
-    return await provider.saveAlarm(
+  Future<AlarmDetailModel> getAlarmDetail(String id) async {
+    return await provider.getAlarmDetail(
       token: await getToken(),
-      json: json
+      id: id
     );
   }
 }

@@ -77,6 +77,13 @@ class TagihanCreatePage extends GetView<TagihanCreateController> {
     final data = controller.model;
     final sisaPeriode = int.parse(data.totalPeriode ?? "0") - int.parse(data.myPeriode ?? "0");
 
+    var periodeName = labelYear;
+    if(data.periodeType == "week"){
+      periodeName = labelWeek;
+    }else if(data.periodeType == "month"){
+      periodeName = labelMonth;
+    }
+
     return SingleChildScrollView(
         physics: BouncingScrollPhysics(),
         child: Padding(
@@ -158,7 +165,7 @@ class TagihanCreatePage extends GetView<TagihanCreateController> {
                           alignment: Alignment.centerLeft,
                           child: Text(
                             "Rp. ${currencyFormat(
-                                data.nominal.toString())} / $labelPeriode",
+                                data.nominal.toString())} / $labelPeriode ($periodeName)",
                             style: TextStyle(
                                 color: colorLight,
                                 fontSize: 12,
@@ -167,7 +174,7 @@ class TagihanCreatePage extends GetView<TagihanCreateController> {
                         ),
                       )
                     ]),
-                    Row(children: [
+                    Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
                       Expanded(
                         flex: 2,
                         child: Text(
@@ -188,7 +195,7 @@ class TagihanCreatePage extends GetView<TagihanCreateController> {
                         child: Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
-                            "Jika Anda ingin melakukan pembayaran secara tunai, silahkan hubungi pengurus Area Anda",
+                            "Jika Anda ingin melakukan pembayaran secara tunai, silahkan hubungi pengelola Area",
                             style: TextStyle(
                                 color: colorLight,
                                 fontSize: 12,

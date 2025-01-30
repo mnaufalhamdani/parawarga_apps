@@ -120,8 +120,10 @@ class MyUnitEmptyPage extends GetView<MyUnitEmptyController> {
                 padding: EdgeInsets.only(left: basePadding, right: basePadding),
                 child: Text("Tanggal Akhir bersifat (optional), boleh tidak di isi.",
                     style: TextStyle(
-                        color: colorTextMessage,
-                        fontSize: 12)),
+                      color: colorTextMessage,
+                      fontSize: 12,
+                      fontStyle: FontStyle.italic
+                    )),
               ),
               StandardTextField(
                   editingController: controller.editingControllers[2],
