@@ -145,13 +145,11 @@ int dateBetween(DateTime from, DateTime to) {
 
 Future<bool> checkConnection() async {
   var connected = false;
-  print("object");
   await Connectivity().checkConnectivity().then((value) {
     if (value.where((element) =>
       element == ConnectivityResult.mobile
       || element == ConnectivityResult.wifi
       || element == ConnectivityResult.ethernet).isNotEmpty) {
-      print("object1");
       connected = true;
     }
   });

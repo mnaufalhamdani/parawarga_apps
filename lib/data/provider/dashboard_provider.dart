@@ -50,7 +50,7 @@ class DashboardProvider extends BaseService {
       'data': json
     });
 
-    final response = await post('dashboard/saveAlarm', formData, query: params, headers: headers);
+    final response = await post('alarm/saveAlarm', formData, query: params, headers: headers);
     if(response.status.isOk){
       final value = GeneralModel.fromJson(response.body);
       return value;

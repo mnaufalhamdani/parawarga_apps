@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:parawarga_apps/config/local/migration_version.dart';
+import 'package:parawarga_apps/data/provider/alarm_provider.dart';
 import 'package:parawarga_apps/data/provider/area_provider.dart';
 import 'package:parawarga_apps/data/provider/arisan_provider.dart';
 import 'package:parawarga_apps/data/provider/dashboard_provider.dart';
@@ -9,6 +10,7 @@ import 'package:parawarga_apps/data/provider/issue_provider.dart';
 import 'package:parawarga_apps/data/provider/login_provider.dart';
 import 'package:parawarga_apps/data/provider/register_provider.dart';
 import 'package:parawarga_apps/data/provider/voting_provider.dart';
+import 'package:parawarga_apps/data/repository/alarm_repository.dart';
 import 'package:parawarga_apps/data/repository/area_repository.dart';
 import 'package:parawarga_apps/data/repository/arisan_repository.dart';
 import 'package:parawarga_apps/data/repository/dashboard_repository.dart';
@@ -18,6 +20,7 @@ import 'package:parawarga_apps/data/repository/issue_repository.dart';
 import 'package:parawarga_apps/data/repository/login_repository.dart';
 import 'package:parawarga_apps/data/repository/profile_repository.dart';
 import 'package:parawarga_apps/data/repository/voting_repository.dart';
+import 'package:parawarga_apps/modules/alarm/alarm_detail_controller.dart';
 import 'package:parawarga_apps/modules/arisan/arisan_controller.dart';
 import 'package:parawarga_apps/modules/arisan/detail/arisan_detail_controller.dart';
 import 'package:parawarga_apps/modules/dashboard/dashboard_controller.dart';
@@ -91,6 +94,7 @@ class BindingDependency implements Bindings {
     Get.lazyPut(() => MyUnitInputMapController(), fenix: true);
     Get.lazyPut(() => MyUnitEmptyController(repository: Get.find()), fenix: true);
     Get.lazyPut(() => AboutAppController(repository: Get.find()), fenix: true);
+    Get.lazyPut(() => AlarmDetailController(repository: Get.find()), fenix: true);
 
     /** Provider */
     Get.lazyPut(() => LoginProvider(), fenix: true);
@@ -103,6 +107,7 @@ class BindingDependency implements Bindings {
     Get.lazyPut(() => TagihanProvider(), fenix: true);
     Get.lazyPut(() => HistoryProvider(), fenix: true);
     Get.lazyPut(() => AreaProvider(), fenix: true);
+    Get.lazyPut(() => AlarmProvider(), fenix: true);
 
     /** Repository */
     Get.lazyPut<LoginRepository>(() => LoginRepositoryImpl(Get.find(), Get.find()), fenix: true);
@@ -116,5 +121,6 @@ class BindingDependency implements Bindings {
     Get.lazyPut<TagihanRepository>(() => TagihanRepositoryImpl(Get.find(), Get.find()), fenix: true);
     Get.lazyPut<HistoryRepository>(() => HistoryRepositoryImpl(Get.find(), Get.find()), fenix: true);
     Get.lazyPut<AreaRepository>(() => AreaRepositoryImpl(Get.find(), Get.find()), fenix: true);
+    Get.lazyPut<AlarmRepository>(() => AlarmRepositoryImpl(Get.find(), Get.find()), fenix: true);
   }
 }

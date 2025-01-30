@@ -8,6 +8,7 @@ class TagihanDetailModel {
     this.areaName,
     this.nominal,
     this.periode,
+    this.periodeType,
     this.myPeriode,
     this.totalPeriode,
     this.labelInvoice,
@@ -26,6 +27,7 @@ class TagihanDetailModel {
   String? areaName;
   String? nominal;
   String? periode;
+  String? periodeType;
   String? myPeriode;
   String? totalPeriode;
   String? labelInvoice;
@@ -45,6 +47,7 @@ class TagihanDetailModel {
       areaName: json["area_name"],
       nominal: json["nominal"],
       periode: json["periode"],
+      periodeType: json["periode_type"],
       myPeriode: json["my_periode"],
       totalPeriode: json["total_periode"],
       labelInvoice: json["label_invoice"],

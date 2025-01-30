@@ -54,6 +54,10 @@ class HistoryTileState extends State<HistoryTile> {
       icon = Iconsax.volume_high;
       label = labelNote;
       note = widget.model.message ?? "-";
+    }else if (widget.model.typeMenu == "alarm"){
+      icon = Iconsax.alarm;
+      label = labelMessage;
+      note = (widget.model.message) ?? "-";
     }
 
     var statusColor = Colors.grey.shade100;
@@ -96,19 +100,26 @@ class HistoryTileState extends State<HistoryTile> {
                         fontSize: 12)),
                   ]),
                   SizedBox(width: basePaddingInContent),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        widget.model.areaName.toString(),
-                        style: TextStyle(color: colorLight, fontSize: 12),
-                      ),
-                      Text(widget.model.name.toString(),
-                        style: TextStyle(
-                          color: colorLight,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16)),
-                    ]),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          widget.model.areaName.toString(),
+                          style: TextStyle(color: colorLight, fontSize: 12),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        Text(widget.model.name.toString(),
+                          style: TextStyle(
+                            color: colorLight,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ]),
+                  ),
                 ],
               ))),
           Padding(

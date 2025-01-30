@@ -4,14 +4,19 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:parawarga_apps/core/constants.dart';
-import 'package:parawarga_apps/modules/dashboard/alarm/Dashboard_alarm_dialog.dart';
+import 'package:parawarga_apps/modules/alarm/alarm_detail_page.dart';
 import 'package:parawarga_apps/modules/dashboard/dashboard_controller.dart';
+import 'package:parawarga_apps/modules/dashboard/item/dashboard_alarm_tile.dart';
 import 'package:parawarga_apps/modules/info/detail/info_detail_page.dart';
 import 'package:parawarga_apps/routes/app_pages.dart';
 import 'package:parawarga_apps/theme/app_colors.dart';
 import 'package:parawarga_apps/theme/standard_snackbar.dart';
 
 import '../../theme/app_theme.dart';
+import '../../theme/single_select/single_select_dialog.dart';
+import '../../theme/single_select/single_select_domain.dart';
+import '../../theme/standard_button_primary.dart';
+import '../../theme/standard_text_field.dart';
 import '../../utils/strings.dart';
 import '../issue/detail/issue_detail_page.dart';
 import 'item/dashboard_info_tile.dart';
@@ -24,51 +29,40 @@ class DashboardPage extends GetView<DashboardController> {
   Widget build(BuildContext context) {
     controller.getViewDashboard();
     return Scaffold(
-      body: Obx(() => RefreshIndicator(
-        color: colorPrimary,
-        onRefresh: () async { await controller.getViewDashboard(); },
-        child: SingleChildScrollView(
-            physics: const AlwaysScrollableScrollPhysics(),
-            child: Column(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _buildContentTop(context),
-                  _buldContentSummary(context),
-                  _buildContentMenu(context),
-                  _buildContentInfo(context),
-                  _buildContentAdv(context),
-                  _buildContentIssue(context),
-                  // _buildContentVoting(context),
-                ],
-              )
-            )),
+      body: Obx(() =>
+          RefreshIndicator(
+              color: colorPrimary,
+              onRefresh: () async {
+                await controller.getViewDashboard();
+              },
+              child: SingleChildScrollView(
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _buildContentTop(context),
+                      _buldContentSummary(context),
+                      _buildContentAlarm(context),
+                      _buildContentMenu(context),
+                      _buildContentInfo(context),
+                      _buildContentAdv(context),
+                      _buildContentIssue(context),
+                      // _buildContentVoting(context),
+                    ],
+                  )
+              )),
       ),
       floatingActionButton: Visibility(visible: true,
-          child: Obx(() => FloatingActionButton(
+          child: FloatingActionButton(
               shape: CircleBorder(),
               backgroundColor: Colors.red.shade700,
               onPressed: () {
-                final listArea = controller.userAreaState.value.data?.areaEntity;
-                if (listArea != null){
-                  DashboardAlarmDialog.show(context, listArea, (areaId, message) async {
-                    await controller.saveAlarm(areaId, message).whenComplete(() {
-                      if (controller.saveAlarmState.value.error != null) {
-                        showStandardSnackbar(context, TypeMessage.error,
-                            message: controller.saveAlarmState.value.error?.message.toString());
-                      } else {
-                        showStandardSnackbar(context, TypeMessage.success,
-                            message: controller.saveAlarmState.value.data?.data.toString());
-                      }
-                    });
-                  });
-                }else {
-                  showStandardSnackbar(context, TypeMessage.error, message: "Area tidak ditemukan");
-                }
+                _buildDialogAlarm(context);
               },
               child: Icon(Iconsax.alarm, color: Colors.white)
-          ))
+          )
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
@@ -137,7 +131,8 @@ class DashboardPage extends GetView<DashboardController> {
                           child: Padding(
                               padding: EdgeInsets.all(baseRadiusForm),
                               child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment: MainAxisAlignment
+                                      .spaceBetween,
                                   children: [
                                     GestureDetector(
                                         onTap: () {
@@ -156,9 +151,11 @@ class DashboardPage extends GetView<DashboardController> {
                                                         fontWeight: FontWeight
                                                             .bold,
                                                         color: colorLight)),
-                                                Text("${controller.dashboardState
-                                                    .value.data
-                                                    ?.totalUnitEmpty ?? "-"} Unit",
+                                                Text(
+                                                    "${controller.dashboardState
+                                                        .value.data
+                                                        ?.totalUnitEmpty ??
+                                                        "-"} Unit",
                                                     style: TextStyle(
                                                         fontSize: 16,
                                                         color: colorLight))
@@ -189,10 +186,12 @@ class DashboardPage extends GetView<DashboardController> {
                                                 Text(
                                                     "${controller.dashboardState
                                                         .value.data
-                                                        ?.totalArea ?? ""} Area ${controller
+                                                        ?.totalArea ??
+                                                        ""} Area ${controller
                                                         .dashboardState.value
                                                         .data
-                                                        ?.totalUnit ?? "-"} Unit",
+                                                        ?.totalUnit ??
+                                                        "-"} Unit",
                                                     style: TextStyle(
                                                         fontSize: 16,
                                                         color: colorLight))
@@ -208,43 +207,80 @@ class DashboardPage extends GetView<DashboardController> {
 
   _buildContentMenu(BuildContext context) {
     final authMenu = controller.authMenuState.value.data;
-    if(authMenu == null){
+    if (authMenu == null) {
       return Container();
     }
 
     return GridView.count(
-      padding: EdgeInsets.only(left: basePaddingInContent, right: basePaddingInContent),
-      shrinkWrap: true,
-      physics: NeverScrollableScrollPhysics(),
-      crossAxisCount: 4,
-      children: [
-        for (int i = 0; i < authMenu.length; i++)
-          GestureDetector(
-            onTap: () {
-              Get.toNamed(authMenu[i].link.toString());
-            },
-            child: Column(children: [
-              Card(
-                  color: colorSecondary,
-                  child: Padding(
-                      padding: EdgeInsets.all(baseRadiusForm),
-                      child: SizedBox(
-                          width: 35,
-                          height: 35,
-                          child: Icon(
-                            mapperIcon.entries.where((element) => element.key == authMenu[i].icon).first.value,
-                            color: colorDark
-                          )))),
-              Text(authMenu[i].name.toString(),
-                  style: TextStyle(
-                      color: colorTextTitle,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 12),
-              maxLines: 1,
-              overflow: TextOverflow.clip,)
-            ]))
-      ]
+        padding: EdgeInsets.only(
+            left: basePaddingInContent, right: basePaddingInContent),
+        shrinkWrap: true,
+        physics: NeverScrollableScrollPhysics(),
+        crossAxisCount: 4,
+        children: [
+          for (int i = 0; i < authMenu.length; i++)
+            GestureDetector(
+                onTap: () {
+                  Get.toNamed(authMenu[i].link.toString());
+                },
+                child: Column(children: [
+                  Card(
+                      color: colorSecondary,
+                      child: Padding(
+                          padding: EdgeInsets.all(baseRadiusForm),
+                          child: SizedBox(
+                              width: 35,
+                              height: 35,
+                              child: Icon(
+                                  mapperIcon.entries
+                                      .where((element) =>
+                                  element.key == authMenu[i].icon)
+                                      .first
+                                      .value,
+                                  color: colorDark
+                              )))),
+                  Text(authMenu[i].name.toString(),
+                    style: TextStyle(
+                        color: colorTextTitle,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 12),
+                    maxLines: 1,
+                    overflow: TextOverflow.clip,)
+                ]))
+        ]
     );
+  }
+
+  _buildContentAlarm(BuildContext context) {
+    final list = controller.dashboardState.value.data?.alarm;
+    if (list == null || list.isEmpty == true) {
+      return Container();
+    }
+
+    return Container(
+        margin: EdgeInsets.only(top: basePadding),
+        child: SingleChildScrollView(
+            physics: BouncingScrollPhysics(),
+            scrollDirection: Axis.horizontal,
+            child: Row(children: [
+              for (int i = 0; i <
+                  list.length; i++)
+                Padding(
+                    padding: EdgeInsets.only(
+                        left: (i == 0) ? basePadding : basePadding /
+                            2,
+                        right: (i == list.length - 1)
+                            ? basePadding
+                            : basePadding / 2),
+                    child: DashboardAlarmTile(
+                      model: list[i],
+                      onPressed: (model) async {
+                        Get.toNamed(Routes.alarmDetail, arguments: {
+                          AlarmDetailPage.argId: model.id.toString()
+                        });
+                      },
+                    ))
+            ])));
   }
 
   _buildContentInfo(BuildContext context) {
@@ -272,16 +308,12 @@ class DashboardPage extends GetView<DashboardController> {
                       flex: 1,
                       child: Align(
                         alignment: Alignment.centerRight,
-                        child: GestureDetector(
-                          onTap: () {
+                        child: IconButton(
+                          onPressed: () {
                             Get.toNamed(Routes.info);
                           },
-                          child: Card(
-                              color: colorSecondary,
-                              child: Padding(
-                                  padding: EdgeInsets.all(baseRadiusForm),
-                                  child: Icon(Iconsax.arrow_right_3,
-                                      color: colorDark))),
+                          icon: Icon(Iconsax.arrow_right_3,
+                              color: colorDark, size: baseRadius),
                         ),
                       ))
                 ],
@@ -317,7 +349,8 @@ class DashboardPage extends GetView<DashboardController> {
   _buildContentAdv(BuildContext context) {
     return Visibility(
         child: Padding(
-          padding: EdgeInsets.only(top: basePadding, left: basePadding, right: basePadding),
+          padding: EdgeInsets.only(
+              top: basePadding, left: basePadding, right: basePadding),
           child: Card(
             shape:
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
@@ -359,16 +392,12 @@ class DashboardPage extends GetView<DashboardController> {
                       flex: 1,
                       child: Align(
                         alignment: Alignment.centerRight,
-                        child: GestureDetector(
-                          onTap: () {
+                        child: IconButton(
+                          onPressed: () {
                             Get.toNamed(Routes.issue);
                           },
-                          child: Card(
-                              color: colorSecondary,
-                              child: Padding(
-                                  padding: EdgeInsets.all(baseRadiusForm),
-                                  child: Icon(Iconsax.arrow_right_3,
-                                      color: colorDark))),
+                          icon: Icon(Iconsax.arrow_right_3,
+                              color: colorDark, size: baseRadius),
                         ),
                       ))
                 ],
@@ -390,5 +419,129 @@ class DashboardPage extends GetView<DashboardController> {
                   }
               ))
             ])));
+  }
+
+  _buildDialogAlarm(BuildContext context) async {
+    final listArea = controller.userAreaState.value.data?.areaEntity;
+    if (listArea != null) {
+      var areaSelected = listArea.first.area_id;
+      await showDialog(
+          context: context,
+          builder: (context) =>
+              Dialog(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(baseRadius)),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(
+                          left: basePadding,
+                          right: basePadding,
+                          top: basePadding),
+                      child: Text(labelAlarm,
+                          style: TextStyle(
+                              color: colorTextTitle,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16)),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(
+                          left: basePadding, right: basePadding),
+                      child: Text(
+                          "Jika Anda membutuhkan pertolongan secepatnya, silahkan mengisi form di bawah ini, maka alarm akan dikirim ke warga.",
+                          style: TextStyle(
+                              color: colorTextMessage,
+                              fontSize: 12)),
+                    ),
+                    (listArea.length > 1)
+                        ? Form(
+                      key: controller.formKey,
+                      child: StandardTextField(
+                        editingController: controller.editingControllers[0],
+                        titleHint: labelArea,
+                        msgError: msgFieldEmpty,
+                        readOnly: true,
+                        inputAction: TextInputAction.next,
+                        onPressed: () {
+                          final listItem = List<SingleSelectDomain>.empty(
+                              growable: true);
+                          for (var i = 0; i < listArea.length; i++) {
+                            listItem.add(SingleSelectDomain(
+                                codeOrId: listArea[i].area_id.toString(),
+                                message: listArea[i].area_name
+                            ));
+                          }
+
+                          SingleSelectDialog.show(
+                              context, "Pilih Salah Satu Area", listItem, (
+                              idIndex,
+                              model) {
+                            areaSelected = int.parse(model.codeOrId.toString());
+                            controller.editingControllers[0].text = model
+                                .message.toString();
+                          });
+                        },
+                      ),
+                    )
+                        : Container(),
+                    StandardTextField(
+                        editingController: controller.editingControllers[1],
+                        titleHint: labelMessage,
+                        inputAction: TextInputAction.done),
+                    Container(
+                      width: Get.width,
+                      margin: EdgeInsets.all(basePadding),
+                      child: Obx(() => StandardButtonPrimary(
+                            titleHint: labelSubmit,
+                            color: Colors.white,
+                            buttonColor: Colors.red.shade700,
+                            isLoading: controller.saveAlarmState.value
+                                .isLoading,
+                            onPressed: (() async {
+                              var valid = true;
+                              if (listArea.length > 1) {
+                                if (!controller.formKey.currentState!
+                                    .validate()) {
+                                  valid = false;
+                                }
+                              }
+
+                              if (valid) {
+                                await controller.saveAlarm(areaSelected,
+                                    controller.editingControllers[1].text
+                                        .toString()).whenComplete(() {
+                                  if (controller.saveAlarmState.value.error !=
+                                      null) {
+                                    showStandardSnackbar(
+                                        context, TypeMessage.error,
+                                        message: controller.saveAlarmState.value
+                                            .error?.message.toString());
+                                  } else {
+                                    Get.back();
+                                    controller.getViewDashboard();
+                                    showStandardSnackbar(
+                                        context, TypeMessage.success,
+                                        message: controller.saveAlarmState.value
+                                            .data?.data.toString());
+                                  }
+                                });
+                              }
+                            })
+                        )
+                      ),
+                    )
+                  ],
+                ),
+              )
+      ).whenComplete(() {
+        controller.editingControllers[0].text = "";
+        controller.editingControllers[1].text = "";
+      });
+    } else {
+      showStandardSnackbar(
+          context, TypeMessage.error, message: "Area tidak ditemukan");
+    }
   }
 }

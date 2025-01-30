@@ -131,15 +131,12 @@ class VotingTileState extends State<VotingTile> {
                         Text("Total Vote: $totalVoters peserta \nKadaluarsa: ${widget.model.expired}",
                             style: TextStyle(
                                 color: colorTextMessage, fontSize: 11)),
-                        GestureDetector(
-                            onTap: () {
+                        IconButton(
+                            onPressed: () {
                               widget.onDetail(widget.model);
                             },
-                            child: SizedBox(
-                                width: 35,
-                                height: 35,
-                                child: Icon(Icons.info_outline_rounded,
-                                    color: colorSecondary)))
+                            icon: Icon(Icons.info_outline_rounded,
+                                color: colorSecondary, size: baseRadius))
                       ],
                     ),
                   )

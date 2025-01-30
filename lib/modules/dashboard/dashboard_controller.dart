@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:parawarga_apps/data/entities/auth_menu/auth_menu.dart';
 import 'package:parawarga_apps/data/repository/dashboard_repository.dart';
@@ -19,6 +20,10 @@ class DashboardController extends GetxController{
   });
 
   final DashboardRepository repository;
+
+  final formKey = GlobalKey<FormState>();
+  //area_id, message
+  final editingControllers = List.generate(2, (index) => TextEditingController());
 
   final authMenuState = Rx(ResponseState<List<AuthMenuEntity>>());
   final userAreaState = Rx(ResponseState<UserAreaDomain>());
@@ -54,7 +59,7 @@ class DashboardController extends GetxController{
 
       final address = await getAddressLocation(position?.latitude ?? 0, position?.longitude ?? 0);
       inputAlarmDomain.value.area_id = areaId.toString();
-      inputAlarmDomain.value.message = message;
+      inputAlarmDomain.value.message = (message.isEmpty) ? message : null;
       inputAlarmDomain.value.latitude = position?.latitude.toString();
       inputAlarmDomain.value.longitude = position?.longitude.toString();
       inputAlarmDomain.value.generate_location = address;

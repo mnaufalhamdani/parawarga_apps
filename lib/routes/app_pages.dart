@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:get/get.dart';
+import 'package:parawarga_apps/modules/alarm/alarm_detail_page.dart';
 import 'package:parawarga_apps/modules/arisan/arisan_page.dart';
 import 'package:parawarga_apps/modules/arisan/detail/arisan_detail_page.dart';
 import 'package:parawarga_apps/modules/dashboard/dashboard_page.dart';
@@ -55,6 +56,7 @@ abstract class Routes {
   static const myUnitInputMap = '/myUnitInputMap';
   static const myUnitEmpty = '/myUnitEmpty';
   static const aboutAppPage = '/aboutAppPage';
+  static const alarmDetail = '/alarmDetail';
 }
 
 abstract class AppPages {
@@ -85,5 +87,6 @@ abstract class AppPages {
     GetPage(name: Routes.myUnitInputMap, page: () => MyUnitInputMapPage()),
     GetPage(name: Routes.myUnitEmpty, page: () => MyUnitEmptyPage()),
     GetPage(name: Routes.aboutAppPage, page: () => AboutAppPage()),
+    GetPage(name: Routes.alarmDetail, page: () => AlarmDetailPage()),
   ];
 }

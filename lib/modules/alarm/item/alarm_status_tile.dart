@@ -1,17 +1,17 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 import 'package:flutter/material.dart';
-import 'package:parawarga_apps/models/response/issue_detail_model.dart';
 import 'package:parawarga_apps/theme/app_theme.dart';
 
+import '../../../models/response/alarm_detail_model.dart';
 import '../../../theme/app_colors.dart';
 
-class IssueStatusTile extends StatefulWidget {
+class AlarmStatusTile extends StatefulWidget {
   final History model;
   final bool isFirst;
   final bool isLast;
   final void Function(History) onPressed;
 
-  const IssueStatusTile({
+  const AlarmStatusTile({
     super.key,
     required this.model,
     required this.isFirst,
@@ -20,10 +20,10 @@ class IssueStatusTile extends StatefulWidget {
   });
 
   @override
-  State<IssueStatusTile> createState() => IssueStatusTileState();
+  State<AlarmStatusTile> createState() => AlarmStatusTileState();
 }
 
-class IssueStatusTileState extends State<IssueStatusTile> {
+class AlarmStatusTileState extends State<AlarmStatusTile> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(

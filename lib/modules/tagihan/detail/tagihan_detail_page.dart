@@ -88,6 +88,13 @@ class TagihanDetailPage extends GetView<TagihanDetailController> {
       );
     }
 
+    var periodeName = labelYear;
+    if(data.periodeType == "week"){
+      periodeName = labelWeek;
+    }else if(data.periodeType == "month"){
+      periodeName = labelMonth;
+    }
+
     return SingleChildScrollView(
         physics: BouncingScrollPhysics(),
         child: Padding(
@@ -169,7 +176,7 @@ class TagihanDetailPage extends GetView<TagihanDetailController> {
                           alignment: Alignment.centerLeft,
                           child: Text(
                             "Rp. ${currencyFormat(
-                                data.nominal.toString())} / $labelPeriode",
+                                data.nominal.toString())} / $labelPeriode ($periodeName)",
                             style: TextStyle(
                                 color: colorLight,
                                 fontSize: 12,
